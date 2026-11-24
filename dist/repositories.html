@@ -7,9 +7,13 @@
   LICENSE: MIT License (Copyright (c) 2026 Michael P. Ragsdale / RaggieSoft)
   ============================================================================
   PLAIN-ENGLISH OVERVIEW FOR 100-LEVEL READERS:
-    Master HTML5 document template for `raggiesoft.dev`. Pre-rendered at build
-    time by `scripts/prerender.mjs` so every route serves complete semantic
-    HTML5, WCAG 2.2 AA contrast tokens, and OpenGraph metadata immediately.
+    Master HTML5 document template for `raggiesoft.dev`.
+      1. Integrates the shared RaggieSoft Network omnibar (`raggiesoft-network.css`
+         + `raggiesoft-network.js`) on desktop and collapses into a single slim
+         mobile hamburger drawer (`#header-navigation-panel`) below 768px.
+      2. Pre-rendered at build time by `scripts/prerender.mjs` so every route
+         serves complete semantic HTML5, WCAG 2.2 AA contrast tokens, and
+         OpenGraph metadata immediately.
   ============================================================================
 -->
 <html lang="en">
@@ -34,25 +38,67 @@
     <meta name="twitter:description" content="Browse MIT-licensed RaggieSoft repositories on GitHub: Installer Studio (Win32 C++20), Accessibility Studio (.NET 10), and Stardust Engine CMS (PHP 8.5)." />
     <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-corporate/images/logos/logo-michael.png" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"raggiesoft.dev — RaggieSoft Open-Source & App Engineering Hub","url":"https://raggiesoft.dev/","author":{"@type":"Person","name":"Michael P. Ragsdale","url":"https://michaelpragsdale.com"}}</script>
-    <script type="module" crossorigin src="/assets/index-pgCgK4wk.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-B_NN_z4Y.css">
+    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261123a" />
+    <script type="module" crossorigin src="/assets/index-Cb8pT19q.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-wVuGFa2W.css">
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Shared RaggieSoft Ecosystem Network Bar (auto-hidden on < 768px in favor of single mobile hamburger) -->
+    <nav class="rs-network-bar" aria-label="RaggieSoft Ecosystem Network">
+      <div class="rs-network-bar-inner">
+        <span class="rs-network-label">✦ RaggieSoft Network:</span>
+        <ul class="rs-network-links">
+          <li><a href="https://raggiesoft.com">🌐 Hub</a></li>
+          <li><a href="https://launcher.raggiesoft.com">🚀 Launcher</a></li>
+          <li><a href="https://raggiesoft.dev" aria-current="page" class="is-active">💻 Developer Hub</a></li>
+          <li><a href="https://raggiesoftstudio.com">🧰 Installer Studio</a></li>
+          <li><a href="https://a11y.raggiesoft.com">♿ A11y Studio</a></li>
+          <li><a href="https://waystation.raggiesoft.com">🔮 Directory</a></li>
+          <li><a href="https://michaelpragsdale.com">👔 Portfolio</a></li>
+        </ul>
+      </div>
+    </nav>
+
     <div id="app">
-    <header class="site-header">
+    <header class="site-header" data-theme="dark">
       <div class="header-inner">
         <a class="brand-link" href="/">
           <span class="brand-title">raggiesoft.dev</span>
           <span class="brand-sub">Open-Source Engineering • Compilers • Agent Skills</span>
         </a>
-        <nav aria-label="Developer Portal Navigation">
-          <ul class="nav-list">
-            <li><a class="nav-link" href="/">Engineering Hub</a></li><li><a class="nav-link" href="/repositories" aria-current="page">GitHub Repos</a></li><li><a class="nav-link" href="/ai-skills">llms.txt & AI Skills</a></li><li><a class="nav-link" href="/notes">Dev Notes</a></li>
-            <li><a class="nav-link" href="https://raggiesoftstudio.com">Installer Studio</a></li>
-            <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
-          </ul>
-        </nav>
+
+        <button
+          type="button"
+          class="rs-mobile-header-toggle dev-mobile-toggle"
+          data-rs-mobile-toggle
+          data-open-label="Open developer portal and RaggieSoft network menu"
+          data-close-label="Close developer portal and RaggieSoft network menu"
+          aria-expanded="false"
+          aria-controls="header-navigation-panel"
+          aria-label="Open developer portal and RaggieSoft network menu"
+        >
+          <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div id="header-navigation-panel" class="header-nav-panel" data-rs-collapsible="true">
+          <nav aria-label="Developer Portal Navigation">
+            <ul class="nav-list">
+              <li><a class="nav-link" href="/">Engineering Hub</a></li><li><a class="nav-link" href="/repositories" aria-current="page">GitHub Repos</a></li><li><a class="nav-link" href="/ai-skills">llms.txt & AI Skills</a></li><li><a class="nav-link" href="/notes">Dev Notes</a></li>
+              <li><a class="nav-link" href="https://raggiesoftstudio.com">Installer Studio</a></li>
+              <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
 
@@ -141,5 +187,6 @@
       </div>
     </footer>
   </div>
+    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261123a" defer></script>
   </body>
 </html>

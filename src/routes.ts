@@ -63,7 +63,7 @@ function renderHomeBody(): string {
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com">Storefront &amp; Docs</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com">Preview &amp; Docs</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
           </div>
         </article>
@@ -376,19 +376,43 @@ export function renderDevPage(routePath: string): { html: string } {
     `;
 
   const html = `
-    <header class="site-header">
+    <header class="site-header" data-theme="dark">
       <div class="header-inner">
         <a class="brand-link" href="/">
           <span class="brand-title">raggiesoft.dev</span>
           <span class="brand-sub">Open-Source Engineering • Compilers • Agent Skills</span>
         </a>
-        <nav aria-label="Developer Portal Navigation">
-          <ul class="nav-list">
-            ${navItems}
-            <li><a class="nav-link" href="https://raggiesoftstudio.com">Installer Studio</a></li>
-            <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
-          </ul>
-        </nav>
+
+        <button
+          type="button"
+          class="rs-mobile-header-toggle dev-mobile-toggle"
+          data-rs-mobile-toggle
+          data-open-label="Open developer portal and RaggieSoft network menu"
+          data-close-label="Close developer portal and RaggieSoft network menu"
+          aria-expanded="false"
+          aria-controls="header-navigation-panel"
+          aria-label="Open developer portal and RaggieSoft network menu"
+        >
+          <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div id="header-navigation-panel" class="header-nav-panel" data-rs-collapsible="true">
+          <nav aria-label="Developer Portal Navigation">
+            <ul class="nav-list">
+              ${navItems}
+              <li><a class="nav-link" href="https://raggiesoftstudio.com">Installer Studio</a></li>
+              <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
 
