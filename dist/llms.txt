@@ -1,0 +1,20 @@
+# RaggieSoft Open-Source & App Engineering Hub (https://raggiesoft.dev)
+
+> Official engineering portal indexing RaggieSoft open-source compilers, accessibility IDEs, zero-database web frameworks, and AI agent skills (MIT License).
+
+## Flagship Developer Suites & Portals
+- [RaggieSoft Installer Studio](https://raggiesoftstudio.com): Zero-dependency native Win32 C++20 Windows packaging suite (`InstallerStudio.exe`, `instbuild.exe`, `SetupWizard.exe`, `msiprism.exe`) compiling `.rsip` projects and `.rsis` suites into `.msi`, `.msm`, `.mst`, `.msp`, and VPAT 2.5 reports across x64 & ARM64.
+- [RaggieSoft Accessibility Studio](https://a11y.raggiesoft.com): C# / .NET 10 WinForms + Monaco WebView2 WCAG 2.2 AA & Section 508 workstation IDE + SARIF 2.1.0 CLI.
+- [RaggieSoft Launcher & Native Apps](https://launcher.raggiesoft.com): 100% offline-ready Windows (.NET 10 WPF) and Apple (SwiftUI) desktop/mobile suite.
+
+## AI Agent Skills & Machine-Readable Endpoints
+- [Installer Studio Summary Spec](https://raggiesoftstudio.com/llms.txt)
+- [Installer Studio Full Schema Reference](https://raggiesoftstudio.com/llms-full.txt)
+- [Installer Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/SKILL.md)
+
+## Public GitHub Repositories (@raggiesoft)
+- https://github.com/raggiesoft/installer-studio
+- https://github.com/raggiesoft/accessibility-studio
+- https://github.com/raggiesoft/stardust-engine-cms
+- https://github.com/raggiesoft/storetrainer
+- https://github.com/raggiesoft/raggiesoft-deployment-tools

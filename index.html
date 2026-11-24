@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+  ============================================================================
+  FILE: index.html
+  PROPERTY: https://raggiesoft.dev (RaggieSoft Developer & Open-Source Hub)
+  STACK: Alpine.js 3 + TypeScript + Vite Static SSG
+  LICENSE: MIT License (Copyright (c) 2026 Michael P. Ragsdale / RaggieSoft)
+  ============================================================================
+  PLAIN-ENGLISH OVERVIEW FOR 100-LEVEL READERS:
+    Master HTML5 document template for `raggiesoft.dev`. Pre-rendered at build
+    time by `scripts/prerender.mjs` so every route serves complete semantic
+    HTML5, WCAG 2.2 AA contrast tokens, and OpenGraph metadata immediately.
+  ============================================================================
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <!--SSR_HEAD-->
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div id="app"><!--SSR_OUTLET--></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

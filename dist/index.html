@@ -1,0 +1,202 @@
+<!doctype html>
+<!--
+  ============================================================================
+  FILE: index.html
+  PROPERTY: https://raggiesoft.dev (RaggieSoft Developer & Open-Source Hub)
+  STACK: Alpine.js 3 + TypeScript + Vite Static SSG
+  LICENSE: MIT License (Copyright (c) 2026 Michael P. Ragsdale / RaggieSoft)
+  ============================================================================
+  PLAIN-ENGLISH OVERVIEW FOR 100-LEVEL READERS:
+    Master HTML5 document template for `raggiesoft.dev`. Pre-rendered at build
+    time by `scripts/prerender.mjs` so every route serves complete semantic
+    HTML5, WCAG 2.2 AA contrast tokens, and OpenGraph metadata immediately.
+  ============================================================================
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>raggiesoft.dev — Open-Source Apps, Compilers &amp; AI Skills</title>
+    <meta name="description" content="Official RaggieSoft developer portal featuring RaggieSoft Installer Studio, Accessibility Studio, Stardust Engine CMS, GitHub repos, and llms.txt skills." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://raggiesoft.dev/" />
+    <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-a11y-studio/images/studio-logo.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="raggiesoft.dev" />
+    <meta property="og:title" content="raggiesoft.dev — Open-Source Apps, Compilers &amp; AI Skills" />
+    <meta property="og:description" content="Official RaggieSoft developer portal featuring RaggieSoft Installer Studio, Accessibility Studio, Stardust Engine CMS, GitHub repos, and llms.txt skills." />
+    <meta property="og:url" content="https://raggiesoft.dev/" />
+    <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-corporate/images/logos/logo-michael.png" />
+    <meta property="og:image:alt" content="raggiesoft.dev — RaggieSoft Open-Source Software, Compilers & AI Skills" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="raggiesoft.dev — Open-Source Apps, Compilers &amp; AI Skills" />
+    <meta name="twitter:description" content="Official RaggieSoft developer portal featuring RaggieSoft Installer Studio, Accessibility Studio, Stardust Engine CMS, GitHub repos, and llms.txt skills." />
+    <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-corporate/images/logos/logo-michael.png" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"raggiesoft.dev — RaggieSoft Open-Source & App Engineering Hub","url":"https://raggiesoft.dev/","author":{"@type":"Person","name":"Michael P. Ragsdale","url":"https://michaelpragsdale.com"}}</script>
+    <script type="module" crossorigin src="/assets/index-pgCgK4wk.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B_NN_z4Y.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div id="app">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand-link" href="/">
+          <span class="brand-title">raggiesoft.dev</span>
+          <span class="brand-sub">Open-Source Engineering • Compilers • Agent Skills</span>
+        </a>
+        <nav aria-label="Developer Portal Navigation">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="/" aria-current="page">Engineering Hub</a></li><li><a class="nav-link" href="/repositories">GitHub Repos</a></li><li><a class="nav-link" href="/ai-skills">llms.txt & AI Skills</a></li><li><a class="nav-link" href="/notes">Dev Notes</a></li>
+            <li><a class="nav-link" href="https://raggiesoftstudio.com">Installer Studio</a></li>
+            <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="container" tabindex="-1">
+      
+    <section class="hero" aria-labelledby="dev-hero">
+      <span class="eyebrow">Open-Source Software • Native Toolchains • AI Agent Specs</span>
+      <h1 id="dev-hero">raggiesoft.dev — Software &amp; Systems Engineering Hub</h1>
+      <p class="lead">
+        Explore RaggieSoft's open-source developer tools, native desktop suites, zero-database web frameworks,
+        and deterministic AI agent specifications (<code>llms.txt</code> &amp; <code>SKILL.md</code>)—engineered with
+        100-level read-along source comments and WCAG 2.2 AA accessibility.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://github.com/raggiesoft">Explore GitHub (@raggiesoft)</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com">RaggieSoft Installer Studio</a>
+        <a class="btn btn-outline" href="/ai-skills">Browse llms.txt &amp; Agent Skills</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="projects-heading" x-data="{ filter: 'all' }">
+      <h2 id="projects-heading">Flagship Engineering Suites &amp; Platforms</h2>
+      <div class="btn-row" style="margin-bottom: 1.25rem;" role="group" aria-label="Filter Projects by Discipline">
+        <button type="button" class="btn" :class="filter === 'all' ? 'btn-primary' : 'btn-outline'" @click="filter = 'all'">All Efforts</button>
+        <button type="button" class="btn" :class="filter === 'desktop' ? 'btn-primary' : 'btn-outline'" @click="filter = 'desktop'">Native Desktop &amp; Packaging</button>
+        <button type="button" class="btn" :class="filter === 'web' ? 'btn-primary' : 'btn-outline'" @click="filter = 'web'">Web Frameworks &amp; CMS</button>
+        <button type="button" class="btn" :class="filter === 'ai' ? 'btn-primary' : 'btn-outline'" @click="filter = 'ai'">AI Skills &amp; DevOps</button>
+      </div>
+
+      <div class="card-grid">
+        <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'ai'">
+          <div>
+            <span class="eyebrow">Win32 C++20 • x64 &amp; ARM64</span>
+            <h3>RaggieSoft Installer Studio</h3>
+            <p>
+              Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code> Visual IDE, <code>instbuild.exe</code> compiler,
+              <code>SetupWizard.exe</code> accessible bootstrapper, &amp; <code>msiprism.exe</code> 64-bit SQL inspector) compiling
+              plain-text <code>.rsip</code> projects &amp; <code>.rsis</code> suites into <code>.msi</code>, <code>.msm</code>, <code>.mst</code>, and <code>.msp</code> packages.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com">Storefront &amp; Docs</a>
+            <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'desktop'">
+          <div>
+            <span class="eyebrow">C# / .NET 10 WinForms • Monaco IDE</span>
+            <h3>RaggieSoft Accessibility Studio</h3>
+            <p>
+              Source-level WCAG 2.2 AA &amp; Revised Section 508 engineering workstation pairing VS Code's Monaco diff editor,
+              live Forced-Colors &amp; 400% zoom emulation, and a headless OASIS SARIF 2.1.0 CI/CD scanner.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://a11y.raggiesoft.com">Portal (a11y.raggiesoft.com)</a>
+            <a class="btn btn-outline" href="https://github.com/raggiesoft/accessibility-studio">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'web'">
+          <div>
+            <span class="eyebrow">PHP 8.5 OOP / MVC • Zero SQL</span>
+            <h3>Stardust Engine CMS</h3>
+            <p>
+              MIT-licensed, zero-database PHP 8.5 MVC and JSON-routed web framework powering high-speed server-rendered
+              applications with strict security headers and zero relational SQL attack surface.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://github.com/raggiesoft/stardust-engine-cms">GitHub Repo</a>
+            <a class="btn btn-outline" href="https://raggiesoft.com">Live Hub</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'desktop'">
+          <div>
+            <span class="eyebrow">.NET 10 WPF &amp; Multiplatform SwiftUI</span>
+            <h3>Offline-First Companion Apps &amp; Launcher</h3>
+            <p>
+              Cross-platform Windows 11 (WPF + WebView2) and Apple (macOS, iOS, iPadOS SwiftUI) applications engineered to run
+              100% offline from first boot via bundled <code>OfflineSeed</code> catalogs and lock-free asset streams.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://launcher.raggiesoft.com">RaggieSoft Launcher</a>
+            <a class="btn btn-outline" href="https://storetrainer.raggiesoft.com">StoreTrainer 2.0</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'web'">
+          <div>
+            <span class="eyebrow">Interactive Worldbuilding &amp; Branching DAGs</span>
+            <h3>Story Crossroads &amp; Lore Graph Engines</h3>
+            <p>
+              Static-first interactive narrative compilers (<code>paige.php</code>), directed-acyclic branching engines
+              (<code>crossroads.raggiesoft.com</code>), and dual-layer HTML5 Canvas + ARIA worldbuilders.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://crossroads.raggiesoft.com">Story Crossroads</a>
+            <a class="btn btn-outline" href="https://lore.raggiesoft.com">Lore Graph</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'ai'">
+          <div>
+            <span class="eyebrow">Bash • PHP CLI • Node.js • rclone</span>
+            <h3>Polyglot CI/CD &amp; Media Tooling</h3>
+            <p>
+              Non-interactive multi-repo build orchestration (<code>jenna-sync.sh</code>), self-healing non-root Nginx/Linux
+              pull deployment (<code>sarah-deploy.sh</code>), and parallel EBU R128 FFmpeg mastering (<code>harper.sh</code>).
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://github.com/raggiesoft/raggiesoft-deployment-tools">GitHub Tooling</a>
+            <a class="btn btn-outline" href="/notes">Read Architecture Notes</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="/">Engineering Hub</a>
+          <a href="/repositories">GitHub Repositories</a>
+          <a href="/ai-skills">llms.txt &amp; AI Skills</a>
+          <a href="/notes">Dev Notes</a>
+          <a href="/llms.txt">/llms.txt</a>
+          <a href="https://raggiesoftstudio.com">RaggieSoft Installer Studio</a>
+          <a href="https://a11y.raggiesoft.com">RaggieSoft Accessibility Studio</a>
+          <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
+          <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
+        </div>
+        <p>
+          Copyright &copy; 2026 Michael P. Ragsdale / RaggieSoft. Open-source software licensed under the MIT License.
+        </p>
+        <p class="disclaimer-box">Fictitious Persons & Entities Disclaimer: All narrative characters, bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events across RaggieSoft creative works are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+      </div>
+    </footer>
+  </div>
+  </body>
+</html>
