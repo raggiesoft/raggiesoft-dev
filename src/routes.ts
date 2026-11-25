@@ -434,6 +434,9 @@ export function renderDevPage(routePath: string): { html: string } {
           <a href="https://a11y.raggiesoft.com">RaggieSoft Accessibility Studio</a>
           <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
           <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
+          <a href="https://raggiesoft.com/about/privacy">Privacy Policy</a>
+          <a href="https://raggiesoft.com/about/terms">Terms of Service</a>
+          <a href="https://raggiesoft.com/about/ai-disclaimer">AI &amp; Creative Process | RaggieSoft Governance</a>
         </div>
         <p>
           Copyright &copy; 2026 Michael P. Ragsdale / RaggieSoft. Open-source software licensed under the MIT License.
