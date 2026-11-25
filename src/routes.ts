@@ -52,18 +52,20 @@ function renderHomeBody(): string {
       </div>
 
       <div class="card-grid">
-        <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'ai'">
+        <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'ai'" style="border: 2px solid var(--primary);">
           <div>
-            <span class="eyebrow">Win32 C++20 • x64 &amp; ARM64</span>
-            <h3>RaggieSoft Installer Studio</h3>
+            <span class="eyebrow">Flagship Suite • Win32 C++20 • x64 &amp; ARM64</span>
+            <h3>RaggieSoft Installer Studio (v0.4.1)</h3>
             <p>
-              Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code> Visual IDE, <code>instbuild.exe</code> compiler,
-              <code>SetupWizard.exe</code> accessible bootstrapper, &amp; <code>msiprism.exe</code> 64-bit SQL inspector) compiling
-              plain-text <code>.rsip</code> projects &amp; <code>.rsis</code> suites into <code>.msi</code>, <code>.msm</code>, <code>.mst</code>, and <code>.msp</code> packages.
+              28 years in the making: a zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code> Visual IDE,
+              <code>instbuild.exe</code> compiler, <code>SetupWizard.exe</code> live Dark/Light bootstrapper, <code>msiprism.exe</code>
+              64-bit SQL inspector, &amp; <code>RaggieSoftHelp.exe</code> offline <code>F1</code> viewer) compiling plain-text
+              <code>.rsip</code> projects into <code>.msi</code>, <code>.msm</code>, <code>.mst</code>, <code>.msp</code>, and WCAG 2.2 AA <code>Setup.exe</code> installers.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com">Preview &amp; Docs</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com">Preview &amp; Gallery</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/roadmap">Roadmap</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
           </div>
         </article>
