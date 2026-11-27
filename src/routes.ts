@@ -114,16 +114,16 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'compilers' || filter === 'desktop'">
           <div>
             <span class="eyebrow">Shipped Static /MT C++20 Compiler &amp; VM • x64 &amp; ARM64</span>
-            <h3>RaggieScript (.rssc), raggiescript.exe &amp; _support\ Engine</h3>
+            <h3>RaggieScript (.rssc), Deferred UAC, MSI SQL &amp; Editor Suite</h3>
             <p>
-              Our C-family curly-brace scripting compiler and 15-namespace Win32 bytecode VM (<code>RSWBC1</code> SHA-256 container,
-              <code>RSW701</code> wizard phase isolation, <code>RSW702</code> sandboxing, stateless <code>native64/wow32/both</code>
-              registry views, <code>Token.Desktop</code> Explorer de-elevation, &amp; <code>raggiescript.exe pack-exe</code>
-              single-file micro-apps).
+              Our C-family curly-brace scripting compiler and 16-namespace Win32 bytecode VM (<code>RSWBC1</code> SHA-256 container,
+              <code>RSW701</code> wizard phase isolation + <code>Uac.Deferred</code> commit-time elevation, direct relational
+              <code>msi.*</code> SQL DDL/DML + <code>.mst</code> transforms, 64-bit <code>ffi.call</code>, Windows Restart Manager,
+              standalone read/write <strong>MSI Prism</strong>, and VS Code / Notepad++ / Sublime / Vim / Kate syntax packs).
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">15-Namespace Spec &amp; Playground</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">16-Namespace Spec &amp; Playground</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/showcase-studio">Showcase Studio</a>
           </div>
         </article>
@@ -254,16 +254,16 @@ function renderLabsBody(): string {
         <article class="card">
           <div>
             <span class="status-pill">Lab Track 02 • Built &amp; Verified in C++20 (x64 &amp; ARM64)</span>
-            <h3>RaggieScript (<code>.rssc</code>), <code>RSWBC1</code> VM &amp; <code>raggiescript.exe</code></h3>
+            <h3>RaggieScript (<code>.rssc</code>), Deferred UAC, MSI SQL &amp; <code>msiprism.exe</code></h3>
             <p>
-              Static <code>/MT</code> C++20 compiler &amp; 15-namespace Win32 VM (<code>RswRaggieScript.hpp</code> +
-              <code>RswRaggieScriptVm.hpp</code>) enforcing <code>RSW701</code> wizard phase isolation and <code>RSW702</code>
-              capability sandboxing at compile time, paired with <code>instbuild.exe setup.rssc</code> and
-              <code>raggiescript.exe pack-exe</code> for standalone <code>_support\\</code> Windows micro-apps.
+              Static <code>/MT</code> C++20 compiler &amp; 16-namespace Win32 VM enforcing <code>RSW701</code> wizard phase
+              isolation (powering zero-upfront-prompt <code>Uac.Deferred</code> commit elevation), direct relational
+              <code>msi.*</code> SQL table surgery, 64-bit <code>ffi.call</code>, Windows Restart Manager, standalone read/write
+              <strong>RaggieSoft MSI Prism</strong>, and official VS Code <code>.vsix</code> + multi-editor syntax highlighting.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Try 5-Profile Playground &amp; Stdlib &rarr;</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Try 6-Profile Playground &amp; Stdlib &rarr;</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/EDITIONS_AND_RAGGIESCRIPT.md">Spec (.md)</a>
           </div>
         </article>
