@@ -80,11 +80,11 @@ function renderHomeBody(): string {
             <span class="eyebrow">Flagship • Static /MT Win32 C++20 • x64 &amp; ARM64</span>
             <h3>RaggieSoft Installer Studio (v0.5.0 Shipped • v0.6.0 In Lab)</h3>
             <p>
-              Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe</code>,
-              <code>SetupWizard.exe</code>, <code>msiprism.exe</code>, <code>RaggieSoftHelp.exe</code>) compiling plain-text
-              <code>.rsip</code>/<code>.rsis</code> manifests into signed <code>.msi</code>, <code>.msm</code>, <code>.msp</code>,
-              <code>sfx</code> self-extractors, and <strong>monotonic Dual-Bar Suite installers</strong>—with permanent
-              <code>Community == 100% Architect</code> parity.
+              Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe --edition=...</code>,
+              <code>SetupWizard.exe</code>, standalone read/write <code>msiprism.exe</code>, standalone <code>rswsfx.exe</code>, &amp;
+              <code>RaggieSoftHelp.exe</code>) compiling plain-text <code>.rsip</code>/<code>.rsis</code> manifests into signed
+              <code>.msi</code>, <code>.msm</code>, <code>.msp</code>, <code>sfx</code> self-extractors, and <strong>monotonic
+              Dual-Bar Suite installers</strong>—with enforced 4-tier capabilities &amp; permanent <code>Community == 100% Architect</code> parity.
             </p>
           </div>
           <div class="btn-row">
