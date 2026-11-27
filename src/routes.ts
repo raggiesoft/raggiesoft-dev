@@ -113,18 +113,18 @@ function renderHomeBody(): string {
 
         <article class="card" x-show="filter === 'all' || filter === 'compilers' || filter === 'desktop'">
           <div>
-            <span class="eyebrow">Shipped Static /MT C++20 Compiler &amp; VM • x64 &amp; ARM64</span>
-            <h3>RaggieScript (.rssc), Deferred UAC, MSI SQL &amp; Editor Suite</h3>
+            <span class="eyebrow">Shipped Multi-Target SDK • Static C++20, .NET &amp; ES2022</span>
+            <h3>RaggieScript v1.0 (.rssc) — Linear Stack VM, Type Binder &amp; Wizard UI</h3>
             <p>
-              Our C-family curly-brace scripting compiler and 16-namespace Win32 bytecode VM (<code>RSWBC1</code> SHA-256 container,
-              <code>RSW701</code> wizard phase isolation + <code>Uac.Deferred</code> commit-time elevation, direct relational
-              <code>msi.*</code> SQL DDL/DML + <code>.mst</code> transforms, 64-bit <code>ffi.call</code>, Windows Restart Manager,
-              standalone read/write <strong>MSI Prism</strong>, and VS Code / Notepad++ / Sublime / Vim / Kate syntax packs).
+              Gradually typed curly-brace scripting &amp; declarative UI language (<code>struct</code>, <code>enum</code>,
+              <code>match</code>, <code>=&gt;</code> closures, <code>RSW701</code>&ndash;<code>RSW715</code> static diagnostics,
+              <code>RSWBC2</code> SHA-256 linear stack bytecode, Per-Monitor V2 DPI Win32 Wizard UI engine, <code>fmt</code>,
+              JSON-RPC 2.0 <code>lsp</code>, <code>.NET</code> <code>RaggieScript.Core</code>, and zero-<code>eval()</code> SCORM <code>ES2022</code>).
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">16-Namespace Spec &amp; Playground</a>
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/showcase-studio">Showcase Studio</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Language Hub &amp; Playground</a>
+            <a class="btn btn-outline" href="/raggiescript/llms-raggiescript.txt">llms-raggiescript.txt</a>
           </div>
         </article>
 
@@ -652,6 +652,14 @@ function renderAiSkillsBody(): string {
               <td>Compile bandwidth-resilient <code>&lt;50 KB</code> WCAG 2.2 AA SCORM packages and audit legacy third-party SCORM <code>.zip</code> archives.</td>
             </tr>
             <tr>
+              <th scope="row">RaggieScript v1.0 Language &amp; Multi-Target SDK (<code>.rssc</code>)</th>
+              <td>
+                <a href="/raggiescript/llms-raggiescript.txt">llms-raggiescript.txt</a> &bull;
+                <a href="https://raggiesoftstudio.com/raggiescript">Playground</a>
+              </td>
+              <td>Author, format (<code>fmt</code>), type-check (<code>RSW701</code>&ndash;<code>RSW715</code>), compile to <code>RSWBC2</code> stack bytecode, render declarative Win32 Wizard UIs, &amp; transpile SCORM <code>ES2022</code>.</td>
+            </tr>
+            <tr>
               <th scope="row">Fin# (Financial Sharp) Compiler Blueprint</th>
               <td><a href="/labs/finsharp/llms-finsharp.txt">https://raggiesoft.dev/labs/finsharp/llms-finsharp.txt</a></td>
               <td>Cold-start specification for building the <code>finsc</code> linear-type double-entry financial compiler &amp; Language Server.</td>
@@ -720,6 +728,19 @@ function renderNotesBody(): string {
           </p>
         </div>
         <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/screenshots#v060-lab-previews">See Dual-Bar Suite UI</a>
+      </article>
+
+      <article class="card">
+        <div>
+          <span class="eyebrow">Zero-Telemetry Cryptography • v1.0 GA Roadmap</span>
+          <h3>Offline .rswlic Edition Paygating Without Activation Servers</h3>
+          <p>
+            How <code>v1.0.0 GA</code> transitions Technical Preview's open <code>Editions &amp; Help</code> QA switcher into
+            <code>bcrypt.dll</code> asymmetric <code>.rswlic</code> license verification, <code>RSW_LICENSE_KEY</code> CI runner claims,
+            Community attestation, and lower-tier QA simulation—100% air-gapped with zero phone-home calls.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/roadmap">Read v1.0 GA Licensing Spec</a>
       </article>
 
       <article class="card">
