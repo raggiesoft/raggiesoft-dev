@@ -113,16 +113,17 @@ function renderHomeBody(): string {
 
         <article class="card" x-show="filter === 'all' || filter === 'compilers' || filter === 'desktop'">
           <div>
-            <span class="eyebrow">Bytecode VM • &lt;200 KB Static C++20 &amp; .NET 11</span>
-            <h3>RaggieScript (.rssc) &amp; Showcase _support\ Engine</h3>
+            <span class="eyebrow">Shipped Static /MT C++20 Compiler &amp; VM • x64 &amp; ARM64</span>
+            <h3>RaggieScript (.rssc), raggiescript.exe &amp; _support\ Engine</h3>
             <p>
-              One C-family curly-brace scripting language spanning all 8 RaggieSoft Studio products plus zero-prerequisite
-              standalone Windows micro-apps (<code>raggiescript.exe</code>)—powering zero-MSI installers, Showcase Studio
-              <code>_support\\</code> bespoke canvas installers, and sandboxed SCORM ES2022 courseware.
+              Our C-family curly-brace scripting compiler and 15-namespace Win32 bytecode VM (<code>RSWBC1</code> SHA-256 container,
+              <code>RSW701</code> wizard phase isolation, <code>RSW702</code> sandboxing, stateless <code>native64/wow32/both</code>
+              registry views, <code>Token.Desktop</code> Explorer de-elevation, &amp; <code>raggiescript.exe pack-exe</code>
+              single-file micro-apps).
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Interactive Playground</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">15-Namespace Spec &amp; Playground</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/showcase-studio">Showcase Studio</a>
           </div>
         </article>
@@ -252,16 +253,17 @@ function renderLabsBody(): string {
 
         <article class="card">
           <div>
-            <span class="status-pill">Lab Track 02 • Targeting Studio v0.7.0</span>
-            <h3>RaggieScript (<code>.rssc</code>) &amp; <code>RSWBC1</code> Bytecode VM</h3>
+            <span class="status-pill">Lab Track 02 • Built &amp; Verified in C++20 (x64 &amp; ARM64)</span>
+            <h3>RaggieScript (<code>.rssc</code>), <code>RSWBC1</code> VM &amp; <code>raggiescript.exe</code></h3>
             <p>
-              A deterministic C-family scripting engine compiling to compact <code>&lt;200 KB</code> static <code>/MT</code> C++20
-              bytecode (plus <code>.NET 11</code> and sandboxed ES2022 targets). Powers zero-MSI setups, standalone zero-runtime
-              Windows micro-utilities (<code>raggiescript.exe</code>), and unified automation across all 8 Studio tools.
+              Static <code>/MT</code> C++20 compiler &amp; 15-namespace Win32 VM (<code>RswRaggieScript.hpp</code> +
+              <code>RswRaggieScriptVm.hpp</code>) enforcing <code>RSW701</code> wizard phase isolation and <code>RSW702</code>
+              capability sandboxing at compile time, paired with <code>instbuild.exe setup.rssc</code> and
+              <code>raggiescript.exe pack-exe</code> for standalone <code>_support\\</code> Windows micro-apps.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Try 5-Profile Playground &rarr;</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Try 5-Profile Playground &amp; Stdlib &rarr;</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/EDITIONS_AND_RAGGIESCRIPT.md">Spec (.md)</a>
           </div>
         </article>

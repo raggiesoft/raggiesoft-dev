@@ -162,7 +162,7 @@ async function main() {
     '## RaggieSoft Studio — 8-Product Suite (`Community == 100% Architect Parity`, `Essentials`, `Developer`, `Architect`)',
     '- [RaggieSoft Studio Suite Portal](https://raggiesoftstudio.com): Umbrella portal for all 8 Studio tools + All-Access Studio Suites (including free Studio Community).',
     '- [Suite-Wide Editions Matrix](https://raggiesoftstudio.com/editions)',
-    '- [RaggieScript (.rssc) Language Hub & Playground](https://raggiesoftstudio.com/raggiescript)',
+    '- [RaggieScript (.rssc) Language Hub & 15-Namespace Stdlib](https://raggiesoftstudio.com/raggiescript): Static `/MT` C++20 compiler & `RSWBC1` SHA-256 bytecode VM (`raggiescript.exe` + `instbuild.exe <.rssc>`) with `RSW701` wizard phase isolation, `RSW702` sandboxing, and `pack-exe` micro-apps.',
     '- [1. RaggieSoft Installer Studio (v0.5.0 Shipped / v0.6.0 In Lab)](https://raggiesoftstudio.com/installer-studio): Static `/MT` Win32 C++20 `.msi`, `.msm`, `.mst`, `.msp`, `sfx` (`rswsfx.exe`), & Monotonic Dual-Bar `.rsis` Suite compiler (`installwithoutlimits.com` 301s here).',
     '- [2. RaggieSoft Showcase Studio](https://raggiesoftstudio.com/showcase-studio): 1990s `.BMP` (with UIA safeguards) & Windows 11 `FluentMica` launchpads + bespoke `_support\\` self-extracting canvas installers.',
     '- [3. RaggieSoft Launcher Studio](https://raggiesoftstudio.com/launcher-studio): Branded zero-account desktop hubs & SHA-256 + Authenticode static-CDN updaters.',
