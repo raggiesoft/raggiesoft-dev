@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compiler Diagnostics Reference (FIN0001 – FIN0005) |...</title>
+  <meta name="description" content="Detailed guide with failing and passing .fin examples for FIN0001 through FIN0005 compile-time conservation diagnostics." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://finsharp.raggiesoft.dev/diagnostics-reference" />
+  <meta property="og:url" content="https://finsharp.raggiesoft.dev/diagnostics-reference" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg" />
+  <meta property="og:site_name" content="Fin# (Financial Sharp)" />
+  <meta property="og:title" content="Compiler Diagnostics Reference (FIN0001 – FIN0005) |..." />
+  <meta property="og:description" content="Detailed guide with failing and passing .fin examples for FIN0001 through FIN0005 compile-time conservation diagnostics." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-books/images/scenes/aubrie/e007/c001/p003/birth-of-finsharp-og.jpg" />
+  <meta property="og:image:alt" content="Fin# (Financial Sharp) Documentation" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Compiler Diagnostics Reference (FIN0001 – FIN0005) |..." />
+  <meta name="twitter:description" content="Detailed guide with failing and passing .fin examples for FIN0001 through FIN0005 compile-time conservation diagnostics." />
+  <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-books/images/scenes/aubrie/e007/c001/p003/birth-of-finsharp-og.jpg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Compiler Diagnostics Reference (FIN0001 – FIN0005) |...","description":"Detailed guide with failing and passing .fin examples for FIN0001 through FIN0005 compile-time conservation diagnostics.","version":"0.1.0","author":{"@type":"Organization","name":"RaggieSoft"},"url":"https://finsharp.raggiesoft.dev/diagnostics-reference"}</script>
+  <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261127" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-doc">Skip to main documentation</a>
+  <nav class="rs-network-bar" aria-label="RaggieSoft Ecosystem Network"></nav>
+  <header class="doc-banner" data-theme="dark">
+    <div class="doc-banner-inner">
+      <a class="doc-brand" href="/">
+        <span>Fin# (Financial Sharp)</span>
+        <span class="doc-ver-pill">v0.1.0</span>
+      </a>
+      <button type="button" class="rs-mobile-header-toggle" data-rs-mobile-toggle aria-expanded="false" aria-controls="header-navigation-panel" aria-label="Toggle documentation menu">
+        <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="header-navigation-panel" class="doc-header-nav" data-rs-collapsible="true">
+        <button type="button" id="rsh-open-search" class="doc-search-btn" aria-label="Search API and documentation (Ctrl+K)">
+          <span>Search API &amp; Docs...</span><kbd>Ctrl+K</kbd>
+        </button>
+        <a class="doc-nav-link" href="/">Learn</a>
+        <a class="doc-nav-link" href="/api-index">API Index (34)</a>
+        <a class="doc-nav-link" href="/llms-full.txt">llms-full.txt</a>
+        <a class="doc-nav-link" href="https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin">Born in The Eleventh Child (/books/aubrie)</a>
+        <a class="doc-nav-link" href="https://raggiesoft.dev/labs/finsharp">Studio Hub</a>
+        <a class="doc-nav-link" href="https://github.com/raggiesoft">GitHub (MIT)</a>
+        <button type="button" id="rsh-theme-toggle" class="doc-theme-btn" aria-label="Cycle color theme">Theme: Auto</button>
+      </div>
+    </div>
+  </header>
+  <details class="mobile-toc-drawer">
+    <summary>Browse Table of Contents (6 chapters)</summary>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome to Fin# (Financial Sharp) Getting Started finsharp fin# finsc overview conservation-of-capital linear-types mit aubrie"><a class="toc-link" href="/">Welcome to Fin# (Financial Sharp)</a></li>
+            <li data-toc-item="1" data-toc-search="Origin Story: From /books/aubrie Plot Device to Real Language Getting Started aubrie eleventh-child zoe-wren-brooks jordan-fuller vectron z-sox-302 geneva-street origin"><a class="toc-link" href="/origin-in-aubrie">Origin Story: From /books/aubrie Plot Device to Real Language</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Specification (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics) Language Specification Capital Account Rate linear-types move fixed-point Int128 ISO-4217 USD EUR Capital&lt;TCurrency&gt; Account&lt;TKind, TCurrency&gt; Rate&lt;TFrom, TTo&gt; RoundingPolicy"><a class="toc-link" href="/linear-capital-types">Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics)</a></li>
+            <li data-toc-item="1" data-toc-search="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs Language Specification ledger account transaction journal debit credit pacioli z-sox-302 FloorWithRemainder fx ledger &lt;Name&gt; { ... } transaction [audit: ...] { ... } debit &lt;Account&gt; &lt;- &lt;Capital&gt; credit &lt;Account&gt; -&gt; &lt;Capital&gt; opening_balance(...)"><a class="toc-link" href="/ledgers-and-transactions">Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Compiler &amp; Standard Library (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture Compiler &amp; Standard Library finsc cli capital fx audit report roslyn dotnet lsp studio finsc check finsc build finsc audit finsc fmt finsc lsp capital.splitEqual(amount, ways, RoundingPolicy.FloorWithRemainder) capital.allocateByWeights(amount, weights) capital.combine(a, b) capital.assertZero(remainder) fx.quote&lt;TFrom, TTo&gt;(scaledRate, timestampUtc, providerId) fx.convert(sourceCapital, quote, fxClearingAccount) audit.attestZsox302(ledger, periodId) audit.trialBalance(ledger) report.exportTaggedPdfUa(trialBalance, outputPath)"><a class="toc-link" href="/stdlib-and-cli">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Proofs (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Compiler Diagnostics Reference (FIN0001 – FIN0005) Diagnostics &amp; Proofs diagnostics errors FIN0001 FIN0002 FIN0003 FIN0004 FIN0005 ConservationOfCapitalViolationException FIN0001: ConservationOfCapitalViolationException FIN0002: UnbalancedJournalEntryError FIN0003: BinaryFloatingPointForbiddenOnCapitalError FIN0004: CrossCurrencyConservationMismatchError FIN0005: UnconsumedLinearCapitalError"><a class="toc-link" href="/diagnostics-reference" aria-current="page">Compiler Diagnostics Reference (FIN0001 – FIN0005)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+  </details>
+  <div class="learn-layout">
+    <aside class="learn-left-rail" aria-label="Documentation Table of Contents">
+      <div class="toc-filter-wrap">
+        <input id="rsh-toc-filter" class="toc-filter-input" type="search" placeholder="Filter by title or API..." aria-label="Filter table of contents by title or API" />
+      </div>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome to Fin# (Financial Sharp) Getting Started finsharp fin# finsc overview conservation-of-capital linear-types mit aubrie"><a class="toc-link" href="/">Welcome to Fin# (Financial Sharp)</a></li>
+            <li data-toc-item="1" data-toc-search="Origin Story: From /books/aubrie Plot Device to Real Language Getting Started aubrie eleventh-child zoe-wren-brooks jordan-fuller vectron z-sox-302 geneva-street origin"><a class="toc-link" href="/origin-in-aubrie">Origin Story: From /books/aubrie Plot Device to Real Language</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Specification (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics) Language Specification Capital Account Rate linear-types move fixed-point Int128 ISO-4217 USD EUR Capital&lt;TCurrency&gt; Account&lt;TKind, TCurrency&gt; Rate&lt;TFrom, TTo&gt; RoundingPolicy"><a class="toc-link" href="/linear-capital-types">Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics)</a></li>
+            <li data-toc-item="1" data-toc-search="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs Language Specification ledger account transaction journal debit credit pacioli z-sox-302 FloorWithRemainder fx ledger &lt;Name&gt; { ... } transaction [audit: ...] { ... } debit &lt;Account&gt; &lt;- &lt;Capital&gt; credit &lt;Account&gt; -&gt; &lt;Capital&gt; opening_balance(...)"><a class="toc-link" href="/ledgers-and-transactions">Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Compiler &amp; Standard Library (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture Compiler &amp; Standard Library finsc cli capital fx audit report roslyn dotnet lsp studio finsc check finsc build finsc audit finsc fmt finsc lsp capital.splitEqual(amount, ways, RoundingPolicy.FloorWithRemainder) capital.allocateByWeights(amount, weights) capital.combine(a, b) capital.assertZero(remainder) fx.quote&lt;TFrom, TTo&gt;(scaledRate, timestampUtc, providerId) fx.convert(sourceCapital, quote, fxClearingAccount) audit.attestZsox302(ledger, periodId) audit.trialBalance(ledger) report.exportTaggedPdfUa(trialBalance, outputPath)"><a class="toc-link" href="/stdlib-and-cli">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Proofs (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Compiler Diagnostics Reference (FIN0001 – FIN0005) Diagnostics &amp; Proofs diagnostics errors FIN0001 FIN0002 FIN0003 FIN0004 FIN0005 ConservationOfCapitalViolationException FIN0001: ConservationOfCapitalViolationException FIN0002: UnbalancedJournalEntryError FIN0003: BinaryFloatingPointForbiddenOnCapitalError FIN0004: CrossCurrencyConservationMismatchError FIN0005: UnconsumedLinearCapitalError"><a class="toc-link" href="/diagnostics-reference" aria-current="page">Compiler Diagnostics Reference (FIN0001 – FIN0005)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+    </aside>
+    <main id="main-doc" class="learn-article" tabindex="-1">
+      <nav class="learn-breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Fin# (Financial Sharp)</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span>Diagnostics &amp; Proofs</span>
+      </nav>
+      <div class="learn-meta-bar">
+        <span class="meta-pill">3 min read</span>
+        <span class="meta-pill">Module: <code>raggiesoft.finsharp</code></span>
+        <span class="meta-pill">F1: <code>IDH_FIN_DIAGNOSTICS (0x3006)</code></span>
+      </div>
+<h1 id="diagnostics-overview">Compiler Diagnostics Reference (<code>FIN0001</code> – <code>FIN0005</code>)</h1>
+<p>Every conservation violation in <strong>Fin#</strong> is caught deterministically during <code>finsc check</code> and <code>finsc build</code>—long before code can touch a production database or ledger file. All diagnostics support <code>--diagnostics=json</code> and SARIF 2.1.0 output for CI/CD gates.</p>
+<hr />
+<h2 id="fin0001"><code>FIN0001</code>: <code>ConservationOfCapitalViolationException</code></h2>
+<ul>
+<li><strong>Severity</strong>: <code>Error</code> (Fatal Compile-Time Conservation Failure)</li>
+<li><strong>Named In</strong>: <a href="https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin"><em>Part 3: Question The Rules: The Birth of Fin#</em></a> (<code>books/aubrie/e007/c001/p003.md</code>)</li>
+<li><strong>Cause</strong>: Code attempted to mutate an <code>Account&lt;K, T&gt;</code> via scalar assignment (<code>=</code>, <code>+=</code>, <code>-=</code>), conjure an unpaired <code>Capital&lt;T&gt;</code> literal outside a boundary/credit leg, or mutate ledger state outside an atomic <code>transaction</code> block.</li>
+</ul>
+<h3 id="failing-example-fin0001">Failing Example (<code>FIN0001</code>)</h3>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">// ERROR FIN0001: Unpaired scalar mutation outside an atomic transaction!
+// Capital cannot be created out of thin air without a counterparty credit leg.
+OperatingRevenue += 500_000_000.00_USD;
+</code></pre>
+<h3 id="passing-fix">Passing Fix</h3>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">transaction RecordVerifiedEnergyDelivery [audit: Z_SOX_302, date: &quot;2015-08-26&quot;] {
+    let settledReceivable : Capital&lt;USD&gt; = credit OperatingRevenue -&gt; 500_000_000.00_USD;
+    debit AccountsReceivable &lt;- settledReceivable;
+}
+</code></pre>
+<hr />
+<h2 id="fin0002"><code>FIN0002</code>: <code>UnbalancedJournalEntryError</code></h2>
+<ul>
+<li><strong>Severity</strong>: <code>Error</code></li>
+<li><strong>Cause</strong>: Inside a <code>transaction</code> block, the symbolic or concrete sum of <code>debit</code> postings does not equal the sum of <code>credit</code> postings for one or more currencies ($\sum \text{Debits} \neq \sum \text{Credits}$).</li>
+</ul>
+<h3 id="failing-example-fin0002">Failing Example (<code>FIN0002</code>)</h3>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">transaction BrokenUtilitySplit [audit: Z_SOX_302] {
+    let cash : Capital&lt;USD&gt; = credit OperatingChecking -&gt; 120.00_USD;
+    // Suppose a buggy custom helper tried to debit $125.00 against a $120.00 credit:
+    debit ElectricUtilityExpense &lt;- cash;
+    debit InternetUtilityExpense &lt;- credit OperatingChecking -&gt; 5.00_USD; // Wait: if only one side posted -&gt; FIN0002!
+}
+</code></pre>
+<h3 id="passing-fix-2">Passing Fix</h3>
+<p>Ensure every <code>credit &lt;Account&gt; -&gt; &lt;Amount&gt;</code> leg is paired 1-for-1 (or via conservation-preserving <code>capital.splitEqual</code> / <code>capital.combine</code> combinators) with <code>debit</code> legs summing to the exact same <code>Int128</code> scaled total.</p>
+<hr />
+<h2 id="fin0003"><code>FIN0003</code>: <code>BinaryFloatingPointForbiddenOnCapitalError</code></h2>
+<ul>
+<li><strong>Severity</strong>: <code>Error</code></li>
+<li><strong>Cause</strong>: An IEEE 754 binary floating-point type (<code>float</code> / <code>Single</code> or <code>double</code> / <code>Double</code>) was passed to or combined with <code>Capital&lt;T&gt;</code>, <code>Rate&lt;A, B&gt;</code>, or <code>Account&lt;K, T&gt;</code>.</li>
+</ul>
+<h3 id="failing-example-fin0003">Failing Example (<code>FIN0003</code>)</h3>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">let badTaxRate : float64 = 0.053; // IEEE 754 binary float!
+// ERROR FIN0003: Binary floating-point is banned from touching Capital&lt;USD&gt;.
+let taxAmount = subtotal * badTaxRate;
+</code></pre>
+<h3 id="passing-fix-3">Passing Fix</h3>
+<p>Use exact 128-bit fixed-point <code>BasisPoints</code> / <code>Fixed128</code> literals (<code>5.30_pct</code> or <code>530_bps</code>) with an explicit <code>RoundingPolicy</code> so both the rounded tax share and sub-cent remainder are accounted for linearly!</p>
+<hr />
+<h2 id="fin0004"><code>FIN0004</code>: <code>CrossCurrencyConservationMismatchError</code></h2>
+<ul>
+<li><strong>Severity</strong>: <code>Error</code></li>
+<li><strong>Cause</strong>: Two <code>Capital&lt;T&gt;</code> or <code>Account&lt;K, T&gt;</code> operands with different ISO 4217 currency type arguments (such as <code>Capital&lt;USD&gt;</code> and <code>Capital&lt;EUR&gt;</code>) were combined directly without an auditable <code>fx.convert(...)</code> clearing bridge.</li>
+</ul>
+<h3 id="failing-example-fin0004">Failing Example (<code>FIN0004</code>)</h3>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">// ERROR FIN0004: Cannot post Capital&lt;SGD&gt; into Account&lt;Expense, USD&gt;!
+let sgdReceipt : Capital&lt;SGD&gt; = credit SingaporeCashWallet -&gt; 42.00_SGD;
+debit UsdDiningExpense &lt;- sgdReceipt;
+</code></pre>
+<h3 id="passing-fix-4">Passing Fix</h3>
+<p>Route <code>sgdReceipt</code> through <code>fx.convert(sgdReceipt, quote, FxClearingBridge)</code> so both the <code>SGD</code> and <code>USD</code> sub-ledgers remain independently balanced.</p>
+<hr />
+<h2 id="fin0005"><code>FIN0005</code>: <code>UnconsumedLinearCapitalError</code></h2>
+<ul>
+<li><strong>Severity</strong>: <code>Error</code></li>
+<li><strong>Cause</strong>: A variable or tuple element of linear type <code>Capital&lt;T&gt;</code> (most commonly the <code>remainder</code> element returned by <code>capital.splitEqual</code>) reached the end of a lexical scope or conditional branch without being consumed by a <code>debit</code> posting or <code>capital.*</code> combinator.</li>
+</ul>
+<h3 id="failing-example-fin0005">Failing Example (<code>FIN0005</code>)</h3>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">transaction DropPennyBug [audit: Z_SOX_302] {
+    let dues : Capital&lt;USD&gt; = credit OperatingChecking -&gt; 100.00_USD;
+    // _ ignores the $0.01 remainder -&gt; ERROR FIN0005!
+    let (shares, _) = capital.splitEqual(dues, 3, RoundingPolicy.FloorWithRemainder);
+    debit MemberA &lt;- shares[0];
+    debit MemberB &lt;- shares[1];
+    debit MemberC &lt;- shares[2];
+}
+</code></pre>
+<h3 id="passing-fix-5">Passing Fix</h3>
+<p>Bind <code>(shares, remainder)</code> and explicitly post <code>debit RoundingAdjustmentPool &lt;- remainder;</code> before closing the <code>transaction</code> block.</p>
+
+      <section class="topic-symbols-box" aria-label="Indexed API Symbols on This Page">
+        <strong style="font-size:0.88rem;">Indexed API Calls &amp; Symbols on This Page (5):</strong>
+        <div class="symbol-chip-grid">
+          <a class="symbol-chip" href="#fin0001"><code>FIN0001: ConservationOfCapitalViolationException</code><span class="badge-tag">Error</span></a>
+          <a class="symbol-chip" href="#fin0002"><code>FIN0002: UnbalancedJournalEntryError</code><span class="badge-tag">Error</span></a>
+          <a class="symbol-chip" href="#fin0003"><code>FIN0003: BinaryFloatingPointForbiddenOnCapitalError</code><span class="badge-tag">Error</span></a>
+          <a class="symbol-chip" href="#fin0004"><code>FIN0004: CrossCurrencyConservationMismatchError</code><span class="badge-tag">Error</span></a>
+          <a class="symbol-chip" href="#fin0005"><code>FIN0005: UnconsumedLinearCapitalError</code><span class="badge-tag">Error</span></a>
+        </div>
+      </section>
+      <nav class="learn-pager" aria-label="Article Pagination">
+        <a class="pager-card" href="/stdlib-and-cli"><span class="pager-kicker">&larr; Previous</span><span class="pager-title">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</span></a>
+        <a class="pager-card is-next" href="/api-index"><span class="pager-kicker">Complete Directory &rarr;</span><span class="pager-title">Master A&ndash;Z API &amp; Symbol Index</span></a>
+      </nav>
+    </main>
+    <aside class="learn-right-rail" aria-label="In this article">
+      <h2 class="outline-heading">In this article</h2>
+      <ul class="outline-list">
+        <li><a class="outline-link lvl-2" href="#fin0001">FIN0001: ConservationOfCapitalViolationException</a></li>
+        <li><a class="outline-link lvl-3" href="#failing-example-fin0001">Failing Example (FIN0001)</a></li>
+        <li><a class="outline-link lvl-3" href="#passing-fix">Passing Fix</a></li>
+        <li><a class="outline-link lvl-2" href="#fin0002">FIN0002: UnbalancedJournalEntryError</a></li>
+        <li><a class="outline-link lvl-3" href="#failing-example-fin0002">Failing Example (FIN0002)</a></li>
+        <li><a class="outline-link lvl-3" href="#passing-fix-2">Passing Fix</a></li>
+        <li><a class="outline-link lvl-2" href="#fin0003">FIN0003: BinaryFloatingPointForbiddenOnCapitalError</a></li>
+        <li><a class="outline-link lvl-3" href="#failing-example-fin0003">Failing Example (FIN0003)</a></li>
+        <li><a class="outline-link lvl-3" href="#passing-fix-3">Passing Fix</a></li>
+        <li><a class="outline-link lvl-2" href="#fin0004">FIN0004: CrossCurrencyConservationMismatchError</a></li>
+        <li><a class="outline-link lvl-3" href="#failing-example-fin0004">Failing Example (FIN0004)</a></li>
+        <li><a class="outline-link lvl-3" href="#passing-fix-4">Passing Fix</a></li>
+        <li><a class="outline-link lvl-2" href="#fin0005">FIN0005: UnconsumedLinearCapitalError</a></li>
+        <li><a class="outline-link lvl-3" href="#failing-example-fin0005">Failing Example (FIN0005)</a></li>
+        <li><a class="outline-link lvl-3" href="#passing-fix-5">Passing Fix</a></li>
+      </ul>
+    </aside>
+  </div>
+  <dialog id="rsh-search-modal" class="search-modal" aria-labelledby="rsh-search-modal-title">
+    <div class="search-modal-head">
+      <label id="rsh-search-modal-title" for="rsh-modal-input" style="font-weight:700;white-space:nowrap;">Search</label>
+      <input id="rsh-modal-input" class="search-modal-input" type="search" placeholder="Search every function, namespace, diagnostic, or topic..." autocomplete="off" />
+      <button type="button" id="rsh-close-search" class="doc-theme-btn">Esc</button>
+    </div>
+    <div id="rsh-modal-results" class="search-modal-body" aria-live="polite"></div>
+  </dialog>
+  <footer class="doc-footer">
+    <p><strong>Fin# (Financial Sharp) v0.1.0</strong> &bull; Compiled directly from plain-text <code>.rshp</code> + Markdown sources by <strong>RaggieSoft Help Studio v0.6.0</strong> (WCAG 2.2 Level AA &amp; Revised Section 508 Verified; Code: <strong>MIT License</strong> &bull; Creative Content: <strong>CC BY-SA 4.0</strong>).</p>
+    <p>Fictitious Persons &amp; Entities Disclaimer: All narrative characters (including Zoe and Fin#), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events referenced across RaggieSoft sample content packs are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+  </footer>
+  <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261127" defer></script>
+  <script src="/portal.js" defer></script>
+</body>
+</html>

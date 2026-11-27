@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302...</title>
+  <meta name="description" content="Luca Pacioli&#39;s 1494 accounting identity, ledger/account declarations, debit/credit blocks, FloorWithRemainder splits, and FX settlement bridges." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://finsharp.raggiesoft.dev/ledgers-and-transactions" />
+  <meta property="og:url" content="https://finsharp.raggiesoft.dev/ledgers-and-transactions" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg" />
+  <meta property="og:site_name" content="Fin# (Financial Sharp)" />
+  <meta property="og:title" content="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302..." />
+  <meta property="og:description" content="Luca Pacioli&#39;s 1494 accounting identity, ledger/account declarations, debit/credit blocks, FloorWithRemainder splits, and FX settlement bridges." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-books/images/scenes/aubrie/e007/c001/p003/birth-of-finsharp-og.jpg" />
+  <meta property="og:image:alt" content="Fin# (Financial Sharp) Documentation" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302..." />
+  <meta name="twitter:description" content="Luca Pacioli&#39;s 1494 accounting identity, ledger/account declarations, debit/credit blocks, FloorWithRemainder splits, and FX settlement bridges." />
+  <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-books/images/scenes/aubrie/e007/c001/p003/birth-of-finsharp-og.jpg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Ledgers, Accounts, Atomic Transactions & Z-SOX-302...","description":"Luca Pacioli's 1494 accounting identity, ledger/account declarations, debit/credit blocks, FloorWithRemainder splits, and FX settlement bridges.","version":"0.1.0","author":{"@type":"Organization","name":"RaggieSoft"},"url":"https://finsharp.raggiesoft.dev/ledgers-and-transactions"}</script>
+  <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261127" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-doc">Skip to main documentation</a>
+  <nav class="rs-network-bar" aria-label="RaggieSoft Ecosystem Network"></nav>
+  <header class="doc-banner" data-theme="dark">
+    <div class="doc-banner-inner">
+      <a class="doc-brand" href="/">
+        <span>Fin# (Financial Sharp)</span>
+        <span class="doc-ver-pill">v0.1.0</span>
+      </a>
+      <button type="button" class="rs-mobile-header-toggle" data-rs-mobile-toggle aria-expanded="false" aria-controls="header-navigation-panel" aria-label="Toggle documentation menu">
+        <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="header-navigation-panel" class="doc-header-nav" data-rs-collapsible="true">
+        <button type="button" id="rsh-open-search" class="doc-search-btn" aria-label="Search API and documentation (Ctrl+K)">
+          <span>Search API &amp; Docs...</span><kbd>Ctrl+K</kbd>
+        </button>
+        <a class="doc-nav-link" href="/">Learn</a>
+        <a class="doc-nav-link" href="/api-index">API Index (34)</a>
+        <a class="doc-nav-link" href="/llms-full.txt">llms-full.txt</a>
+        <a class="doc-nav-link" href="https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin">Born in The Eleventh Child (/books/aubrie)</a>
+        <a class="doc-nav-link" href="https://raggiesoft.dev/labs/finsharp">Studio Hub</a>
+        <a class="doc-nav-link" href="https://github.com/raggiesoft">GitHub (MIT)</a>
+        <button type="button" id="rsh-theme-toggle" class="doc-theme-btn" aria-label="Cycle color theme">Theme: Auto</button>
+      </div>
+    </div>
+  </header>
+  <details class="mobile-toc-drawer">
+    <summary>Browse Table of Contents (6 chapters)</summary>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome to Fin# (Financial Sharp) Getting Started finsharp fin# finsc overview conservation-of-capital linear-types mit aubrie"><a class="toc-link" href="/">Welcome to Fin# (Financial Sharp)</a></li>
+            <li data-toc-item="1" data-toc-search="Origin Story: From /books/aubrie Plot Device to Real Language Getting Started aubrie eleventh-child zoe-wren-brooks jordan-fuller vectron z-sox-302 geneva-street origin"><a class="toc-link" href="/origin-in-aubrie">Origin Story: From /books/aubrie Plot Device to Real Language</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Specification (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics) Language Specification Capital Account Rate linear-types move fixed-point Int128 ISO-4217 USD EUR Capital&lt;TCurrency&gt; Account&lt;TKind, TCurrency&gt; Rate&lt;TFrom, TTo&gt; RoundingPolicy"><a class="toc-link" href="/linear-capital-types">Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics)</a></li>
+            <li data-toc-item="1" data-toc-search="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs Language Specification ledger account transaction journal debit credit pacioli z-sox-302 FloorWithRemainder fx ledger &lt;Name&gt; { ... } transaction [audit: ...] { ... } debit &lt;Account&gt; &lt;- &lt;Capital&gt; credit &lt;Account&gt; -&gt; &lt;Capital&gt; opening_balance(...)"><a class="toc-link" href="/ledgers-and-transactions" aria-current="page">Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Compiler &amp; Standard Library (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture Compiler &amp; Standard Library finsc cli capital fx audit report roslyn dotnet lsp studio finsc check finsc build finsc audit finsc fmt finsc lsp capital.splitEqual(amount, ways, RoundingPolicy.FloorWithRemainder) capital.allocateByWeights(amount, weights) capital.combine(a, b) capital.assertZero(remainder) fx.quote&lt;TFrom, TTo&gt;(scaledRate, timestampUtc, providerId) fx.convert(sourceCapital, quote, fxClearingAccount) audit.attestZsox302(ledger, periodId) audit.trialBalance(ledger) report.exportTaggedPdfUa(trialBalance, outputPath)"><a class="toc-link" href="/stdlib-and-cli">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Proofs (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Compiler Diagnostics Reference (FIN0001 – FIN0005) Diagnostics &amp; Proofs diagnostics errors FIN0001 FIN0002 FIN0003 FIN0004 FIN0005 ConservationOfCapitalViolationException FIN0001: ConservationOfCapitalViolationException FIN0002: UnbalancedJournalEntryError FIN0003: BinaryFloatingPointForbiddenOnCapitalError FIN0004: CrossCurrencyConservationMismatchError FIN0005: UnconsumedLinearCapitalError"><a class="toc-link" href="/diagnostics-reference">Compiler Diagnostics Reference (FIN0001 – FIN0005)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+  </details>
+  <div class="learn-layout">
+    <aside class="learn-left-rail" aria-label="Documentation Table of Contents">
+      <div class="toc-filter-wrap">
+        <input id="rsh-toc-filter" class="toc-filter-input" type="search" placeholder="Filter by title or API..." aria-label="Filter table of contents by title or API" />
+      </div>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome to Fin# (Financial Sharp) Getting Started finsharp fin# finsc overview conservation-of-capital linear-types mit aubrie"><a class="toc-link" href="/">Welcome to Fin# (Financial Sharp)</a></li>
+            <li data-toc-item="1" data-toc-search="Origin Story: From /books/aubrie Plot Device to Real Language Getting Started aubrie eleventh-child zoe-wren-brooks jordan-fuller vectron z-sox-302 geneva-street origin"><a class="toc-link" href="/origin-in-aubrie">Origin Story: From /books/aubrie Plot Device to Real Language</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Specification (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics) Language Specification Capital Account Rate linear-types move fixed-point Int128 ISO-4217 USD EUR Capital&lt;TCurrency&gt; Account&lt;TKind, TCurrency&gt; Rate&lt;TFrom, TTo&gt; RoundingPolicy"><a class="toc-link" href="/linear-capital-types">Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics)</a></li>
+            <li data-toc-item="1" data-toc-search="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs Language Specification ledger account transaction journal debit credit pacioli z-sox-302 FloorWithRemainder fx ledger &lt;Name&gt; { ... } transaction [audit: ...] { ... } debit &lt;Account&gt; &lt;- &lt;Capital&gt; credit &lt;Account&gt; -&gt; &lt;Capital&gt; opening_balance(...)"><a class="toc-link" href="/ledgers-and-transactions" aria-current="page">Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Compiler &amp; Standard Library (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture Compiler &amp; Standard Library finsc cli capital fx audit report roslyn dotnet lsp studio finsc check finsc build finsc audit finsc fmt finsc lsp capital.splitEqual(amount, ways, RoundingPolicy.FloorWithRemainder) capital.allocateByWeights(amount, weights) capital.combine(a, b) capital.assertZero(remainder) fx.quote&lt;TFrom, TTo&gt;(scaledRate, timestampUtc, providerId) fx.convert(sourceCapital, quote, fxClearingAccount) audit.attestZsox302(ledger, periodId) audit.trialBalance(ledger) report.exportTaggedPdfUa(trialBalance, outputPath)"><a class="toc-link" href="/stdlib-and-cli">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Proofs (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Compiler Diagnostics Reference (FIN0001 – FIN0005) Diagnostics &amp; Proofs diagnostics errors FIN0001 FIN0002 FIN0003 FIN0004 FIN0005 ConservationOfCapitalViolationException FIN0001: ConservationOfCapitalViolationException FIN0002: UnbalancedJournalEntryError FIN0003: BinaryFloatingPointForbiddenOnCapitalError FIN0004: CrossCurrencyConservationMismatchError FIN0005: UnconsumedLinearCapitalError"><a class="toc-link" href="/diagnostics-reference">Compiler Diagnostics Reference (FIN0001 – FIN0005)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+    </aside>
+    <main id="main-doc" class="learn-article" tabindex="-1">
+      <nav class="learn-breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Fin# (Financial Sharp)</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span>Language Specification</span>
+      </nav>
+      <div class="learn-meta-bar">
+        <span class="meta-pill">3 min read</span>
+        <span class="meta-pill">Module: <code>raggiesoft.finsharp</code></span>
+        <span class="meta-pill">F1: <code>IDH_FIN_TRANSACTIONS (0x3004)</code></span>
+      </div>
+<h1 id="ledger-declarations">Ledgers, Accounts, Atomic Transactions &amp; <code>Z-SOX-302</code> Proofs</h1>
+<p>In 1494, Franciscan mathematician <strong>Luca Pacioli</strong> formalized double-entry bookkeeping around a single conservation equation:</p>
+<p>$$\text{Assets} + \text{Expenses} = \text{Liabilities} + \text{Equity} + \text{Revenue}$$</p>
+<p>Every valid state transition in a closed accounting system preserves that equality because <strong>the sum of debits in every journal entry equals the sum of credits</strong> ($\sum \text{Debits} \equiv \sum \text{Credits}$). Fin# promotes Pacioli's 530-year-old equation directly into its grammar.</p>
+<h2 id="ledger-syntax">Declaring a Closed <code>ledger</code></h2>
+<p>A <code>ledger</code> block establishes a closed chart of accounts, its functional reporting currency, and its audit-attestation profile (<code>Z_SOX_302</code> or custom policy tags):</p>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">ledger CampusAccessibilityFund [currency: USD, audit_standard: Z_SOX_302] {
+    account GrantCashChecking   : Account&lt;Asset, USD&gt;;
+    account EquipmentReceivable : Account&lt;Asset, USD&gt;;
+    account AdaptiveGearExpense : Account&lt;Expense, USD&gt;;
+    account VendorPayable       : Account&lt;Liability, USD&gt;;
+    account DonorNetAssets      : Account&lt;Equity, USD&gt;;
+    account WorkshopRevenue     : Account&lt;Revenue, USD&gt;;
+}
+</code></pre>
+<aside class="learn-alert learn-alert-important" role="note">
+<div class="learn-alert-title">Important</div>
+<p><strong>Zero Mutation Outside <code>transaction</code> (<code>FIN0001</code>)</strong>: An <code>Account&lt;K, T&gt;</code> exposes read-only query properties (<code>.id</code>, <code>.kind</code>, <code>.currency</code>, <code>.normalBalance</code>) in general functions, but <strong>no <code>.Balance = ...</code> setter and no <code>+=</code> operator</strong>. The <em>only</em> grammatical construct permitted to mutate account state is an atomic <code>transaction</code> (or boundary <code>opening_balance</code>) block!</p>
+</aside>
+<h2 id="boundary-ingress">Boundary Ingress: <code>opening_balance(...)</code></h2>
+<p>How does money enter a closed ledger when migrating an existing business or opening a fiscal year? Even at the boundary, capital never appears one-sided—<code>opening_balance</code> requires an explicit Asset/Liability pair balanced against an <code>Equity</code> (or Opening Balance Equity) account:</p>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">opening_balance(
+    debit:  GrantCashChecking,
+    credit: DonorNetAssets,
+    amount: 25_000.00_USD,
+    memo:   &quot;FY2016 Opening Endowment Balance&quot;
+);
+</code></pre>
+<h2 id="atomic-transactions">Atomic <code>transaction</code> Blocks</h2>
+<p>Every <code>transaction</code> block compiles to:</p>
+<ol>
+<li>A <strong>compile-time symbolic conservation check</strong> (<code>FIN0002</code> + <code>FIN0005</code>), AND</li>
+<li>A <strong>runtime all-or-nothing atomic commit record</strong> with deterministic SHA-256 hash chaining (<code>Z-SOX-302</code>).</li>
+</ol>
+<h3 id="debit-and-credit"><code>debit</code> and <code>credit</code> Flow Arrows</h3>
+<p>Notice the directional visual symmetry of Fin#'s posting arrows:</p>
+<ul>
+<li><code>credit &lt;Account&gt; -&gt; &lt;Amount&gt;</code> <strong>sources</strong> linear <code>Capital&lt;T&gt;</code> from the credited leg.</li>
+<li><code>debit &lt;Account&gt; &lt;- &lt;CapitalBinding&gt;</code> <strong>sinks</strong> (consumes) linear <code>Capital&lt;T&gt;</code> into the debited leg.</li>
+</ul>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">transaction InvoiceAndPayRampSupplier [audit: Z_SOX_302, date: &quot;2015-09-14&quot;] {
+    // Leg 1: Accrue vendor invoice ($1,800.00)
+    let invoiceObligation : Capital&lt;USD&gt; = credit VendorPayable -&gt; 1_800.00_USD;
+    debit AdaptiveGearExpense &lt;- invoiceObligation;
+
+    // Leg 2: Settle half ($900.00) immediately from checking
+    let cashDisbursement : Capital&lt;USD&gt; = credit GrantCashChecking -&gt; 900.00_USD;
+    debit VendorPayable &lt;- cashDisbursement;
+}
+</code></pre>
+<p>In <code>InvoiceAndPayRampSupplier</code>, <code>finsc</code> verifies:</p>
+<ul>
+<li>Total <code>USD</code> Credits = <code>1,800.00 + 900.00 = 2,700.00_USD</code></li>
+<li>Total <code>USD</code> Debits = <code>1,800.00 + 900.00 = 2,700.00_USD</code></li>
+<li>Unconsumed linear bindings at <code>}</code> = <code>0</code> (<code>PASS</code>)!</li>
+</ul>
+<h2 id="fx-settlement">Multi-Currency FX Settlement Bridges (<code>fx.convert</code>)</h2>
+<p>During the Summer 2015 Singapore arc of <a href="https://books.raggiesoft.com/aubrie"><em>The Eleventh Child</em></a>, household expenses in Singapore Dollars (<code>SGD</code>) had to reconcile cleanly against <code>USD</code> accounts without breaking single-currency conservation (<code>FIN0004</code>).</p>
+<p>In Fin#, <code>fx.convert</code> routes cross-currency transfers through dual-currency FX clearing accounts so <strong>both the <code>USD</code> sub-ledger AND the <code>SGD</code> sub-ledger remain 100% independently balanced</strong>:</p>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">transaction ReimburseSingaporeTransitCard [audit: Z_SOX_302, date: &quot;2015-07-18&quot;] {
+    let quote = fx.quote&lt;USD, SGD&gt;(1.3685_0000, &quot;2015-07-18T09:00:00Z&quot;, &quot;MAS-Spot-Ref&quot;);
+
+    let usdOutflow : Capital&lt;USD&gt; = credit UsdTravelChecking -&gt; 100.00_USD;
+
+    // Credits SgdFxClearing in SGD and debits UsdFxClearing in USD atomically:
+    let (sgdProceeds, fxReceipt) = fx.convert(usdOutflow, quote, FxClearingBridge);
+
+    debit SgdTransitCardAsset &lt;- sgdProceeds; // Exact 136.85_SGD!
+    audit.attach(fxReceipt);
+}
+</code></pre>
+
+      <section class="topic-symbols-box" aria-label="Indexed API Symbols on This Page">
+        <strong style="font-size:0.88rem;">Indexed API Calls &amp; Symbols on This Page (5):</strong>
+        <div class="symbol-chip-grid">
+          <a class="symbol-chip" href="#ledger-declarations"><code>ledger &lt;Name&gt; { ... }</code><span class="badge-tag">Keyword</span></a>
+          <a class="symbol-chip" href="#atomic-transactions"><code>transaction [audit: ...] { ... }</code><span class="badge-tag">Keyword</span></a>
+          <a class="symbol-chip" href="#debit-and-credit"><code>debit &lt;Account&gt; &lt;- &lt;Capital&gt;</code><span class="badge-tag">Keyword</span></a>
+          <a class="symbol-chip" href="#debit-and-credit"><code>credit &lt;Account&gt; -&gt; &lt;Capital&gt;</code><span class="badge-tag">Keyword</span></a>
+          <a class="symbol-chip" href="#boundary-ingress"><code>opening_balance(...)</code><span class="badge-tag">Boundary</span></a>
+        </div>
+      </section>
+      <nav class="learn-pager" aria-label="Article Pagination">
+        <a class="pager-card" href="/linear-capital-types"><span class="pager-kicker">&larr; Previous</span><span class="pager-title">Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics)</span></a>
+        <a class="pager-card is-next" href="/stdlib-and-cli"><span class="pager-kicker">Next &rarr;</span><span class="pager-title">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</span></a>
+      </nav>
+    </main>
+    <aside class="learn-right-rail" aria-label="In this article">
+      <h2 class="outline-heading">In this article</h2>
+      <ul class="outline-list">
+        <li><a class="outline-link lvl-2" href="#ledger-syntax">Declaring a Closed ledger</a></li>
+        <li><a class="outline-link lvl-2" href="#boundary-ingress">Boundary Ingress: opening_balance(...)</a></li>
+        <li><a class="outline-link lvl-2" href="#atomic-transactions">Atomic transaction Blocks</a></li>
+        <li><a class="outline-link lvl-3" href="#debit-and-credit">debit and credit Flow Arrows</a></li>
+        <li><a class="outline-link lvl-2" href="#fx-settlement">Multi-Currency FX Settlement Bridges (fx.convert)</a></li>
+      </ul>
+    </aside>
+  </div>
+  <dialog id="rsh-search-modal" class="search-modal" aria-labelledby="rsh-search-modal-title">
+    <div class="search-modal-head">
+      <label id="rsh-search-modal-title" for="rsh-modal-input" style="font-weight:700;white-space:nowrap;">Search</label>
+      <input id="rsh-modal-input" class="search-modal-input" type="search" placeholder="Search every function, namespace, diagnostic, or topic..." autocomplete="off" />
+      <button type="button" id="rsh-close-search" class="doc-theme-btn">Esc</button>
+    </div>
+    <div id="rsh-modal-results" class="search-modal-body" aria-live="polite"></div>
+  </dialog>
+  <footer class="doc-footer">
+    <p><strong>Fin# (Financial Sharp) v0.1.0</strong> &bull; Compiled directly from plain-text <code>.rshp</code> + Markdown sources by <strong>RaggieSoft Help Studio v0.6.0</strong> (WCAG 2.2 Level AA &amp; Revised Section 508 Verified; Code: <strong>MIT License</strong> &bull; Creative Content: <strong>CC BY-SA 4.0</strong>).</p>
+    <p>Fictitious Persons &amp; Entities Disclaimer: All narrative characters (including Zoe and Fin#), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events referenced across RaggieSoft sample content packs are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+  </footer>
+  <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261127" defer></script>
+  <script src="/portal.js" defer></script>
+</body>
+</html>

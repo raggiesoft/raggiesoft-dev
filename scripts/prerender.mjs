@@ -26,8 +26,31 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 const distDir = path.join(projectRoot, 'dist');
+const buildSubdomainsDir = path.join(projectRoot, 'build');
 const ssrDir = path.join(projectRoot, '.ssr-temp');
 const workspaceLlmsDir = path.resolve(projectRoot, '../../../llms');
+const desktopAppsDir = path.resolve(projectRoot, '../../../desktop-apps');
+
+/**
+ * Recursively mirrors a Help Studio `out/web` static portal directory into
+ * `build/<subdomain>/` so `sarah-deploy.sh` can `rsync` `<subdomain>.raggiesoft.dev`
+ * straight into `/var/www/<subdomain>.raggiesoft.dev` with zero extra Git repos!
+ */
+function syncCleanDirectory(srcDir, destDir) {
+  if (!fs.existsSync(srcDir)) return false;
+  fs.rmSync(destDir, { recursive: true, force: true });
+  fs.mkdirSync(destDir, { recursive: true });
+  for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
+    const srcPath = path.join(srcDir, entry.name);
+    const destPath = path.join(destDir, entry.name);
+    if (entry.isDirectory()) {
+      syncCleanDirectory(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+  return true;
+}
 
 const SITE_ORIGIN = 'https://raggiesoft.dev';
 const OG_IMAGE = 'https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg';
@@ -160,20 +183,43 @@ async function main() {
     fs.copyFileSync(rsscSpecSrc, path.join(rsscOutDir, 'llms-raggiescript.txt'));
   }
 
-  // 5. Emit umbrella `dist/llms.txt` in 1:1 lockstep with `raggiesoftstudio.com` & RaggieSoft Labs.
+  // 4B. Stage Help Studio v0.6.0 standalone `*.raggiesoft.dev` portals into `build/{raggiescript,finsharp}`!
+  const rsscWebSrc = path.join(desktopAppsDir, 'raggiescript', 'help', 'out', 'web');
+  const rsscSubOut = path.join(buildSubdomainsDir, 'raggiescript');
+  if (syncCleanDirectory(rsscWebSrc, rsscSubOut)) {
+    const rsscVpat = path.join(desktopAppsDir, 'raggiescript', 'help', 'out', 'raggiescript-help-vpat-2.5.html');
+    if (fs.existsSync(rsscVpat)) {
+      fs.copyFileSync(rsscVpat, path.join(rsscSubOut, 'vpat-2.5.html'));
+    }
+  }
+
+  const finWebSrc = path.join(desktopAppsDir, 'finsharp', 'help', 'out', 'web');
+  const finSubOut = path.join(buildSubdomainsDir, 'finsharp');
+  if (syncCleanDirectory(finWebSrc, finSubOut)) {
+    const finVpat = path.join(desktopAppsDir, 'finsharp', 'help', 'out', 'fin-financial-sharp-help-vpat-2.5.html');
+    if (fs.existsSync(finVpat)) {
+      fs.copyFileSync(finVpat, path.join(finSubOut, 'vpat-2.5.html'));
+    }
+  }
+
+  // 5. Emit umbrella `dist/llms.txt` in 1:1 lockstep with `raggiesoftstudio.com` & `*.raggiesoft.dev`.
   const devLlmsTxt = [
-    '# RaggieSoft Open-Source, Studio & Compiler Engineering Hub (https://raggiesoft.dev)',
+    '# RaggieSoft Open-Source Code, Compilers & Studio Engineering Hub (https://raggiesoft.dev)',
     '',
-    '> Official engineering portal indexing RaggieSoft Studio (8 Windows 11 x64 & ARM64 developer tools), RaggieScript (.rssc), Fin# (Financial Sharp) compiler R&D, zero-database web frameworks, and AI agent skills (MIT License).',
+    '> Official open-source code portal behind RaggieSoft projects (100% MIT License for code; CC BY-SA 4.0 for creative works), indexing `*.raggiesoft.dev` language portals, RaggieSoft Studio (8 Windows 11 x64 & ARM64 developer tools), and AI agent skills.',
+    '',
+    '## Dedicated `*.raggiesoft.dev` Language & Documentation Portals (Dogfooded via Help Studio v0.6.0)',
+    '- [RaggieScript v1.0 Complete Language & API Portal](https://raggiescript.raggiesoft.dev): Every function, property, global constant, `RSWBC2` opcode, and `RSW700`-`RSW715` diagnostic across all 21 namespaces ([Portal llms.txt](https://raggiescript.raggiesoft.dev/llms.txt) | [Full Reference llms-full.txt](https://raggiescript.raggiesoft.dev/llms-full.txt)).',
+    '- [Fin# (Financial Sharp) Language & Conservation Portal](https://finsharp.raggiesoft.dev): Linear-type double-entry financial language (`Capital<T>`, `FIN0001`-`FIN0005`) with bidirectional narrative links to *The Eleventh Child* (`https://books.raggiesoft.com/aubrie`) ([Portal llms.txt](https://finsharp.raggiesoft.dev/llms.txt) | [Full Reference llms-full.txt](https://finsharp.raggiesoft.dev/llms-full.txt)).',
     '',
     '## RaggieSoft Studio — 8-Product Suite (`Community == 100% Architect Parity`, `Essentials`, `Developer`, `Architect`)',
     '- [RaggieSoft Studio Suite Portal](https://raggiesoftstudio.com): Umbrella portal for all 8 Studio tools + All-Access Studio Suites (including free Studio Community).',
     '- [Suite-Wide Editions Matrix](https://raggiesoftstudio.com/editions)',
-    '- [RaggieScript v1.0 (.rssc) Language Hub & Multi-Target SDK](https://raggiesoftstudio.com/raggiescript): Gradual static type binder (`struct`, `enum`, `match`, `=>` closures, `RSW701`-`RSW715`), `RSWBC2` SHA-256 linear stack bytecode VM, declarative Win32 Wizard UI engine, `fmt`, JSON-RPC 2.0 `lsp`, `.NET` `RaggieScript.Core`, and zero-`eval()` SCORM `ES2022` ([Cold-Start Spec](https://raggiesoft.dev/raggiescript/llms-raggiescript.txt)).',
+    '- [RaggieScript v1.0 (.rssc) Language Hub & Multi-Target SDK](https://raggiesoftstudio.com/raggiescript): Gradual static type binder (`struct`, `enum`, `match`, `=>` closures, `RSW701`-`RSW715`), `RSWBC2` SHA-256 linear stack bytecode VM, declarative Win32 Wizard UI engine, `fmt`, JSON-RPC 2.0 `lsp`, `.NET` `RaggieScript.Core`, and zero-`eval()` SCORM `ES2022` ([Full Docs](https://raggiescript.raggiesoft.dev) | [Cold-Start Spec](https://raggiesoft.dev/raggiescript/llms-raggiescript.txt)).',
     '- [1. RaggieSoft Installer Studio (v0.5.0 Shipped / v0.6.0 In Lab)](https://raggiesoftstudio.com/installer-studio): Static `/MT` Win32 C++20 `.msi`, `.msm`, `.mst`, `.msp`, `sfx` (`rswsfx.exe`), standalone read/write **RaggieSoft MSI Prism (`msiprism.exe`)**, & Monotonic Dual-Bar `.rsis` Suite compiler (`installwithoutlimits.com` 301s here).',
     '- [2. RaggieSoft Showcase Studio](https://raggiesoftstudio.com/showcase-studio): 1990s `.BMP` (with UIA safeguards) & Windows 11 `FluentMica` launchpads + bespoke `_support\\` self-extracting canvas installers.',
     '- [3. RaggieSoft Launcher Studio](https://raggiesoftstudio.com/launcher-studio): Branded zero-account desktop hubs & SHA-256 + Authenticode static-CDN updaters.',
-    '- [4. RaggieSoft Help Studio (v0.5.0)](https://raggiesoftstudio.com/help-studio): Static `/MT` Win32 C++20 `.CHM` (`ITSF/LZX`) & WinHelp `.HLP`/`.CNT` (`LZ77`) decompiler, Word `MsoNormal` sanitizer, & `<5ms` Named Pipe `F1` help suite (`rshbuild.exe`, `HelpStudio.exe`, `RaggieSoftHelp.exe`).',
+    '- [4. RaggieSoft Help Studio (v0.6.0)](https://raggiesoftstudio.com/help-studio): Static `/MT` Win32 C++20 `.CHM` (`ITSF/LZX`) & WinHelp `.HLP`/`.CNT` (`LZ77`) decompiler, Word `MsoNormal` sanitizer, standalone `learn.microsoft.com`-grade website exporter, & `<5ms` Named Pipe `F1` help suite (`rshbuild.exe`, `HelpStudio.exe`, `RaggieSoftHelp.exe`).',
     '- [5. RaggieSoft Training Studio (v0.5.0)](https://raggiesoftstudio.com/training-studio): `<50 KB` proxy-proof WCAG 2.2 AA SCORM 1.2 & 2004 compiler (`rstbuild`).',
     '- [6. RaggieSoft Document Studio](https://raggiesoftstudio.com/document-studio): Deterministic ISO 14289-1 Tagged `PDF/UA-1` & Section 508 form compiler.',
     '- [7. RaggieSoft Localization Studio](https://raggiesoftstudio.com/localization-studio): Multilingual `.RESX`, `XLIFF 2.1`, `.rsip`, `.rstp` & `<=22 CPS` WebVTT compliance IDE.',

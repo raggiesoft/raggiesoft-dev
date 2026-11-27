@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>archive.*, crypto.*, net.* &amp; log.* | RaggieScript</title>
+  <meta name="description" content="LZMS .rswpak &amp; .zip archives, bcrypt.dll SHA-256 &amp; UUIDv5, WinHTTP TLS 1.2/1.3 downloads, and structured setup logging." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://raggiescript.raggiesoft.dev/ns-archive-crypto-net-log" />
+  <meta property="og:url" content="https://raggiescript.raggiesoft.dev/ns-archive-crypto-net-log" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg" />
+  <meta property="og:site_name" content="RaggieScript" />
+  <meta property="og:title" content="archive.*, crypto.*, net.* &amp; log.* | RaggieScript" />
+  <meta property="og:description" content="LZMS .rswpak &amp; .zip archives, bcrypt.dll SHA-256 &amp; UUIDv5, WinHTTP TLS 1.2/1.3 downloads, and structured setup logging." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+  <meta property="og:image:alt" content="RaggieScript Documentation" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="archive.*, crypto.*, net.* &amp; log.* | RaggieScript" />
+  <meta name="twitter:description" content="LZMS .rswpak &amp; .zip archives, bcrypt.dll SHA-256 &amp; UUIDv5, WinHTTP TLS 1.2/1.3 downloads, and structured setup logging." />
+  <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"archive.*, crypto.*, net.* & log.* | RaggieScript","description":"LZMS .rswpak & .zip archives, bcrypt.dll SHA-256 & UUIDv5, WinHTTP TLS 1.2/1.3 downloads, and structured setup logging.","version":"1.0.0","author":{"@type":"Organization","name":"RaggieSoft"},"url":"https://raggiescript.raggiesoft.dev/ns-archive-crypto-net-log"}</script>
+  <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261127" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-doc">Skip to main documentation</a>
+  <nav class="rs-network-bar" aria-label="RaggieSoft Ecosystem Network"></nav>
+  <header class="doc-banner" data-theme="dark">
+    <div class="doc-banner-inner">
+      <a class="doc-brand" href="/">
+        <span>RaggieScript</span>
+        <span class="doc-ver-pill">v1.0.0</span>
+      </a>
+      <button type="button" class="rs-mobile-header-toggle" data-rs-mobile-toggle aria-expanded="false" aria-controls="header-navigation-panel" aria-label="Toggle documentation menu">
+        <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="header-navigation-panel" class="doc-header-nav" data-rs-collapsible="true">
+        <button type="button" id="rsh-open-search" class="doc-search-btn" aria-label="Search API and documentation (Ctrl+K)">
+          <span>Search API &amp; Docs...</span><kbd>Ctrl+K</kbd>
+        </button>
+        <a class="doc-nav-link" href="/">Learn</a>
+        <a class="doc-nav-link" href="/api-index">API Index (224)</a>
+        <a class="doc-nav-link" href="/llms-full.txt">llms-full.txt</a>
+        <a class="doc-nav-link" href="https://raggiesoft.dev">raggiesoft.dev Hub</a>
+        <a class="doc-nav-link" href="https://raggiesoftstudio.com/raggiescript">Studio Hub</a>
+        <a class="doc-nav-link" href="https://github.com/raggiesoft">GitHub (MIT)</a>
+        <button type="button" id="rsh-theme-toggle" class="doc-theme-btn" aria-label="Cycle color theme">Theme: Auto</button>
+      </div>
+    </div>
+  </header>
+  <details class="mobile-toc-drawer">
+    <summary>Browse Table of Contents (16 chapters)</summary>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome &amp; 60-Second Quick Start Getting Started overview quickstart rssc raggiescript mit editions"><a class="toc-link" href="/">Welcome &amp; 60-Second Quick Start</a></li>
+            <li data-toc-item="1" data-toc-search="CLI (raggiescript.exe), LSP, VS Code &amp; SDKs Getting Started cli raggiescript.exe lsp fmt pack-exe transpile-es2022 dotnet c++20 raggiescript.exe check raggiescript.exe compile raggiescript.exe disasm raggiescript.exe run raggiescript.exe fmt raggiescript.exe lsp raggiescript.exe transpile-es2022 raggiescript.exe pack-exe raggiescript.exe init"><a class="toc-link" href="/cli-and-sdk">CLI (raggiescript.exe), LSP, VS Code &amp; SDKs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Reference (4)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Lexical Grammar, Preprocessor &amp; Expressions Language Reference syntax grammar define include semver raw-string operators loops try-catch"><a class="toc-link" href="/syntax-and-preprocessor">Lexical Grammar, Preprocessor &amp; Expressions</a></li>
+            <li data-toc-item="1" data-toc-search="Gradual Type System, struct, enum, match &amp; Closures Language Reference types struct enum match lambda closure ref semver path struct enum match (...) { =&gt; }"><a class="toc-link" href="/types-structs-enums">Gradual Type System, struct, enum, match &amp; Closures</a></li>
+            <li data-toc-item="1" data-toc-search="Package Headers, param, feature, payload &amp; Phases Language Reference package showcase app param feature payload wizard install repair uninstall uac-deferred wizard { step ... when (...) } install { ... } Uac.Deferred"><a class="toc-link" href="/headers-and-phases">Package Headers, param, feature, payload &amp; Phases</a></li>
+            <li data-toc-item="1" data-toc-search="Global Functions, Enum Constants, Validation &amp; compile.* Language Reference globals str int path ver assert def Scope Uac Hive RegView Token Validation compile feature payload str(value) int(value) float(value) bool(value) path(value) ver(value) len(x) typeof(x) print(...values) log(message, level?) assert(cond, message?) sleep(ms) coalesce(a, b, ...) range(start, end?, step?) def(key, fallback?) targetArch() Validation.ok() Validation.error(message) compile.json(relPath) compile.text(relPath) compile.def(key, fallback?) payload.dir(payloadId) payload.path(payloadId) feature.list() feature.info(id) feature.isSelected(id) feature.setSelected(id, selected?) feature.selectPreset(preset?)"><a class="toc-link" href="/builtins-and-constants">Global Functions, Enum Constants, Validation &amp; compile.*</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Core Standard Library (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot Core Standard Library sys arch isArm64 osBuild osVersion isAdmin uacEnabled isHighContrast programFiles localAppData rebootAndResume sys.arch() sys.compiledArch() sys.isArm64() sys.isX64() sys.isEmulatedUnderPrism() sys.osBuild() sys.osVersion() sys.isWindows11() sys.isServer() sys.isAdmin() sys.uacEnabled() sys.canPromptUac() sys.isSilent() sys.isPassive() sys.isMaintenance() sys.cliArg(key, fallback?) sys.hasSwitch(flag) sys.ramMB() sys.cpuCores() sys.freeDiskMB(targetPath?) sys.freeDiskBytes(targetPath?) sys.dpi() sys.isDarkMode() sys.isHighContrast() sys.locale() sys.newGuid() sys.uuid5(name, nsGuid?) sys.folder(knownName) sys.rebootAndResume(stateMap?, id?) sys.getResumeState(id?) sys.programFiles sys.localAppData sys.supportDir"><a class="toc-link" href="/ns-sys">sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot</a></li>
+            <li data-toc-item="1" data-toc-search="str.*, regex.*, array.*, json.*, ini.* &amp; xml.* Core Standard Library str regex array map filter json ini xml str.lower(text) str.upper(text) str.trim(text) str.contains(haystack, needle, ignoreCase?) str.startsWith(text, prefix, ignoreCase?) str.endsWith(text, suffix, ignoreCase?) str.replace(text, oldSub, newSub, ignoreCase?) str.split(text, delimiter?) str.join(items, separator?) str.slice(text, start, end?) regex.isMatch(input, pattern, ignoreCase?) regex.match(input, pattern, ignoreCase?) regex.replace(input, pattern, replacement, ignoreCase?) array.push(list, item) array.map(list, fn) array.filter(list, predicateFn) array.contains(list, needle) json.parse(jsonText) json.stringify(value, pretty?) ini.read(file, section, key, fallback?) ini.write(file, section, key, value) ini.deleteKey(file, section, key) xml.readText(file, tag, fallback?) xml.readAttr(file, tag, attr, fallback?) xml.replaceAttr(file, tag, attr, newValue) xml.setElementText(file, tag, innerText)"><a class="toc-link" href="/ns-data-and-text">str.*, regex.*, array.*, json.*, ini.* &amp; xml.*</a></li>
+            <li data-toc-item="1" data-toc-search="fs.* &amp; reg.* — Transactional Filesystem &amp; Registry Core Standard Library fs reg mkdir copy copyTree extract writeJson verifyAuthenticode readString writeString RegView fs.exists(path) fs.isDir(path) fs.isFile(path) fs.isLocked(file) fs.fileVersion(pePath) fs.sha256(file) fs.verifyAuthenticode(pePath) fs.findFiles(dir, pattern?, recursive?) fs.readText(file) fs.readJson(file) fs.writeText(file, content) fs.writeJson(file, value, pretty?) fs.mkdir(dir) fs.copy(src, dst, overwrite?) fs.copyTree(srcDir, dstDir, progressLabel?) fs.move(src, dst) fs.remove(file) fs.removeDir(dir) fs.setNtfsCompression(target, enabled?) fs.extract(payloadId?, to?, feature?) reg.exists(hive, key, valueName?, view?) reg.read(hive, key, valueName, fallback?, view?) reg.readString(hive, key, valueName, fallback?, view?) reg.readDword(hive, key, valueName, fallback?, view?) reg.listSubkeys(hive, key, view?) reg.listValues(hive, key, view?) reg.write(hive, key, valueName, value, view?) reg.writeString(hive, key, valueName, value, view?) reg.writeExpandString(hive, key, valueName, value, view?) reg.writeDword(hive, key, valueName, value, view?) reg.appendMultiString(hive, key, valueName, item, view?) reg.deleteValue(hive, key, valueName, view?) reg.deleteKeyTree(hive, key, view?)"><a class="toc-link" href="/ns-fs-and-reg">fs.* &amp; reg.* — Transactional Filesystem &amp; Registry</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Windows, MSI SQL &amp; Native FFI (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="archive.*, crypto.*, net.* &amp; log.* Windows, MSI SQL &amp; Native FFI archive rswpak lzms crypto sha256 uuid5 net winhttp download log archive.extractZip(zipFile, destDir) archive.createPak(sourceDir, outPakFile) archive.extractPak(pakFile, destDir, expectedSha256?) archive.downloadPak(url, destDir, expectedSha256?, verifySig?) crypto.sha256File(file) crypto.uuid5(name, nsGuid?) crypto.verifyAuthenticode(peFile) net.download(httpsUrl, destFile, expectedSha256?) net.getJson(httpsUrl) net.probe(httpsUrl)"><a class="toc-link" href="/ns-archive-crypto-net-log" aria-current="page">archive.*, crypto.*, net.* &amp; log.*</a></li>
+            <li data-toc-item="1" data-toc-search="proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.* Windows, MSI SQL &amp; Native FFI proc ffi rm RestartManager Token.Desktop shortcut shell env appendPath arp svc task firewall acl Token.Desktop proc.isRunning(exeName) proc.run(exe, args?, wait?, hidden?, token?, workDir?) proc.getLockingProcesses(filePaths) proc.restartManagerShutdown(filePaths, force?) proc.restartManagerRestart() ffi.call(dllName, funcName, returnType, args) shortcut.create(location, name, target, ...) shell.registerFileType(ext, progId, description, target, ...) shell.registerProtocol(scheme, description, targetExe) env.appendPath(dirToAdd, scope?) arp.register(options?) arp.setSystemComponent(productId, hidden, scope?) svc.install(serviceName, binPath, displayName?, startType?) task.createWeekly(taskName, exePath, args?, day?, time?) firewall.allowProgram(ruleName, exePath, direction?) acl.grantModify(targetDir, trusteeSid?)"><a class="toc-link" href="/ns-proc-ffi-rm-system">proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.*</a></li>
+            <li data-toc-item="1" data-toc-search="msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes Windows, MSI SQL &amp; Native FFI msi sql execSql query createDatabase generateTransform mst msp prereq dotnet11 webview2 vcredist msi.isUpgradeInstalled(upgradeCodeGuid) msi.install(msiPath, properties?, silent?, logFile?) msi.applyPatch(mspPath, productCode?, cmdLine?) msi.createDatabase(msiPath) msi.listTables(msiPath) msi.query(msiPath, selectSql) msi.execSql(msiPath, sqlOrBatchArray) msi.getProperty(msiPath, propName, fallback?) msi.setProperty(msiPath, propName, value) msi.setSummary(msiPath, summaryMap) msi.generateTransform(baselineMsi, customizedMsi, outMst) prereq.isDotNetDesktopInstalled(majorVer?, minVer?) prereq.isWebView2Installed() prereq.installPreset(presetId, extraSilentArgs?)"><a class="toc-link" href="/ns-msi-and-prereq">msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Wizard UI &amp; Studio Sandboxes (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI Wizard UI &amp; Studio Sandboxes ui wizard showcase welcome license folderPicker textBox checkbox radioCards comboBox featureTree readySummary taskDialog FluentMica ui.welcome(title, subtitle?, body?) ui.license(text, acceptText, bind: ref boolVar) ui.folderPicker(label, bind: ref pathVar, minFreeMB?) ui.textBox(label, bind: ref strVar, when?, validate?) ui.checkbox(text, bind: ref boolVar, subtitle?, when?) ui.radioCards(label, bind: ref strVar, options) ui.comboBox(label, bind: ref var, items) ui.featureTree(heading?) ui.readySummary(heading?, showUacShield?) ui.taskDialog(...) ui.progress(percent, statusText?, detailText?) wizard.cancel() showcase.navigate(pageId)"><a class="toc-link" href="/ns-ui-and-wizard">ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI</a></li>
+            <li data-toc-item="1" data-toc-search="Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*) Wizard UI &amp; Studio Sandboxes training scorm es2022 a11y contrastRatio sarif localization cps document pdf-ua launcher help training.setScore(scorePct, maxScore?) training.branchTo(targetSlideId) a11y.contrastRatio(fgHex, bgHex) a11y.reportViolation(ruleId, targetId, message) localization.hasToken(text, token) localization.cps(cueText, durationSeconds) document.bindField(fieldName, value) launcher.selectChannel(ringSlug) help.routeContextId(contextId, topicSlug)"><a class="toc-link" href="/studio-sandbox-profiles">Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Bytecode ISA (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Diagnostics Reference (RSW700 – RSW715) Diagnostics &amp; Bytecode ISA diagnostics errors RSW700 RSW701 RSW702 RSW704 RSW710 RSW711 RSW712 RSW713 RSW714 RSW715 RSW700 (Syntax / Preprocessor Error) RSW701 (Wizard Phase Isolation) RSW702 (Capability Sandbox Violation) RSW704 (Bytecode SHA-256 Tamper Gate) RSW710 (Undeclared Identifier) RSW711 (Static Type Mismatch) RSW712 (Arity / Unknown Method) RSW713 (Immutability / CLI Lock Violation) RSW714 (Unknown Struct Field / Enum Variant) RSW715 (Missing Return / Loop Control)"><a class="toc-link" href="/diagnostics-reference">Diagnostics Reference (RSW700 – RSW715)</a></li>
+            <li data-toc-item="1" data-toc-search="RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec Diagnostics &amp; Bytecode ISA bytecode RSWBC2 opcodes stack-vm sha256 rollback rswbak journal"><a class="toc-link" href="/bytecode-and-rollback">RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+  </details>
+  <div class="learn-layout">
+    <aside class="learn-left-rail" aria-label="Documentation Table of Contents">
+      <div class="toc-filter-wrap">
+        <input id="rsh-toc-filter" class="toc-filter-input" type="search" placeholder="Filter by title or API..." aria-label="Filter table of contents by title or API" />
+      </div>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome &amp; 60-Second Quick Start Getting Started overview quickstart rssc raggiescript mit editions"><a class="toc-link" href="/">Welcome &amp; 60-Second Quick Start</a></li>
+            <li data-toc-item="1" data-toc-search="CLI (raggiescript.exe), LSP, VS Code &amp; SDKs Getting Started cli raggiescript.exe lsp fmt pack-exe transpile-es2022 dotnet c++20 raggiescript.exe check raggiescript.exe compile raggiescript.exe disasm raggiescript.exe run raggiescript.exe fmt raggiescript.exe lsp raggiescript.exe transpile-es2022 raggiescript.exe pack-exe raggiescript.exe init"><a class="toc-link" href="/cli-and-sdk">CLI (raggiescript.exe), LSP, VS Code &amp; SDKs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Reference (4)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Lexical Grammar, Preprocessor &amp; Expressions Language Reference syntax grammar define include semver raw-string operators loops try-catch"><a class="toc-link" href="/syntax-and-preprocessor">Lexical Grammar, Preprocessor &amp; Expressions</a></li>
+            <li data-toc-item="1" data-toc-search="Gradual Type System, struct, enum, match &amp; Closures Language Reference types struct enum match lambda closure ref semver path struct enum match (...) { =&gt; }"><a class="toc-link" href="/types-structs-enums">Gradual Type System, struct, enum, match &amp; Closures</a></li>
+            <li data-toc-item="1" data-toc-search="Package Headers, param, feature, payload &amp; Phases Language Reference package showcase app param feature payload wizard install repair uninstall uac-deferred wizard { step ... when (...) } install { ... } Uac.Deferred"><a class="toc-link" href="/headers-and-phases">Package Headers, param, feature, payload &amp; Phases</a></li>
+            <li data-toc-item="1" data-toc-search="Global Functions, Enum Constants, Validation &amp; compile.* Language Reference globals str int path ver assert def Scope Uac Hive RegView Token Validation compile feature payload str(value) int(value) float(value) bool(value) path(value) ver(value) len(x) typeof(x) print(...values) log(message, level?) assert(cond, message?) sleep(ms) coalesce(a, b, ...) range(start, end?, step?) def(key, fallback?) targetArch() Validation.ok() Validation.error(message) compile.json(relPath) compile.text(relPath) compile.def(key, fallback?) payload.dir(payloadId) payload.path(payloadId) feature.list() feature.info(id) feature.isSelected(id) feature.setSelected(id, selected?) feature.selectPreset(preset?)"><a class="toc-link" href="/builtins-and-constants">Global Functions, Enum Constants, Validation &amp; compile.*</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Core Standard Library (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot Core Standard Library sys arch isArm64 osBuild osVersion isAdmin uacEnabled isHighContrast programFiles localAppData rebootAndResume sys.arch() sys.compiledArch() sys.isArm64() sys.isX64() sys.isEmulatedUnderPrism() sys.osBuild() sys.osVersion() sys.isWindows11() sys.isServer() sys.isAdmin() sys.uacEnabled() sys.canPromptUac() sys.isSilent() sys.isPassive() sys.isMaintenance() sys.cliArg(key, fallback?) sys.hasSwitch(flag) sys.ramMB() sys.cpuCores() sys.freeDiskMB(targetPath?) sys.freeDiskBytes(targetPath?) sys.dpi() sys.isDarkMode() sys.isHighContrast() sys.locale() sys.newGuid() sys.uuid5(name, nsGuid?) sys.folder(knownName) sys.rebootAndResume(stateMap?, id?) sys.getResumeState(id?) sys.programFiles sys.localAppData sys.supportDir"><a class="toc-link" href="/ns-sys">sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot</a></li>
+            <li data-toc-item="1" data-toc-search="str.*, regex.*, array.*, json.*, ini.* &amp; xml.* Core Standard Library str regex array map filter json ini xml str.lower(text) str.upper(text) str.trim(text) str.contains(haystack, needle, ignoreCase?) str.startsWith(text, prefix, ignoreCase?) str.endsWith(text, suffix, ignoreCase?) str.replace(text, oldSub, newSub, ignoreCase?) str.split(text, delimiter?) str.join(items, separator?) str.slice(text, start, end?) regex.isMatch(input, pattern, ignoreCase?) regex.match(input, pattern, ignoreCase?) regex.replace(input, pattern, replacement, ignoreCase?) array.push(list, item) array.map(list, fn) array.filter(list, predicateFn) array.contains(list, needle) json.parse(jsonText) json.stringify(value, pretty?) ini.read(file, section, key, fallback?) ini.write(file, section, key, value) ini.deleteKey(file, section, key) xml.readText(file, tag, fallback?) xml.readAttr(file, tag, attr, fallback?) xml.replaceAttr(file, tag, attr, newValue) xml.setElementText(file, tag, innerText)"><a class="toc-link" href="/ns-data-and-text">str.*, regex.*, array.*, json.*, ini.* &amp; xml.*</a></li>
+            <li data-toc-item="1" data-toc-search="fs.* &amp; reg.* — Transactional Filesystem &amp; Registry Core Standard Library fs reg mkdir copy copyTree extract writeJson verifyAuthenticode readString writeString RegView fs.exists(path) fs.isDir(path) fs.isFile(path) fs.isLocked(file) fs.fileVersion(pePath) fs.sha256(file) fs.verifyAuthenticode(pePath) fs.findFiles(dir, pattern?, recursive?) fs.readText(file) fs.readJson(file) fs.writeText(file, content) fs.writeJson(file, value, pretty?) fs.mkdir(dir) fs.copy(src, dst, overwrite?) fs.copyTree(srcDir, dstDir, progressLabel?) fs.move(src, dst) fs.remove(file) fs.removeDir(dir) fs.setNtfsCompression(target, enabled?) fs.extract(payloadId?, to?, feature?) reg.exists(hive, key, valueName?, view?) reg.read(hive, key, valueName, fallback?, view?) reg.readString(hive, key, valueName, fallback?, view?) reg.readDword(hive, key, valueName, fallback?, view?) reg.listSubkeys(hive, key, view?) reg.listValues(hive, key, view?) reg.write(hive, key, valueName, value, view?) reg.writeString(hive, key, valueName, value, view?) reg.writeExpandString(hive, key, valueName, value, view?) reg.writeDword(hive, key, valueName, value, view?) reg.appendMultiString(hive, key, valueName, item, view?) reg.deleteValue(hive, key, valueName, view?) reg.deleteKeyTree(hive, key, view?)"><a class="toc-link" href="/ns-fs-and-reg">fs.* &amp; reg.* — Transactional Filesystem &amp; Registry</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Windows, MSI SQL &amp; Native FFI (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="archive.*, crypto.*, net.* &amp; log.* Windows, MSI SQL &amp; Native FFI archive rswpak lzms crypto sha256 uuid5 net winhttp download log archive.extractZip(zipFile, destDir) archive.createPak(sourceDir, outPakFile) archive.extractPak(pakFile, destDir, expectedSha256?) archive.downloadPak(url, destDir, expectedSha256?, verifySig?) crypto.sha256File(file) crypto.uuid5(name, nsGuid?) crypto.verifyAuthenticode(peFile) net.download(httpsUrl, destFile, expectedSha256?) net.getJson(httpsUrl) net.probe(httpsUrl)"><a class="toc-link" href="/ns-archive-crypto-net-log" aria-current="page">archive.*, crypto.*, net.* &amp; log.*</a></li>
+            <li data-toc-item="1" data-toc-search="proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.* Windows, MSI SQL &amp; Native FFI proc ffi rm RestartManager Token.Desktop shortcut shell env appendPath arp svc task firewall acl Token.Desktop proc.isRunning(exeName) proc.run(exe, args?, wait?, hidden?, token?, workDir?) proc.getLockingProcesses(filePaths) proc.restartManagerShutdown(filePaths, force?) proc.restartManagerRestart() ffi.call(dllName, funcName, returnType, args) shortcut.create(location, name, target, ...) shell.registerFileType(ext, progId, description, target, ...) shell.registerProtocol(scheme, description, targetExe) env.appendPath(dirToAdd, scope?) arp.register(options?) arp.setSystemComponent(productId, hidden, scope?) svc.install(serviceName, binPath, displayName?, startType?) task.createWeekly(taskName, exePath, args?, day?, time?) firewall.allowProgram(ruleName, exePath, direction?) acl.grantModify(targetDir, trusteeSid?)"><a class="toc-link" href="/ns-proc-ffi-rm-system">proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.*</a></li>
+            <li data-toc-item="1" data-toc-search="msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes Windows, MSI SQL &amp; Native FFI msi sql execSql query createDatabase generateTransform mst msp prereq dotnet11 webview2 vcredist msi.isUpgradeInstalled(upgradeCodeGuid) msi.install(msiPath, properties?, silent?, logFile?) msi.applyPatch(mspPath, productCode?, cmdLine?) msi.createDatabase(msiPath) msi.listTables(msiPath) msi.query(msiPath, selectSql) msi.execSql(msiPath, sqlOrBatchArray) msi.getProperty(msiPath, propName, fallback?) msi.setProperty(msiPath, propName, value) msi.setSummary(msiPath, summaryMap) msi.generateTransform(baselineMsi, customizedMsi, outMst) prereq.isDotNetDesktopInstalled(majorVer?, minVer?) prereq.isWebView2Installed() prereq.installPreset(presetId, extraSilentArgs?)"><a class="toc-link" href="/ns-msi-and-prereq">msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Wizard UI &amp; Studio Sandboxes (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI Wizard UI &amp; Studio Sandboxes ui wizard showcase welcome license folderPicker textBox checkbox radioCards comboBox featureTree readySummary taskDialog FluentMica ui.welcome(title, subtitle?, body?) ui.license(text, acceptText, bind: ref boolVar) ui.folderPicker(label, bind: ref pathVar, minFreeMB?) ui.textBox(label, bind: ref strVar, when?, validate?) ui.checkbox(text, bind: ref boolVar, subtitle?, when?) ui.radioCards(label, bind: ref strVar, options) ui.comboBox(label, bind: ref var, items) ui.featureTree(heading?) ui.readySummary(heading?, showUacShield?) ui.taskDialog(...) ui.progress(percent, statusText?, detailText?) wizard.cancel() showcase.navigate(pageId)"><a class="toc-link" href="/ns-ui-and-wizard">ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI</a></li>
+            <li data-toc-item="1" data-toc-search="Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*) Wizard UI &amp; Studio Sandboxes training scorm es2022 a11y contrastRatio sarif localization cps document pdf-ua launcher help training.setScore(scorePct, maxScore?) training.branchTo(targetSlideId) a11y.contrastRatio(fgHex, bgHex) a11y.reportViolation(ruleId, targetId, message) localization.hasToken(text, token) localization.cps(cueText, durationSeconds) document.bindField(fieldName, value) launcher.selectChannel(ringSlug) help.routeContextId(contextId, topicSlug)"><a class="toc-link" href="/studio-sandbox-profiles">Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Bytecode ISA (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Diagnostics Reference (RSW700 – RSW715) Diagnostics &amp; Bytecode ISA diagnostics errors RSW700 RSW701 RSW702 RSW704 RSW710 RSW711 RSW712 RSW713 RSW714 RSW715 RSW700 (Syntax / Preprocessor Error) RSW701 (Wizard Phase Isolation) RSW702 (Capability Sandbox Violation) RSW704 (Bytecode SHA-256 Tamper Gate) RSW710 (Undeclared Identifier) RSW711 (Static Type Mismatch) RSW712 (Arity / Unknown Method) RSW713 (Immutability / CLI Lock Violation) RSW714 (Unknown Struct Field / Enum Variant) RSW715 (Missing Return / Loop Control)"><a class="toc-link" href="/diagnostics-reference">Diagnostics Reference (RSW700 – RSW715)</a></li>
+            <li data-toc-item="1" data-toc-search="RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec Diagnostics &amp; Bytecode ISA bytecode RSWBC2 opcodes stack-vm sha256 rollback rswbak journal"><a class="toc-link" href="/bytecode-and-rollback">RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+    </aside>
+    <main id="main-doc" class="learn-article" tabindex="-1">
+      <nav class="learn-breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">RaggieScript</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span>Windows, MSI SQL &amp; Native FFI</span>
+      </nav>
+      <div class="learn-meta-bar">
+        <span class="meta-pill">3 min read</span>
+        <span class="meta-pill">Module: <code>raggiesoft.raggiescript</code></span>
+        <span class="meta-pill">F1: <code>IDH_RSSC_NS_ARCHIVE (0x200A)</code></span>
+      </div>
+<h1 id="ns-archive-crypto-net-log"><code>archive.*</code>, <code>crypto.*</code>, <code>net.*</code> &amp; <code>log.*</code></h1>
+<h2 id="archive-namespace"><code>archive.*</code> — <code>LZMS</code> <code>.rswpak</code> &amp; <code>.zip</code> Packaging (<code>4</code> Methods)</h2>
+<p>RaggieSoft's <code>.rswpak</code> format uses Windows 11's native <strong><code>COMPRESS_ALGORITHM_LZMS</code></strong> (<code>cabinet.dll</code>) solid block compression paired with a 32-byte SHA-256 integrity header:</p>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Mutating?</th><th scope="col">Description</th></tr></thead><tbody>
+<tr><td><code>archive.extractZip</code></td><td><code>archive.extractZip(zipFile: path, destDir: path)</code></td><td><code>int</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Extracts a standard <code>.zip</code> archive into <code>destDir</code> (rollback-tracked), returning file count.</td></tr>
+<tr><td><code>archive.createPak</code></td><td><code>archive.createPak(sourceDir: path, outPakFile: path)</code></td><td><code>string</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Compresses <code>sourceDir</code> into an <code>LZMS</code> <code>.rswpak</code> container and returns its 64-char hex SHA-256 digest.</td></tr>
+<tr><td><code>archive.extractPak</code></td><td><code>archive.extractPak(pakFile: path, destDir: path, expectedSha256?: string)</code></td><td><code>int</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Verifies optional <code>expectedSha256</code> + internal <code>RSWPAK1</code> digest and extracts files into <code>destDir</code>.</td></tr>
+<tr><td><code>archive.downloadPak</code></td><td><code>archive.downloadPak(httpsUrl: string, destDir: path, expectedSha256?: string, verifyAuthenticode?: bool)</code></td><td><code>int</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Streams a remote on-demand feature pack over TLS 1.2/1.3 <code>WinHTTP</code>, verifies SHA-256 BEFORE unpacking, and extracts into <code>destDir</code>.</td></tr>
+</tbody></table></div>
+<h2 id="crypto-namespace"><code>crypto.*</code> — CNG <code>bcrypt.dll</code> Hashing, UUIDv5 &amp; Authenticode (<code>7</code> Methods)</h2>
+<p>All <code>crypto.*</code> methods are <strong>100% Read-Only &amp; Wizard-Safe</strong>, implemented directly against Windows <code>bcrypt.dll</code> and <code>wintrust.dll</code> with zero OpenSSL DLL dependencies:</p>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Description</th></tr></thead><tbody>
+<tr><td><code>crypto.sha256</code></td><td><code>crypto.sha256(text: string)</code></td><td><code>string</code></td><td>Computes lowercase 64-char hex SHA-256 of UTF-8 <code>text</code>.</td></tr>
+<tr><td><code>crypto.sha256Text</code></td><td><code>crypto.sha256Text(text: string)</code></td><td><code>string</code></td><td>Explicit alias for <code>crypto.sha256(text)</code>.</td></tr>
+<tr><td><code>crypto.sha256File</code></td><td><code>crypto.sha256File(file: path)</code></td><td><code>string</code></td><td>Streams <code>file</code> in 64 KB chunks through <code>BCRYPT_SHA256_ALGORITHM</code> and returns 64-char hex SHA-256.</td></tr>
+<tr><td><code>crypto.crc32Text</code></td><td><code>crypto.crc32Text(text: string)</code></td><td><code>int</code></td><td>Computes unsigned IEEE 802.3 CRC-32 checksum of <code>text</code>.</td></tr>
+<tr><td><code>crypto.newGuid</code></td><td><code>crypto.newGuid()</code></td><td><code>string</code></td><td>Generates a random uppercase <code>{GUID}</code> via <code>BCryptGenRandom</code>.</td></tr>
+<tr><td><code>crypto.uuid5</code></td><td><code>crypto.uuid5(name: string, namespaceGuid?: string)</code></td><td><code>string</code></td><td>Generates deterministic RFC 4122 SHA-1 UUIDv5 <code>{GUID}</code> for reproducible MSI Component GUIDs.</td></tr>
+<tr><td><code>crypto.verifyAuthenticode</code></td><td><code>crypto.verifyAuthenticode(peFile: path)</code></td><td><code>bool</code></td><td>Verifies Microsoft Authenticode / Azure Artifact Signing chain via <code>WinVerifyTrust</code>.</td></tr>
+</tbody></table></div>
+<h2 id="net-namespace"><code>net.*</code> — Native TLS 1.2 / 1.3 <code>WinHTTP</code> Client (<code>4</code> Methods)</h2>
+<p><code>net.*</code> uses the OS-integrated <code>winhttp.dll</code> stack (automatically honoring enterprise Windows proxy auto-config / WPAD and OS certificate stores) and requires <code>use installer;</code> (<code>RSW702</code> blocked in sandboxed profiles):</p>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Description</th></tr></thead><tbody>
+<tr><td><code>net.download</code></td><td><code>net.download(httpsUrl: string, destFile: path, expectedSha256?: string)</code></td><td><code>bool</code></td><td>Downloads <code>httpsUrl</code> to <code>destFile</code> with live UI progress; deletes <code>destFile</code> and returns <code>false</code> if <code>expectedSha256</code> mismatches!</td></tr>
+<tr><td><code>net.getText</code></td><td><code>net.getText(httpsUrl: string)</code></td><td><code>string</code></td><td>Performs an HTTPS <code>GET</code> and returns the UTF-8 response body.</td></tr>
+<tr><td><code>net.getJson</code></td><td><code>net.getJson(httpsUrl: string)</code></td><td><code>any</code></td><td>Fetches and parses a remote HTTPS JSON manifest (<code>catalog.json</code>, release channels, etc.).</td></tr>
+<tr><td><code>net.probe</code></td><td><code>net.probe(httpsUrl: string)</code></td><td><code>bool</code></td><td>Performs a fast 4-second <code>HEAD</code>/<code>GET</code> reachability probe (<code>true</code> on HTTP <code>200..299</code>).</td></tr>
+</tbody></table></div>
+<h2 id="log-namespace"><code>log.*</code> — Structured Setup &amp; Audit Logging (<code>4</code> Methods)</h2>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Description</th></tr></thead><tbody>
+<tr><td><code>log.info</code></td><td><code>log.info(message: string)</code></td><td><code>null</code></td><td>Appends timestamped <code>[INFO]</code> entry to the setup log.</td></tr>
+<tr><td><code>log.warn</code></td><td><code>log.warn(message: string)</code></td><td><code>null</code></td><td>Appends timestamped <code>[WARN]</code> entry to the setup log.</td></tr>
+<tr><td><code>log.warning</code></td><td><code>log.warning(message: string)</code></td><td><code>null</code></td><td>Alias for <code>log.warn(message)</code>.</td></tr>
+<tr><td><code>log.error</code></td><td><code>log.error(message: string)</code></td><td><code>null</code></td><td>Appends timestamped <code>[ERROR]</code> entry to the setup log.</td></tr>
+</tbody></table></div>
+
+      <section class="topic-symbols-box" aria-label="Indexed API Symbols on This Page">
+        <strong style="font-size:0.88rem;">Indexed API Calls &amp; Symbols on This Page (10):</strong>
+        <div class="symbol-chip-grid">
+          <a class="symbol-chip" href="#archive-namespace"><code>archive.extractZip(zipFile, destDir)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#archive-namespace"><code>archive.createPak(sourceDir, outPakFile)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#archive-namespace"><code>archive.extractPak(pakFile, destDir, expectedSha256?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#archive-namespace"><code>archive.downloadPak(url, destDir, expectedSha256?, verifySig?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#crypto-namespace"><code>crypto.sha256File(file)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#crypto-namespace"><code>crypto.uuid5(name, nsGuid?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#crypto-namespace"><code>crypto.verifyAuthenticode(peFile)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#net-namespace"><code>net.download(httpsUrl, destFile, expectedSha256?)</code><span class="badge-tag">Network</span></a>
+          <a class="symbol-chip" href="#net-namespace"><code>net.getJson(httpsUrl)</code><span class="badge-tag">Network</span></a>
+          <a class="symbol-chip" href="#net-namespace"><code>net.probe(httpsUrl)</code><span class="badge-tag">Network</span></a>
+        </div>
+      </section>
+      <nav class="learn-pager" aria-label="Article Pagination">
+        <a class="pager-card" href="/ns-fs-and-reg"><span class="pager-kicker">&larr; Previous</span><span class="pager-title">fs.* &amp; reg.* — Transactional Filesystem &amp; Registry</span></a>
+        <a class="pager-card is-next" href="/ns-proc-ffi-rm-system"><span class="pager-kicker">Next &rarr;</span><span class="pager-title">proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.*</span></a>
+      </nav>
+    </main>
+    <aside class="learn-right-rail" aria-label="In this article">
+      <h2 class="outline-heading">In this article</h2>
+      <ul class="outline-list">
+        <li><a class="outline-link lvl-2" href="#archive-namespace">archive.* — LZMS .rswpak &amp; .zip Packaging (4 Methods)</a></li>
+        <li><a class="outline-link lvl-2" href="#crypto-namespace">crypto.* — CNG bcrypt.dll Hashing, UUIDv5 &amp; Authenticode (7 Methods)</a></li>
+        <li><a class="outline-link lvl-2" href="#net-namespace">net.* — Native TLS 1.2 / 1.3 WinHTTP Client (4 Methods)</a></li>
+        <li><a class="outline-link lvl-2" href="#log-namespace">log.* — Structured Setup &amp; Audit Logging (4 Methods)</a></li>
+      </ul>
+    </aside>
+  </div>
+  <dialog id="rsh-search-modal" class="search-modal" aria-labelledby="rsh-search-modal-title">
+    <div class="search-modal-head">
+      <label id="rsh-search-modal-title" for="rsh-modal-input" style="font-weight:700;white-space:nowrap;">Search</label>
+      <input id="rsh-modal-input" class="search-modal-input" type="search" placeholder="Search every function, namespace, diagnostic, or topic..." autocomplete="off" />
+      <button type="button" id="rsh-close-search" class="doc-theme-btn">Esc</button>
+    </div>
+    <div id="rsh-modal-results" class="search-modal-body" aria-live="polite"></div>
+  </dialog>
+  <footer class="doc-footer">
+    <p><strong>RaggieScript v1.0.0</strong> &bull; Compiled directly from plain-text <code>.rshp</code> + Markdown sources by <strong>RaggieSoft Help Studio v0.6.0</strong> (WCAG 2.2 Level AA &amp; Revised Section 508 Verified; Code: <strong>MIT License</strong> &bull; Creative Content: <strong>CC BY-SA 4.0</strong>).</p>
+    <p>Fictitious Persons &amp; Entities Disclaimer: All narrative characters (including Zoe and Fin#), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events referenced across RaggieSoft sample content packs are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+  </footer>
+  <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261127" defer></script>
+  <script src="/portal.js" defer></script>
+</body>
+</html>

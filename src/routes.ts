@@ -48,20 +48,65 @@ const FICTITIOUS_DISCLAIMER =
 function renderHomeBody(): string {
   return `
     <section class="hero" aria-labelledby="dev-hero">
-      <span class="eyebrow">Open-Source Software • Native Compilers • 8-Tool Studio • RaggieSoft Labs</span>
-      <h1 id="dev-hero">raggiesoft.dev — Software, Compiler &amp; Systems Engineering Hub</h1>
+      <span class="eyebrow">The Code Behind RaggieSoft's Projects • 100% Open Source (MIT Code • CC BY-SA 4.0 Creative)</span>
+      <h1 id="dev-hero">raggiesoft.dev — The Open-Source Code Behind RaggieSoft's Projects</h1>
       <p class="lead">
-        Explore RaggieSoft's <strong>8-product Windows 11 <code>x64</code> &amp; <code>ARM64</code> Studio suite</strong>,
-        capability-sandboxed <strong><code>RaggieScript</code> (<code>.rssc</code>)</strong> bytecode engine, experimental
-        <strong><a href="/labs/finsharp"><code>Fin#</code> (<em>Financial Sharp</em>)</a></strong> linear-type accounting compiler,
-        zero-database web frameworks, and deterministic AI agent specifications (<code>llms.txt</code> &amp; <code>SKILL.md</code>).
+        Every RaggieSoft software engine, compiler, desktop workstation, and web framework is <strong>100% open source under the
+        MIT License</strong>, paired with <strong>CC BY-SA 4.0</strong> across our novels, music, and worldbuilding. Each language
+        and engineering stack gets its own dedicated <strong><code>&lt;project&gt;.raggiesoft.dev</code></strong> portal—starting with
+        <strong><a href="https://raggiescript.raggiesoft.dev"><code>raggiescript.raggiesoft.dev</code></a></strong> and
+        <strong><a href="https://finsharp.raggiesoft.dev"><code>finsharp.raggiesoft.dev</code></a></strong> (both dogfooded &amp;
+        compiled by <strong>RaggieSoft Help Studio v0.6.0</strong>!).
       </p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="/labs">Explore RaggieSoft Labs &amp; Fin# &rarr;</a>
+        <a class="btn btn-primary" href="https://raggiescript.raggiesoft.dev">RaggieScript Docs (raggiescript.raggiesoft.dev) &rarr;</a>
+        <a class="btn btn-outline" href="https://finsharp.raggiesoft.dev">Fin# Docs (finsharp.raggiesoft.dev) &rarr;</a>
+        <a class="btn btn-outline" href="/labs">RaggieSoft Labs</a>
         <a class="btn btn-outline" href="https://raggiesoftstudio.com">RaggieSoft Studio (8 Tools)</a>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">RaggieScript (.rssc)</a>
-        <a class="btn btn-outline" href="/ai-skills">llms.txt &amp; Agent Skills</a>
         <a class="btn btn-outline" href="https://github.com/raggiesoft">GitHub (@raggiesoft)</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="subdomains-heading" style="margin-bottom: 2rem;">
+      <span class="eyebrow">Dogfooded Standalone Learn Portals • Compiled by Help Studio v0.6.0 (rshbuild.exe)</span>
+      <h2 id="subdomains-heading" style="margin-top: 0.25rem;">Live <code>*.raggiesoft.dev</code> Language &amp; API Portals</h2>
+      <div class="lab-grid-2x2">
+        <article class="card" style="border: 2px solid var(--primary);">
+          <div>
+            <span class="eyebrow">Canonical Language Reference • 16 Chapters • 140+ Indexed Calls</span>
+            <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.0 (<code>.rssc</code>)</h3>
+            <p>
+              Complete <code>learn.microsoft.com</code>-style reference documenting every function, property, enum constant,
+              declarative Win32 Wizard UI control, <code>RSWBC2</code> opcode, and <code>RSW700</code>&ndash;<code>RSW715</code>
+              diagnostic across all 21 RaggieScript namespaces—compiled directly from <code>raggiescript-docs.rshp</code> by
+              <code>rshbuild.exe</code> with instant <code>Ctrl+K</code> symbol search.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://raggiescript.raggiesoft.dev">Open RaggieScript Docs &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiescript.raggiesoft.dev/api-index.html">Master A&ndash;Z API Index</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">Studio Playground</a>
+          </div>
+        </article>
+
+        <article class="card" style="border: 2px solid var(--primary);">
+          <div>
+            <span class="eyebrow">From /books/aubrie Plot Device to Real MIT Language • 6 Chapters</span>
+            <h3><a href="https://finsharp.raggiesoft.dev">finsharp.raggiesoft.dev</a> — Fin# (<em>Financial Sharp</em> / <code>finsc</code>)</h3>
+            <p>
+              Standalone language specification &amp; conservation reference for <code>Fin#</code>—tracing how a plot device
+              co-developed for Zo&euml; Wren Brooks and Jordan Fuller in
+              <a href="https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin"><em>The Eleventh Child</em> (<code>/books/aubrie</code>)</a>
+              became a real MIT-licensed linear-type <code>.NET</code> financial language enforcing Conservation of Capital
+              (<code>FIN0001</code>&ndash;<code>FIN0005</code>).
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://finsharp.raggiesoft.dev">Open Fin# Docs &rarr;</a>
+            <a class="btn btn-outline" href="https://finsharp.raggiesoft.dev/origin-in-aubrie.html">Origin in /books/aubrie</a>
+            <a class="btn btn-outline" href="/labs/finsharp">Interactive Simulator</a>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -106,8 +151,9 @@ function renderHomeBody(): string {
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="/labs/finsharp">Open Fin# Compiler Lab &rarr;</a>
-            <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">llms-finsharp.txt</a>
+            <a class="btn btn-primary" href="https://finsharp.raggiesoft.dev">Fin# Docs Portal &rarr;</a>
+            <a class="btn btn-outline" href="/labs/finsharp">Compiler Simulator</a>
+            <a class="btn btn-outline" href="https://books.raggiesoft.com/aubrie">Read /books/aubrie</a>
           </div>
         </article>
 
@@ -123,7 +169,8 @@ function renderHomeBody(): string {
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Language Hub &amp; Playground</a>
+            <a class="btn btn-primary" href="https://raggiescript.raggiesoft.dev">Full Docs (raggiescript.raggiesoft.dev) &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">Playground</a>
             <a class="btn btn-outline" href="/raggiescript/llms-raggiescript.txt">llms-raggiescript.txt</a>
           </div>
         </article>
@@ -134,7 +181,7 @@ function renderHomeBody(): string {
             <h3>RaggieSoft Studio Compliance, Help, Training &amp; Docs</h3>
             <p>
               Alongside Installer &amp; Showcase Studio: <strong>Accessibility Studio v1.0.0</strong> (.NET 11 + Monaco + SARIF CLI),
-              <strong>Help Studio v0.5.0</strong> (static <code>/MT</code> C++20 <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompiler + <code>&lt;5ms</code> <code>F1</code> IPC),
+              <strong>Help Studio v0.6.0</strong> (static <code>/MT</code> C++20 <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompiler, standalone <code>*.raggiesoft.dev</code> Learn website compiler, &amp; <code>&lt;5ms</code> <code>F1</code> IPC),
               <strong>Training Studio v0.5.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Document Studio</strong>
               (Tagged <code>PDF/UA-1</code>), <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
             </p>
@@ -322,9 +369,10 @@ function renderFinSharpLabBody(): string {
         errors</strong>.
       </p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="#finsc-simulator">Try Interactive finsc Compiler Simulator &darr;</a>
-        <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">Open Cold-Start Compiler Spec (llms-finsharp.txt)</a>
-        <a class="btn btn-outline" href="/labs">&larr; All RaggieSoft Labs</a>
+        <a class="btn btn-primary" href="https://finsharp.raggiesoft.dev">Open Full Fin# Docs (finsharp.raggiesoft.dev) &rarr;</a>
+        <a class="btn btn-outline" href="#finsc-simulator">Try Interactive finsc Simulator &darr;</a>
+        <a class="btn btn-outline" href="https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin">Read &ldquo;The Birth of Fin#&rdquo; in /books/aubrie &nearr;</a>
+        <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">llms-finsharp.txt</a>
       </div>
     </section>
 
@@ -905,15 +953,18 @@ export function renderDevPage(routePath: string): { html: string } {
       <div class="footer-inner">
         <div class="footer-links">
           <a href="/">Engineering Hub</a>
+          <a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a>
+          <a href="https://finsharp.raggiesoft.dev">finsharp.raggiesoft.dev</a>
           <a href="/labs">RaggieSoft Labs</a>
           <a href="/labs/finsharp">Fin# (Financial Sharp) Lab</a>
+          <a href="https://books.raggiesoft.com/aubrie">The Eleventh Child (/books/aubrie)</a>
           <a href="/repositories">GitHub Repositories</a>
           <a href="/ai-skills">llms.txt &amp; AI Skills</a>
           <a href="/notes">Dev Notes</a>
           <a href="/llms.txt">/llms.txt</a>
           <a href="https://raggiesoftstudio.com">RaggieSoft Studio (8 Tools)</a>
           <a href="https://raggiesoftstudio.com/editions">Studio Editions</a>
-          <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript (.rssc)</a>
+          <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript Playground</a>
           <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.5.0)</a>
           <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.0)</a>
           <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
@@ -923,7 +974,7 @@ export function renderDevPage(routePath: string): { html: string } {
           <a href="https://raggiesoft.com/about/ai-disclaimer">AI &amp; Creative Process | RaggieSoft Governance</a>
         </div>
         <p>
-          Copyright &copy; 2026 Michael P. Ragsdale / RaggieSoft. Open-source software licensed under the MIT License.
+          Copyright &copy; 2026 Michael P. Ragsdale / RaggieSoft. All RaggieSoft code is open source under the <strong>MIT License</strong>; all creative and narrative works are licensed under <strong>CC BY-SA 4.0</strong>.
         </p>
         <p class="disclaimer-box">${FICTITIOUS_DISCLAIMER}</p>
       </div>

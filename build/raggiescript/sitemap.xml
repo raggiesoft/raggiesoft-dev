@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://raggiescript.raggiesoft.dev/</loc><priority>1.0</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/cli-and-sdk</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/syntax-and-preprocessor</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/types-structs-enums</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/headers-and-phases</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/builtins-and-constants</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/ns-sys</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/ns-data-and-text</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/ns-fs-and-reg</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/ns-archive-crypto-net-log</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/ns-proc-ffi-rm-system</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/ns-msi-and-prereq</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/ns-ui-and-wizard</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/studio-sandbox-profiles</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/diagnostics-reference</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/bytecode-and-rollback</loc><priority>0.85</priority></url>
+  <url><loc>https://raggiescript.raggiesoft.dev/api-index</loc><priority>0.90</priority></url>
+</urlset>

@@ -1,0 +1,16 @@
+# Fin# (Financial Sharp) (v0.1.0) — Documentation & API Index
+
+> Linear-type double-entry financial programming language, conservation-of-capital type checker (FIN0001-FIN0005), and .NET compiler blueprint born in The Eleventh Child (/books/aubrie).
+> Compiled by RaggieSoft Help Studio v0.6.0 (MIT Code / CC BY-SA 4.0 Docs)
+
+## Full Machine-Readable Corpus
+- [Complete Concatenated Reference (llms-full.txt)](https://finsharp.raggiesoft.dev/llms-full.txt)
+- [Master A-Z API & Symbol Index](https://finsharp.raggiesoft.dev/api-index)
+
+## Chapters & Reference Topics
+- [Welcome to Fin# (Financial Sharp)](https://finsharp.raggiesoft.dev/): Why imperative scalars break accounting, how Fin# enforces Conservation of Capital at compile time, and 60-second tour.
+- [Origin Story: From /books/aubrie Plot Device to Real Language](https://finsharp.raggiesoft.dev/origin-in-aubrie): How Fin# began as a story scene in The Eleventh Child (/books/aubrie) with Zoë Wren Brooks and Jordan Fuller before becoming a real open-source language.
+- [Linear Resource Types (Capital<T>, Account<K, T> & Move Semantics)](https://finsharp.raggiesoft.dev/linear-capital-types): Linear no-cloning/no-dropping rules, 128-bit scaled fixed-point arithmetic (FIN0003), and ISO 4217 dimension-typed currencies (FIN0004).
+- [Ledgers, Accounts, Atomic Transactions & Z-SOX-302 Proofs](https://finsharp.raggiesoft.dev/ledgers-and-transactions): Luca Pacioli's 1494 accounting identity, ledger/account declarations, debit/credit blocks, FloorWithRemainder splits, and FX settlement bridges.
+- [finsc CLI, Standard Library (capital.*, fx.*, audit.*) & .NET Architecture](https://finsharp.raggiesoft.dev/stdlib-and-cli): Complete reference for every Fin# standard-library call, finsc CLI command, Mini-Roslyn C# compiler pipeline, and candidate Fin# Studio workstation.
+- [Compiler Diagnostics Reference (FIN0001 – FIN0005)](https://finsharp.raggiesoft.dev/diagnostics-reference): Detailed guide with failing and passing .fin examples for FIN0001 through FIN0005 compile-time conservation diagnostics.

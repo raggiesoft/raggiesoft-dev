@@ -1,0 +1,1395 @@
+# RaggieScript v1.0.0 — Complete Technical Reference (llms-full.txt)
+
+> Complete language, gradual type system, 21-namespace Standard Library, Declarative Win32 Wizard UI, RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
+
+================================================================================
+TOPIC: Welcome & 60-Second Quick Start [welcome] (Getting Started)
+================================================================================
+
+# Welcome to RaggieScript v1.0 (`.rssc`) {#welcome}
+
+**RaggieScript (`v1.0.0`, `.rssc`)** is RaggieSoft's open-source (**MIT License**), gradually typed, capability-sandboxed curly-brace scripting language, declarative Win32 Wizard UI engine, and multi-target SDK powering all eight **RaggieSoft Studio** developer tools and standalone zero-dependency Windows `x64` and `ARM64` micro-applications.
+
+> [!TIP] Press `Ctrl+K` (or `/`) anywhere on **raggiescript.raggiesoft.dev** to search every namespace, function signature, property, and `RSW700`–`RSW715` diagnostic instantaneously, or browse the [Master A–Z API Index](api-index.html).
+
+## Why RaggieScript Exists {#why-raggiescript}
+
+Traditional setup scripting systems force an unpleasant choice between cryptic relational database custom actions, fragile batch/PowerShell wrappers that break on locked corporate machines, or proprietary Domain-Specific Languages lacking modern types, closures, formatters, and Language Servers.
+
+RaggieScript solves those pain points from first principles:
+
+1. **Familiar Curly-Brace Syntax with Gradual Static Types**: Write clean `let` / `const` code with automatic type inference, or annotate `struct`, `enum`, `fn`, `path`, and `version` (`v"10.0.22000"`) types checked in under `1 ms` (`RSW710`–`RSW715`).
+2. **Compile-Time Wizard Phase Isolation (`RSW701`) & Commit-Time Deferred UAC**: The compiler statically proves `wizard { ... }` cannot mutate files, Registry keys, or services—allowing `uac: Uac.Deferred` setups to run their entire interactive wizard un-elevated (`asInvoker`) and request UAC elevation only at commit time when the user clicks **Install**.
+3. **Compile-Time Capability Sandboxing (`RSW702`)**: A script declaring `use training;` or `use a11y;` is mathematically prevented at compile time from calling `fs.*`, `reg.*`, `proc.*`, `msi.*`, `ffi.*`, or `net.*`.
+4. **Automatic LIFO Transactional Rollback (`.rsw-rollback.jnl`)**: Every mutating call inside `install { ... }` backs up overwritten files to `.rswbak` and journals previous Registry/service/shortcut states before mutating, rewinding automatically if an error or user cancellation occurs.
+5. **Three Verified Execution Targets from One Grammar**:
+   - **Native Static `/MT` Win32 C++20 Stack VM (`RSWBC2`)** (`x64` & `ARM64`, zero external DLLs)
+   - **Managed `.NET` SDK (`RaggieScript.Core`)** for Accessibility, Localization, Document, and Launcher Studio
+   - **CSP-Safe `ES2022` JavaScript Module Transpiler** (`transpile-es2022`) for SCORM 1.2 & 2004 courses in Training Studio
+
+## 60-Second Quick Start {#quick-start}
+
+Create `hello-setup.rssc` and verify, compile, or pack it into a standalone Windows `.exe`:
+
+```rssc
+use installer;
+
+package "Sainte-Claire Patch Librarian" {
+    id:        "RaggieSoft.SainteClaireLibrarian";
+    version:   v"1.4.0";
+    publisher: "RaggieSoft";
+    scope:     Scope.Machine;
+    uac:       Uac.Deferred;
+    style:     WizardStyle.FluentMica;
+}
+
+param installDir: path = sys.programFiles / "RaggieSoft" / "Patch Librarian";
+param acceptEula: bool = false;
+
+wizard {
+    step Welcome {
+        ui.welcome(
+            title:    "Welcome to ${product.name}",
+            subtitle: "Detected Silicon: ${sys.arch()} (Windows Build ${sys.osBuild()})",
+            body:     "This setup installs ${product.name} v${product.version}."
+        );
+    }
+    step License {
+        ui.license(
+            text:       "MIT License — Copyright (c) 2026 RaggieSoft.",
+            acceptText: "I &accept the license terms",
+            bind:       ref acceptEula
+        );
+    }
+    step Destination {
+        ui.folderPicker(label: "&Destination folder:", bind: ref installDir, minFreeMB: 50);
+    }
+    step Ready {
+        ui.readySummary(heading: "Ready to Install ${product.name}", showUacShield: !sys.isAdmin());
+    }
+}
+
+install {
+    ui.progress(30, "Creating installation directory...");
+    fs.mkdir(installDir);
+    fs.writeJson(installDir / "install-receipt.json", {
+        product: product.name,
+        version: product.version,
+        arch:    sys.arch()
+    });
+    reg.writeString(Hive.HKLM, r"Software\RaggieSoft\PatchLibrarian", "InstallDir", str(installDir));
+    ui.progress(100, "Installation complete.");
+}
+```
+
+Run the standalone CLI (`raggiescript.exe`):
+
+```powershell
+# 1. Type-check RSW701 Phase Isolation, RSW702 Sandbox & RSW710-RSW715 Types in <1 ms
+raggiescript.exe check hello-setup.rssc
+
+# 2. Format source while preserving 100% of // teaching comments
+raggiescript.exe fmt --write hello-setup.rssc
+
+# 3. Pack into a single zero-dependency native Windows .exe
+raggiescript.exe pack-exe hello-setup.rssc PatchLibrarianSetup.exe
+```
+
+## Dogfooded with RaggieSoft Help Studio {#dogfooded-help-studio}
+
+This entire documentation website (**raggiescript.raggiesoft.dev**) is authored as a plain-text `.rshp` manifest + Markdown topic tree and compiled directly by **RaggieSoft Help Studio (`rshbuild.exe` v0.6.0)**—emitting this responsive static website, our offline Windows `F1` viewer (`RaggieScriptHelp.exe`), `module.rshm.json`, `F1` Context-ID SDK headers, and an HTML5 VPAT 2.5 report from one single source of truth.
+
+## Standard Library Map (21 Namespaces) {#namespace-map}
+
+| Namespace | Capability Profile | Primary Role | Reference |
+| :--- | :--- | :--- | :--- |
+| [Global Built-Ins & Constants](builtins-and-constants.html) | Always Available | `str()`, `int()`, `path()`, `ver()`, `len()`, `assert()`, `def()`, `Scope`, `Uac`, `Hive`, `RegView` | [View Globals](builtins-and-constants.html) |
+| [`Validation.*` & `compile.*`](builtins-and-constants.html#validation-namespace) | Always / Build-Time | Field validation closures (`Validation.ok/error`) and bytecode-embedded JSON/text (`compile.json`) | [View Helpers](builtins-and-constants.html#validation-namespace) |
+| [`payload.*` & `feature.*`](builtins-and-constants.html#feature-namespace) | `use installer;` | Feature selection states (`isSelected`, `selectPreset`) and staged payload paths | [View Features](builtins-and-constants.html#feature-namespace) |
+| [`sys.*`](ns-sys.html) | Always (Read) / `installer` (Reboot) | True `ARM64`/`x64` silicon (`IsWow64Process2`), un-shimmed `RtlGetVersion`, UAC, DPI, known folders | [View `sys.*`](ns-sys.html) |
+| [`str.*`, `regex.*`, `array.*`, `json.*`, `ini.*`, `xml.*`](ns-data-and-text.html) | Always (`ini`/`xml` writes require `installer`) | Strings, ECMAScript regex, closure `map`/`filter`, JSON, `.ini`, and XML config surgery | [View Data/Text](ns-data-and-text.html) |
+| [`fs.*` & `reg.*`](ns-fs-and-reg.html) | `use installer;` / `showcase` | Rollback-journaled filesystem, `RSWPAK1` extraction,Authenticode check, & stateless 64/32-bit Registry | [View `fs` & `reg`](ns-fs-and-reg.html) |
+| [`archive.*`, `crypto.*`, `net.*`, `log.*`](ns-archive-crypto-net-log.html) | `crypto`/`log` Always; `archive`/`net` Host | `LZMS` `.rswpak` archives, `bcrypt.dll` SHA-256 & UUIDv5, `WinHTTP` TLS 1.3 downloads, structured logs | [View Archive/Net](ns-archive-crypto-net-log.html) |
+| [`proc.*`, `ffi.*`, `rm.*`, `shortcut.*`, `shell.*`, `env.*`, `arp.*`, `svc.*`, `task.*`, `firewall.*`, `acl.*`](ns-proc-ffi-rm-system.html) | `use installer;` | `Token.Desktop` de-elevated launch, 64-bit DLL FFI, Restart Manager, services, firewall, NTFS ACLs | [View System APIs](ns-proc-ffi-rm-system.html) |
+| [`msi.*` & `prereq.*`](ns-msi-and-prereq.html) | `use installer;` | Direct 64-bit MSI relational SQL DDL/DML, `.mst` transforms, `MsiSetExternalUIRecord`, `.NET` 8–11 presets | [View `msi.*`](ns-msi-and-prereq.html) |
+| [`ui.*`, `wizard.*`, `showcase.*`](ns-ui-and-wizard.html) | `use ui;` / `installer` / `showcase` | 14 declarative in-window Win32 controls, `TaskDialogIndirect`, 11 themes, & Showcase canvas hotspots | [View `ui.*`](ns-ui-and-wizard.html) |
+| [`training.*`, `a11y.*`, `localization.*`, `document.*`, `launcher.*`, `help.*`](studio-sandbox-profiles.html) | Sandboxed Studio Profiles | SCORM 1.2/2004 branching, WCAG luminance contrast, XLIFF/WebVTT CPS gates, PDF/UA-1 fields, & `F1` routing | [View Studio APIs](studio-sandbox-profiles.html) |
+
+
+================================================================================
+TOPIC: CLI (raggiescript.exe), LSP, VS Code & SDKs [cli-and-sdk] (Getting Started)
+================================================================================
+
+# CLI (`raggiescript.exe`), LSP, VS Code & Multi-Target SDKs {#cli-and-sdk}
+
+`raggiescript.exe` is a single zero-dependency static `/MT` Win32 C++20 executable compiled natively for both **Windows 11 `ARM64`** and **Windows 11 `x64`**. It serves simultaneously as the compiler, type checker, formatter, JSON-RPC 2.0 Language Server, ES2022 transpiler, bytecode disassembler, runtime VM, and single-file `.exe` micro-app packager.
+
+## Command-Line Interface Reference (`raggiescript.exe`) {#cli-commands}
+
+| Subcommand | Syntax | Exit Codes | Description |
+| :--- | :--- | :--- | :--- |
+| `check` | `raggiescript.exe check [--diagnostics=json] <file.rssc> [-DKEY=VAL]` | `0` = Clean, `1` = Diagnostics, `2` = Bad CLI | Runs preprocessing, parsing, `RSW701` phase isolation, `RSW702` capability sandboxing, and `RSW710`–`RSW715` gradual type checking without executing code. |
+| `compile` | `raggiescript.exe compile <in.rssc> <out.rswbc> [-DKEY=VAL]` | `0` = Emitted, `1` = Error | Compiles `.rssc` source into a compact, `SHA-256`-authenticated `RSWBC2` linear stack bytecode binary. |
+| `disasm` | `raggiescript.exe disasm <in.rssc \| in.rswbc \| packed.exe>` | `0` = Printed, `1` = Tampered/Invalid | Disassembles `.rssc` source, `.rswbc` bytecode, or an embedded `#225` resource inside a packed `.exe` into human-readable constant pools and stack opcodes. |
+| `run` | `raggiescript.exe run <in.rssc \| in.rswbc> [--silent] [/l=log.txt] [KEY=VAL] [KEY:VAL]` | Script exit code (`0`, `3010`, `1602`, `1603`, etc.) | Executes the full `wizard` -> `install` (or top-level micro-app) lifecycle with automatic `.rsw-rollback.jnl` protection. |
+| `fmt` | `raggiescript.exe fmt [--write \| --check] <file.rssc>` | `0` = Formatted/Clean, `1` = Needs formatting | Canonicalizes 4-space indentation, brace spacing, and operator alignment while preserving **100%** of `//` and `/* */` comments (`fmt(fmt(x)) == fmt(x)`). |
+| `lsp` | `raggiescript.exe lsp` | `0` on `shutdown`/`exit` | Starts the JSON-RPC 2.0 Language Server over `stdin`/`stdout` (`Content-Length` framed) for VS Code and LSP-compatible IDEs. |
+| `transpile-es2022` | `raggiescript.exe transpile-es2022 <in.rssc> <out.mjs>` | `0` = Emitted, `1` = Capability/Type error | Compiles a sandboxed `use training;` script into a pure, zero-`eval()` ES2022 JavaScript module for SCORM 1.2 & 2004 web players. |
+| `pack-exe` | `raggiescript.exe pack-exe <in.rssc> <out.exe> [--support-dir=DIR] [--uac=LEVEL] [--icon=ICO]` | `0` = Packed, `1` = Error | Clones the native `raggiescript.exe` host, embeds `LZMS`-compressed `RSWBC2` bytecode (`#225`) + `RSWPAK1` payloads (`#220`), and stamps PE `VERSIONINFO`, `.ico`, and UAC manifest. |
+| `init` | `raggiescript.exe init [installer \| showcase \| training \| a11y \| app] [out.rssc]` | `0` = Created | Generates a heavily commented starter `.rssc` template for the chosen Studio profile. |
+
+## Soft Override (`KEY=VAL`) vs. IT Policy Hard-Lock (`KEY:VAL`) {#cli-property-locks}
+
+Every `param` declared in a RaggieScript setup is automatically bindable from the command line without writing manual `argv` parsers:
+
+```powershell
+# Soft Override ('='): sets initial default, but wizard UI or script logic may adjust it
+Setup.exe /s installDir="D:\Apps\Workbench" createDesktopLink=false
+
+# Hard IT Policy Lock (':'): locks the parameter immutably!
+# Wizard controls bound to 'installDir' are disabled, and script reassignment fails with RSW713!
+Setup.exe /s installDir:"C:\Program Files\LockedByEnterpriseIT\Workbench"
+```
+
+> [!IMPORTANT] Hard-locked `KEY:VALUE` properties are enforced by the VM runtime even if a script attempts to overwrite the variable later (`RSW713`), giving enterprise GPO deployments ironclad path and telemetry guarantees.
+
+## JSON Diagnostics Mode (`--diagnostics=json`) {#json-diagnostics}
+
+CI pipelines, `InstallerStudio.exe`, and AI coding agents can pass `--diagnostics=json` to receive deterministic structured output:
+
+```powershell
+raggiescript.exe check --diagnostics=json setup.rssc
+```
+
+```json
+{
+  "ok": false,
+  "file": "setup.rssc",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "RSW701",
+      "line": 18,
+      "column": 9,
+      "endColumn": 23,
+      "message": "Phase isolation violation: mutating call 'reg.writeString()' is forbidden inside 'wizard { ... }'."
+    }
+  ]
+}
+```
+
+## JSON-RPC 2.0 Language Server (`raggiescript.exe lsp`) {#lsp-server}
+
+The built-in LSP server implements the standard Language Server Protocol over `stdio` with zero Node.js runtime dependencies inside the server binary:
+
+- `initialize` / `shutdown` / `exit`
+- `textDocument/didOpen`, `textDocument/didChange`, `textDocument/didSave` -> live `textDocument/publishDiagnostics` (`RSW700`–`RSW715`)
+- `textDocument/completion` -> context-aware dot-member IntelliSense across all 21 namespaces (`fs.`, `msi.`, `ui.`, `sys.`, user `struct` fields, and `enum` variants)
+- `textDocument/hover` -> Markdown signature cards, parameter counts, return types, and `[Mutating]` / `[Read-Only]` safety annotations
+- `textDocument/definition` -> jump-to-definition for user `fn`, `struct`, `enum`, and `param` symbols
+- `textDocument/formatting` -> comment-preserving whole-document formatting
+
+## Embedding the C++20 & `.NET` SDKs {#embedding-sdks}
+
+### Native Static `/MT` C++20 Umbrella Header (`RaggieScriptSdk.hpp`) {#cpp-sdk}
+
+```cpp
+#include <raggiescript/RaggieScriptSdk.hpp>
+
+rsw::rssc::ScriptProgram prog;
+std::vector<rsw::rssc::ScriptDiagnostic> diags;
+if (rsw::rssc::CompileRaggieScriptFile(L"setup.rssc", prog, diags)) {
+    rsw::rssc::VmExecutionOptions opts{};
+    opts.silentMode = true;
+    rsw::rssc::RaggieScriptVm vm(prog, opts);
+    const auto result = vm.ExecuteFullLifecycle();
+}
+```
+
+### Managed `.NET` SDK (`RaggieScript.Core`) {#dotnet-sdk}
+
+```csharp
+using RaggieSoft.RaggieScript;
+
+if (RsscCompiler.Compile(sourceText, out var program, out var diagnostics))
+{
+    var runtime = new RsscManagedRuntime(program);
+    object? result = runtime.Invoke("auditBrandSwatch", swatchDictionary);
+}
+```
+
+
+================================================================================
+TOPIC: Lexical Grammar, Preprocessor & Expressions [syntax-and-preprocessor] (Language Reference)
+================================================================================
+
+# Lexical Grammar, Preprocessor & Expressions {#syntax-and-preprocessor}
+
+RaggieScript uses UTF-8 source files (`.rssc`) with C# / TypeScript-style curly-brace blocks, `;`-terminated statements, `//` line comments, and `/* ... */` block comments.
+
+## Compile-Time Preprocessor & `include` {#preprocessor}
+
+Before tokenization, RaggieScript resolves compile-time conditionals and modular `.rssc` includes:
+
+| Directive | Example | Behavior |
+| :--- | :--- | :--- |
+| `#define KEY VALUE` | `#define EDITION "Architect"` | Defines a compile-time macro constant readable via `def("KEY")` or `#ifdef`. |
+| `#ifdef KEY` / `#ifndef KEY` | `#ifndef BOOK_SLUG` | Includes block when `KEY` was (or was not) passed via `-DKEY=VAL` or `#define`. |
+| `#if` / `#elif` / `#else` / `#endif` | `#if TARGET_ARCH == "arm64"` | Conditional compilation supporting `==`, `!=`, `defined(KEY)`, `&&`, and `\|\|`. |
+| `include "rel/path.rssc";` | `include "../includes/common.rssc";` | Splices reusable helper functions, `struct`s, and `enum`s with cycle protection. |
+
+```rssc
+#ifndef RELEASE_RING
+#define RELEASE_RING "stable"
+#endif
+
+include "shared-enterprise-checks.rssc";
+const activeRing = def("RELEASE_RING", "stable");
+```
+
+## Literals (`string`, Raw `r"..."`, Single `'...'`, `SemVer` `v"..."`) {#literals}
+
+### 1. Interpolated Double-Quoted Strings (`"..."`) {#interpolated-strings}
+Double-quoted strings expand `${expr}` expressions automatically (calling `str(expr)` on any inner expression) and support `\n`, `\r`, `\t`, `\\`, `\"`, and `\$` escapes:
+
+```rssc
+const summary = "Installing ${product.name} on ${sys.arch()} (Build ${sys.osBuild()})";
+```
+
+### 2. Single-Quoted Non-Interpolated Strings (`'...'`) {#single-quoted-strings}
+Single-quoted strings do not expand `${...}` and can be nested cleanly inside `"${...}"` interpolations without escaping double quotes:
+
+```rssc
+log("Manufacturer: ${msi.getProperty(dbFile, 'Manufacturer')}");
+```
+
+### 3. Raw Windows Path & Registry Strings (`r"..."`) {#raw-strings}
+Prefixing a string with `r` disables backslash escape processing—ideal for Windows Registry keys, UNC shares, and regular expressions:
+
+```rssc
+const uninstallKey = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+```
+
+### 4. First-Class Semantic Version Literals (`v"..."` & Bare 3-Part Versions) {#semver-literals}
+Version literals parse into 4-part `Major.Minor.Build.Revision` 64-bit tuples so relational comparisons (`<`, `<=`, `>`, `>=`, `==`, `!=`) never suffer lexicographical `"10.0.9" > "10.0.22000"` string bugs:
+
+```rssc
+const minWin11: version = v"10.0.22000.0";
+if (sys.osVersion() >= minWin11) {
+    log.info("Windows 11 or newer verified.");
+}
+```
+
+### 5. Numbers, Booleans, Arrays & Maps {#collections-literals}
+- **Integers (`int`)**: 64-bit signed (`42`, `-1`, `500_000`, hex `0x1040`).
+- **Floats (`float`)**: 64-bit IEEE 754 (`4.5`, `0.25`).
+- **Booleans & Null**: `true`, `false`, `null`.
+- **Arrays (`array`)**: `[10, 20, 30]` (0-indexed, supports `+` concatenation).
+- **Maps (`map`)**: `{ host: "https://raggiesoftstudio.com", port: 443 }`.
+
+## Operators & Precedence (Highest to Lowest) {#operators}
+
+| Precedence | Operators | Description |
+| :--- | :--- | :--- |
+| 1 (Postfix) | `obj.prop`, `arr[i]`, `fn(a, name: b)` | Member access, indexing, positional & named call arguments |
+| 2 (Unary) | `!x`, `-x`, `ref varName` | Logical NOT, numeric negation, two-way mutable `ref` binding |
+| 3 (Multiplicative) | `*`, `/` (Path Join or Divide), `%` | When either operand is `path`, `a / b` joins path segments cleanly! |
+| 4 (Additive) | `+`, `-` | Numeric add/subtract, string concatenation, or `array + array` merge |
+| 5 (Relational) | `<`, `<=`, `>`, `>=` | Numeric or 4-part `version` (`SemVer`) comparison |
+| 6 (Equality) | `==`, `!=` | Deep structural value equality |
+| 7 (Logical) | `&&`, `\|\|` | Short-circuit boolean AND / OR |
+| 8 (Coalesce) | `lhs ?? rhs` | Evaluates to `rhs` when `lhs` is `null` or empty `""`; otherwise `lhs` |
+| 9 (Conditional) | `cond ? whenTrue : whenFalse` | Ternary conditional expression |
+| 10 (Assignment) | `=`, `+=`, `-=`, `*=`, `/=` | Mutable `let` / `param` assignment (`const` rejected by `RSW713`) |
+
+## Control-Flow Statements {#control-flow}
+
+```rssc
+// 1. if / elif / else
+if (sys.isArm64()) {
+    log.info("ARM64 silicon");
+} elif (sys.isX64()) {
+    log.info("x64 silicon");
+} else {
+    exit(EXIT_UNSUPPORTED_OS);
+}
+
+// 2. for-in over arrays or (key, value) over maps
+for (item in ["Core", "Docs"]) {
+    log.info(item);
+}
+for (k, v in { channel: "stable", ring: "1" }) {
+    log.info("${k}=${v}");
+}
+
+// 3. while & repeat-until loops (with break; and continue;)
+let attempts = 0;
+repeat {
+    attempts += 1;
+} until (attempts >= 3);
+
+// 4. Structured exception handling & setup exit codes
+try {
+    assert(sys.freeDiskMB(installDir) >= 100, "At least 100 MB free space is required.");
+} catch (err: string) {
+    ui.error("Pre-Flight Check Failed", err);
+    exit(1603);
+}
+```
+
+
+================================================================================
+TOPIC: Gradual Type System, struct, enum, match & Closures [types-structs-enums] (Language Reference)
+================================================================================
+
+# Gradual Type System, `struct`, `enum`, `match` & Closures {#types-structs-enums}
+
+RaggieScript v1.0 features a **gradual, type-inferred static type checker (`BindAndVerifyProgram`)**. Simple setup scripts can omit type annotations entirely and rely on local type inference, while larger engineering suites can annotate `struct` schemas, `enum` variants, and `fn` return contracts checked at compile time (`RSW710`–`RSW715`).
+
+## Built-In Primitive & Composite Types {#primitive-types}
+
+| Type Annotation | Runtime Representation | Assignability & Widening Notes |
+| :--- | :--- | :--- |
+| `int` | 64-bit signed integer (`int64_t`) | Widens automatically to `float`. |
+| `float` | 64-bit IEEE double (`double`) | Accepts both `float` and `int`. |
+| `bool` | Boolean (`true` / `false`) | Strict in relational comparisons (`RSW711` blocks `<` on `bool`). |
+| `string` | UTF-8 string | Interoperates cleanly with `path` and string-backed `enum` variants. |
+| `path` | Normalized filesystem path | Supports `/` path-join operator (`sys.programFiles / "RaggieSoft"` -> `path`). |
+| `version` | 4-part `SemVer` (`Major.Minor.Build.Rev`) | Compared component-wise (`v"10.0.22631" > v"10.0.22000"`). |
+| `array` | Ordered list (`T[]` shorthand accepted) | Indexed via `arr[i]`; supports `len(arr)`, `array.map`, `array.filter`. |
+| `map` | Key-value dictionary | Supports dot-property `m.key` and bracket `m["key"]` access. |
+| `ref T` | Mutable variable reference | Required by two-way Wizard UI `bind: ref myParam` slots (`const` blocked by `RSW713`). |
+| `any` | Gradual dynamic escape hatch | Compatible with any target or source type. |
+
+## User-Defined Records (`struct`) {#structs}
+
+`struct` declarations define strongly checked record types with optional default field values. Passing an unknown field name or wrong field type in a struct literal raises **`RSW714`** or **`RSW711`** at compile time (with a fuzzy `"Did you mean ...?"` suggestion!):
+
+```rssc
+struct EndpointConfig {
+    host:       string = "https://raggiesoftstudio.com";
+    port:       int    = 443;
+    tlsVerify:  bool   = true;
+}
+
+const prod = EndpointConfig {
+    port: 8443 // 'host' and 'tlsVerify' inherit their declared defaults!
+};
+```
+
+## Strongly-Typed Enumerations (`enum`) {#enums}
+
+`enum` declarations group named string or integer constants. Referencing a misspelled variant (`ReleaseRing.Stabel`) fails immediately at compile time with **`RSW714`**:
+
+```rssc
+enum ReleaseRing {
+    Stable  = "stable",
+    Preview = "preview",
+    Lts     = "lts"
+}
+
+param ring: ReleaseRing = ReleaseRing.Stable;
+```
+
+## Pattern Matching (`match`) {#match-expressions}
+
+`match` can be used as an **expression** (returning a value) or as a **statement**, with `_` (or `default`) serving as the wildcard catch-all arm:
+
+```rssc
+fn siliconBanner(arch: string) : string {
+    return match (arch) {
+        "arm64" => "Native Windows 11 ARM64 Build",
+        "x64"   => "Native Windows 11 x64 Build",
+        _       => "64-Bit Windows Build"
+    };
+}
+```
+
+## Functions (`fn`) & First-Class Arrow Closures (`=>`) {#functions-and-closures}
+
+User functions support typed parameters, default parameter expressions, return type annotations (verified on all control paths via **`RSW715`**), and mutual recursion.
+
+First-class arrow closures (`x => expr`, `(a: int, b: int) => expr`, or `() => { ... }`) capture lexical variables from outer scopes and compile to `MAKE_CLOSURE` opcodes in the `RSWBC2` stack VM:
+
+```rssc
+// 1. Named typed function with default argument
+fn formatPortEndpoint(host: string, port: int = 443) : string {
+    return "${host}:${port}";
+}
+
+// 2. First-class closure passed to ui.textBox(validate: ...) or array.filter(...)
+const minPort = 1024;
+const isValidServicePort = (raw: string) => {
+    const p = int(str.trim(raw));
+    return (p >= minPort && p <= 65535)
+        ? Validation.ok()
+        : Validation.error("Enter a TCP port between ${minPort} and 65535.");
+};
+
+const ports = [80, 443, 8080, 9443];
+const unprivileged = array.filter(ports, p => p >= minPort); // -> [8080, 9443]
+```
+
+
+================================================================================
+TOPIC: Package Headers, param, feature, payload & Phases [headers-and-phases] (Language Reference)
+================================================================================
+
+# Package Headers, `param`, `feature`, `payload` & Lifecycle Phases {#headers-and-phases}
+
+Every RaggieScript installer, Showcase launchpad, or standalone micro-app follows a deterministic lifecycle designed so **interactive UI never mutates the machine** and **system mutations always roll back cleanly on failure**.
+
+## Capability Declarations (`use <profile>;`) {#use-capabilities}
+
+At the top of a `.rssc` file, `use` statements declare which Studio host capabilities the script is permitted to invoke:
+
+- `use std;` — Core pure computation, strings, arrays, JSON, SemVer, and `sys.*` read-only queries (always implicitly available).
+- `use ui;` — Declarative Wizard UI controls and `TaskDialogIndirect` prompts.
+- `use installer;` — Full Windows packaging standard library (`fs.*`, `reg.*`, `msi.*`, `proc.*`, `ffi.*`, `svc.*`, `shortcut.*`, `arp.*`, `firewall.*`, `acl.*`).
+- `use showcase;` — Interactive Showcase Studio canvas pages, accessible hotspots, and captioned audio.
+- **Sandboxed Studio Profiles (`RSW702` enforced)**: `use training;`, `use a11y;`, `use localization;`, `use document;`, `use launcher;`, `use help;`.
+
+## Top-Level Header Blocks (`package`, `showcase`, `app`) {#package-header}
+
+```rssc
+package "RaggieSoft Sample Workbench" {
+    id:                    "{8C41E2B0-5D19-4A73-9E22-524147474945}";
+    version:               v"1.2.0";
+    publisher:             "RaggieSoft";
+    tagline:               "Zero-Dependency Windows 11 Workstation";
+    website:               "https://raggiesoftstudio.com";
+    scope:                 Scope.Machine;           // Scope.User | Scope.Machine
+    uac:                   Uac.Deferred;            // Uac.AsInvoker | Uac.HighestAvailable | Uac.RequireAdministrator | Uac.Deferred
+    style:                 WizardStyle.FluentMica;  // Any of the 11 WizardStyle layouts
+    supportDir:            "./_support";            // Embedded helper staging folder (#220)
+    mainExe:               "SampleWorkbench.exe";
+    icon:                  "assets/app.ico";
+    accent:                "#0F766E";
+    hideFromInstalledApps: false;                   // Sets SystemComponent=1 when true (for content packs!)
+    autoPlayAudio:         false;                   // Enforced false per WCAG 2.2 AA
+    minWindowsBuild:       22000;                   // Windows 11 floor
+}
+```
+
+| Property | Accepted Aliases | Default | Purpose |
+| :--- | :--- | :--- | :--- |
+| `id` | `upgradeCode` | Auto UUIDv5 | Stable package/UpgradeCode identifier across upgrades. |
+| `productCode` | — | Auto UUIDv4 | Optional explicit MSI `ProductCode` GUID. |
+| `version` | — | `"1.0.0"` | 3- or 4-part version stamped into PE `VERSIONINFO` & Installed Apps. |
+| `publisher` | `manufacturer` | `"RaggieSoft"` | Publisher name in UAC/TaskDialog banners and `Uninstall` registry keys. |
+| `scope` | — | `Scope.Machine` | `Scope.User` (`%LOCALAPPDATA%` / `HKCU`) or `Scope.Machine` (`Program Files` / `HKLM`). |
+| `uac` | `requestedExecutionLevel` | `Uac.Deferred` | Controls PE manifest `requestedExecutionLevel` and commit-time UAC broker. |
+| `style` | `wizardLayout` | `WizardStyle.FluentMica` | Selects the native Win32 Per-Monitor V2 DPI wizard theme. |
+| `supportDir` | — | `""` | Packs a local folder into `#220` (`__support__`) and extracts it to `sys.supportDir` at runtime. |
+| `hideFromInstalledApps` | `systemComponent` | `false` | Sets `SystemComponent = 1` so 30+ book/album content packs never clutter Windows *Installed apps*. |
+
+## `param`, `feature` & `payload` Declarations {#param-feature-payload}
+
+```rssc
+// 1. CLI-overridable setup parameter
+param installDir: path = sys.programFiles / "RaggieSoft" / "Workbench";
+
+// 2. Selectable installation feature (bound automatically to ui.featureTree!)
+feature "Core" {
+    title:       "Core Workstation";
+    description: "Required native x64/ARM64 executables.";
+    required:    true;
+    inCompact:   true;
+}
+
+feature "CliSdk" {
+    title:       "Command-Line Compiler & SDK";
+    description: "Headless CI/CD tools and C++20 headers.";
+    required:    false;
+    inCompact:   false;
+    selected:    true;
+}
+
+// 3. Embedded LZMS payload harvested at build time into RT_RCDATA #220 (RSWPAK1)
+payload CoreFiles {
+    from "../publish/win-${arch}/*";
+    to:      installDir;
+    feature: "Core";
+}
+```
+
+## Execution Lifecycle Phases {#lifecycle-phases}
+
+1. **Top-Level Pre-Flight Statements**: Run first (e.g., `verifyWindows11AndHardware(...)`).
+2. **`wizard { step Name when (cond) { ... } }`**:
+   - Automatically skipped when invoked in silent mode (`/s`, `/qn`, `--silent`).
+   - Statically verified **100% side-effect-free (`RSW701`)**—including transitive calls through helper functions!
+   - Navigating backward via **`<- Back`** pops the visited-step history stack so skipped conditional `when (...)` steps are never landed on in reverse.
+3. **`install { ... }` (Commit Phase)**:
+   - When `uac: Uac.Deferred` and `scope: Scope.Machine` are active and the process is not yet elevated, the wizard serializes user choices (`ExportWizardStateJson`) and launches `--elevated-rssc-worker` (`ShellExecuteExW(L"runas")`) right when **Install** is clicked!
+   - Opens `.rsw-rollback.jnl` before the first mutation; commits and deletes `.rswbak` backups on success, or replays the journal in LIFO reverse order on any uncaught error, failed `assert()`, or user cancel!
+4. **`repair(mode) { ... }` & `uninstall(purgeUserData) { ... }`**:
+   - Invoked automatically by `<InstallDir>\Uninstall.exe --repair` or `--uninstall` (`Uninstall.rswm`).
+5. **Showcase Event Handlers (`on page("Main").show`, `on hotspot("Btn").click`)**:
+   - Bound directly to keyboard-accessible UI Automation hotspot peers in **RaggieSoft Showcase Studio**.
+
+
+================================================================================
+TOPIC: Global Functions, Enum Constants, Validation & compile.* [builtins-and-constants] (Language Reference)
+================================================================================
+
+# Global Built-In Functions, Enum Constants & `compile.*` / `feature.*` {#builtins-and-constants}
+
+Global functions and built-in enum tables are available in **every** RaggieScript file without needing any namespace prefix.
+
+## Global Built-In Functions (`16` Functions) {#global-functions}
+
+| Signature | Return Type | Mutating? | Description |
+| :--- | :--- | :--- | :--- |
+| `str(value: any)` | `string` | Read-Only | Converts any RaggieScript value (`int`, `float`, `bool`, `path`, `version`, `array`, `map`) to UTF-8 text. |
+| `int(value: any)` | `int` | Read-Only | Parses or truncates a `string`, `float`, or `bool` into a 64-bit signed integer (`0x...` hex supported). |
+| `float(value: any)` | `float` | Read-Only | Converts a `string` or `int` into a 64-bit IEEE floating-point number. |
+| `bool(value: any)` | `bool` | Read-Only | Evaluates RaggieScript truthiness (`false`, `null`, `0`, and `""` are `false`). |
+| `path(value: any)` | `path` | Read-Only | Normalizes slashes into a first-class OS `path` value supporting the `/` path-join operator. |
+| `ver(value: any)` | `version` | Read-Only | Parses `"10.0.22631.0"` into a 4-part `SemVer` value for component-wise `<` / `>=` comparisons. |
+| `len(collectionOrStr: any)` | `int` | Read-Only | Returns character/byte length of a `string`, element count of an `array`, or key count of a `map`. |
+| `typeof(value: any)` | `string` | Read-Only | Returns runtime type tag: `"null"`, `"bool"`, `"int"`, `"float"`, `"string"`, `"path"`, `"version"`, `"array"`, `"map"`, or `"closure"`. |
+| `print(...values)` | `null` | Read-Only | Writes space-joined values to standard output (`stdout` / CLI console). |
+| `log(message: string, level?: string)` | `null` | Read-Only | Appends a timestamped line to the structured setup log (`/l=install.log`). |
+| `assert(condition: bool, message?: string)` | `bool` | Safe Gate | Raises an immediate runtime error if `condition` is `false`—automatically triggering LIFO rollback when inside `install { ... }`! |
+| `sleep(milliseconds: int)` | `null` | Read-Only | Pauses script execution for `milliseconds` ms. |
+| `coalesce(a: any, b: any, ...)` | `any` | Read-Only | Returns the first non-`null`, non-empty `""` argument (`a ?? b` operator equivalent). |
+| `range(end: int)` / `range(start: int, end: int, step?: int)` | `array` | Read-Only | Produces an integer array `[start .. end)` for deterministic loops. |
+| `def(name: string, fallback?: string)` | `string` | Read-Only | Reads a compile-time `-DNAME=VAL` CLI define or `#define` macro value (returning `fallback` if unset). |
+| `targetArch()` | `string` | Read-Only | Returns the target compilation or native host architecture (`"arm64"` or `"x64"`). |
+
+## Global Exit Constants & Built-In Enum Tables {#global-constants}
+
+### Standard Exit Code Constants {#exit-constants}
+- `EXIT_OK` (`0`) — Clean installation / execution success.
+- `EXIT_ELEVATION_REQUIRED` (`740`) — `ERROR_ELEVATION_REQUIRED` when UAC is disabled (`EnableLUA = 0`) for a Standard User.
+- `EXIT_REBOOT_NEEDED` (`3010`) — `ERROR_SUCCESS_REBOOT_REQUIRED` signaling enterprise deployment tools that a restart is pending.
+- `EXIT_UNSUPPORTED_OS` (`9007`) — Host OS build or RAM is below minimum package floor.
+- `EXIT_PREREQ_MISSING` (`9008`) — Required prerequisite runtime was declined or unavailable.
+- `EXIT_DOWNLOAD_FAILED` (`9009`) — Remote `.rswpak` or prerequisite download/SHA-256 verification failed.
+
+### Built-In Enum & Metadata Maps {#builtin-enums}
+
+| Global Table | Members | Purpose |
+| :--- | :--- | :--- |
+| `product` | `.id`, `.name`, `.version`, `.publisher`, `.scope`, `.uac`, `.style` | Read-only metadata mirror of the active `package` / `showcase` / `app` header! |
+| `Scope` | `Scope.User` (`"user"`), `Scope.Machine` (`"machine"`) | Selects per-user (`%LOCALAPPDATA%`) vs. per-machine (`Program Files`) installation scope. |
+| `Uac` | `Uac.AsInvoker`, `Uac.HighestAvailable`, `Uac.RequireAdministrator`, `Uac.Deferred` | Controls PE UAC manifest & deferred commit-time elevation broker. |
+| `Hive` | `Hive.HKCU`, `Hive.HKLM`, `Hive.HKCR`, `Hive.HKU` | Windows Registry root hive constants for `reg.*` calls. |
+| `RegView` | `RegView.Native64`, `RegView.Wow32`, `RegView.Both` | Per-call stateless 64-bit / 32-bit WOW64 Registry view selector (`KEY_WOW64_64KEY` / `32KEY`). |
+| `Token` | `Token.Current`, `Token.Elevated`, `Token.Desktop` | Process token selector for `proc.run()` (`Token.Desktop` de-elevates via `explorer.exe`!). |
+| `Icon` | `Icon.Info`, `Icon.Warning`, `Icon.Error`, `Icon.Shield` | Accessible glyph selector for `ui.taskDialog()` and `ui.notice()`. |
+| `SetupMode` | `SetupMode.Express`, `SetupMode.Compact`, `SetupMode.Custom`, `SetupMode.Complete` | Standard installation preset identifiers. |
+| `WizardStyle` | `Standard`, `Wizard95`, `Wizard97`, `AeroWizard`, `FluentMica`, `OneClick`, `PassiveToast`, `FullScreenBlue`, `FullScreenTeal`, `Autorun16x9`, `Simple` | Selects any of the 11 native Per-Monitor V2 DPI Win32 wizard layouts. |
+| `Delivery` | `Delivery.Embedded`, `Delivery.Download` | Marks a `feature` as embedded inside `#220` or fetched from a SHA-256 verified `.rswpak` URL. |
+
+## `Validation.*` — Wizard Input Validation Helpers {#validation-namespace}
+
+Used inside `validate: (val) => ...` closures on `ui.textBox`, `ui.folderPicker`, and `ui.filePicker` to gate the **Next >** button with inline accessible error banners (zero modal `MessageBox` spam!):
+
+| Method | Signature | Return Type | Description |
+| :--- | :--- | :--- | :--- |
+| `Validation.ok` | `Validation.ok()` | `map` | Returns `{ ok: true, message: "" }`, clearing any inline field error and enabling **Next >**. |
+| `Validation.error` | `Validation.error(message: string)` | `map` | Returns `{ ok: false, message }`, focusing the invalid field and announcing `message` to screen readers. |
+
+## `compile.*` — Build-Time Asset Embedding {#compile-namespace}
+
+`compile.*` calls execute **at compile time** during `raggiescript.exe compile` / `pack-exe` / `instbuild.exe` and bake the resulting JSON object or text string directly into the `RSWBC2` constant pool—requiring zero external files at runtime!
+
+| Method | Signature | Return Type | Description |
+| :--- | :--- | :--- | :--- |
+| `compile.json` | `compile.json(relativePath: string)` | `any` | Parses a JSON file at build time and embeds the structured map/array into bytecode. |
+| `compile.text` | `compile.text(relativePath: string)` | `string` | Reads a UTF-8 text/Markdown/RTF file at build time and embeds it as a string constant. |
+| `compile.def` | `compile.def(key: string, fallback?: string)` | `string` | Alias for `def(key, fallback)` reading `-DKEY=VAL` or `#define`. |
+| `compile.define` | `compile.define(key: string, fallback?: string)` | `string` | Alias for `compile.def(key, fallback)`. |
+
+## `payload.*` & `feature.*` — Package Feature & Payload Inspection {#feature-namespace}
+
+| Method | Signature | Return Type | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `payload.dir` | `payload.dir(payloadId: string)` | `path` | Read-Only | Resolves the extracted staging directory path for a declared `payload`. |
+| `payload.path` | `payload.path(payloadId: string)` | `path` | Read-Only | Resolves the extracted file or directory path for `payloadId`. |
+| `feature.list` | `feature.list()` | `array` | Read-Only | Returns an array of `{ id, title, description, selected, required, inCompact }` maps for all declared `feature` blocks. |
+| `feature.info` | `feature.info(featureId: string)` | `map` | Read-Only | Returns the metadata and selection map for `featureId`. |
+| `feature.isSelected` | `feature.isSelected(featureId: string)` | `bool` | Read-Only | Returns `true` if `featureId` is currently checked for installation. |
+| `feature.setSelected` | `feature.setSelected(featureId: string, selected?: bool)` | `bool` | Wizard-Safe | Programmatically toggles a non-required feature's selection state (`false` ignored on `required: true` features). |
+| `feature.setState` | `feature.setState(featureId: string, selected?: bool)` | `bool` | Wizard-Safe | Alias for `feature.setSelected(...)`. |
+| `feature.selectPreset` | `feature.selectPreset(preset?: string)` | `bool` | Wizard-Safe | Applies `"express"`, `"compact"`, or `"complete"` selection tiers across all declared features. |
+
+
+================================================================================
+TOPIC: sys.* — Silicon, OS Kernel, UAC, Folders & Reboot [ns-sys] (Core Standard Library)
+================================================================================
+
+# `sys.*` — Silicon, OS Kernel, UAC, Known Folders & Reboot Resume {#ns-sys}
+
+The `sys.*` namespace exposes **true un-shimmed Windows 11 hardware, silicon, kernel, display, accessibility, and known-folder queries** without ever flipping global 32-bit/64-bit state variables.
+
+> [!NOTE] Every read-only query in `sys.*` (`40` methods + `26` properties) is **100% `RSW701` Wizard-Safe**. Only the 3 reboot-scheduling persistence calls (`clearResumeState`, `scheduleResumeAfterReboot`, `rebootAndResume`) mutate `RunOnce` state and require `install { ... }`.
+
+## CPU Silicon & Windows Kernel Version Queries {#sys-silicon-os}
+
+Unlike legacy installers that call `GetVersionExW` (which lies unless shimmed) or check `PROCESSOR_ARCHITECTURE` (which returns `"AMD64"` inside an x64 process emulated under ARM64 Prism!), `sys.*` calls **`ntdll.dll!RtlGetVersion`** and **`kernel32.dll!IsWow64Process2`** directly:
+
+| Call | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `sys.arch` | `sys.arch()` | `string` | Read-Only | Returns true physical host CPU silicon: `"arm64"` or `"x64"` (pierces WOW64 & Prism emulation!). |
+| `sys.compiledArch` | `sys.compiledArch()` | `string` | Read-Only | Returns the compiled PE architecture of the running binary (`"arm64"` or `"x64"`). |
+| `sys.isArm64` | `sys.isArm64()` | `bool` | Read-Only | `true` when physical host silicon is native ARM64 (`IMAGE_FILE_MACHINE_ARM64`). |
+| `sys.isX64` | `sys.isX64()` | `bool` | Read-Only | `true` when physical host silicon is x64 / AMD64 (`IMAGE_FILE_MACHINE_AMD64`). |
+| `sys.isEmulatedUnderPrism` | `sys.isEmulatedUnderPrism()` | `bool` | Read-Only | `true` when an x64/x86 process is running under Windows 11 ARM64 Prism translation. |
+| `sys.osBuild` | `sys.osBuild()` | `int` | Read-Only | Un-shimmed kernel build via `RtlGetVersion` (`22000+` = Windows 11, `26100+` = 24H2). |
+| `sys.osVersion` | `sys.osVersion()` | `version` | Read-Only | Un-shimmed 4-part SemVer OS version (e.g., `v"10.0.26100.0"`). |
+| `sys.isWindows11` | `sys.isWindows11()` | `bool` | Read-Only | `true` when `sys.osBuild() >= 22000`. |
+| `sys.isServer` | `sys.isServer()` | `bool` | Read-Only | `true` on Windows Server SKUs (`VER_NT_SERVER` / `VER_NT_DOMAIN_CONTROLLER`). |
+| `sys.editionId` | `sys.editionId()` | `string` | Read-Only | Reads Windows `EditionID` (`"Professional"`, `"Enterprise"`, `"Education"`, etc.). |
+
+## Privileges, UAC, Command-Line & Execution Mode {#sys-uac-cli}
+
+| Call | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `sys.isAdmin` | `sys.isAdmin()` | `bool` | Read-Only | `true` when running with effective Administrator token membership (`CheckTokenMembership`). |
+| `sys.uacEnabled` | `sys.uacEnabled()` | `bool` | Read-Only | `true` when `HKLM\...\Policies\System\EnableLUA != 0`. Crucial before prompting UAC for Standard Users! |
+| `sys.canPromptUac` | `sys.canPromptUac()` | `bool` | Read-Only | `true` when not silent and Windows can present an interactive elevation consent dialog. |
+| `sys.isSilent` | `sys.isSilent()` | `bool` | Read-Only | `true` when invoked with `/s`, `/S`, `/qn`, `/quiet`, or `--silent`. |
+| `sys.isPassive` | `sys.isPassive()` | `bool` | Read-Only | `true` when invoked with `/passive` or `/qb` (progress-only mode). |
+| `sys.isMaintenance` | `sys.isMaintenance()` | `bool` | Read-Only | `true` when invoked in `--repair` or `--uninstall` maintenance mode. |
+| `sys.cmdLine` | `sys.cmdLine()` | `string` | Read-Only | Returns the full raw Win32 command line (`GetCommandLineW`). |
+| `sys.cliArg` | `sys.cliArg(key: string, fallback?: string)` | `string` | Read-Only | Reads a CLI `KEY=VAL` or `KEY:VAL` property, or `fallback` if omitted. |
+| `sys.hasSwitch` | `sys.hasSwitch(flag: string)` | `bool` | Read-Only | Case-insensitive check for a CLI switch (`sys.hasSwitch("--offline")`). |
+
+## Hardware, Display, Accessibility & Identity {#sys-hardware-a11y}
+
+| Call | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `sys.ramMB` | `sys.ramMB()` | `int` | Read-Only | Installed physical RAM in megabytes (`GlobalMemoryStatusEx`). |
+| `sys.cpuCores` | `sys.cpuCores()` | `int` | Read-Only | Logical CPU processor count. |
+| `sys.freeDiskBytes` | `sys.freeDiskBytes(targetPath?: path)` | `int` | Read-Only | Available free bytes on the volume backing `targetPath` (`GetDiskFreeSpaceExW`). |
+| `sys.freeDiskMB` | `sys.freeDiskMB(targetPath?: path)` | `int` | Read-Only | Available free megabytes on the volume backing `targetPath`. |
+| `sys.screenWidth` | `sys.screenWidth()` | `int` | Read-Only | Primary display width in physical pixels. |
+| `sys.screenHeight` | `sys.screenHeight()` | `int` | Read-Only | Primary display height in physical pixels. |
+| `sys.dpi` | `sys.dpi()` | `int` | Read-Only | Primary monitor DPI (`96` = 100%, `144` = 150%, `192` = 200%). |
+| `sys.isDarkMode` | `sys.isDarkMode()` | `bool` | Read-Only | `true` when `AppsUseLightTheme == 0` in `Personalize`. |
+| `sys.isHighContrast` | `sys.isHighContrast()` | `bool` | Read-Only | `true` when a Windows Contrast Theme (`SPI_GETHIGHCONTRAST` / `HCF_HIGHCONTRASTON`) is active! |
+| `sys.locale` | `sys.locale()` | `string` | Read-Only | User default BCP-47 locale tag (`GetUserDefaultLocaleName`, e.g., `"en-US"`). |
+| `sys.computerName` | `sys.computerName()` | `string` | Read-Only | Local NetBIOS/DNS computer name. |
+| `sys.userName` | `sys.userName()` | `string` | Read-Only | Current interactive account name. |
+| `sys.userSid` | `sys.userSid()` | `string` | Read-Only | String SID (`"S-1-5-21-..."`) of the current process token (`ConvertSidToStringSidW`). |
+| `sys.machineGuid` | `sys.machineGuid()` | `string` | Read-Only | Native 64-bit `HKLM\SOFTWARE\Microsoft\Cryptography\MachineGuid`. |
+| `sys.newGuid` | `sys.newGuid()` | `string` | Read-Only | Generates a fresh cryptographic `{XXXXXXXX-XXXX-4XXX-...}` UUIDv4 (`BCryptGenRandom`). |
+| `sys.uuid5` | `sys.uuid5(name: string, namespaceGuid?: string)` | `string` | Read-Only | Generates a deterministic RFC 4122 SHA-1 UUIDv5 `{GUID}` (identical across `x64` & `ARM64` builds). |
+| `sys.folder` | `sys.folder(knownName: string)` | `path` | Read-Only | Resolves known folders by name: `"ProgramFiles"`, `"ProgramFilesX86"`, `"LocalAppData"`, `"RoamingAppData"`, `"ProgramData"`, `"Desktop"`, `"StartMenu"`, `"Documents"`, `"Fonts"`, `"Windows"`, `"System32"`, `"Temp"`. |
+
+## Multi-Reboot State Persistence (`RunOnce`) {#sys-reboot}
+
+| Call | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `sys.rebootLatch` | `sys.rebootLatch(flag?: bool)` | `bool` | Wizard-Safe | Reads (or sets when `flag` is passed) the in-memory pending-reboot latch (`EXIT_REBOOT_NEEDED = 3010`). |
+| `sys.needsReboot` | `sys.needsReboot()` | `bool` | Read-Only | Returns `true` if any prerequisite, MSI, or script step latched a pending OS restart. |
+| `sys.getResumeState` | `sys.getResumeState(id?: string)` | `any` | Read-Only | Loads persisted JSON resume state map written before an OS restart (or `null` on fresh run). |
+| `sys.clearResumeState` | `sys.clearResumeState(id?: string)` | `bool` | **Mutating (`RSW701`)** | Deletes persisted resume JSON and cleans up the `RunOnce` continuation entry. |
+| `sys.scheduleResumeAfterReboot` | `sys.scheduleResumeAfterReboot(stateMap?: map, id?: string)` | `bool` | **Mutating (`RSW701`)** | Persists `stateMap` and registers `CurrentVersion\RunOnce` to re-launch setup after sign-in. |
+| `sys.rebootAndResume` | `sys.rebootAndResume(stateMap?: map, id?: string)` | `path` | **Mutating (`RSW701`)** | Persists `stateMap`, registers `RunOnce`, sets `rebootLatch(true)`, and returns the state file path. |
+
+## All `26` `sys.*` Read-Only Properties {#sys-properties}
+
+Every path property returns a first-class `path` ready for `/` path joining (`sys.programFiles / "RaggieSoft" / "Studio"`):
+
+| Property | Type | Resolved Native Location |
+| :--- | :--- | :--- |
+| `sys.programFiles` | `path` | Native 64-bit `C:\Program Files` (never redirected to `(x86)`!) |
+| `sys.programFilesX86` | `path` | Explicit 32-bit `C:\Program Files (x86)` |
+| `sys.commonFiles` | `path` | Native 64-bit `C:\Program Files\Common Files` |
+| `sys.commonFilesX86` | `path` | Explicit 32-bit `C:\Program Files (x86)\Common Files` |
+| `sys.localAppData` | `path` | Current user `%LOCALAPPDATA%` (`C:\Users\<Name>\AppData\Local`) |
+| `sys.roamingAppData` | `path` | Current user `%APPDATA%` (`C:\Users\<Name>\AppData\Roaming`) |
+| `sys.programData` | `path` | Shared machine `C:\ProgramData` |
+| `sys.desktopDir` | `path` | Current user Desktop folder |
+| `sys.commonDesktopDir` / `sys.publicDesktopDir` | `path` | All-Users `C:\Users\Public\Desktop` |
+| `sys.startMenuDir` / `sys.startMenuPrograms` | `path` | Current user Start Menu `Programs` folder |
+| `sys.commonStartMenuDir` / `sys.commonStartMenuPrograms` | `path` | All-Users Start Menu `Programs` folder |
+| `sys.documentsDir` | `path` | Current user `Documents` folder |
+| `sys.publicDocumentsDir` | `path` | All-Users `C:\Users\Public\Documents` |
+| `sys.fontsDir` | `path` | System `C:\Windows\Fonts` |
+| `sys.windowsDir` | `path` | `C:\Windows` |
+| `sys.system32Dir` | `path` | True 64-bit `C:\Windows\System32` |
+| `sys.sysWow64Dir` | `path` | 32-bit `C:\Windows\SysWOW64` |
+| `sys.tempDir` | `path` | Process `%TEMP%` folder |
+| `sys.exePath` | `path` | Full path to the running setup / packed `.exe` |
+| `sys.exeDir` | `path` | Parent directory containing the running `.exe` |
+| `sys.supportDir` | `path` | Extracted `_support\` helper directory (when bundled) |
+| `sys.windowsBuild` | `int` | Property alias for `sys.osBuild()` |
+| `sys.isSilent` | `bool` | Property alias for `sys.isSilent()` |
+
+
+================================================================================
+TOPIC: str.*, regex.*, array.*, json.*, ini.* & xml.* [ns-data-and-text] (Core Standard Library)
+================================================================================
+
+# `str.*`, `regex.*`, `array.*`, `json.*`, `ini.*` & `xml.*` {#ns-data-and-text}
+
+Pure string, regular expression, functional array, and JSON helpers work across **every** RaggieScript target (C++20 VM, `.NET` `RaggieScript.Core`, and SCORM `ES2022`), while `.ini` and `.xml` file mutations participate automatically in `.rsw-rollback.jnl` backups!
+
+## `str.*` — UTF-8 String Manipulation (`12` Methods) {#str-namespace}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `str.len` | `str.len(text: string)` | `int` | Returns length of `text`. |
+| `str.lower` | `str.lower(text: string)` | `string` | Returns lowercase copy of `text`. |
+| `str.upper` | `str.upper(text: string)` | `string` | Returns uppercase copy of `text`. |
+| `str.trim` | `str.trim(text: string)` | `string` | Strips leading and trailing ASCII/Unicode whitespace. |
+| `str.contains` | `str.contains(haystack: string, needle: string, ignoreCase?: bool)` | `bool` | Returns `true` if `needle` appears in `haystack`. |
+| `str.startsWith` | `str.startsWith(text: string, prefix: string, ignoreCase?: bool)` | `bool` | Returns `true` if `text` begins with `prefix`. |
+| `str.endsWith` | `str.endsWith(text: string, suffix: string, ignoreCase?: bool)` | `bool` | Returns `true` if `text` ends with `suffix`. |
+| `str.indexOf` | `str.indexOf(haystack: string, needle: string, startIndex?: int)` | `int` | Returns 0-based index of `needle`, or `-1` when absent. |
+| `str.replace` | `str.replace(text: string, oldSub: string, newSub: string, ignoreCase?: bool)` | `string` | Replaces all occurrences of `oldSub` with `newSub`. |
+| `str.split` | `str.split(text: string, delimiter?: string)` | `array` | Splits `text` on `delimiter` (default `"\n"`) into a `string[]` array. |
+| `str.join` | `str.join(items: array, separator?: string)` | `string` | Joins array elements with `separator` (default `""`). |
+| `str.slice` | `str.slice(text: string, start: int, end?: int)` | `string` | Extracts substring `[start, end)`. |
+
+## `regex.*` — ECMAScript Regular Expressions (`3` Methods) {#regex-namespace}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `regex.isMatch` | `regex.isMatch(input: string, pattern: string, ignoreCase?: bool)` | `bool` | Returns `true` if `input` matches ECMAScript regex `pattern`. |
+| `regex.match` | `regex.match(input: string, pattern: string, ignoreCase?: bool)` | `array` | Returns `[fullMatch, group1, group2, ...]` for the first match (or `[]` if none). |
+| `regex.replace` | `regex.replace(input: string, pattern: string, replacement: string, ignoreCase?: bool)` | `string` | Replaces regex matches using standard `$1`, `$2` replacement groups. |
+
+## `array.*` — Functional Collection Operations (`4` Methods) {#array-namespace}
+
+`array.map` and `array.filter` invoke first-class RaggieScript closures (`item => ...`) directly inside the linear stack VM:
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `array.push` | `array.push(list: array, item: any)` | `int` | Appends `item` and returns the new length. |
+| `array.map` | `array.map(list: array, transformFn: fn)` | `array` | Calls `transformFn(item)` for each element and returns the mapped array. |
+| `array.filter` | `array.filter(list: array, predicateFn: fn)` | `array` | Keeps elements for which `predicateFn(item)` returns truthy. |
+| `array.contains` | `array.contains(list: array, needle: any)` | `bool` | Structural equality membership check. |
+
+```rssc
+const rawPorts = [" 443 ", " 8080 ", " 80 "];
+const highPorts = array.filter(
+    array.map(rawPorts, s => int(str.trim(s))),
+    p => p >= 1024
+); // -> [8080]
+```
+
+## `json.*` — Structured JSON Parse & Serialize (`2` Methods) {#json-namespace}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `json.parse` | `json.parse(jsonText: string)` | `any` | Parses UTF-8 JSON into nested RaggieScript `map`s, `array`s, and primitives. |
+| `json.stringify` | `json.stringify(value: any, pretty?: bool)` | `string` | Serializes any value (including `struct` instances) to valid comment-free UTF-8 JSON. |
+
+## `ini.*` & `xml.*` — Configuration File Surgery (`8` Methods) {#ini-xml-namespaces}
+
+> [!IMPORTANT] `ini.write`, `ini.deleteKey`, `xml.replaceAttr`, and `xml.setElementText` are marked **Mutating (`RSW701`)**: they automatically snapshot the original file to `.rswbak` before editing so failed installations restore existing user configs byte-for-byte!
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ini.read` | `ini.read(file: path, section: string, key: string, fallback?: string)` | `string` | Read-Only | Reads `[section] key` from a UTF-8/UTF-16 `.ini` file. |
+| `ini.sections` | `ini.sections(file: path)` | `array` | Read-Only | Lists all `[Section]` names in `file`. |
+| `ini.write` | `ini.write(file: path, section: string, key: string, value: any)` | `bool` | **Mutating (`RSW701`)** | Writes `[section] key=value` with automatic `.rswbak` rollback backup. |
+| `ini.deleteKey` | `ini.deleteKey(file: path, section: string, key: string)` | `bool` | **Mutating (`RSW701`)** | Deletes `key` from `[section]` (rollback-protected). |
+| `xml.readText` | `xml.readText(file: path, elementTagOrPath: string, fallback?: string)` | `string` | Read-Only | Reads inner text of a matching XML element. |
+| `xml.readAttr` | `xml.readAttr(file: path, elementTag: string, attrName: string, fallback?: string)` | `string` | Read-Only | Reads `attrName` from an XML element. |
+| `xml.replaceAttr` | `xml.replaceAttr(file: path, elementTag: string, attrName: string, newValue: string)` | `bool` | **Mutating (`RSW701`)** | Updates an XML attribute value in-place with `.rswbak` rollback protection. |
+| `xml.setElementText` | `xml.setElementText(file: path, elementTag: string, innerText: string)` | `bool` | **Mutating (`RSW701`)** | Updates inner text of an XML element with `.rswbak` rollback protection. |
+
+
+================================================================================
+TOPIC: fs.* & reg.* — Transactional Filesystem & Registry [ns-fs-and-reg] (Core Standard Library)
+================================================================================
+
+# `fs.*` & `reg.*` — Transactional Filesystem & Stateless 64/32-Bit Registry {#ns-fs-and-reg}
+
+`fs.*` and `reg.*` are gated to `use installer;` (and `use showcase;` in Community/Architect editions; blocked in sandboxed profiles via `RSW702`). Every mutating call is **100% rollback-journaled** inside `install { ... }` and rejected inside `wizard { ... }` by **`RSW701`**.
+
+## `fs.*` — Read-Only Inspection & Cryptographic Verification (`19` Methods) {#fs-readonly}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `fs.exists` | `fs.exists(target: path)` | `bool` | Returns `true` if file or directory exists. |
+| `fs.isDir` | `fs.isDir(target: path)` | `bool` | Returns `true` if `target` is an existing directory. |
+| `fs.isFile` | `fs.isFile(target: path)` | `bool` | Returns `true` if `target` is a regular file. |
+| `fs.isLocked` | `fs.isLocked(file: path)` | `bool` | Probes `CreateFileW` with exclusive sharing (`0`) to check if another process holds a file lock. |
+| `fs.size` | `fs.size(file: path)` | `int` | Returns file size in bytes (`0` if missing). |
+| `fs.join` | `fs.join(part1: any, part2: any, ...)` | `path` | Joins up to 8 path segments cleanly (functional equivalent of `a / b`). |
+| `fs.parent` | `fs.parent(target: path)` | `path` | Returns the parent directory path. |
+| `fs.fileName` | `fs.fileName(target: path)` | `string` | Returns filename including extension (`"Workbench.exe"`). |
+| `fs.stem` | `fs.stem(target: path)` | `string` | Returns filename without extension (`"Workbench"`). |
+| `fs.ext` | `fs.ext(target: path)` | `string` | Returns extension including leading dot (`".exe"`). |
+| `fs.tempDir` | `fs.tempDir(subName?: string)` | `path` | Resolves or allocates a scoped directory inside `%TEMP%`. |
+| `fs.tempFile` | `fs.tempFile(prefix?: string, ext?: string)` | `path` | Allocates a unique temporary file path. |
+| `fs.fileVersion` | `fs.fileVersion(pePath: path)` | `version` | Reads PE `VS_FIXEDFILEINFO` (`GetFileVersionInfoW`) as a 4-part `SemVer` value! |
+| `fs.sha256` | `fs.sha256(file: path)` | `string` | Computes lowercase 64-char hex SHA-256 via Windows CNG `bcrypt.dll`. |
+| `fs.verifyAuthenticode` | `fs.verifyAuthenticode(pePath: path)` | `bool` | Verifies PE Authenticode signature chain via `WinVerifyTrust(WINTRUST_ACTION_GENERIC_VERIFY_V2)`. |
+| `fs.findFiles` | `fs.findFiles(dir: path, pattern?: string, recursive?: bool)` | `array` | Enumerates matching file `path` items in `dir`. |
+| `fs.readText` | `fs.readText(file: path)` | `string` | Reads a UTF-8 text file (stripping optional UTF-8 BOM). |
+| `fs.readLines` | `fs.readLines(file: path)` | `array` | Reads UTF-8 lines into a `string[]` array. |
+| `fs.readJson` | `fs.readJson(file: path)` | `any` | Reads and parses a UTF-8 JSON file into maps/arrays/primitives. |
+
+## `fs.*` — Rollback-Journaled Mutations & `RSWPAK1` Extraction (`15` Methods) {#fs-mutating}
+
+| Method | Signature | Return | Rollback Behavior (`.rsw-rollback.jnl`) |
+| :--- | :--- | :--- | :--- |
+| `fs.writeText` | `fs.writeText(file: path, content: string)` | `bool` | Snapshots existing file to `.rswbak` (or records created file for deletion on fault). |
+| `fs.appendText` | `fs.appendText(file: path, text: string)` | `bool` | Snapshots prior file bytes to `.rswbak` before appending. |
+| `fs.writeJson` | `fs.writeJson(file: path, value: any, pretty?: bool)` | `bool` | Atomically serializes structured JSON (with `.rswbak` protection). |
+| `fs.writeBytesHex` | `fs.writeBytesHex(file: path, hexString: string)` | `bool` | Writes decoded binary bytes with `.rswbak` rollback protection. |
+| `fs.mkdir` | `fs.mkdir(dir: path)` | `bool` | Creates missing parent/target directories and journals newly created folders in LIFO order. |
+| `fs.copy` | `fs.copy(src: path, dst: path, overwrite?: bool)` | `bool` | Copies `src` -> `dst` (`overwrite = true` default), backing up any prior `dst` to `.rswbak`. |
+| `fs.copyTree` | `fs.copyTree(srcDir: path, dstDir: path, progressLabel?: string)` | `bool` | Recursively copies an entire directory tree with per-file rollback entries. |
+| `fs.move` | `fs.move(src: path, dst: path)` | `bool` | Moves/renames `src` -> `dst` with rollback restoration. |
+| `fs.remove` | `fs.remove(file: path)` | `bool` | Backs up `file` to `.rswbak` during `install` so fault rollback restores deleted files! |
+| `fs.removeDir` | `fs.removeDir(dir: path)` | `bool` | Removes directory tree if present. |
+| `fs.removeTree` | `fs.removeTree(dir: path)` | `bool` | Alias for `fs.removeDir(dir)`. |
+| `fs.removeTreeIfExists` | `fs.removeTreeIfExists(dir: path)` | `bool` | Safely removes `dir` without error when already absent. |
+| `fs.setAttributes` | `fs.setAttributes(target: path, readOnly?: bool, hidden?: bool, system?: bool)` | `bool` | Updates Win32 file attributes (`SetFileAttributesW`). |
+| `fs.setNtfsCompression` | `fs.setNtfsCompression(target: path, enabled?: bool)` | `bool` | Enables/disables transparent NTFS `LZNT1` compression (`FSCTL_SET_COMPRESSION`). |
+| `fs.extract` | `fs.extract(payloadId?: string, to?: path, feature?: string)` | `int` | Extracts embedded `LZMS` `RSWPAK1` (`#220`) files into `to` (default `installDir`), returning extracted file count! |
+
+## `reg.*` — Stateless 64-Bit & 32-Bit WOW64 Windows Registry (`13` Methods) {#reg-namespace}
+
+> [!TIP] Never toggle global `SetRegView 64` / `SetRegView 32` state! Every `reg.*` call defaults to `RegView.Native64` (`KEY_WOW64_64KEY`) and accepts a stateless per-call `view: RegView.Native64 | RegView.Wow32 | RegView.Both` named argument.
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `reg.exists` | `reg.exists(hive: string, key: string, valueName?: string, view?: string)` | `bool` | Read-Only | Checks whether `key` (or `valueName` when non-empty) exists. |
+| `reg.read` | `reg.read(hive: string, key: string, valueName: string, fallback?: any, view?: string)` | `any` | Read-Only | Reads string or integer value—returning `null` when absent so `??` null-coalescing chains work naturally! |
+| `reg.readString` | `reg.readString(hive: string, key: string, valueName: string, fallback?: string, view?: string)` | `string` | Read-Only | Reads `REG_SZ` or `REG_EXPAND_SZ` string (returning `fallback` or `""` when missing). |
+| `reg.readDword` | `reg.readDword(hive: string, key: string, valueName: string, fallback?: int, view?: string)` | `int` | Read-Only | Reads `REG_DWORD` or `REG_QWORD` integer. |
+| `reg.listSubkeys` | `reg.listSubkeys(hive: string, key: string, view?: string)` | `array` | Read-Only | Enumerates child subkey names as a `string[]` array (`RegView.Both` merges 64-bit & `WOW6432Node`!). |
+| `reg.listValues` | `reg.listValues(hive: string, key: string, view?: string)` | `array` | Read-Only | Enumerates value names under `key` as a `string[]` array. |
+| `reg.write` | `reg.write(hive: string, key: string, valueName: string, value: any, view?: string)` | `bool` | **Mutating (`RSW701`)** | Writes `REG_SZ` (for strings/paths) or `REG_DWORD` (for `int`/`bool`) with full prior-value rollback journaling. |
+| `reg.writeString` | `reg.writeString(hive: string, key: string, valueName: string, value: string, view?: string)` | `bool` | **Mutating (`RSW701`)** | Writes `REG_SZ` UTF-16 string value (rollback-journaled). |
+| `reg.writeExpandString` | `reg.writeExpandString(hive: string, key: string, valueName: string, value: string, view?: string)` | `bool` | **Mutating (`RSW701`)** | Writes `REG_EXPAND_SZ` unexpanded `%VAR%` string (rollback-journaled). |
+| `reg.writeDword` | `reg.writeDword(hive: string, key: string, valueName: string, value: int, view?: string)` | `bool` | **Mutating (`RSW701`)** | Writes 32-bit `REG_DWORD` value (rollback-journaled). |
+| `reg.appendMultiString` | `reg.appendMultiString(hive: string, key: string, valueName: string, item: string, view?: string)` | `bool` | **Mutating (`RSW701`)** | Idempotently appends `item` to a `REG_MULTI_SZ` list without duplicating existing entries. |
+| `reg.deleteValue` | `reg.deleteValue(hive: string, key: string, valueName: string, view?: string)` | `bool` | **Mutating (`RSW701`)** | Deletes `valueName` (prior value saved in `.rsw-rollback.jnl` for automatic restoration on fault). |
+| `reg.deleteKeyTree` | `reg.deleteKeyTree(hive: string, key: string, view?: string)` | `bool` | **Mutating (`RSW701`)** | Recursively deletes `key` (`RegDeleteTreeW`). |
+
+```rssc
+// Clean null-coalescing lookup across HKCU -> 64-bit HKLM -> Program Files fallback!
+let hostDir = reg.read(Hive.HKCU, r"Software\RaggieSoft\Book Reader", "Install Path")
+           ?? reg.read(Hive.HKLM, r"SOFTWARE\RaggieSoft\Book Reader", "Install Path", view: RegView.Native64)
+           ?? (sys.programFiles / "RaggieSoft" / "Book Reader");
+```
+
+
+================================================================================
+TOPIC: archive.*, crypto.*, net.* & log.* [ns-archive-crypto-net-log] (Windows, MSI SQL & Native FFI)
+================================================================================
+
+# `archive.*`, `crypto.*`, `net.*` & `log.*` {#ns-archive-crypto-net-log}
+
+## `archive.*` — `LZMS` `.rswpak` & `.zip` Packaging (`4` Methods) {#archive-namespace}
+
+RaggieSoft's `.rswpak` format uses Windows 11's native **`COMPRESS_ALGORITHM_LZMS`** (`cabinet.dll`) solid block compression paired with a 32-byte SHA-256 integrity header:
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `archive.extractZip` | `archive.extractZip(zipFile: path, destDir: path)` | `int` | **Mutating (`RSW701`)** | Extracts a standard `.zip` archive into `destDir` (rollback-tracked), returning file count. |
+| `archive.createPak` | `archive.createPak(sourceDir: path, outPakFile: path)` | `string` | **Mutating (`RSW701`)** | Compresses `sourceDir` into an `LZMS` `.rswpak` container and returns its 64-char hex SHA-256 digest. |
+| `archive.extractPak` | `archive.extractPak(pakFile: path, destDir: path, expectedSha256?: string)` | `int` | **Mutating (`RSW701`)** | Verifies optional `expectedSha256` + internal `RSWPAK1` digest and extracts files into `destDir`. |
+| `archive.downloadPak` | `archive.downloadPak(httpsUrl: string, destDir: path, expectedSha256?: string, verifyAuthenticode?: bool)` | `int` | **Mutating (`RSW701`)** | Streams a remote on-demand feature pack over TLS 1.2/1.3 `WinHTTP`, verifies SHA-256 BEFORE unpacking, and extracts into `destDir`. |
+
+## `crypto.*` — CNG `bcrypt.dll` Hashing, UUIDv5 & Authenticode (`7` Methods) {#crypto-namespace}
+
+All `crypto.*` methods are **100% Read-Only & Wizard-Safe**, implemented directly against Windows `bcrypt.dll` and `wintrust.dll` with zero OpenSSL DLL dependencies:
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `crypto.sha256` | `crypto.sha256(text: string)` | `string` | Computes lowercase 64-char hex SHA-256 of UTF-8 `text`. |
+| `crypto.sha256Text` | `crypto.sha256Text(text: string)` | `string` | Explicit alias for `crypto.sha256(text)`. |
+| `crypto.sha256File` | `crypto.sha256File(file: path)` | `string` | Streams `file` in 64 KB chunks through `BCRYPT_SHA256_ALGORITHM` and returns 64-char hex SHA-256. |
+| `crypto.crc32Text` | `crypto.crc32Text(text: string)` | `int` | Computes unsigned IEEE 802.3 CRC-32 checksum of `text`. |
+| `crypto.newGuid` | `crypto.newGuid()` | `string` | Generates a random uppercase `{GUID}` via `BCryptGenRandom`. |
+| `crypto.uuid5` | `crypto.uuid5(name: string, namespaceGuid?: string)` | `string` | Generates deterministic RFC 4122 SHA-1 UUIDv5 `{GUID}` for reproducible MSI Component GUIDs. |
+| `crypto.verifyAuthenticode` | `crypto.verifyAuthenticode(peFile: path)` | `bool` | Verifies Microsoft Authenticode / Azure Artifact Signing chain via `WinVerifyTrust`. |
+
+## `net.*` — Native TLS 1.2 / 1.3 `WinHTTP` Client (`4` Methods) {#net-namespace}
+
+`net.*` uses the OS-integrated `winhttp.dll` stack (automatically honoring enterprise Windows proxy auto-config / WPAD and OS certificate stores) and requires `use installer;` (`RSW702` blocked in sandboxed profiles):
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `net.download` | `net.download(httpsUrl: string, destFile: path, expectedSha256?: string)` | `bool` | Downloads `httpsUrl` to `destFile` with live UI progress; deletes `destFile` and returns `false` if `expectedSha256` mismatches! |
+| `net.getText` | `net.getText(httpsUrl: string)` | `string` | Performs an HTTPS `GET` and returns the UTF-8 response body. |
+| `net.getJson` | `net.getJson(httpsUrl: string)` | `any` | Fetches and parses a remote HTTPS JSON manifest (`catalog.json`, release channels, etc.). |
+| `net.probe` | `net.probe(httpsUrl: string)` | `bool` | Performs a fast 4-second `HEAD`/`GET` reachability probe (`true` on HTTP `200..299`). |
+
+## `log.*` — Structured Setup & Audit Logging (`4` Methods) {#log-namespace}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `log.info` | `log.info(message: string)` | `null` | Appends timestamped `[INFO]` entry to the setup log. |
+| `log.warn` | `log.warn(message: string)` | `null` | Appends timestamped `[WARN]` entry to the setup log. |
+| `log.warning` | `log.warning(message: string)` | `null` | Alias for `log.warn(message)`. |
+| `log.error` | `log.error(message: string)` | `null` | Appends timestamped `[ERROR]` entry to the setup log. |
+
+
+================================================================================
+TOPIC: proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* & acl.* [ns-proc-ffi-rm-system] (Windows, MSI SQL & Native FFI)
+================================================================================
+
+# `proc.*`, `ffi.*`, `rm.*`, `shortcut.*`, `shell.*`, `env.*`, `arp.*`, `svc.*`, `task.*`, `firewall.*` & `acl.*` {#ns-proc-ffi-rm-system}
+
+This chapter documents every Windows process, 64-bit native DLL FFI, Restart Manager, shell integration, environment `PATH`, *Installed apps* (`ARP`), Windows Service, Scheduled Task, Defender Firewall, and NTFS ACL API in RaggieScript v1.0.
+
+## `proc.*` & `rm.*` — Process Execution, Explorer De-Elevation & Restart Manager (`14` Methods) {#proc-rm-namespaces}
+
+> [!IMPORTANT] **Why `token: Token.Desktop` Matters on Finish Screens**: When an elevated `Setup.exe` (`High` integrity Admin token) launches a user desktop app directly via `CreateProcessW`, the app inherits the Admin token—breaking Windows Explorer drag-and-drop (`UIPI`) and writing `%LOCALAPPDATA%` configs owned by `Administrators`! Passing `token: Token.Desktop` duplicates the interactive `explorer.exe` shell's medium-integrity token (`CreateProcessWithTokenW`), launching the app cleanly as the signed-in desktop user!
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `proc.isRunning` | `proc.isRunning(exeName: string)` | `bool` | Read-Only | Snapshots running processes (`CreateToolhelp32Snapshot`) to check if `exeName` is active. |
+| `proc.listRunning` | `proc.listRunning(filterSubstr?: string)` | `array` | Read-Only | Returns array of `{ pid, name }` maps for active processes. |
+| `proc.run` | `proc.run(exe: path, args?: string, wait?: bool, hidden?: bool, token?: string, workDir?: path, timeoutMs?: int)` | `int` | Host | Launches `exe` under `Token.Current`, `Token.Elevated`, or `Token.Desktop`; returns exit code when `wait: true` (or `0` when `wait: false`). |
+| `proc.exec` | `proc.exec(exe: path, ...)` | `int` | Host | Alias for `proc.run(...)`. |
+| `proc.open` | `proc.open(urlOrDoc: string, args?: string)` | `bool` | Host | Opens an `https://` URL, custom URI (`raggiesoft-books://...`), or document via `ShellExecuteExW`. |
+| `proc.shellOpen` | `proc.shellOpen(urlOrDoc: string, args?: string)` | `bool` | Host | Alias for `proc.open(...)`. |
+| `proc.terminate` | `proc.terminate(exeName: string, exitCode?: int)` | `bool` | **Mutating (`RSW701`)** | Force-terminates matching processes (prefer `proc.restartManagerShutdown` first!). |
+| `proc.callDllInt` | `proc.callDllInt(dllName: string, exportName: string, ...intArgs)` | `int` | Host | Calls a native 64-bit C ABI DLL export with integer arguments and returns `int64`. |
+| `proc.getLockingProcesses` | `proc.getLockingProcesses(filePaths: array)` | `array` | Read-Only | Queries Windows Restart Manager (`Rstrtmgr.dll!RmGetList`) and returns `{ pid, appName, serviceShortName }[]` locking `filePaths`. |
+| `proc.restartManagerShutdown` | `proc.restartManagerShutdown(filePaths: array, forceUnresponsive?: bool)` | `bool` | **Mutating (`RSW701`)** | Gracefully closes applications/services holding locks on `filePaths` via `RmShutdown` (saving `WM_QUERYENDSESSION` state!). |
+| `proc.restartManagerRestart` | `proc.restartManagerRestart()` | `bool` | **Mutating (`RSW701`)** | Restarts applications closed during the active Restart Manager session (`RmRestart`). |
+| `rm.getLockingProcesses` | `rm.getLockingProcesses(filePaths: array)` | `array` | Read-Only | Clean alias for `proc.getLockingProcesses(filePaths)`. |
+| `rm.shutdown` | `rm.shutdown(filePaths: array, force?: bool)` | `bool` | **Mutating (`RSW701`)** | Clean alias for `proc.restartManagerShutdown(filePaths, force)`. |
+| `rm.restart` | `rm.restart()` | `bool` | **Mutating (`RSW701`)** | Clean alias for `proc.restartManagerRestart()`. |
+
+## `ffi.*` — Native 64-Bit DLL Foreign Function Interface (`1` Method) {#ffi-namespace}
+
+`ffi.call` loads any native 64-bit (`x64` or `ARM64` matching host) DLL and marshals `int`/`uint`/`ptr`, UTF-8 `str`, and UTF-16 `wstr` arguments over the platform ABI (`Microsoft x64` or `AAPCS64` on ARM64):
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `ffi.call` | `ffi.call(dllName: string, funcName: string, returnType: string, args: array)` | `any` | `returnType`: `"int"`, `"uint"`, `"bool"`, `"ptr"`, `"str"`, `"wstr"`, or `"void"`. Strings inside `args` marshal automatically as wide UTF-16 pointers (`LPCWSTR`) when `funcName` ends with `'W'`, or UTF-8 (`LPCSTR`) otherwise! |
+
+```rssc
+const pid = ffi.call("kernel32.dll", "GetCurrentProcessId", "uint", []);
+```
+
+## `shortcut.*` & `shell.*` — `.lnk` Shortcuts, File Types & URI Protocols (`6` Methods) {#shortcut-shell-namespaces}
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `shortcut.create` | `shortcut.create(location: any, name: string, target: path, args?: string, description?: string, iconPath?: path, workDir?: path)` | `path` | **Mutating (`RSW701`)** | Creates a COM `IShellLinkW` `.lnk` file in `"Desktop"`, `"StartMenu"`, `"PublicDesktop"`, `"CommonStartMenu"`, or an explicit folder `path` (rollback-tracked!). |
+| `shortcut.remove` | `shortcut.remove(lnkPath: path)` | `bool` | **Mutating (`RSW701`)** | Removes a `.lnk` shortcut file. |
+| `shell.registerFileType` | `shell.registerFileType(ext: string, progId: string, description: string, target: path, iconPath?: path, verbArgs?: string)` | `bool` | **Mutating (`RSW701`)** | Registers `.ext` + `ProgID` cleanly under `Software\Classes` (`HKCU` for `Scope.User`, `HKLM` for `Scope.Machine`—zero legacy pipe-delimited parsing bugs!). |
+| `shell.unregisterFileType` | `shell.unregisterFileType(ext: string, progId: string)` | `bool` | **Mutating (`RSW701`)** | Removes `.ext` and `ProgID` registration keys. |
+| `shell.registerProtocol` | `shell.registerProtocol(scheme: string, description: string, targetExe: path)` | `bool` | **Mutating (`RSW701`)** | Registers a custom `scheme://` URL protocol (`URL Protocol = ""`, `shell\open\command`). |
+| `shell.refresh` | `shell.refresh()` | `bool` | Safe Notify | Broadcasts `SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST)` so Explorer icons update immediately. |
+
+## `env.*` & `arp.*` — Non-Clobbering `PATH` & Windows *Installed Apps* (`7` Methods) {#env-arp-namespaces}
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `env.get` | `env.get(name: string, scope?: string)` | `string` | Read-Only | Reads process, `"user"`, or `"machine"` environment variable. |
+| `env.set` | `env.set(name: string, value: string, scope?: string)` | `bool` | **Mutating (`RSW701`)** | Writes `"user"` or `"machine"` environment variable and broadcasts `WM_SETTINGCHANGE("Environment")` with timeout (`SendMessageTimeoutW`). |
+| `env.remove` | `env.remove(name: string, scope?: string)` | `bool` | **Mutating (`RSW701`)** | Deletes environment variable (restored on rollback). |
+| `env.appendPath` | `env.appendPath(dirToAdd: path, scope?: string)` | `bool` | **Mutating (`RSW701`)** | Reads raw `REG_EXPAND_SZ` `Path`, checks case-insensitively if `dirToAdd` is already present, appends **only** the new segment (preserving `%SystemRoot%`!), and records surgical single-entry removal for uninstall/rollback! |
+| `arp.register` | `arp.register(options?: map)` | `bool` | **Mutating (`RSW701`)** | Writes `CurrentVersion\Uninstall\<id>`, generates `<installDir>\Uninstall.exe` + `Uninstall.rswm`, and computes `EstimatedSize` KB. |
+| `arp.setSystemComponent` | `arp.setSystemComponent(productId: string, hidden: bool, scope?: string)` | `bool` | **Mutating (`RSW701`)** | Sets `SystemComponent = 1` (adopted by a Suite) or `0` (standalone visible in *Installed apps*). |
+| `arp.unregister` | `arp.unregister(productId: string, scope?: string)` | `bool` | **Mutating (`RSW701`)** | Removes the `CurrentVersion\Uninstall\<productId>` entry. |
+
+## `svc.*`, `task.*`, `firewall.*` & `acl.*` — Services, Tasks, Firewall & NTFS ACLs (`13` Methods) {#svc-task-fw-acl}
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `svc.exists` | `svc.exists(serviceName: string)` | `bool` | Read-Only | Checks SCM (`OpenServiceW`) for `serviceName`. |
+| `svc.status` | `svc.status(serviceName: string)` | `string` | Read-Only | Returns `"running"`, `"stopped"`, `"paused"`, or `"missing"`. |
+| `svc.install` | `svc.install(serviceName: string, binPath: path, displayName?: string, startType?: string, description?: string)` | `bool` | **Mutating (`RSW701`)** | Creates or updates a Win32 Service (`CreateServiceW`, rolled back automatically on install failure). |
+| `svc.configureFailureReset` | `svc.configureFailureReset(serviceName: string, restartDelayMs?: int, resetPeriodSec?: int)` | `bool` | **Mutating (`RSW701`)** | Configures `SERVICE_CONFIG_FAILURE_ACTIONS` automatic recovery restart. |
+| `svc.start` | `svc.start(serviceName: string)` | `bool` | **Mutating (`RSW701`)** | Starts `serviceName` and waits for `SERVICE_RUNNING`. |
+| `svc.stop` | `svc.stop(serviceName: string)` | `bool` | **Mutating (`RSW701`)** | Sends `SERVICE_CONTROL_STOP` and waits cleanly. |
+| `svc.remove` | `svc.remove(serviceName: string)` | `bool` | **Mutating (`RSW701`)** | Stops and deletes `serviceName` (`DeleteService`). |
+| `task.exists` | `task.exists(taskName: string)` | `bool` | Read-Only | Checks Windows Task Scheduler for `taskName`. |
+| `task.createWeekly` | `task.createWeekly(taskName: string, exePath: path, args?: string, dayOfWeek?: string, startTime?: string)` | `bool` | **Mutating (`RSW701`)** | Registers an opt-in weekly Scheduled Task (rollback-tracked). |
+| `task.remove` | `task.remove(taskName: string)` | `bool` | **Mutating (`RSW701`)** | Deletes Scheduled Task `taskName`. |
+| `firewall.allowProgram` | `firewall.allowProgram(ruleName: string, exePath: path, direction?: string)` | `bool` | **Mutating (`RSW701`)** | Adds a Windows Defender Firewall program rule via COM `INetFwPolicy2` (removed automatically on rollback/uninstall). |
+| `firewall.removeRule` | `firewall.removeRule(ruleName: string)` | `bool` | **Mutating (`RSW701`)** | Removes Defender Firewall rule `ruleName`. |
+| `acl.grantModify` | `acl.grantModify(targetDir: path, trusteeSidOrWellKnown?: string)` | `bool` | **Mutating (`RSW701`)** | Grants NTFS `FILE_GENERIC_MODIFY` (`OI|CI`) via `SetNamedSecurityInfoW` (defaults to `"Users"` / `S-1-5-32-545`). |
+
+
+================================================================================
+TOPIC: msi.* & prereq.* — 64-Bit MSI SQL, .MST & Runtimes [ns-msi-and-prereq] (Windows, MSI SQL & Native FFI)
+================================================================================
+
+# `msi.*` & `prereq.*` — Direct 64-Bit MSI SQL Engine, `.MST` Transforms & Runtime Presets {#ns-msi-and-prereq}
+
+RaggieScript gives you **both** worlds: you can write pure zero-MSI native installers (where `Error 1618` mutex contention is impossible), **or** you can drive and author Windows Installer `.msi`, `.msm`, `.mst`, and `.msp` relational SQL databases directly in native 64-bit (`x64` / `ARM64`) via `msi.*`!
+
+## `msi.*` — Product Discovery & External-UI Execution (`10` Methods) {#msi-runtime}
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `msi.isUpgradeInstalled` | `msi.isUpgradeInstalled(upgradeCodeGuid: string)` | `map` | Read-Only | Calls `MsiEnumRelatedProductsW` and returns `{ installed: bool, productCode: string, version: version, installLocation: path }`. |
+| `msi.isProductInstalled` | `msi.isProductInstalled(productCodeGuid: string)` | `bool` | Read-Only | Calls `MsiQueryProductStateW` (`INSTALLSTATE_DEFAULT`). |
+| `msi.isNativeInstalled` | `msi.isNativeInstalled(packageId: string, scope?: string)` | `bool` | Read-Only | Checks `CurrentVersion\Uninstall\<packageId>` for a native RaggieScript package. |
+| `msi.findRelatedProducts` | `msi.findRelatedProducts(upgradeCodeGuid: string)` | `array` | Read-Only | Returns `string[]` of all installed `ProductCode` GUIDs sharing `upgradeCodeGuid`. |
+| `msi.install` | `msi.install(msiPath: path, properties?: map, silent?: bool, logFile?: path)` | `int` | **Mutating (`RSW701`)** | Installs `msiPath` via `MsiInstallProductW` with live `MsiSetExternalUIRecord` progress forwarded into your RaggieScript wizard bar; returns Win32 MSI code (`0`, `3010`, `1602`, `1603`, etc.). |
+| `msi.repair` | `msi.repair(productCodeOrMsi: string, reinstallFlags?: string, logFile?: path)` | `int` | **Mutating (`RSW701`)** | Repairs an installed MSI (`REINSTALLMODE_PECMS` default). |
+| `msi.uninstall` | `msi.uninstall(productCodeGuid: string, extraProps?: string, logFile?: path)` | `int` | **Mutating (`RSW701`)** | Uninstalls `productCodeGuid` (`REMOVE=ALL`). |
+| `msi.applyPatch` | `msi.applyPatch(mspPath: path, targetProductCode?: string, commandLine?: string)` | `int` | **Mutating (`RSW701`)** | Applies a binary-delta `.msp` Windows Installer patch (`MsiApplyPatchW`). |
+| `msi.configureFeature` | `msi.configureFeature(productCodeGuid: string, featureId: string, installState?: string)` | `int` | **Mutating (`RSW701`)** | Sets an individual MSI feature to `"local"`, `"absent"`, or `"source"`. |
+| `msi.runLegacyUninstaller` | `msi.runLegacyUninstaller(productIdOrUpgradeCode: string, preferQuiet?: bool, extraArgs?: string)` | `int` | **Mutating (`RSW701`)** | Discovers and runs an existing `QuietUninstallString` / `UninstallString` before upgrading a legacy installer! |
+
+## `msi.*` — Direct 64-Bit Relational MSI SQL Table & `.MST` Transform Engine (`11` Methods) {#msi-sql}
+
+Every SQL operation opens `msi.dll` handles cleanly with RAII scope guards (`MsiOpenDatabaseW` -> `MsiDatabaseOpenViewW` -> `MsiViewExecute` -> `MsiDatabaseCommit`), supporting Schema `500` (`x64;1033` and `Arm64;1033`) with zero 32-bit `orca.exe` limits:
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `msi.createDatabase` | `msi.createDatabase(msiPath: path)` | `bool` | **Mutating (`RSW701`)** | Creates a brand-new empty `.msi` OLE structured-storage database (`MSIDBOPEN_CREATEDIRECT`). |
+| `msi.listTables` | `msi.listTables(msiPath: path)` | `array` | Read-Only | Queries `_Tables` and returns `string[]` of all persistent tables in `msiPath`. |
+| `msi.query` | `msi.query(msiPath: path, selectSql: string)` | `array` | Read-Only | Executes an MSI SQL `SELECT` query and returns `map[]` rows keyed by column name! |
+| `msi.execSql` | `msi.execSql(msiPath: path, sqlOrBatchArray: any)` | `bool` | **Mutating (`RSW701`)** | Executes a single MSI SQL DDL/DML string (`CREATE TABLE`, `INSERT`, `UPDATE`, `DELETE`, `ALTER TABLE`) **or** an atomic `string[]` batch committed together! |
+| `msi.getProperty` | `msi.getProperty(msiPath: path, propName: string, fallback?: string)` | `string` | Read-Only | Reads `Value` for `propName` from the MSI `Property` table. |
+| `msi.setProperty` | `msi.setProperty(msiPath: path, propName: string, value: string)` | `bool` | **Mutating (`RSW701`)** | Creates the `Property` table if needed and upserts `(propName, value)` safely via parameterized `MsiRecordSetStringW`. |
+| `msi.getSummary` | `msi.getSummary(msiPath: path)` | `map` | Read-Only | Reads OLE `\005SummaryInformation` stream (`title`, `subject`, `author`, `comments`, `template`, `packageCode`, `schema`, `wordCount`). |
+| `msi.setSummary` | `msi.setSummary(msiPath: path, summaryMapOrPid: any, singleVal?: any)` | `bool` | **Mutating (`RSW701`)** | Stamps OLE `SummaryInformation` properties (`template: "Arm64;1033"`, `schema: 500`, `wordCount: 2`, etc.). |
+| `msi.importStream` | `msi.importStream(msiPath: path, tableName: string, rowName: string, sourceFile: path)` | `bool` | **Mutating (`RSW701`)** | Streams a binary file (`MsiRecordSetStreamW`) into `Binary` or `Icon` table. |
+| `msi.exportStream` | `msi.exportStream(msiPath: path, tableName: string, rowName: string, destFile: path)` | `bool` | Read-Only | Extracts a binary stream column from `Binary` / `Icon` / `_Streams` to `destFile`. |
+| `msi.generateTransform` | `msi.generateTransform(baselineMsi: path, customizedMsi: path, outMstPath: path)` | `bool` | **Mutating (`RSW701`)** | Computes a differential `.mst` GPO transform (`MsiDatabaseGenerateTransformW` + `MsiCreateTransformSummaryInfoW`)! |
+
+```rssc
+use installer;
+
+let db = fs.tempDir("msi-demo") / "Sample.msi";
+msi.createDatabase(db);
+msi.setSummary(db, {
+    title:    "Installation Database",
+    template: sys.isArm64() ? "Arm64;1033" : "x64;1033",
+    schema:   500
+});
+msi.setProperty(db, "Manufacturer", "RaggieSoft");
+msi.execSql(db, [
+    "CREATE TABLE `CustomPolicy` (`Key` CHAR(64) NOT NULL, `Value` CHAR(128) NOT NULL PRIMARY KEY `Key`)",
+    "INSERT INTO `CustomPolicy` (`Key`, `Value`) VALUES ('Telemetry', 'Disabled')"
+]);
+const rows = msi.query(db, "SELECT `Key`, `Value` FROM `CustomPolicy`");
+assert(rows[0].Value == "Disabled");
+```
+
+## `prereq.*` — Curated `.NET` 8–11, WebView2 & VC++ Runtime Detection (`7` Methods) {#prereq-namespace}
+
+All `prereq.*` detectors automatically check **true host silicon** (`ARM64` vs. `x64`) so an ARM64 Windows 11 laptop never gets mis-detected against an x64-only runtime:
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `prereq.isDotNetDesktopInstalled` | `prereq.isDotNetDesktopInstalled(majorVer?: int, minVersion?: version)` | `bool` | Read-Only | Detects `Microsoft.WindowsDesktop.App` (`8`, `9`, `10`, or `11`, default `10`) under `dotnet\shared`. |
+| `prereq.isAspNetInstalled` | `prereq.isAspNetInstalled(majorVer?: int, minVersion?: version)` | `bool` | Read-Only | Detects `Microsoft.AspNetCore.App` (`8`..`11`). |
+| `prereq.isDotNetRuntimeInstalled` | `prereq.isDotNetRuntimeInstalled(majorVer?: int, minVersion?: version)` | `bool` | Read-Only | Detects base `Microsoft.NETCore.App` (`8`..`11`). |
+| `prereq.isWebView2Installed` | `prereq.isWebView2Installed()` | `bool` | Read-Only | Detects Microsoft Edge WebView2 Evergreen Runtime across machine & per-user `Clients` keys. |
+| `prereq.isVcRedist2022Installed` | `prereq.isVcRedist2022Installed(archOverride?: string)` | `bool` | Read-Only | Detects Microsoft Visual C++ 2015–2022 Redistributable (`14.30+`) for `arm64` or `x64`. |
+| `prereq.isSatisfied` | `prereq.isSatisfied(presetId: string, arch?: string)` | `bool` | Read-Only | Checks curated preset IDs: `"DotNet8Desktop"`..`"DotNet11Desktop"`, `"DotNet10Runtime"`, `"DotNet11Runtime"`, `"WebView2"`, `"VcRedist2022"`. |
+| `prereq.installPreset` | `prereq.installPreset(presetId: string, extraSilentArgs?: string)` | `bool` | **Mutating (`RSW701`)** | Extracts bundled or downloads official Microsoft HTTPS bootstrapper, verifies Authenticode, runs silently, and latches `3010` if reboot is requested! |
+
+
+================================================================================
+TOPIC: ui.*, wizard.* & showcase.* — Declarative Win32 Wizard UI [ns-ui-and-wizard] (Wizard UI & Studio Sandboxes)
+================================================================================
+
+# `ui.*`, `wizard.*` & `showcase.*` — Declarative Win32 Wizard UI, TaskDialogs & Canvas {#ns-ui-and-wizard}
+
+RaggieScript v1.0 ships **two complementary native Win32 UI layers**—both Per-Monitor V2 DPI aware, Dark/Light Mode adaptive, Windows Contrast Theme (`SPI_GETHIGHCONTRAST`) compliant, and 100% UI Automation screen-reader accessible:
+
+1. **14 Declarative In-Window Wizard Controls (`ui.welcome` .. `ui.readySummary`)** rendered inside a single continuous wizard window (`RsscWizardUiEngine.hpp`) across all **11 `WizardStyle` themes**.
+2. **Modal Windows 11 `TaskDialogIndirect` & Modern `IFileOpenDialog` Prompts (`ui.taskDialog`, `ui.pickFolder`, etc.)** for one-step micro-installers and standalone utilities.
+
+## Declarative In-Window Wizard Controls (`14` Controls) {#declarative-wizard-controls}
+
+Inside `wizard { step <StepId> when (<expr>) { ... } }`, controls stack cleanly in keyboard tab order with automatic `&` accelerator mnemonics, two-way `bind: ref <param>` synchronization, reactive `when: () => <bool>` dynamic enablement/visibility, and inline `validate: (val) => Validation.ok() | Validation.error("...")` gating:
+
+| Control | Signature & Named Arguments | Description |
+| :--- | :--- | :--- |
+| `ui.welcome` | `ui.welcome(title: string, subtitle?: string, body?: string, badge?: string)` | Hero welcome header, subtitle, and introductory copy for the opening step. |
+| `ui.license` | `ui.license(text?: string, file?: path, acceptText?: string, bind: ref boolVar)` | Read-only scrollable RichEdit/Edit license pane + acceptance checkbox that gates **Next >** until checked! |
+| `ui.readme` | `ui.readme(title: string, text?: string, file?: path)` | Scrollable release notes, liner notes, or story introduction card. |
+| `ui.heading` | `ui.heading(text: string, subtitle?: string)` | Section divider heading inside a multi-control step. |
+| `ui.label` | `ui.label(text: string, muted?: bool, when?: fn)` | Dynamic word-wrapped text label (re-evaluated live when `when:` is supplied). |
+| `ui.notice` | `ui.notice(title: string, body?: string, icon?: string)` | Accessible in-window callout banner (`Icon.Info`, `Icon.Warning`, `Icon.Error`, `Icon.Shield`) replacing modal `MessageBox` popups! |
+| `ui.folderPicker` | `ui.folderPicker(label: string, bind: ref pathVar, minFreeMB?: int, when?: fn, validate?: fn)` | Destination path `EDIT` + `Browse...` (`IFileOpenDialog(FOS_PICKFOLDERS)`) + live volume free-space MB indicator & `minFreeMB` gate! |
+| `ui.filePicker` | `ui.filePicker(label: string, bind: ref pathVar, filter?: string, when?: fn, validate?: fn)` | Existing file `EDIT` + `Browse...` button. |
+| `ui.textBox` | `ui.textBox(label: string, bind: ref strVar, placeholder?: string, password?: bool, when?: fn, validate?: fn)` | Single-line text or `ES_PASSWORD` input with live inline validation error banner. |
+| `ui.checkbox` | `ui.checkbox(text: string, bind: ref boolVar, subtitle?: string, when?: fn)` | Two-way `BS_AUTOCHECKBOX` that immediately re-evaluates sibling `when:` closures on click/Spacebar! |
+| `ui.radioCards` | `ui.radioCards(label: string, bind: ref strVar, options: array, when?: fn)` | Keyboard-navigable radio option cards (`options: [{ value, title, subtitle }]`). |
+| `ui.comboBox` | `ui.comboBox(label: string, bind: ref enumOrStrVar, items: array, when?: fn)` | Dark/Light themed `CBS_DROPDOWNLIST` selector binding cleanly to `string` or string-backed `enum` parameters. |
+| `ui.featureTree` | `ui.featureTree(heading?: string, showSizes?: bool, when?: fn)` | Interactive feature checklist bound 1:1 to top-level `feature` declarations (`required: true` items locked checked). |
+| `ui.readySummary` | `ui.readySummary(heading?: string, installButton?: string, showUacShield?: bool, notes?: string)` | Displays selected destination, setup mode, and checked features, and stamps `BCM_SETSHIELD` on **&Install** when `showUacShield` is `true`! |
+
+```rssc
+param enableProxy: bool   = false;
+param proxyPort:   string = "8080";
+
+const checkPort = (raw: string) => {
+    const p = int(str.trim(raw));
+    return (p >= 1024 && p <= 65535)
+        ? Validation.ok()
+        : Validation.error("Enter a TCP port between 1024 and 65535.");
+};
+
+wizard {
+    step Network {
+        ui.checkbox(text: "Route updates through a local &proxy", bind: ref enableProxy);
+        ui.textBox(
+            label:    "Local proxy &port:",
+            bind:     ref proxyPort,
+            when:     () => enableProxy,
+            validate: checkPort
+        );
+    }
+}
+```
+
+## Modal `TaskDialogIndirect`, Progress & File Dialogs (`9` Methods) {#modal-ui-methods}
+
+All modal dialogs auto-bypass cleanly in `/s` silent mode without hanging unattended CI/GPO deployments:
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `ui.progress` | `ui.progress(percent: int, statusText?: string, detailText?: string)` | `null` | Updates the live progress bar (`0..100`), status caption, and Windows 11 Taskbar `ITaskbarList3` progress! |
+| `ui.info` | `ui.info(heading: string, body?: string, title?: string, details?: string)` | `int` | Accessible informational `TaskDialogIndirect`. |
+| `ui.warn` | `ui.warn(heading: string, body?: string, title?: string, details?: string)` | `int` | Accessible warning `TaskDialogIndirect`. |
+| `ui.error` | `ui.error(heading: string, body?: string, title?: string, details?: string)` | `int` | Accessible error `TaskDialogIndirect`. |
+| `ui.abort` | `ui.abort(heading: string, body?: string)` | `null` | Displays accessible error dialog (unless `/s` silent) and aborts execution cleanly (`1603`). |
+| `ui.confirm` | `ui.confirm(heading: string, body?: string, yesText?: string, noText?: string)` | `bool` | Accessible Yes/Cancel confirmation returning `true` when confirmed. |
+| `ui.taskDialog` | `ui.taskDialog(title?: string, heading: string, body?: string, icon?: string, buttons?: array, verifyText?: string, detailsTitle?: string, detailsBody?: string, choice?: ref intVar, verifiedOut?: ref boolVar)` | `map` | Full Windows 11 Command-Link `TaskDialogIndirect` returning `{ button: int, verified: bool }` and writing `ref` out-parameters! |
+| `ui.pickFolder` | `ui.pickFolder(title?: string, initialDir?: string)` | `path` | Opens modern Explorer `IFileOpenDialog(FOS_PICKFOLDERS)` (`path("")` if cancelled). |
+| `ui.pickFile` | `ui.pickFile(title?: string, initialDir?: string, filterSpec?: string)` | `path` | Opens modern Explorer `IFileOpenDialog` file picker. |
+
+## `wizard.*` & `showcase.*` — Wizard Navigation & Showcase Studio Canvas (`8` Methods) {#wizard-showcase-namespaces}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `wizard.next` | `wizard.next()` | `null` | Programmatically advances to the next eligible wizard step. |
+| `wizard.back` | `wizard.back()` | `null` | Pops the visited-step stack and rewinds to the previous wizard step. |
+| `wizard.cancel` | `wizard.cancel(exitCode?: int)` | `null` | Cancels setup cleanly with standard user-exit code `1602` (`ERROR_INSTALL_USEREXIT`). |
+| `showcase.navigate` | `showcase.navigate(pageId: string)` | `string` | Switches the active **RaggieSoft Showcase Studio** canvas page (`"Main"`, `"LinerNotes"`, `"ProgressPage"`). |
+| `showcase.setHotspotEnabled` | `showcase.setHotspotEnabled(hotspotId: string, enabled: bool)` | `bool` | Enables or disables an accessible UIA `BUTTON` hotspot on the Showcase canvas. |
+| `showcase.setHotspotBadge` | `showcase.setHotspotBadge(hotspotId: string, badgeText: string)` | `bool` | Updates dynamic hotspot badge/caption (e.g., toggling `"&Install"` <-> `"&Launch"`). |
+| `showcase.playAudio` | `showcase.playAudio(trackRelPath: string, captionVttPath?: string)` | `bool` | Plays captioned Showcase background audio **only** after explicit user unmute (never autoplays per WCAG 1.4.2). |
+| `showcase.stopAudio` | `showcase.stopAudio()` | `bool` | Stops Showcase audio playback cleanly. |
+
+## All `11` Built-In `WizardStyle` Themes {#wizard-styles}
+
+1. `WizardStyle.FluentMica` (`"fluentmica"`) — Windows 11 rounded card + DWM Mica/Dark titlebar.
+2. `WizardStyle.AeroWizard` (`"aerowizard"`) — Windows Vista/7/10 command-header Aero Wizard.
+3. `WizardStyle.Standard` (`"standard"`) — Clean classic two-pane enterprise installer.
+4. `WizardStyle.Wizard97` (`"wizard97"`) — Classic white header banner + etched divider (`Wizard 97`).
+5. `WizardStyle.Wizard95` (`"wizard95"`) — Authentic beveled 3D 1995 setup dialog with WCAG contrast protection.
+6. `WizardStyle.FullScreenBlue` (`"fullscreenblue"`) — Classic 1990s cobalt gradient full-screen backdrop + centered wizard.
+7. `WizardStyle.FullScreenTeal` (`"fullscreenteal"`) — Classic `#008080` desktop teal workstation setup backdrop.
+8. `WizardStyle.Autorun16x9` (`"autorun16x9"`) — Widescreen `16:9` media/book/album collector edition card.
+9. `WizardStyle.OneClick` (`"oneclick"`) — Streamlined single-card express installer.
+10. `WizardStyle.PassiveToast` (`"passivetoast"`) — Compact corner/centered progress card without modal interruption.
+11. `WizardStyle.Simple` (`"simple"`) — Minimal lightweight utility dialog.
+
+
+================================================================================
+TOPIC: Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*) [studio-sandbox-profiles] (Wizard UI & Studio Sandboxes)
+================================================================================
+
+# Studio Sandbox Profiles (`training.*`, `a11y.*`, `localization.*`, `document.*`, `launcher.*`, `help.*`) {#studio-sandbox-profiles}
+
+Because RaggieScript powers **all eight RaggieSoft Studio tools**, scripts authored for compliance, e-learning, localization, PDF generation, or help routing run inside **strict compile-time capability sandboxes (`RSW702`)**.
+
+> [!IMPORTANT] **Zero Host Escape Guarantee (`RSW702`)**: Whenever a script declares `use training;`, `use a11y;`, `use localization;`, or `use document;` (without `use installer;`), the RaggieScript static binder rejects **at compile time** any call to `fs.*`, `reg.*`, `proc.*`, `ffi.*`, `rm.*`, `svc.*`, `net.*`, `msi.*`, `prereq.*`, `shortcut.*`, `shell.*`, `firewall.*`, `acl.*`, `task.*`, `env.*`, `arp.*`, `ini.*`, or `archive.*`.
+
+## `training.*` — RaggieSoft Training Studio SCORM 1.2 & 2004 (`4` Methods) {#training-namespace}
+
+Compiles via `raggiescript.exe transpile-es2022` into a pure, zero-`eval()` ES2022 JavaScript module (`createRaggieScriptModule(host)`) for `< 50 KB` bandwidth-resilient SCORM courses, and also executes natively in the C++20 and `.NET` VMs for headless rubric testing!
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `training.setScore` | `training.setScore(scorePct: int, maxScore?: int)` | `bool` | Records normalized quiz score (`0..100`, `cmi.core.score.raw` / `cmi.score.scaled`). |
+| `training.completeSlide` | `training.completeSlide(slideId: string)` | `bool` | Marks `slideId` complete in Training Studio's offline Write-Ahead Queue (`WAL`). |
+| `training.branchTo` | `training.branchTo(targetSlideId: string)` | `string` | Routes the learner to an adaptive scenario or remediation slide and returns `targetSlideId`. |
+| `training.recordObjective` | `training.recordObjective(objectiveId: string, status: string, score?: int)` | `bool` | Records SCORM 2004 4th Edition `cmi.objectives.n` (`"passed"` / `"failed"` / `"completed"`). |
+
+```rssc
+use training;
+
+enum Outcome {
+    Certify   = "slide-certificate",
+    Remediate = "slide-review"
+}
+
+fn gradeAssessment(points: int, maxPoints: int) : string {
+    const pct = (points * 100) / maxPoints;
+    training.setScore(pct);
+    training.recordObjective("OBJ-ADA-2026", pct >= 80 ? "passed" : "failed", pct);
+    training.completeSlide("slide-quiz");
+    return training.branchTo(match (pct >= 80) {
+        true  => Outcome.Certify,
+        false => Outcome.Remediate
+    });
+}
+```
+
+## `a11y.*` — RaggieSoft Accessibility Studio Custom Compliance Rules (`2` Methods) {#a11y-namespace}
+
+Executed inside `AccessibilityStudio.exe` and `a11y-studio-cli` via our managed `.NET` `RaggieScript.Core` SDK (and C++20 VM) to enforce organization-specific WCAG 2.2 AA & Section 508 design-system rules outputting OASIS SARIF 2.1.0:
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `a11y.contrastRatio` | `a11y.contrastRatio(fgHex: string, bgHex: string)` | `float` | Computes exact W3C WCAG 2.2 relative luminance contrast ratio (`1.0` .. `21.0`) between two `#RRGGBB` colors. |
+| `a11y.reportViolation` | `a11y.reportViolation(ruleId: string, targetId: string, message: string, severity?: string, line?: int)` | `null` | Appends a structured SARIF 2.1.0 / VPAT diagnostic finding. |
+
+## `localization.*` — RaggieSoft Localization Studio QA Gates (`2` Methods) {#localization-namespace}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `localization.hasToken` | `localization.hasToken(translatedText: string, token: string)` | `bool` | Verifies that locked format placeholders (`"{0}"`, `"$(ARCH)"`, `"[INSTALLDIR]"`, `"${name}"`) survived translation intact. |
+| `localization.cps` | `localization.cps(cueText: string, durationSeconds: float)` | `float` | Computes WebVTT closed-caption reading speed in characters per second (`<= 22.0` CPS WCAG / broadcast target). |
+
+## `document.*`, `launcher.*` & `help.*` — PDF/UA-1, Release Rings & `F1` Routing (`3` Methods) {#doc-launcher-help-namespaces}
+
+| Method | Signature | Return | Studio Host & Purpose |
+| :--- | :--- | :--- | :--- |
+| `document.bindField` | `document.bindField(fieldName: string, value: any)` | `null` | **Document Studio**: Binds computed values into ISO 14289-1 Tagged `PDF/UA-1` AcroForm & template fields. |
+| `launcher.selectChannel` | `launcher.selectChannel(ringSlug: string)` | `string` | **Launcher Studio**: Selects `"stable"`, `"preview"`, or `"lts"` update ring based on hardware/OS policy. |
+| `help.routeContextId` | `help.routeContextId(contextId: int, topicSlugAndAnchor: string)` | `bool` | **Help Studio**: Dynamically maps a Win32 `WM_HELP` numeric `ContextId` to a `topic#anchor` destination. |
+
+
+================================================================================
+TOPIC: Diagnostics Reference (RSW700 – RSW715) [diagnostics-reference] (Diagnostics & Bytecode ISA)
+================================================================================
+
+# Compiler & Verifier Diagnostics Reference (`RSW700` – `RSW715`) {#diagnostics-reference}
+
+Every diagnostic emitted by `raggiescript.exe check`, `raggiescript.exe lsp`, `instbuild.exe`, and `RaggieScript.Core` carries a stable `RSW7xx` code, 1-based `(line, column)` coordinates, and actionable fix guidance.
+
+## Summary Table of All RaggieScript Diagnostics {#diagnostics-table}
+
+| Code | Category | Phase | Summary |
+| :--- | :--- | :--- | :--- |
+| `RSW700` | Lexical / Syntax / Preprocessor | Parse | Unterminated string/comment, unexpected token, missing `;` / `}`, or cyclic `include`. |
+| `RSW701` | **Wizard Phase Isolation** | Binder | Mutating call (`fs.write*`, `reg.write*`, `msi.install`, `svc.*`, etc.) reached directly or transitively inside `wizard { ... }`. |
+| `RSW702` | **Capability Sandbox Violation** | Binder | Sandboxed Studio profile (`use training;`, `use a11y;`, `use localization;`, `use document;`) attempted host OS/FS/Registry/Network access. |
+| `RSW704` | **Bytecode & SHA-256 Integrity** | Loader | Invalid `RSWBC2`/`RSWBC1` magic header, truncated stream, or 32-byte SHA-256 tamper mismatch! |
+| `RSW710` | **Undeclared Identifier** | Type Binder | Variable, `ref` target, or function name is not in scope (includes Levenshtein `"Did you mean '...'?"` hint). |
+| `RSW711` | **Static Type Mismatch** | Type Binder | Incompatible initializer, assignment, `struct` field type, `match` arm pattern, or `return` value type. |
+| `RSW712` | **Call Arity or Unknown Method** | Type Binder | Unknown `ns.method()` (with fuzzy suggestion) or wrong argument count/type passed to a function. |
+| `RSW713` | **Immutability Violation** | Type Binder / VM | Reassigning a `const` binding, passing a `const` variable as `ref`, or mutating a CLI hard-locked `KEY:VALUE` parameter. |
+| `RSW714` | **Unknown `struct` Field or `enum` Variant** | Type Binder | Typo in `MyStruct { badField: 1 }` or `MyEnum.BadVariant` (includes fuzzy field/variant suggestion). |
+| `RSW715` | **Control-Flow Violation** | Type Binder | Non-`void` typed `fn` missing a `return` along a code path, or `break;` / `continue;` outside a loop. |
+
+---
+
+## Detailed Diagnostic Guides & Fixes {#diagnostic-examples}
+
+### `RSW701` — Wizard Phase Isolation Violation {#rsw701}
+**Why it happens**: `wizard { ... }` (and any helper `fn` called from `wizard`) must remain 100% read-only so canceling the wizard leaves zero trace on the PC and `Uac.Deferred` can run the wizard un-elevated.
+
+```rssc
+// FAILS WITH RSW701:
+wizard {
+    step Welcome {
+        reg.writeString(Hive.HKCU, r"Software\App", "VisitedWizard", "1"); // <-- RSW701!
+    }
+}
+
+// FIX: Bind a 'param' in wizard, and write to the Registry inside 'install { ... }'!
+param optedIn: bool = true;
+wizard {
+    step Welcome { ui.checkbox(text: "Save preference", bind: ref optedIn); }
+}
+install {
+    if (optedIn) { reg.writeString(Hive.HKCU, r"Software\App", "OptedIn", "1"); }
+}
+```
+
+### `RSW702` — Capability Sandbox Violation {#rsw702}
+**Why it happens**: Scripts running inside SCORM web courses (`use training;`) or compliance linters (`use a11y;`) are isolated from host OS I/O. Remove `fs.*`/`reg.*`/`net.*` calls or switch to `use installer;` for native setup tools.
+
+### `RSW704` — Bytecode SHA-256 Tamper Rejection {#rsw704}
+**Why it happens**: Every compiled `.rswbc` file and `#225` PE resource embeds a 32-byte `bcrypt.dll` SHA-256 digest over the entire constant pool and instruction stream. Any single flipped bit halts `LoadRaggieScriptBytecode` before a single instruction executes.
+
+### `RSW710` & `RSW714` — Undeclared Symbol / Unknown Field (Fuzzy Suggestions) {#rsw710-rsw714}
+```rssc
+param installDir: path = sys.programFiles / "Demo";
+install {
+    fs.mkdir(instalDir);
+    // -> [RSW710] Undeclared identifier 'instalDir'. Did you mean 'installDir'?
+}
+```
+
+### `RSW711`, `RSW712`, `RSW713` & `RSW715` — Type, Arity, `const` & Return Checks {#rsw711-rsw715}
+```rssc
+const lockedPort: int = 8443;
+// ui.textBox(label: "Port:", bind: ref lockedPort);
+// -> [RSW713] Cannot pass immutable 'const' binding 'lockedPort' by 'ref'. Use 'param' or 'let'!
+
+fn computePort(useTls: bool) : int {
+    if (useTls) { return 443; }
+    // -> [RSW715] Function 'computePort()' declares return type 'int' but not all control paths return a value.
+    return 8080;
+}
+```
+
+
+================================================================================
+TOPIC: RSWBC2 Bytecode ISA & .rsw-rollback.jnl Spec [bytecode-and-rollback] (Diagnostics & Bytecode ISA)
+================================================================================
+
+# `RSWBC2` Linear Stack Bytecode ISA & `.rsw-rollback.jnl` Specification {#bytecode-and-rollback}
+
+This reference documents the binary layout of RaggieScript's **`RSWBC2`** bytecode container (`RsscBytecodeIsa.hpp`) and the on-disk transactional rollback journal (`RaggieScriptSdk.hpp`).
+
+## `RSWBC2` Binary Container Header (`48` Bytes + Sections) {#rswbc2-header}
+
+| Offset | Size | Field | Description |
+| :--- | :--- | :--- | :--- |
+| `0x00` | `6` bytes | `Magic` | ASCII `"RSWBC2"` (`RaggieScriptVm` also loads `"RSWBC1"` transparently). |
+| `0x06` | `2` bytes | `IsaVersion` | Little-endian `uint16` (`0x0100` = ISA v1.0). |
+| `0x08` | `4` bytes | `Flags` | Bit `0`: `RSW701` Wizard Verified; Bit `1`: `RSW702` Sandboxed Profile. |
+| `0x0C` | `4` bytes | `PayloadLength` | Byte length of the serialized metadata + constant pool + chunk table. |
+| `0x10` | `32` bytes | `Sha256Digest` | `bcrypt.dll` SHA-256 digest over all `PayloadLength` bytes (`RSW704` verified before load!). |
+| `0x30` | `PayloadLength` | `Sections` | Package header metadata, `struct`/`enum`/`param`/`feature`/`payload` descriptors, deduplicated Constant Pool, and Linear Instruction Chunks. |
+
+## Linear Stack VM Instruction Set (`OpCode`) {#opcode-isa}
+
+Each instruction is a fixed compact tuple `(op: uint8, a: uint32, b: int32, srcLine: uint32)`:
+
+| Opcode | Operands | Stack Effect | Semantics |
+| :--- | :--- | :--- | :--- |
+| `NOP` | — | `0` | No operation. |
+| `PUSH_NULL` | — | `+1` | Pushes `null`. |
+| `PUSH_BOOL` | `b` (`0`/`1`) | `+1` | Pushes `false` or `true`. |
+| `PUSH_INT` | `a` (const idx) | `+1` | Pushes 64-bit `int` from constant pool. |
+| `PUSH_FLOAT` | `a` (const idx) | `+1` | Pushes 64-bit `float` from constant pool. |
+| `PUSH_STR` | `a` (const idx) | `+1` | Pushes UTF-8 `string` from constant pool. |
+| `PUSH_VER` | `a` (const idx) | `+1` | Pushes 4-part `SemVer` `version`. |
+| `POP` | — | `-1` | Discards top of stack. |
+| `LOAD_VAR` | `a` (name idx) | `+1` | Resolves lexical local -> closure upvalue -> global variable. |
+| `DECL_VAR` | `a` (name), `b` (`isConst`) | `-1` | Declares variable in current lexical frame with popped initializer. |
+| `STORE_VAR` | `a` (name), `b` (assign op) | `0` (`-1` + push) | Mutates existing mutable binding (enforcing `RSW713` CLI hard-locks!). |
+| `MAKE_REF` | `a` (name idx) | `+1` | Pushes two-way mutable `RefVar` handle for Wizard `bind:` / `TaskDialog` slots. |
+| `MAKE_ARRAY` | `a` (`count`) | `-(count) + 1` | Pops `count` elements into a new `array`. |
+| `MAKE_MAP` | `a` (`pairCount`) | `-(2*pairCount) + 1` | Pops `(key, val)` pairs into a `map`. |
+| `MAKE_STRUCT` | `a` (struct idx), `b` (`pairCount`) | `-(2*pairCount) + 1` | Hydrates `struct` defaults and applies explicit field initializers. |
+| `MAKE_CLOSURE` | `a` (chunk idx) | `+1` | Captures lexical environment into a first-class callable closure value. |
+| `GET_MEMBER` / `SET_MEMBER` | `a` (prop idx) | `0` / `-1` | Reads or writes `map`/`struct`/enum/namespace property. |
+| `GET_INDEX` / `SET_INDEX` | — | `-1` / `-2` | Reads or writes `arr[idx]` / `map[key]`. |
+| `UNARY_OP` / `BINARY_OP` | `b` (op code) | `0` / `-1` | Executes `!`, `-`, `+`, `/`, `==`, `<`, `SemVer` compare, etc. |
+| `JUMP` / `JUMP_IF_FALSE` / `JUMP_IF_TRUE` / `JUMP_IF_NOT_NULL` | `a` (target IP) | `0` / `-1` | Structured control-flow, short-circuit `&&`/`\|\|`, `??`, and `match` arms. |
+| `CALL_HOST` | `a` (`ns.method`), `b` (`argc`) | `-(2*argc) + 1` | Pops named/positional `(argName, argVal)` pairs and invokes the 21-namespace C++20 Stdlib. |
+| `CALL_VALUE` | `b` (`argc`) | `-(2*argc)` | Invokes user `fn`, global builtin, or first-class closure value! |
+| `WIZ_STEP_BEGIN` / `WIZ_STEP_END` | `a` (step name) | `0` | Registers declarative Wizard step boundaries with `RsscWizardUiEngine`. |
+| `RETURN` / `EXIT_SETUP` / `THROW` | — | `-1` | Returns from chunk, exits setup with Win32 exit code, or raises catchable exception. |
+
+> [!TIP] Inspect the exact bytecode generated for any `.rssc` script at any time by running `raggiescript.exe disasm my-setup.rssc`!
+
+## Transactional Rollback Ledger (`.rsw-rollback.jnl`) {#rollback-journal}
+
+Before the first mutating operation inside `install { ... }`, `RaggieScriptVm` opens `<installDir>\.rsw-rollback.jnl` (with automatic fallback to `%TEMP%` before `<installDir>` exists) and flushes each pre-image record to disk **before** performing the OS mutation:
+
+1. **New File / Extracted Payload (`FILE_CREATED`)**: Records path; deleted on rollback.
+2. **Overwritten File / `.ini` / `.xml` / `.json` (`FILE_OVERWRITTEN`)**: Copies original bytes to `<file>.<seq>.rswbak`; restored atomically over `<file>` on rollback, or deleted cleanly upon commit!
+3. **Created Directory (`DIR_CREATED`)**: Recorded in creation order; removed in reverse leaf-first LIFO order if empty on rollback.
+4. **Registry Value (`REG_CREATED` / `REG_OVERWRITTEN`)**: Captures prior `REG_SZ`/`REG_EXPAND_SZ`/`REG_DWORD`/`REG_MULTI_SZ` type and bytes + `RegView` (`64` vs `32`); restores exact prior type/bytes or deletes newly added values on rollback.
+5. **Services, Shortcuts, Firewall Rules & `PATH` Entries**: Journals exact inverse removal/restoration commands—and reuses the exact same journal model inside `<InstallDir>\Uninstall.rswm` so `Uninstall.exe` leaves zero orphan keys or `PATH` cruft!
+
+

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fs.* &amp; reg.* — Transactional Filesystem &amp; Registry |...</title>
+  <meta name="description" content="All 34 fs.* methods (SHA-256, Authenticode, PE fileVersion, RSWPAK1 extract, .rswbak rollback) and all 13 stateless 64/32-bit reg.* methods." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://raggiescript.raggiesoft.dev/ns-fs-and-reg" />
+  <meta property="og:url" content="https://raggiescript.raggiesoft.dev/ns-fs-and-reg" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg" />
+  <meta property="og:site_name" content="RaggieScript" />
+  <meta property="og:title" content="fs.* &amp; reg.* — Transactional Filesystem &amp; Registry |..." />
+  <meta property="og:description" content="All 34 fs.* methods (SHA-256, Authenticode, PE fileVersion, RSWPAK1 extract, .rswbak rollback) and all 13 stateless 64/32-bit reg.* methods." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+  <meta property="og:image:alt" content="RaggieScript Documentation" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="fs.* &amp; reg.* — Transactional Filesystem &amp; Registry |..." />
+  <meta name="twitter:description" content="All 34 fs.* methods (SHA-256, Authenticode, PE fileVersion, RSWPAK1 extract, .rswbak rollback) and all 13 stateless 64/32-bit reg.* methods." />
+  <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"fs.* & reg.* — Transactional Filesystem & Registry |...","description":"All 34 fs.* methods (SHA-256, Authenticode, PE fileVersion, RSWPAK1 extract, .rswbak rollback) and all 13 stateless 64/32-bit reg.* methods.","version":"1.0.0","author":{"@type":"Organization","name":"RaggieSoft"},"url":"https://raggiescript.raggiesoft.dev/ns-fs-and-reg"}</script>
+  <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261127" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-doc">Skip to main documentation</a>
+  <nav class="rs-network-bar" aria-label="RaggieSoft Ecosystem Network"></nav>
+  <header class="doc-banner" data-theme="dark">
+    <div class="doc-banner-inner">
+      <a class="doc-brand" href="/">
+        <span>RaggieScript</span>
+        <span class="doc-ver-pill">v1.0.0</span>
+      </a>
+      <button type="button" class="rs-mobile-header-toggle" data-rs-mobile-toggle aria-expanded="false" aria-controls="header-navigation-panel" aria-label="Toggle documentation menu">
+        <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="header-navigation-panel" class="doc-header-nav" data-rs-collapsible="true">
+        <button type="button" id="rsh-open-search" class="doc-search-btn" aria-label="Search API and documentation (Ctrl+K)">
+          <span>Search API &amp; Docs...</span><kbd>Ctrl+K</kbd>
+        </button>
+        <a class="doc-nav-link" href="/">Learn</a>
+        <a class="doc-nav-link" href="/api-index">API Index (224)</a>
+        <a class="doc-nav-link" href="/llms-full.txt">llms-full.txt</a>
+        <a class="doc-nav-link" href="https://raggiesoft.dev">raggiesoft.dev Hub</a>
+        <a class="doc-nav-link" href="https://raggiesoftstudio.com/raggiescript">Studio Hub</a>
+        <a class="doc-nav-link" href="https://github.com/raggiesoft">GitHub (MIT)</a>
+        <button type="button" id="rsh-theme-toggle" class="doc-theme-btn" aria-label="Cycle color theme">Theme: Auto</button>
+      </div>
+    </div>
+  </header>
+  <details class="mobile-toc-drawer">
+    <summary>Browse Table of Contents (16 chapters)</summary>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome &amp; 60-Second Quick Start Getting Started overview quickstart rssc raggiescript mit editions"><a class="toc-link" href="/">Welcome &amp; 60-Second Quick Start</a></li>
+            <li data-toc-item="1" data-toc-search="CLI (raggiescript.exe), LSP, VS Code &amp; SDKs Getting Started cli raggiescript.exe lsp fmt pack-exe transpile-es2022 dotnet c++20 raggiescript.exe check raggiescript.exe compile raggiescript.exe disasm raggiescript.exe run raggiescript.exe fmt raggiescript.exe lsp raggiescript.exe transpile-es2022 raggiescript.exe pack-exe raggiescript.exe init"><a class="toc-link" href="/cli-and-sdk">CLI (raggiescript.exe), LSP, VS Code &amp; SDKs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Reference (4)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Lexical Grammar, Preprocessor &amp; Expressions Language Reference syntax grammar define include semver raw-string operators loops try-catch"><a class="toc-link" href="/syntax-and-preprocessor">Lexical Grammar, Preprocessor &amp; Expressions</a></li>
+            <li data-toc-item="1" data-toc-search="Gradual Type System, struct, enum, match &amp; Closures Language Reference types struct enum match lambda closure ref semver path struct enum match (...) { =&gt; }"><a class="toc-link" href="/types-structs-enums">Gradual Type System, struct, enum, match &amp; Closures</a></li>
+            <li data-toc-item="1" data-toc-search="Package Headers, param, feature, payload &amp; Phases Language Reference package showcase app param feature payload wizard install repair uninstall uac-deferred wizard { step ... when (...) } install { ... } Uac.Deferred"><a class="toc-link" href="/headers-and-phases">Package Headers, param, feature, payload &amp; Phases</a></li>
+            <li data-toc-item="1" data-toc-search="Global Functions, Enum Constants, Validation &amp; compile.* Language Reference globals str int path ver assert def Scope Uac Hive RegView Token Validation compile feature payload str(value) int(value) float(value) bool(value) path(value) ver(value) len(x) typeof(x) print(...values) log(message, level?) assert(cond, message?) sleep(ms) coalesce(a, b, ...) range(start, end?, step?) def(key, fallback?) targetArch() Validation.ok() Validation.error(message) compile.json(relPath) compile.text(relPath) compile.def(key, fallback?) payload.dir(payloadId) payload.path(payloadId) feature.list() feature.info(id) feature.isSelected(id) feature.setSelected(id, selected?) feature.selectPreset(preset?)"><a class="toc-link" href="/builtins-and-constants">Global Functions, Enum Constants, Validation &amp; compile.*</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Core Standard Library (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot Core Standard Library sys arch isArm64 osBuild osVersion isAdmin uacEnabled isHighContrast programFiles localAppData rebootAndResume sys.arch() sys.compiledArch() sys.isArm64() sys.isX64() sys.isEmulatedUnderPrism() sys.osBuild() sys.osVersion() sys.isWindows11() sys.isServer() sys.isAdmin() sys.uacEnabled() sys.canPromptUac() sys.isSilent() sys.isPassive() sys.isMaintenance() sys.cliArg(key, fallback?) sys.hasSwitch(flag) sys.ramMB() sys.cpuCores() sys.freeDiskMB(targetPath?) sys.freeDiskBytes(targetPath?) sys.dpi() sys.isDarkMode() sys.isHighContrast() sys.locale() sys.newGuid() sys.uuid5(name, nsGuid?) sys.folder(knownName) sys.rebootAndResume(stateMap?, id?) sys.getResumeState(id?) sys.programFiles sys.localAppData sys.supportDir"><a class="toc-link" href="/ns-sys">sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot</a></li>
+            <li data-toc-item="1" data-toc-search="str.*, regex.*, array.*, json.*, ini.* &amp; xml.* Core Standard Library str regex array map filter json ini xml str.lower(text) str.upper(text) str.trim(text) str.contains(haystack, needle, ignoreCase?) str.startsWith(text, prefix, ignoreCase?) str.endsWith(text, suffix, ignoreCase?) str.replace(text, oldSub, newSub, ignoreCase?) str.split(text, delimiter?) str.join(items, separator?) str.slice(text, start, end?) regex.isMatch(input, pattern, ignoreCase?) regex.match(input, pattern, ignoreCase?) regex.replace(input, pattern, replacement, ignoreCase?) array.push(list, item) array.map(list, fn) array.filter(list, predicateFn) array.contains(list, needle) json.parse(jsonText) json.stringify(value, pretty?) ini.read(file, section, key, fallback?) ini.write(file, section, key, value) ini.deleteKey(file, section, key) xml.readText(file, tag, fallback?) xml.readAttr(file, tag, attr, fallback?) xml.replaceAttr(file, tag, attr, newValue) xml.setElementText(file, tag, innerText)"><a class="toc-link" href="/ns-data-and-text">str.*, regex.*, array.*, json.*, ini.* &amp; xml.*</a></li>
+            <li data-toc-item="1" data-toc-search="fs.* &amp; reg.* — Transactional Filesystem &amp; Registry Core Standard Library fs reg mkdir copy copyTree extract writeJson verifyAuthenticode readString writeString RegView fs.exists(path) fs.isDir(path) fs.isFile(path) fs.isLocked(file) fs.fileVersion(pePath) fs.sha256(file) fs.verifyAuthenticode(pePath) fs.findFiles(dir, pattern?, recursive?) fs.readText(file) fs.readJson(file) fs.writeText(file, content) fs.writeJson(file, value, pretty?) fs.mkdir(dir) fs.copy(src, dst, overwrite?) fs.copyTree(srcDir, dstDir, progressLabel?) fs.move(src, dst) fs.remove(file) fs.removeDir(dir) fs.setNtfsCompression(target, enabled?) fs.extract(payloadId?, to?, feature?) reg.exists(hive, key, valueName?, view?) reg.read(hive, key, valueName, fallback?, view?) reg.readString(hive, key, valueName, fallback?, view?) reg.readDword(hive, key, valueName, fallback?, view?) reg.listSubkeys(hive, key, view?) reg.listValues(hive, key, view?) reg.write(hive, key, valueName, value, view?) reg.writeString(hive, key, valueName, value, view?) reg.writeExpandString(hive, key, valueName, value, view?) reg.writeDword(hive, key, valueName, value, view?) reg.appendMultiString(hive, key, valueName, item, view?) reg.deleteValue(hive, key, valueName, view?) reg.deleteKeyTree(hive, key, view?)"><a class="toc-link" href="/ns-fs-and-reg" aria-current="page">fs.* &amp; reg.* — Transactional Filesystem &amp; Registry</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Windows, MSI SQL &amp; Native FFI (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="archive.*, crypto.*, net.* &amp; log.* Windows, MSI SQL &amp; Native FFI archive rswpak lzms crypto sha256 uuid5 net winhttp download log archive.extractZip(zipFile, destDir) archive.createPak(sourceDir, outPakFile) archive.extractPak(pakFile, destDir, expectedSha256?) archive.downloadPak(url, destDir, expectedSha256?, verifySig?) crypto.sha256File(file) crypto.uuid5(name, nsGuid?) crypto.verifyAuthenticode(peFile) net.download(httpsUrl, destFile, expectedSha256?) net.getJson(httpsUrl) net.probe(httpsUrl)"><a class="toc-link" href="/ns-archive-crypto-net-log">archive.*, crypto.*, net.* &amp; log.*</a></li>
+            <li data-toc-item="1" data-toc-search="proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.* Windows, MSI SQL &amp; Native FFI proc ffi rm RestartManager Token.Desktop shortcut shell env appendPath arp svc task firewall acl Token.Desktop proc.isRunning(exeName) proc.run(exe, args?, wait?, hidden?, token?, workDir?) proc.getLockingProcesses(filePaths) proc.restartManagerShutdown(filePaths, force?) proc.restartManagerRestart() ffi.call(dllName, funcName, returnType, args) shortcut.create(location, name, target, ...) shell.registerFileType(ext, progId, description, target, ...) shell.registerProtocol(scheme, description, targetExe) env.appendPath(dirToAdd, scope?) arp.register(options?) arp.setSystemComponent(productId, hidden, scope?) svc.install(serviceName, binPath, displayName?, startType?) task.createWeekly(taskName, exePath, args?, day?, time?) firewall.allowProgram(ruleName, exePath, direction?) acl.grantModify(targetDir, trusteeSid?)"><a class="toc-link" href="/ns-proc-ffi-rm-system">proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.*</a></li>
+            <li data-toc-item="1" data-toc-search="msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes Windows, MSI SQL &amp; Native FFI msi sql execSql query createDatabase generateTransform mst msp prereq dotnet11 webview2 vcredist msi.isUpgradeInstalled(upgradeCodeGuid) msi.install(msiPath, properties?, silent?, logFile?) msi.applyPatch(mspPath, productCode?, cmdLine?) msi.createDatabase(msiPath) msi.listTables(msiPath) msi.query(msiPath, selectSql) msi.execSql(msiPath, sqlOrBatchArray) msi.getProperty(msiPath, propName, fallback?) msi.setProperty(msiPath, propName, value) msi.setSummary(msiPath, summaryMap) msi.generateTransform(baselineMsi, customizedMsi, outMst) prereq.isDotNetDesktopInstalled(majorVer?, minVer?) prereq.isWebView2Installed() prereq.installPreset(presetId, extraSilentArgs?)"><a class="toc-link" href="/ns-msi-and-prereq">msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Wizard UI &amp; Studio Sandboxes (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI Wizard UI &amp; Studio Sandboxes ui wizard showcase welcome license folderPicker textBox checkbox radioCards comboBox featureTree readySummary taskDialog FluentMica ui.welcome(title, subtitle?, body?) ui.license(text, acceptText, bind: ref boolVar) ui.folderPicker(label, bind: ref pathVar, minFreeMB?) ui.textBox(label, bind: ref strVar, when?, validate?) ui.checkbox(text, bind: ref boolVar, subtitle?, when?) ui.radioCards(label, bind: ref strVar, options) ui.comboBox(label, bind: ref var, items) ui.featureTree(heading?) ui.readySummary(heading?, showUacShield?) ui.taskDialog(...) ui.progress(percent, statusText?, detailText?) wizard.cancel() showcase.navigate(pageId)"><a class="toc-link" href="/ns-ui-and-wizard">ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI</a></li>
+            <li data-toc-item="1" data-toc-search="Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*) Wizard UI &amp; Studio Sandboxes training scorm es2022 a11y contrastRatio sarif localization cps document pdf-ua launcher help training.setScore(scorePct, maxScore?) training.branchTo(targetSlideId) a11y.contrastRatio(fgHex, bgHex) a11y.reportViolation(ruleId, targetId, message) localization.hasToken(text, token) localization.cps(cueText, durationSeconds) document.bindField(fieldName, value) launcher.selectChannel(ringSlug) help.routeContextId(contextId, topicSlug)"><a class="toc-link" href="/studio-sandbox-profiles">Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Bytecode ISA (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Diagnostics Reference (RSW700 – RSW715) Diagnostics &amp; Bytecode ISA diagnostics errors RSW700 RSW701 RSW702 RSW704 RSW710 RSW711 RSW712 RSW713 RSW714 RSW715 RSW700 (Syntax / Preprocessor Error) RSW701 (Wizard Phase Isolation) RSW702 (Capability Sandbox Violation) RSW704 (Bytecode SHA-256 Tamper Gate) RSW710 (Undeclared Identifier) RSW711 (Static Type Mismatch) RSW712 (Arity / Unknown Method) RSW713 (Immutability / CLI Lock Violation) RSW714 (Unknown Struct Field / Enum Variant) RSW715 (Missing Return / Loop Control)"><a class="toc-link" href="/diagnostics-reference">Diagnostics Reference (RSW700 – RSW715)</a></li>
+            <li data-toc-item="1" data-toc-search="RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec Diagnostics &amp; Bytecode ISA bytecode RSWBC2 opcodes stack-vm sha256 rollback rswbak journal"><a class="toc-link" href="/bytecode-and-rollback">RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+  </details>
+  <div class="learn-layout">
+    <aside class="learn-left-rail" aria-label="Documentation Table of Contents">
+      <div class="toc-filter-wrap">
+        <input id="rsh-toc-filter" class="toc-filter-input" type="search" placeholder="Filter by title or API..." aria-label="Filter table of contents by title or API" />
+      </div>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome &amp; 60-Second Quick Start Getting Started overview quickstart rssc raggiescript mit editions"><a class="toc-link" href="/">Welcome &amp; 60-Second Quick Start</a></li>
+            <li data-toc-item="1" data-toc-search="CLI (raggiescript.exe), LSP, VS Code &amp; SDKs Getting Started cli raggiescript.exe lsp fmt pack-exe transpile-es2022 dotnet c++20 raggiescript.exe check raggiescript.exe compile raggiescript.exe disasm raggiescript.exe run raggiescript.exe fmt raggiescript.exe lsp raggiescript.exe transpile-es2022 raggiescript.exe pack-exe raggiescript.exe init"><a class="toc-link" href="/cli-and-sdk">CLI (raggiescript.exe), LSP, VS Code &amp; SDKs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Reference (4)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Lexical Grammar, Preprocessor &amp; Expressions Language Reference syntax grammar define include semver raw-string operators loops try-catch"><a class="toc-link" href="/syntax-and-preprocessor">Lexical Grammar, Preprocessor &amp; Expressions</a></li>
+            <li data-toc-item="1" data-toc-search="Gradual Type System, struct, enum, match &amp; Closures Language Reference types struct enum match lambda closure ref semver path struct enum match (...) { =&gt; }"><a class="toc-link" href="/types-structs-enums">Gradual Type System, struct, enum, match &amp; Closures</a></li>
+            <li data-toc-item="1" data-toc-search="Package Headers, param, feature, payload &amp; Phases Language Reference package showcase app param feature payload wizard install repair uninstall uac-deferred wizard { step ... when (...) } install { ... } Uac.Deferred"><a class="toc-link" href="/headers-and-phases">Package Headers, param, feature, payload &amp; Phases</a></li>
+            <li data-toc-item="1" data-toc-search="Global Functions, Enum Constants, Validation &amp; compile.* Language Reference globals str int path ver assert def Scope Uac Hive RegView Token Validation compile feature payload str(value) int(value) float(value) bool(value) path(value) ver(value) len(x) typeof(x) print(...values) log(message, level?) assert(cond, message?) sleep(ms) coalesce(a, b, ...) range(start, end?, step?) def(key, fallback?) targetArch() Validation.ok() Validation.error(message) compile.json(relPath) compile.text(relPath) compile.def(key, fallback?) payload.dir(payloadId) payload.path(payloadId) feature.list() feature.info(id) feature.isSelected(id) feature.setSelected(id, selected?) feature.selectPreset(preset?)"><a class="toc-link" href="/builtins-and-constants">Global Functions, Enum Constants, Validation &amp; compile.*</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Core Standard Library (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot Core Standard Library sys arch isArm64 osBuild osVersion isAdmin uacEnabled isHighContrast programFiles localAppData rebootAndResume sys.arch() sys.compiledArch() sys.isArm64() sys.isX64() sys.isEmulatedUnderPrism() sys.osBuild() sys.osVersion() sys.isWindows11() sys.isServer() sys.isAdmin() sys.uacEnabled() sys.canPromptUac() sys.isSilent() sys.isPassive() sys.isMaintenance() sys.cliArg(key, fallback?) sys.hasSwitch(flag) sys.ramMB() sys.cpuCores() sys.freeDiskMB(targetPath?) sys.freeDiskBytes(targetPath?) sys.dpi() sys.isDarkMode() sys.isHighContrast() sys.locale() sys.newGuid() sys.uuid5(name, nsGuid?) sys.folder(knownName) sys.rebootAndResume(stateMap?, id?) sys.getResumeState(id?) sys.programFiles sys.localAppData sys.supportDir"><a class="toc-link" href="/ns-sys">sys.* — Silicon, OS Kernel, UAC, Folders &amp; Reboot</a></li>
+            <li data-toc-item="1" data-toc-search="str.*, regex.*, array.*, json.*, ini.* &amp; xml.* Core Standard Library str regex array map filter json ini xml str.lower(text) str.upper(text) str.trim(text) str.contains(haystack, needle, ignoreCase?) str.startsWith(text, prefix, ignoreCase?) str.endsWith(text, suffix, ignoreCase?) str.replace(text, oldSub, newSub, ignoreCase?) str.split(text, delimiter?) str.join(items, separator?) str.slice(text, start, end?) regex.isMatch(input, pattern, ignoreCase?) regex.match(input, pattern, ignoreCase?) regex.replace(input, pattern, replacement, ignoreCase?) array.push(list, item) array.map(list, fn) array.filter(list, predicateFn) array.contains(list, needle) json.parse(jsonText) json.stringify(value, pretty?) ini.read(file, section, key, fallback?) ini.write(file, section, key, value) ini.deleteKey(file, section, key) xml.readText(file, tag, fallback?) xml.readAttr(file, tag, attr, fallback?) xml.replaceAttr(file, tag, attr, newValue) xml.setElementText(file, tag, innerText)"><a class="toc-link" href="/ns-data-and-text">str.*, regex.*, array.*, json.*, ini.* &amp; xml.*</a></li>
+            <li data-toc-item="1" data-toc-search="fs.* &amp; reg.* — Transactional Filesystem &amp; Registry Core Standard Library fs reg mkdir copy copyTree extract writeJson verifyAuthenticode readString writeString RegView fs.exists(path) fs.isDir(path) fs.isFile(path) fs.isLocked(file) fs.fileVersion(pePath) fs.sha256(file) fs.verifyAuthenticode(pePath) fs.findFiles(dir, pattern?, recursive?) fs.readText(file) fs.readJson(file) fs.writeText(file, content) fs.writeJson(file, value, pretty?) fs.mkdir(dir) fs.copy(src, dst, overwrite?) fs.copyTree(srcDir, dstDir, progressLabel?) fs.move(src, dst) fs.remove(file) fs.removeDir(dir) fs.setNtfsCompression(target, enabled?) fs.extract(payloadId?, to?, feature?) reg.exists(hive, key, valueName?, view?) reg.read(hive, key, valueName, fallback?, view?) reg.readString(hive, key, valueName, fallback?, view?) reg.readDword(hive, key, valueName, fallback?, view?) reg.listSubkeys(hive, key, view?) reg.listValues(hive, key, view?) reg.write(hive, key, valueName, value, view?) reg.writeString(hive, key, valueName, value, view?) reg.writeExpandString(hive, key, valueName, value, view?) reg.writeDword(hive, key, valueName, value, view?) reg.appendMultiString(hive, key, valueName, item, view?) reg.deleteValue(hive, key, valueName, view?) reg.deleteKeyTree(hive, key, view?)"><a class="toc-link" href="/ns-fs-and-reg" aria-current="page">fs.* &amp; reg.* — Transactional Filesystem &amp; Registry</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Windows, MSI SQL &amp; Native FFI (3)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="archive.*, crypto.*, net.* &amp; log.* Windows, MSI SQL &amp; Native FFI archive rswpak lzms crypto sha256 uuid5 net winhttp download log archive.extractZip(zipFile, destDir) archive.createPak(sourceDir, outPakFile) archive.extractPak(pakFile, destDir, expectedSha256?) archive.downloadPak(url, destDir, expectedSha256?, verifySig?) crypto.sha256File(file) crypto.uuid5(name, nsGuid?) crypto.verifyAuthenticode(peFile) net.download(httpsUrl, destFile, expectedSha256?) net.getJson(httpsUrl) net.probe(httpsUrl)"><a class="toc-link" href="/ns-archive-crypto-net-log">archive.*, crypto.*, net.* &amp; log.*</a></li>
+            <li data-toc-item="1" data-toc-search="proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.* Windows, MSI SQL &amp; Native FFI proc ffi rm RestartManager Token.Desktop shortcut shell env appendPath arp svc task firewall acl Token.Desktop proc.isRunning(exeName) proc.run(exe, args?, wait?, hidden?, token?, workDir?) proc.getLockingProcesses(filePaths) proc.restartManagerShutdown(filePaths, force?) proc.restartManagerRestart() ffi.call(dllName, funcName, returnType, args) shortcut.create(location, name, target, ...) shell.registerFileType(ext, progId, description, target, ...) shell.registerProtocol(scheme, description, targetExe) env.appendPath(dirToAdd, scope?) arp.register(options?) arp.setSystemComponent(productId, hidden, scope?) svc.install(serviceName, binPath, displayName?, startType?) task.createWeekly(taskName, exePath, args?, day?, time?) firewall.allowProgram(ruleName, exePath, direction?) acl.grantModify(targetDir, trusteeSid?)"><a class="toc-link" href="/ns-proc-ffi-rm-system">proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* &amp; acl.*</a></li>
+            <li data-toc-item="1" data-toc-search="msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes Windows, MSI SQL &amp; Native FFI msi sql execSql query createDatabase generateTransform mst msp prereq dotnet11 webview2 vcredist msi.isUpgradeInstalled(upgradeCodeGuid) msi.install(msiPath, properties?, silent?, logFile?) msi.applyPatch(mspPath, productCode?, cmdLine?) msi.createDatabase(msiPath) msi.listTables(msiPath) msi.query(msiPath, selectSql) msi.execSql(msiPath, sqlOrBatchArray) msi.getProperty(msiPath, propName, fallback?) msi.setProperty(msiPath, propName, value) msi.setSummary(msiPath, summaryMap) msi.generateTransform(baselineMsi, customizedMsi, outMst) prereq.isDotNetDesktopInstalled(majorVer?, minVer?) prereq.isWebView2Installed() prereq.installPreset(presetId, extraSilentArgs?)"><a class="toc-link" href="/ns-msi-and-prereq">msi.* &amp; prereq.* — 64-Bit MSI SQL, .MST &amp; Runtimes</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Wizard UI &amp; Studio Sandboxes (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI Wizard UI &amp; Studio Sandboxes ui wizard showcase welcome license folderPicker textBox checkbox radioCards comboBox featureTree readySummary taskDialog FluentMica ui.welcome(title, subtitle?, body?) ui.license(text, acceptText, bind: ref boolVar) ui.folderPicker(label, bind: ref pathVar, minFreeMB?) ui.textBox(label, bind: ref strVar, when?, validate?) ui.checkbox(text, bind: ref boolVar, subtitle?, when?) ui.radioCards(label, bind: ref strVar, options) ui.comboBox(label, bind: ref var, items) ui.featureTree(heading?) ui.readySummary(heading?, showUacShield?) ui.taskDialog(...) ui.progress(percent, statusText?, detailText?) wizard.cancel() showcase.navigate(pageId)"><a class="toc-link" href="/ns-ui-and-wizard">ui.*, wizard.* &amp; showcase.* — Declarative Win32 Wizard UI</a></li>
+            <li data-toc-item="1" data-toc-search="Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*) Wizard UI &amp; Studio Sandboxes training scorm es2022 a11y contrastRatio sarif localization cps document pdf-ua launcher help training.setScore(scorePct, maxScore?) training.branchTo(targetSlideId) a11y.contrastRatio(fgHex, bgHex) a11y.reportViolation(ruleId, targetId, message) localization.hasToken(text, token) localization.cps(cueText, durationSeconds) document.bindField(fieldName, value) launcher.selectChannel(ringSlug) help.routeContextId(contextId, topicSlug)"><a class="toc-link" href="/studio-sandbox-profiles">Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher.*, help.*)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Bytecode ISA (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Diagnostics Reference (RSW700 – RSW715) Diagnostics &amp; Bytecode ISA diagnostics errors RSW700 RSW701 RSW702 RSW704 RSW710 RSW711 RSW712 RSW713 RSW714 RSW715 RSW700 (Syntax / Preprocessor Error) RSW701 (Wizard Phase Isolation) RSW702 (Capability Sandbox Violation) RSW704 (Bytecode SHA-256 Tamper Gate) RSW710 (Undeclared Identifier) RSW711 (Static Type Mismatch) RSW712 (Arity / Unknown Method) RSW713 (Immutability / CLI Lock Violation) RSW714 (Unknown Struct Field / Enum Variant) RSW715 (Missing Return / Loop Control)"><a class="toc-link" href="/diagnostics-reference">Diagnostics Reference (RSW700 – RSW715)</a></li>
+            <li data-toc-item="1" data-toc-search="RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec Diagnostics &amp; Bytecode ISA bytecode RSWBC2 opcodes stack-vm sha256 rollback rswbak journal"><a class="toc-link" href="/bytecode-and-rollback">RSWBC2 Bytecode ISA &amp; .rsw-rollback.jnl Spec</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+    </aside>
+    <main id="main-doc" class="learn-article" tabindex="-1">
+      <nav class="learn-breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">RaggieScript</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span>Core Standard Library</span>
+      </nav>
+      <div class="learn-meta-bar">
+        <span class="meta-pill">5 min read</span>
+        <span class="meta-pill">Module: <code>raggiesoft.raggiescript</code></span>
+        <span class="meta-pill">F1: <code>IDH_RSSC_NS_FS_REG (0x2009)</code></span>
+      </div>
+<h1 id="ns-fs-and-reg"><code>fs.*</code> &amp; <code>reg.*</code> — Transactional Filesystem &amp; Stateless 64/32-Bit Registry</h1>
+<p><code>fs.*</code> and <code>reg.*</code> are gated to <code>use installer;</code> (and <code>use showcase;</code> in Community/Architect editions; blocked in sandboxed profiles via <code>RSW702</code>). Every mutating call is <strong>100% rollback-journaled</strong> inside <code>install { ... }</code> and rejected inside <code>wizard { ... }</code> by <strong><code>RSW701</code></strong>.</p>
+<h2 id="fs-readonly"><code>fs.*</code> — Read-Only Inspection &amp; Cryptographic Verification (<code>19</code> Methods)</h2>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Description</th></tr></thead><tbody>
+<tr><td><code>fs.exists</code></td><td><code>fs.exists(target: path)</code></td><td><code>bool</code></td><td>Returns <code>true</code> if file or directory exists.</td></tr>
+<tr><td><code>fs.isDir</code></td><td><code>fs.isDir(target: path)</code></td><td><code>bool</code></td><td>Returns <code>true</code> if <code>target</code> is an existing directory.</td></tr>
+<tr><td><code>fs.isFile</code></td><td><code>fs.isFile(target: path)</code></td><td><code>bool</code></td><td>Returns <code>true</code> if <code>target</code> is a regular file.</td></tr>
+<tr><td><code>fs.isLocked</code></td><td><code>fs.isLocked(file: path)</code></td><td><code>bool</code></td><td>Probes <code>CreateFileW</code> with exclusive sharing (<code>0</code>) to check if another process holds a file lock.</td></tr>
+<tr><td><code>fs.size</code></td><td><code>fs.size(file: path)</code></td><td><code>int</code></td><td>Returns file size in bytes (<code>0</code> if missing).</td></tr>
+<tr><td><code>fs.join</code></td><td><code>fs.join(part1: any, part2: any, ...)</code></td><td><code>path</code></td><td>Joins up to 8 path segments cleanly (functional equivalent of <code>a / b</code>).</td></tr>
+<tr><td><code>fs.parent</code></td><td><code>fs.parent(target: path)</code></td><td><code>path</code></td><td>Returns the parent directory path.</td></tr>
+<tr><td><code>fs.fileName</code></td><td><code>fs.fileName(target: path)</code></td><td><code>string</code></td><td>Returns filename including extension (<code>&quot;Workbench.exe&quot;</code>).</td></tr>
+<tr><td><code>fs.stem</code></td><td><code>fs.stem(target: path)</code></td><td><code>string</code></td><td>Returns filename without extension (<code>&quot;Workbench&quot;</code>).</td></tr>
+<tr><td><code>fs.ext</code></td><td><code>fs.ext(target: path)</code></td><td><code>string</code></td><td>Returns extension including leading dot (<code>&quot;.exe&quot;</code>).</td></tr>
+<tr><td><code>fs.tempDir</code></td><td><code>fs.tempDir(subName?: string)</code></td><td><code>path</code></td><td>Resolves or allocates a scoped directory inside <code>%TEMP%</code>.</td></tr>
+<tr><td><code>fs.tempFile</code></td><td><code>fs.tempFile(prefix?: string, ext?: string)</code></td><td><code>path</code></td><td>Allocates a unique temporary file path.</td></tr>
+<tr><td><code>fs.fileVersion</code></td><td><code>fs.fileVersion(pePath: path)</code></td><td><code>version</code></td><td>Reads PE <code>VS_FIXEDFILEINFO</code> (<code>GetFileVersionInfoW</code>) as a 4-part <code>SemVer</code> value!</td></tr>
+<tr><td><code>fs.sha256</code></td><td><code>fs.sha256(file: path)</code></td><td><code>string</code></td><td>Computes lowercase 64-char hex SHA-256 via Windows CNG <code>bcrypt.dll</code>.</td></tr>
+<tr><td><code>fs.verifyAuthenticode</code></td><td><code>fs.verifyAuthenticode(pePath: path)</code></td><td><code>bool</code></td><td>Verifies PE Authenticode signature chain via <code>WinVerifyTrust(WINTRUST_ACTION_GENERIC_VERIFY_V2)</code>.</td></tr>
+<tr><td><code>fs.findFiles</code></td><td><code>fs.findFiles(dir: path, pattern?: string, recursive?: bool)</code></td><td><code>array</code></td><td>Enumerates matching file <code>path</code> items in <code>dir</code>.</td></tr>
+<tr><td><code>fs.readText</code></td><td><code>fs.readText(file: path)</code></td><td><code>string</code></td><td>Reads a UTF-8 text file (stripping optional UTF-8 BOM).</td></tr>
+<tr><td><code>fs.readLines</code></td><td><code>fs.readLines(file: path)</code></td><td><code>array</code></td><td>Reads UTF-8 lines into a <code>string[]</code> array.</td></tr>
+<tr><td><code>fs.readJson</code></td><td><code>fs.readJson(file: path)</code></td><td><code>any</code></td><td>Reads and parses a UTF-8 JSON file into maps/arrays/primitives.</td></tr>
+</tbody></table></div>
+<h2 id="fs-mutating"><code>fs.*</code> — Rollback-Journaled Mutations &amp; <code>RSWPAK1</code> Extraction (<code>15</code> Methods)</h2>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Rollback Behavior (<code>.rsw-rollback.jnl</code>)</th></tr></thead><tbody>
+<tr><td><code>fs.writeText</code></td><td><code>fs.writeText(file: path, content: string)</code></td><td><code>bool</code></td><td>Snapshots existing file to <code>.rswbak</code> (or records created file for deletion on fault).</td></tr>
+<tr><td><code>fs.appendText</code></td><td><code>fs.appendText(file: path, text: string)</code></td><td><code>bool</code></td><td>Snapshots prior file bytes to <code>.rswbak</code> before appending.</td></tr>
+<tr><td><code>fs.writeJson</code></td><td><code>fs.writeJson(file: path, value: any, pretty?: bool)</code></td><td><code>bool</code></td><td>Atomically serializes structured JSON (with <code>.rswbak</code> protection).</td></tr>
+<tr><td><code>fs.writeBytesHex</code></td><td><code>fs.writeBytesHex(file: path, hexString: string)</code></td><td><code>bool</code></td><td>Writes decoded binary bytes with <code>.rswbak</code> rollback protection.</td></tr>
+<tr><td><code>fs.mkdir</code></td><td><code>fs.mkdir(dir: path)</code></td><td><code>bool</code></td><td>Creates missing parent/target directories and journals newly created folders in LIFO order.</td></tr>
+<tr><td><code>fs.copy</code></td><td><code>fs.copy(src: path, dst: path, overwrite?: bool)</code></td><td><code>bool</code></td><td>Copies <code>src</code> -&gt; <code>dst</code> (<code>overwrite = true</code> default), backing up any prior <code>dst</code> to <code>.rswbak</code>.</td></tr>
+<tr><td><code>fs.copyTree</code></td><td><code>fs.copyTree(srcDir: path, dstDir: path, progressLabel?: string)</code></td><td><code>bool</code></td><td>Recursively copies an entire directory tree with per-file rollback entries.</td></tr>
+<tr><td><code>fs.move</code></td><td><code>fs.move(src: path, dst: path)</code></td><td><code>bool</code></td><td>Moves/renames <code>src</code> -&gt; <code>dst</code> with rollback restoration.</td></tr>
+<tr><td><code>fs.remove</code></td><td><code>fs.remove(file: path)</code></td><td><code>bool</code></td><td>Backs up <code>file</code> to <code>.rswbak</code> during <code>install</code> so fault rollback restores deleted files!</td></tr>
+<tr><td><code>fs.removeDir</code></td><td><code>fs.removeDir(dir: path)</code></td><td><code>bool</code></td><td>Removes directory tree if present.</td></tr>
+<tr><td><code>fs.removeTree</code></td><td><code>fs.removeTree(dir: path)</code></td><td><code>bool</code></td><td>Alias for <code>fs.removeDir(dir)</code>.</td></tr>
+<tr><td><code>fs.removeTreeIfExists</code></td><td><code>fs.removeTreeIfExists(dir: path)</code></td><td><code>bool</code></td><td>Safely removes <code>dir</code> without error when already absent.</td></tr>
+<tr><td><code>fs.setAttributes</code></td><td><code>fs.setAttributes(target: path, readOnly?: bool, hidden?: bool, system?: bool)</code></td><td><code>bool</code></td><td>Updates Win32 file attributes (<code>SetFileAttributesW</code>).</td></tr>
+<tr><td><code>fs.setNtfsCompression</code></td><td><code>fs.setNtfsCompression(target: path, enabled?: bool)</code></td><td><code>bool</code></td><td>Enables/disables transparent NTFS <code>LZNT1</code> compression (<code>FSCTL_SET_COMPRESSION</code>).</td></tr>
+<tr><td><code>fs.extract</code></td><td><code>fs.extract(payloadId?: string, to?: path, feature?: string)</code></td><td><code>int</code></td><td>Extracts embedded <code>LZMS</code> <code>RSWPAK1</code> (<code>#220</code>) files into <code>to</code> (default <code>installDir</code>), returning extracted file count!</td></tr>
+</tbody></table></div>
+<h2 id="reg-namespace"><code>reg.*</code> — Stateless 64-Bit &amp; 32-Bit WOW64 Windows Registry (<code>13</code> Methods)</h2>
+<aside class="learn-alert learn-alert-tip" role="note">
+<div class="learn-alert-title">Tip</div>
+<p>Never toggle global <code>SetRegView 64</code> / <code>SetRegView 32</code> state! Every <code>reg.*</code> call defaults to <code>RegView.Native64</code> (<code>KEY_WOW64_64KEY</code>) and accepts a stateless per-call <code>view: RegView.Native64 | RegView.Wow32 | RegView.Both</code> named argument.</p>
+</aside>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Mutating?</th><th scope="col">Description</th></tr></thead><tbody>
+<tr><td><code>reg.exists</code></td><td><code>reg.exists(hive: string, key: string, valueName?: string, view?: string)</code></td><td><code>bool</code></td><td>Read-Only</td><td>Checks whether <code>key</code> (or <code>valueName</code> when non-empty) exists.</td></tr>
+<tr><td><code>reg.read</code></td><td><code>reg.read(hive: string, key: string, valueName: string, fallback?: any, view?: string)</code></td><td><code>any</code></td><td>Read-Only</td><td>Reads string or integer value—returning <code>null</code> when absent so <code>??</code> null-coalescing chains work naturally!</td></tr>
+<tr><td><code>reg.readString</code></td><td><code>reg.readString(hive: string, key: string, valueName: string, fallback?: string, view?: string)</code></td><td><code>string</code></td><td>Read-Only</td><td>Reads <code>REG_SZ</code> or <code>REG_EXPAND_SZ</code> string (returning <code>fallback</code> or <code>&quot;&quot;</code> when missing).</td></tr>
+<tr><td><code>reg.readDword</code></td><td><code>reg.readDword(hive: string, key: string, valueName: string, fallback?: int, view?: string)</code></td><td><code>int</code></td><td>Read-Only</td><td>Reads <code>REG_DWORD</code> or <code>REG_QWORD</code> integer.</td></tr>
+<tr><td><code>reg.listSubkeys</code></td><td><code>reg.listSubkeys(hive: string, key: string, view?: string)</code></td><td><code>array</code></td><td>Read-Only</td><td>Enumerates child subkey names as a <code>string[]</code> array (<code>RegView.Both</code> merges 64-bit &amp; <code>WOW6432Node</code>!).</td></tr>
+<tr><td><code>reg.listValues</code></td><td><code>reg.listValues(hive: string, key: string, view?: string)</code></td><td><code>array</code></td><td>Read-Only</td><td>Enumerates value names under <code>key</code> as a <code>string[]</code> array.</td></tr>
+<tr><td><code>reg.write</code></td><td><code>reg.write(hive: string, key: string, valueName: string, value: any, view?: string)</code></td><td><code>bool</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Writes <code>REG_SZ</code> (for strings/paths) or <code>REG_DWORD</code> (for <code>int</code>/<code>bool</code>) with full prior-value rollback journaling.</td></tr>
+<tr><td><code>reg.writeString</code></td><td><code>reg.writeString(hive: string, key: string, valueName: string, value: string, view?: string)</code></td><td><code>bool</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Writes <code>REG_SZ</code> UTF-16 string value (rollback-journaled).</td></tr>
+<tr><td><code>reg.writeExpandString</code></td><td><code>reg.writeExpandString(hive: string, key: string, valueName: string, value: string, view?: string)</code></td><td><code>bool</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Writes <code>REG_EXPAND_SZ</code> unexpanded <code>%VAR%</code> string (rollback-journaled).</td></tr>
+<tr><td><code>reg.writeDword</code></td><td><code>reg.writeDword(hive: string, key: string, valueName: string, value: int, view?: string)</code></td><td><code>bool</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Writes 32-bit <code>REG_DWORD</code> value (rollback-journaled).</td></tr>
+<tr><td><code>reg.appendMultiString</code></td><td><code>reg.appendMultiString(hive: string, key: string, valueName: string, item: string, view?: string)</code></td><td><code>bool</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Idempotently appends <code>item</code> to a <code>REG_MULTI_SZ</code> list without duplicating existing entries.</td></tr>
+<tr><td><code>reg.deleteValue</code></td><td><code>reg.deleteValue(hive: string, key: string, valueName: string, view?: string)</code></td><td><code>bool</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Deletes <code>valueName</code> (prior value saved in <code>.rsw-rollback.jnl</code> for automatic restoration on fault).</td></tr>
+<tr><td><code>reg.deleteKeyTree</code></td><td><code>reg.deleteKeyTree(hive: string, key: string, view?: string)</code></td><td><code>bool</code></td><td><strong>Mutating (<code>RSW701</code>)</strong></td><td>Recursively deletes <code>key</code> (<code>RegDeleteTreeW</code>).</td></tr>
+</tbody></table></div>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">// Clean null-coalescing lookup across HKCU -&gt; 64-bit HKLM -&gt; Program Files fallback!
+let hostDir = reg.read(Hive.HKCU, r&quot;Software\RaggieSoft\Book Reader&quot;, &quot;Install Path&quot;)
+           ?? reg.read(Hive.HKLM, r&quot;SOFTWARE\RaggieSoft\Book Reader&quot;, &quot;Install Path&quot;, view: RegView.Native64)
+           ?? (sys.programFiles / &quot;RaggieSoft&quot; / &quot;Book Reader&quot;);
+</code></pre>
+
+      <section class="topic-symbols-box" aria-label="Indexed API Symbols on This Page">
+        <strong style="font-size:0.88rem;">Indexed API Calls &amp; Symbols on This Page (33):</strong>
+        <div class="symbol-chip-grid">
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.exists(path)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.isDir(path)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.isFile(path)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.isLocked(file)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.fileVersion(pePath)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.sha256(file)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.verifyAuthenticode(pePath)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.findFiles(dir, pattern?, recursive?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.readText(file)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-readonly"><code>fs.readJson(file)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.writeText(file, content)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.writeJson(file, value, pretty?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.mkdir(dir)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.copy(src, dst, overwrite?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.copyTree(srcDir, dstDir, progressLabel?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.move(src, dst)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.remove(file)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.removeDir(dir)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.setNtfsCompression(target, enabled?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#fs-mutating"><code>fs.extract(payloadId?, to?, feature?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.exists(hive, key, valueName?, view?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.read(hive, key, valueName, fallback?, view?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.readString(hive, key, valueName, fallback?, view?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.readDword(hive, key, valueName, fallback?, view?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.listSubkeys(hive, key, view?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.listValues(hive, key, view?)</code><span class="badge-tag">Read-Only</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.write(hive, key, valueName, value, view?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.writeString(hive, key, valueName, value, view?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.writeExpandString(hive, key, valueName, value, view?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.writeDword(hive, key, valueName, value, view?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.appendMultiString(hive, key, valueName, item, view?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.deleteValue(hive, key, valueName, view?)</code><span class="badge-tag">Mutating</span></a>
+          <a class="symbol-chip" href="#reg-namespace"><code>reg.deleteKeyTree(hive, key, view?)</code><span class="badge-tag">Mutating</span></a>
+        </div>
+      </section>
+      <nav class="learn-pager" aria-label="Article Pagination">
+        <a class="pager-card" href="/ns-data-and-text"><span class="pager-kicker">&larr; Previous</span><span class="pager-title">str.*, regex.*, array.*, json.*, ini.* &amp; xml.*</span></a>
+        <a class="pager-card is-next" href="/ns-archive-crypto-net-log"><span class="pager-kicker">Next &rarr;</span><span class="pager-title">archive.*, crypto.*, net.* &amp; log.*</span></a>
+      </nav>
+    </main>
+    <aside class="learn-right-rail" aria-label="In this article">
+      <h2 class="outline-heading">In this article</h2>
+      <ul class="outline-list">
+        <li><a class="outline-link lvl-2" href="#fs-readonly">fs.* — Read-Only Inspection &amp; Cryptographic Verification (19 Methods)</a></li>
+        <li><a class="outline-link lvl-2" href="#fs-mutating">fs.* — Rollback-Journaled Mutations &amp; RSWPAK1 Extraction (15 Methods)</a></li>
+        <li><a class="outline-link lvl-2" href="#reg-namespace">reg.* — Stateless 64-Bit &amp; 32-Bit WOW64 Windows Registry (13 Methods)</a></li>
+      </ul>
+    </aside>
+  </div>
+  <dialog id="rsh-search-modal" class="search-modal" aria-labelledby="rsh-search-modal-title">
+    <div class="search-modal-head">
+      <label id="rsh-search-modal-title" for="rsh-modal-input" style="font-weight:700;white-space:nowrap;">Search</label>
+      <input id="rsh-modal-input" class="search-modal-input" type="search" placeholder="Search every function, namespace, diagnostic, or topic..." autocomplete="off" />
+      <button type="button" id="rsh-close-search" class="doc-theme-btn">Esc</button>
+    </div>
+    <div id="rsh-modal-results" class="search-modal-body" aria-live="polite"></div>
+  </dialog>
+  <footer class="doc-footer">
+    <p><strong>RaggieScript v1.0.0</strong> &bull; Compiled directly from plain-text <code>.rshp</code> + Markdown sources by <strong>RaggieSoft Help Studio v0.6.0</strong> (WCAG 2.2 Level AA &amp; Revised Section 508 Verified; Code: <strong>MIT License</strong> &bull; Creative Content: <strong>CC BY-SA 4.0</strong>).</p>
+    <p>Fictitious Persons &amp; Entities Disclaimer: All narrative characters (including Zoe and Fin#), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events referenced across RaggieSoft sample content packs are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+  </footer>
+  <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261127" defer></script>
+  <script src="/portal.js" defer></script>
+</body>
+</html>

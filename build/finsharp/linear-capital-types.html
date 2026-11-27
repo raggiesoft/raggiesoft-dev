@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move...</title>
+  <meta name="description" content="Linear no-cloning/no-dropping rules, 128-bit scaled fixed-point arithmetic (FIN0003), and ISO 4217 dimension-typed currencies (FIN0004)." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://finsharp.raggiesoft.dev/linear-capital-types" />
+  <meta property="og:url" content="https://finsharp.raggiesoft.dev/linear-capital-types" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg" />
+  <meta property="og:site_name" content="Fin# (Financial Sharp)" />
+  <meta property="og:title" content="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move..." />
+  <meta property="og:description" content="Linear no-cloning/no-dropping rules, 128-bit scaled fixed-point arithmetic (FIN0003), and ISO 4217 dimension-typed currencies (FIN0004)." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-books/images/scenes/aubrie/e007/c001/p003/birth-of-finsharp-og.jpg" />
+  <meta property="og:image:alt" content="Fin# (Financial Sharp) Documentation" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move..." />
+  <meta name="twitter:description" content="Linear no-cloning/no-dropping rules, 128-bit scaled fixed-point arithmetic (FIN0003), and ISO 4217 dimension-typed currencies (FIN0004)." />
+  <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-books/images/scenes/aubrie/e007/c001/p003/birth-of-finsharp-og.jpg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Linear Resource Types (Capital<T>, Account<K, T> & Move...","description":"Linear no-cloning/no-dropping rules, 128-bit scaled fixed-point arithmetic (FIN0003), and ISO 4217 dimension-typed currencies (FIN0004).","version":"0.1.0","author":{"@type":"Organization","name":"RaggieSoft"},"url":"https://finsharp.raggiesoft.dev/linear-capital-types"}</script>
+  <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261127" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-doc">Skip to main documentation</a>
+  <nav class="rs-network-bar" aria-label="RaggieSoft Ecosystem Network"></nav>
+  <header class="doc-banner" data-theme="dark">
+    <div class="doc-banner-inner">
+      <a class="doc-brand" href="/">
+        <span>Fin# (Financial Sharp)</span>
+        <span class="doc-ver-pill">v0.1.0</span>
+      </a>
+      <button type="button" class="rs-mobile-header-toggle" data-rs-mobile-toggle aria-expanded="false" aria-controls="header-navigation-panel" aria-label="Toggle documentation menu">
+        <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="header-navigation-panel" class="doc-header-nav" data-rs-collapsible="true">
+        <button type="button" id="rsh-open-search" class="doc-search-btn" aria-label="Search API and documentation (Ctrl+K)">
+          <span>Search API &amp; Docs...</span><kbd>Ctrl+K</kbd>
+        </button>
+        <a class="doc-nav-link" href="/">Learn</a>
+        <a class="doc-nav-link" href="/api-index">API Index (34)</a>
+        <a class="doc-nav-link" href="/llms-full.txt">llms-full.txt</a>
+        <a class="doc-nav-link" href="https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin">Born in The Eleventh Child (/books/aubrie)</a>
+        <a class="doc-nav-link" href="https://raggiesoft.dev/labs/finsharp">Studio Hub</a>
+        <a class="doc-nav-link" href="https://github.com/raggiesoft">GitHub (MIT)</a>
+        <button type="button" id="rsh-theme-toggle" class="doc-theme-btn" aria-label="Cycle color theme">Theme: Auto</button>
+      </div>
+    </div>
+  </header>
+  <details class="mobile-toc-drawer">
+    <summary>Browse Table of Contents (6 chapters)</summary>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome to Fin# (Financial Sharp) Getting Started finsharp fin# finsc overview conservation-of-capital linear-types mit aubrie"><a class="toc-link" href="/">Welcome to Fin# (Financial Sharp)</a></li>
+            <li data-toc-item="1" data-toc-search="Origin Story: From /books/aubrie Plot Device to Real Language Getting Started aubrie eleventh-child zoe-wren-brooks jordan-fuller vectron z-sox-302 geneva-street origin"><a class="toc-link" href="/origin-in-aubrie">Origin Story: From /books/aubrie Plot Device to Real Language</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Specification (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics) Language Specification Capital Account Rate linear-types move fixed-point Int128 ISO-4217 USD EUR Capital&lt;TCurrency&gt; Account&lt;TKind, TCurrency&gt; Rate&lt;TFrom, TTo&gt; RoundingPolicy"><a class="toc-link" href="/linear-capital-types" aria-current="page">Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics)</a></li>
+            <li data-toc-item="1" data-toc-search="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs Language Specification ledger account transaction journal debit credit pacioli z-sox-302 FloorWithRemainder fx ledger &lt;Name&gt; { ... } transaction [audit: ...] { ... } debit &lt;Account&gt; &lt;- &lt;Capital&gt; credit &lt;Account&gt; -&gt; &lt;Capital&gt; opening_balance(...)"><a class="toc-link" href="/ledgers-and-transactions">Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Compiler &amp; Standard Library (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture Compiler &amp; Standard Library finsc cli capital fx audit report roslyn dotnet lsp studio finsc check finsc build finsc audit finsc fmt finsc lsp capital.splitEqual(amount, ways, RoundingPolicy.FloorWithRemainder) capital.allocateByWeights(amount, weights) capital.combine(a, b) capital.assertZero(remainder) fx.quote&lt;TFrom, TTo&gt;(scaledRate, timestampUtc, providerId) fx.convert(sourceCapital, quote, fxClearingAccount) audit.attestZsox302(ledger, periodId) audit.trialBalance(ledger) report.exportTaggedPdfUa(trialBalance, outputPath)"><a class="toc-link" href="/stdlib-and-cli">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Proofs (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Compiler Diagnostics Reference (FIN0001 – FIN0005) Diagnostics &amp; Proofs diagnostics errors FIN0001 FIN0002 FIN0003 FIN0004 FIN0005 ConservationOfCapitalViolationException FIN0001: ConservationOfCapitalViolationException FIN0002: UnbalancedJournalEntryError FIN0003: BinaryFloatingPointForbiddenOnCapitalError FIN0004: CrossCurrencyConservationMismatchError FIN0005: UnconsumedLinearCapitalError"><a class="toc-link" href="/diagnostics-reference">Compiler Diagnostics Reference (FIN0001 – FIN0005)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+  </details>
+  <div class="learn-layout">
+    <aside class="learn-left-rail" aria-label="Documentation Table of Contents">
+      <div class="toc-filter-wrap">
+        <input id="rsh-toc-filter" class="toc-filter-input" type="search" placeholder="Filter by title or API..." aria-label="Filter table of contents by title or API" />
+      </div>
+        <details class="toc-book" open>
+          <summary>Getting Started (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Welcome to Fin# (Financial Sharp) Getting Started finsharp fin# finsc overview conservation-of-capital linear-types mit aubrie"><a class="toc-link" href="/">Welcome to Fin# (Financial Sharp)</a></li>
+            <li data-toc-item="1" data-toc-search="Origin Story: From /books/aubrie Plot Device to Real Language Getting Started aubrie eleventh-child zoe-wren-brooks jordan-fuller vectron z-sox-302 geneva-street origin"><a class="toc-link" href="/origin-in-aubrie">Origin Story: From /books/aubrie Plot Device to Real Language</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Language Specification (2)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics) Language Specification Capital Account Rate linear-types move fixed-point Int128 ISO-4217 USD EUR Capital&lt;TCurrency&gt; Account&lt;TKind, TCurrency&gt; Rate&lt;TFrom, TTo&gt; RoundingPolicy"><a class="toc-link" href="/linear-capital-types" aria-current="page">Linear Resource Types (Capital&lt;T&gt;, Account&lt;K, T&gt; &amp; Move Semantics)</a></li>
+            <li data-toc-item="1" data-toc-search="Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs Language Specification ledger account transaction journal debit credit pacioli z-sox-302 FloorWithRemainder fx ledger &lt;Name&gt; { ... } transaction [audit: ...] { ... } debit &lt;Account&gt; &lt;- &lt;Capital&gt; credit &lt;Account&gt; -&gt; &lt;Capital&gt; opening_balance(...)"><a class="toc-link" href="/ledgers-and-transactions">Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Compiler &amp; Standard Library (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture Compiler &amp; Standard Library finsc cli capital fx audit report roslyn dotnet lsp studio finsc check finsc build finsc audit finsc fmt finsc lsp capital.splitEqual(amount, ways, RoundingPolicy.FloorWithRemainder) capital.allocateByWeights(amount, weights) capital.combine(a, b) capital.assertZero(remainder) fx.quote&lt;TFrom, TTo&gt;(scaledRate, timestampUtc, providerId) fx.convert(sourceCapital, quote, fxClearingAccount) audit.attestZsox302(ledger, periodId) audit.trialBalance(ledger) report.exportTaggedPdfUa(trialBalance, outputPath)"><a class="toc-link" href="/stdlib-and-cli">finsc CLI, Standard Library (capital.*, fx.*, audit.*) &amp; .NET Architecture</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Diagnostics &amp; Proofs (1)</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="Compiler Diagnostics Reference (FIN0001 – FIN0005) Diagnostics &amp; Proofs diagnostics errors FIN0001 FIN0002 FIN0003 FIN0004 FIN0005 ConservationOfCapitalViolationException FIN0001: ConservationOfCapitalViolationException FIN0002: UnbalancedJournalEntryError FIN0003: BinaryFloatingPointForbiddenOnCapitalError FIN0004: CrossCurrencyConservationMismatchError FIN0005: UnconsumedLinearCapitalError"><a class="toc-link" href="/diagnostics-reference">Compiler Diagnostics Reference (FIN0001 – FIN0005)</a></li>
+          </ul>
+        </details>
+        <details class="toc-book" open>
+          <summary>Master Symbol Index</summary>
+          <ul class="toc-list">
+            <li data-toc-item="1" data-toc-search="api index all functions calls diagnostics f1"><a class="toc-link" href="/api-index">A&ndash;Z Function &amp; Symbol Index</a></li>
+          </ul>
+        </details>
+    </aside>
+    <main id="main-doc" class="learn-article" tabindex="-1">
+      <nav class="learn-breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Fin# (Financial Sharp)</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span>Language Specification</span>
+      </nav>
+      <div class="learn-meta-bar">
+        <span class="meta-pill">3 min read</span>
+        <span class="meta-pill">Module: <code>raggiesoft.finsharp</code></span>
+        <span class="meta-pill">F1: <code>IDH_FIN_LINEAR_TYPES (0x3003)</code></span>
+      </div>
+<h1 id="capital-type">Linear Resource Types (<code>Capital&lt;T&gt;</code>, <code>Account&lt;K, T&gt;</code> &amp; Move Semantics)</h1>
+<p>The heart of <strong>Fin#</strong> is its <strong>Linear Flow Analyzer</strong> (<code>LinearFlowAnalyzer</code> in <code>FinSharp.Compiler</code>). Inspired by substructural linear logic (Girard, 1987) and quantum no-cloning / no-deleting theorems in <code>Q#</code>, Fin# splits data types into two worlds:</p>
+<ol>
+<li><strong>Ordinary Unrestricted Value Types</strong> (<code>Int64</code>, <code>String</code>, <code>Date</code>, <code>Bool</code>, <code>DecimalQuantity</code>): Can be copied, inspected, and dropped freely—just like values in C# or F#.</li>
+<li><strong>Linear Monetary Resource Types</strong> (<code>Capital&lt;TCurrency&gt;</code>): Represent conserved units of purchasing power or commodity obligation. Every <code>Capital&lt;TCurrency&gt;</code> binding <strong>must be consumed exactly once</strong> along every control-flow path!</li>
+</ol>
+<h2 id="linear-rules">Rules of <code>Capital&lt;TCurrency&gt;</code></h2>
+<p>A binding of type <code>Capital&lt;USD&gt;</code> obeys three compile-time substructural laws:</p>
+<ol>
+<li><strong>No Implicit <code>Copy</code></strong>: Passing <code>payment</code> to <code>debit RentExpense &lt;- payment;</code> <em>moves</em> ownership into the posting and marks <code>payment</code> as <strong>Consumed</strong>. Referencing <code>payment</code> a second time fails compilation!</li>
+<li><strong>No Silent <code>Drop</code> (<code>FIN0005</code>)</strong>: Allowing a <code>Capital&lt;T&gt;</code> variable—including an <code>if</code>/<code>else</code> branch or a <code>0.01_USD</code> split remainder—to go out of scope unconsumed fails compilation with <strong><code>FIN0005</code> (<code>UnconsumedLinearCapitalError</code>)</strong>.</li>
+<li><strong>No Unpaired Literal Minting (<code>FIN0001</code>)</strong>: Outside a <code>transaction</code> credit leg or an explicit <code>opening_balance(...)</code> boundary declaration, code cannot conjure <code>Capital&lt;USD&gt;</code> out of a bare integer or string.</li>
+</ol>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">transaction SplitRentThreeWays [audit: Z_SOX_302, date: &quot;2015-09-01&quot;] {
+    // Source $1,000.00 linearly from Checking:
+    let totalRent : Capital&lt;USD&gt; = credit OperatingChecking -&gt; 1_000.00_USD;
+
+    // $1,000.00 / 3 = $333.33 * 3 + $0.01 remainder!
+    // FloorWithRemainder returns BOTH the 3 equal shares AND the 1-cent linear remainder:
+    let (shares, remainder) = capital.splitEqual(totalRent, 3, RoundingPolicy.FloorWithRemainder);
+
+    debit RoommateShareA &lt;- shares[0]; // $333.33
+    debit RoommateShareB &lt;- shares[1]; // $333.33
+    debit RoommateShareC &lt;- shares[2]; // $333.33
+
+    // REQUIRED: If we forget this line, finsc halts with FIN0005 because $0.01 was dropped!
+    debit RoundingAdjustmentPool &lt;- remainder; // $0.01 -&gt; Total Debits == $1,000.00!
+}
+</code></pre>
+<h2 id="account-kinds">Strongly Typed T-Accounts (<code>Account&lt;TKind, TCurrency&gt;</code>)</h2>
+<p>Every ledger account carries two compile-time type parameters:</p>
+<div class="learn-table-wrap"><table><thead><tr><th scope="col"><code>TKind</code> Marker Type</th><th scope="col">Normal Balance</th><th scope="col">Accounting Equation Side</th><th scope="col">Increases On</th><th scope="col">Decreases On</th></tr></thead><tbody>
+<tr><td><code>Asset</code></td><td>Debit</td><td>Left ($\text{Assets} + \text{Expenses}$)</td><td><code>debit</code></td><td><code>credit</code></td></tr>
+<tr><td><code>Expense</code></td><td>Debit</td><td>Left ($\text{Assets} + \text{Expenses}$)</td><td><code>debit</code></td><td><code>credit</code></td></tr>
+<tr><td><code>Liability</code></td><td>Credit</td><td>Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
+<tr><td><code>Equity</code></td><td>Credit</td><td>Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
+<tr><td><code>Revenue</code></td><td>Credit</td><td>Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
+</tbody></table></div>
+<p>Because <code>TKind</code> is part of the static type signature, a helper function expecting an <code>Account&lt;Expense, USD&gt;</code> will never accidentally post into an <code>Account&lt;Liability, USD&gt;</code>!</p>
+<h2 id="fixed-point-math">128-Bit Scaled Fixed-Point Arithmetic (<code>FIN0003</code>)</h2>
+<p>In binary IEEE 754 floating-point (<code>float</code> / <code>double</code>), <code>0.1 + 0.2</code> evaluates to <code>0.30000000000000004</code>. Across millions of ledger rows, binary rounding drift corrupts trial balances.</p>
+<ul>
+<li><strong>Compile-Time Float Ban (<code>FIN0003</code>)</strong>: Attempting to multiply, divide, or compare <code>Capital&lt;T&gt;</code>, <code>Account&lt;K, T&gt;</code>, or <code>Rate&lt;A, B&gt;</code> with <code>float</code> or <code>double</code> is a hard compile error (<code>FIN0003</code>).</li>
+<li><strong>Exact <code>Int128</code> Fixed-Point Representation</strong>: Internally, <code>FinSharp.Runtime</code> represents monetary amounts as signed 128-bit integers (<code>System.Int128</code> on <code>.NET 10 / 11</code>) scaled by $10^8$ (<code>100,000,000</code> atomic ticks per major currency unit—supporting sub-basis-point interest and FX math while guaranteeing exact cent reconciliation at posting boundaries).</li>
+<li><strong>Explicit <code>RoundingPolicy</code> Enum</strong>:</li>
+<li><code>RoundingPolicy.HalfEven</code> / <code>RoundingPolicy.Bankers</code> — Round half to even, returning <code>(roundedShare, adjustmentDelta)</code> inside settlement combinators.</li>
+<li><code>RoundingPolicy.FloorWithRemainder</code> — Deterministic floor division returning <code>(shares, exactRemainder)</code> as linear <code>Capital&lt;T&gt;</code> values.</li>
+</ul>
+<h2 id="currency-dimensions">ISO 4217 Dimension-Typed Currencies (<code>FIN0004</code>)</h2>
+<p>Just as an aerospace compiler prevents adding meters to foot-pounds, Fin# treats every ISO 4217 currency (<code>USD</code>, <code>EUR</code>, <code>GBP</code>, <code>CAD</code>, <code>JPY</code>, <code>SGD</code>) and custom commodity unit (<code>MWh</code>, <code>TreasuryBill</code>) as a distinct phantom type dimension:</p>
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">// COMPILE ERROR FIN0004: Cannot combine Capital&lt;USD&gt; and Capital&lt;EUR&gt; without fx.convert!
+// let invalidTotal = usdPayment + eurPayment;
+</code></pre>
+<p>To settle across currencies, see <a href="/ledgers-and-transactions#fx-settlement"><code>fx.convert(...)</code> in Ledgers &amp; Transactions</a>.</p>
+
+      <section class="topic-symbols-box" aria-label="Indexed API Symbols on This Page">
+        <strong style="font-size:0.88rem;">Indexed API Calls &amp; Symbols on This Page (4):</strong>
+        <div class="symbol-chip-grid">
+          <a class="symbol-chip" href="#capital-type"><code>Capital&lt;TCurrency&gt;</code><span class="badge-tag">Linear Type</span></a>
+          <a class="symbol-chip" href="#account-kinds"><code>Account&lt;TKind, TCurrency&gt;</code><span class="badge-tag">Ledger Type</span></a>
+          <a class="symbol-chip" href="#fixed-point-math"><code>Rate&lt;TFrom, TTo&gt;</code><span class="badge-tag">Fixed-Point</span></a>
+          <a class="symbol-chip" href="#fixed-point-math"><code>RoundingPolicy</code><span class="badge-tag">Enum</span></a>
+        </div>
+      </section>
+      <nav class="learn-pager" aria-label="Article Pagination">
+        <a class="pager-card" href="/origin-in-aubrie"><span class="pager-kicker">&larr; Previous</span><span class="pager-title">Origin Story: From /books/aubrie Plot Device to Real Language</span></a>
+        <a class="pager-card is-next" href="/ledgers-and-transactions"><span class="pager-kicker">Next &rarr;</span><span class="pager-title">Ledgers, Accounts, Atomic Transactions &amp; Z-SOX-302 Proofs</span></a>
+      </nav>
+    </main>
+    <aside class="learn-right-rail" aria-label="In this article">
+      <h2 class="outline-heading">In this article</h2>
+      <ul class="outline-list">
+        <li><a class="outline-link lvl-2" href="#linear-rules">Rules of Capital&lt;TCurrency&gt;</a></li>
+        <li><a class="outline-link lvl-2" href="#account-kinds">Strongly Typed T-Accounts (Account&lt;TKind, TCurrency&gt;)</a></li>
+        <li><a class="outline-link lvl-2" href="#fixed-point-math">128-Bit Scaled Fixed-Point Arithmetic (FIN0003)</a></li>
+        <li><a class="outline-link lvl-2" href="#currency-dimensions">ISO 4217 Dimension-Typed Currencies (FIN0004)</a></li>
+      </ul>
+    </aside>
+  </div>
+  <dialog id="rsh-search-modal" class="search-modal" aria-labelledby="rsh-search-modal-title">
+    <div class="search-modal-head">
+      <label id="rsh-search-modal-title" for="rsh-modal-input" style="font-weight:700;white-space:nowrap;">Search</label>
+      <input id="rsh-modal-input" class="search-modal-input" type="search" placeholder="Search every function, namespace, diagnostic, or topic..." autocomplete="off" />
+      <button type="button" id="rsh-close-search" class="doc-theme-btn">Esc</button>
+    </div>
+    <div id="rsh-modal-results" class="search-modal-body" aria-live="polite"></div>
+  </dialog>
+  <footer class="doc-footer">
+    <p><strong>Fin# (Financial Sharp) v0.1.0</strong> &bull; Compiled directly from plain-text <code>.rshp</code> + Markdown sources by <strong>RaggieSoft Help Studio v0.6.0</strong> (WCAG 2.2 Level AA &amp; Revised Section 508 Verified; Code: <strong>MIT License</strong> &bull; Creative Content: <strong>CC BY-SA 4.0</strong>).</p>
+    <p>Fictitious Persons &amp; Entities Disclaimer: All narrative characters (including Zoe and Fin#), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events referenced across RaggieSoft sample content packs are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+  </footer>
+  <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261127" defer></script>
+  <script src="/portal.js" defer></script>
+</body>
+</html>
