@@ -125,7 +125,7 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'compilers'" style="border: 2px solid var(--primary);">
           <div>
             <span class="eyebrow">Flagship • Static /MT Win32 C++20 • x64 &amp; ARM64</span>
-            <h3>RaggieSoft Installer Studio (v0.5.0 Shipped • v0.7.0 Staged in Lab)</h3>
+            <h3>RaggieSoft Installer Studio (v0.7.0 Shipping • Archive v0.5.0&ndash;v0.7.0)</h3>
             <p>
               Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe --edition=...</code>,
               <code>SetupWizard.exe</code>, standalone read/write <code>msiprism.exe</code>, standalone <code>rswsfx.exe</code>, &amp;
@@ -135,8 +135,9 @@ function renderHomeBody(): string {
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/installer-studio">Installer Hub</a>
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/roadmap">v0.7&ndash;v1.0 Roadmap</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/download">Download v0.7.0 &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/download/previous-versions">Previous Versions</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio">Installer Hub</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
           </div>
         </article>
