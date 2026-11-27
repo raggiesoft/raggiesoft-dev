@@ -124,18 +124,18 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'compilers'" style="border: 2px solid var(--primary);">
           <div>
             <span class="eyebrow">Flagship • Static /MT Win32 C++20 • x64 &amp; ARM64</span>
-            <h3>RaggieSoft Installer Studio (v0.5.0 Shipped • v0.6.0 In Lab)</h3>
+            <h3>RaggieSoft Installer Studio (v0.5.0 Shipped • v0.7.0 Staged in Lab)</h3>
             <p>
               Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe --edition=...</code>,
               <code>SetupWizard.exe</code>, standalone read/write <code>msiprism.exe</code>, standalone <code>rswsfx.exe</code>, &amp;
-              <code>RaggieSoftHelp.exe</code>) compiling plain-text <code>.rsip</code>/<code>.rsis</code> manifests into signed
-              <code>.msi</code>, <code>.msm</code>, <code>.msp</code>, <code>sfx</code> self-extractors, and <strong>monotonic
-              Dual-Bar Suite installers</strong>—with enforced 4-tier capabilities &amp; permanent <code>Community == 100% Architect</code> parity.
+              <code>RaggieSoftHelp.exe</code>) featuring <strong>Dual WYSIWYG Dialog Designers</strong> built on shared
+              <code>RaggieSoftVisualCanvas.hpp</code>, turnkey <strong><code>RsDialog</code></strong> wizard scripting, non-clobbering
+              <code>[Environment.*]</code> <code>PATH</code> updates, and <strong>monotonic Dual-Bar Suites</strong>.
             </p>
           </div>
           <div class="btn-row">
             <a class="btn btn-primary" href="https://raggiesoftstudio.com/installer-studio">Installer Hub</a>
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/roadmap">v0.6&ndash;v1.0 Roadmap</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/roadmap">v0.7&ndash;v1.0 Roadmap</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
           </div>
         </article>
@@ -179,17 +179,19 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'desktop'">
           <div>
             <span class="eyebrow">8-Tool Suite • Community, Essentials, Developer &amp; Architect</span>
-            <h3>RaggieSoft Studio Compliance, Help, Training &amp; Docs</h3>
+            <h3>RaggieSoft Studio Showcase, Compliance, Help &amp; Training</h3>
             <p>
-              Alongside Installer &amp; Showcase Studio: <strong>Accessibility Studio v1.0.0</strong> (.NET 11 + Monaco + SARIF CLI),
-              <strong>Help Studio v0.6.0</strong> (static <code>/MT</code> C++20 <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompiler, standalone <code>*.raggiesoft.dev</code> Learn website compiler, &amp; <code>&lt;5ms</code> <code>F1</code> IPC),
-              <strong>Training Studio v0.5.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Document Studio</strong>
-              (Tagged <code>PDF/UA-1</code>), <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
+              Alongside Installer Studio: <strong>Showcase Studio v0.5.0</strong> (static <code>/MT</code> C++20 1990s <code>.BMP</code>,
+              <code>FluentMica</code> &amp; <code>_support\\</code> canvas installers sharing DRY <code>RaggieSoftVisualCanvas.hpp</code>),
+              <strong>Accessibility Studio v1.0.0</strong> (.NET 11 + Monaco + SARIF CLI),
+              <strong>Help Studio v0.6.0</strong> (static <code>/MT</code> C++20 <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompiler &amp; <code>&lt;5ms</code> <code>F1</code> IPC),
+              <strong>Training Studio v0.5.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Document Studio</strong>,
+              <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/editions">8-Tool Editions Matrix</a>
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/showcase-studio">Showcase Studio</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/editions">8-Tool Editions Matrix</a>
           </div>
         </article>
 
@@ -318,13 +320,13 @@ function renderLabsBody(): string {
 
         <article class="card">
           <div>
-            <span class="status-pill">Lab Track 03 • Showcase Studio Community &amp; Architect</span>
+            <span class="status-pill">Lab Track 03 • Shipped in Showcase Studio v0.5.0 (x64 &amp; ARM64)</span>
             <h3>Bespoke Full-Canvas Self-Extracting Installers (<code>_support\\</code>)</h3>
             <p>
-              Marries 1990s painted <code>.BMP</code> &amp; modern Windows 11 <code>FluentMica</code> multimedia canvases with
-              embedded <code>_support\\</code> payload staging, <code>fs.copy</code> / <code>fs.extract</code>, Registry &amp;
-              Shortcut APIs, selectable UAC manifests (<code>asInvoker</code> / <code>highestAvailable</code> /
-              <code>requireAdministrator</code>), and automatic rollback journals.
+              Static <code>/MT</code> C++20 runtime (<code>ShowcaseStub.exe</code>) &amp; compiler (<code>rssbuild.exe</code>)
+              marrying 1990s painted <code>.BMP</code> &amp; Windows 11 <code>FluentMica</code> canvases (rect + polygon hotspots,
+              Media Foundation + <code>.vtt</code> audio) with embedded <code>_support\\</code> staging, <code>RaggieScript</code>
+              <code>RSWBC2</code>, selectable/deferred UAC, and <code>.rsw-rollback.jnl</code> undo journals.
             </p>
           </div>
           <div class="btn-row">
@@ -334,13 +336,13 @@ function renderLabsBody(): string {
 
         <article class="card">
           <div>
-            <span class="status-pill">Lab Track 04 • Staged in Installer Studio v0.6.0</span>
-            <h3>Monotonic Dual-Bar Suites &amp; <code>_ISDEL</code>-Aware <code>%TEMP%</code> SFX</h3>
+            <span class="status-pill">Lab Track 04 • Staged in Installer Studio v0.6.0 &amp; v0.7.0</span>
+            <h3>Shared <code>RaggieSoftVisualCanvas</code> Designers, Turnkey <code>RsDialog</code> &amp; Dual-Bar Suites</h3>
             <p>
-              Eliminates legacy single-bar suite sawtooth resets via byte-weighted monotonic <strong>Overall Suite Progress</strong>
-              (bound 1:1 to Windows Taskbar <code>ITaskbarList3</code>) + live <strong>Current Component</strong> bars, alongside
-              our standalone <code>LZMS</code> Self-Extractor (<code>rswsfx.exe</code>) that watches child cleanup helpers before
-              scrubbing <code>%TEMP%</code>.
+              Unifies 2D WYSIWYG stage math, 8-grip resize handles, smart snap guides, keyboard-only arrow nudging, and one-click
+              <code>.rssc</code> export in <code>studio-shared/include/RaggieSoftVisualCanvas.hpp</code> across Studio IDEs—paired
+              with turnkey <code>RsWelcome</code>..<code>RsFinish</code> functions, non-clobbering <code>[Environment.*]</code>
+              <code>PATH</code> rules, and monotonic Dual-Bar Suite progress!
             </p>
           </div>
           <div class="btn-row">
@@ -691,6 +693,14 @@ function renderAiSkillsBody(): string {
                 <a href="https://raggiesoftstudio.com/help-studio/SKILL.md">SKILL.md</a>
               </td>
               <td>Decompile raw <code>.chm</code> (<code>ITSF/LZX</code>) and WinHelp <code>.hlp</code>/<code>.cnt</code> archives, scrub Word <code>MsoNormal</code> HTML, and compile C++20 <code>F1</code> viewers, SDKs, web portals, &amp; VPAT 2.5.</td>
+            </tr>
+            <tr>
+              <th scope="row">Showcase Studio (<code>.rssp</code> + <code>_support\\</code> Canvas Installers)</th>
+              <td>
+                <a href="https://raggiesoftstudio.com/showcase-studio/llms-full.txt">llms-full.txt</a> &bull;
+                <a href="https://raggiesoftstudio.com/showcase-studio/SKILL.md">SKILL.md</a>
+              </td>
+              <td>Author, validate WCAG 2.2 AA (<code>RSS010</code>&ndash;<code>RSS095</code>), and compile zero-dependency static <code>/MT</code> C++20 1990s <code>.BMP</code>, <code>FluentMica</code>, Kiosk, &amp; Bespoke <code>_support\\</code> installers.</td>
             </tr>
             <tr>
               <th scope="row">Training Studio (<code>.rstp</code> SCORM 1.2 &amp; 2004)</th>
