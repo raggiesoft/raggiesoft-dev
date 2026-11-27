@@ -1,0 +1,339 @@
+<!doctype html>
+<!--
+  ============================================================================
+  FILE: index.html
+  PROPERTY: https://raggiesoft.dev (RaggieSoft Developer, Studio & Labs Hub)
+  STACK: Alpine.js 3 + TypeScript + Vite Static SSG
+  LICENSE: MIT License (Copyright (c) 2026 Michael P. Ragsdale / RaggieSoft)
+  ============================================================================
+  PLAIN-ENGLISH OVERVIEW FOR 100-LEVEL READERS:
+    Master HTML5 document template for `raggiesoft.dev` (updated in 1:1
+    lockstep with `raggiesoftstudio.com` and RaggieSoft's open-source & R&D
+    incubators, including `/labs` and `/labs/finsharp` for `Fin#`):
+      1. Integrates the shared RaggieSoft Network omnibar (`raggiesoft-network.css`
+         + `raggiesoft-network.js`) on desktop and collapses into a single slim
+         mobile hamburger drawer (`#header-navigation-panel`) below 768px.
+      2. Pre-rendered at build time by `scripts/prerender.mjs` so every route
+         serves complete semantic HTML5, WCAG 2.2 AA contrast tokens, and
+         OpenGraph metadata immediately.
+  ============================================================================
+-->
+<html lang="en">
+  <head>
+    <!-- Google Analytics 4 (GA4) Telemetry Integration (G-P9RG9JVYB6) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P9RG9JVYB6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P9RG9JVYB6');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Fin# (Financial Sharp) — Linear-Type Accounting Compiler</title>
+    <meta name="description" content="Explore Fin# (FinSharp): RaggieSoft Labs linear-type .NET/Roslyn financial language catching unbalanced double-entry ledgers at compile time (FIN0001)." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://raggiesoft.dev/labs/finsharp" />
+    <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="raggiesoft.dev" />
+    <meta property="og:title" content="Fin# (Financial Sharp) — Linear-Type Accounting Compiler" />
+    <meta property="og:description" content="Explore Fin# (FinSharp): RaggieSoft Labs linear-type .NET/Roslyn financial language catching unbalanced double-entry ledgers at compile time (FIN0001)." />
+    <meta property="og:url" content="https://raggiesoft.dev/labs/finsharp" />
+    <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+    <meta property="og:image:alt" content="raggiesoft.dev — RaggieSoft Open-Source Compilers, 8-Tool Studio Suite, Fin# Labs & AI Skills" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fin# (Financial Sharp) — Linear-Type Accounting Compiler" />
+    <meta name="twitter:description" content="Explore Fin# (FinSharp): RaggieSoft Labs linear-type .NET/Roslyn financial language catching unbalanced double-entry ledgers at compile time (FIN0001)." />
+    <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"raggiesoft.dev — RaggieSoft Open-Source, Studio & Compiler Engineering Hub","url":"https://raggiesoft.dev/","author":{"@type":"Person","name":"Michael P. Ragsdale","url":"https://michaelpragsdale.com"}}</script>
+    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261126a" />
+    <script type="module" crossorigin src="/assets/index-Bj8526UU.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CjqB5aDb.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Shared RaggieSoft Ecosystem Network Bar (auto-hidden on < 768px in favor of single mobile hamburger) -->
+    <nav class="rs-network-bar" aria-label="RaggieSoft Ecosystem Network">
+      <div class="rs-network-bar-inner">
+        <span class="rs-network-label">✦ RaggieSoft Network:</span>
+        <ul class="rs-network-links">
+          <li><a href="https://raggiesoft.com">🌐 Hub</a></li>
+          <li><a href="https://launcher.raggiesoft.com">🚀 Launcher</a></li>
+          <li><a href="https://raggiesoftstudio.com">🧰 RaggieSoft Studio</a></li>
+          <li><a href="https://raggiesoft.dev" aria-current="page" class="is-active">💻 Developer Hub</a></li>
+          <li><a href="https://waystation.raggiesoft.com">🔮 Directory</a></li>
+          <li><a href="https://michaelpragsdale.com">👔 Portfolio</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="app">
+    <header class="site-header" data-theme="dark">
+      <div class="header-inner">
+        <a class="brand-link" href="/">
+          <span class="brand-title">raggiesoft.dev</span>
+          <span class="brand-sub">Open-Source Engineering • Compilers • Studio • Labs</span>
+        </a>
+
+        <button
+          type="button"
+          class="rs-mobile-header-toggle dev-mobile-toggle"
+          data-rs-mobile-toggle
+          data-open-label="Open developer portal and RaggieSoft network menu"
+          data-close-label="Close developer portal and RaggieSoft network menu"
+          aria-expanded="false"
+          aria-controls="header-navigation-panel"
+          aria-label="Open developer portal and RaggieSoft network menu"
+        >
+          <svg class="rs-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="rs-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div id="header-navigation-panel" class="header-nav-panel" data-rs-collapsible="true">
+          <nav aria-label="Developer Portal Navigation">
+            <ul class="nav-list">
+              <li><a class="nav-link" href="/">Engineering Hub</a></li><li><a class="nav-link" href="/labs">Labs</a></li><li><a class="nav-link" href="/labs/finsharp" aria-current="page">Fin# Lab</a></li><li><a class="nav-link" href="/repositories">GitHub Repos</a></li><li><a class="nav-link" href="/ai-skills">llms.txt & AI Skills</a></li><li><a class="nav-link" href="/notes">Dev Notes</a></li>
+              <li><a class="nav-link" href="https://raggiesoftstudio.com">RaggieSoft Studio</a></li>
+              <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="container" tabindex="-1">
+      
+    <section class="hero" aria-labelledby="finsharp-title">
+      <span class="eyebrow">RaggieSoft Labs • Linear-Type Financial Compiler Research (v0.1.0-lab)</span>
+      <h1 id="finsharp-title">Fin# (Financial Sharp) — Enforcing Conservation of Capital at Compile Time.</h1>
+      <p class="lead">
+        <em>&ldquo;Because rules made by monopolies can be questioned. The laws of conservation cannot.&rdquo;</em><br />
+        Originating in RaggieSoft's <em>Ocean View Archives</em> novel series (<code>/books/aubrie</code>, Chapter
+        <em>Question The Rules: The Birth of Fin#</em>) and now under active engineering design in <strong>RaggieSoft Labs</strong>,
+        <strong><code>Fin#</code> (<code>FinSharp</code> / <code>finsc</code>)</strong> brings <strong>linear resource types</strong>
+        to the <code>.NET</code> &amp; Roslyn compiler ecosystem—turning unbalanced double-entry accounting entries, binary
+        floating-point rounding drift, and synthetic revenue creation from post-facto audit findings into <strong>hard compile-time
+        errors</strong>.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#finsc-simulator">Try Interactive finsc Compiler Simulator &darr;</a>
+        <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">Open Cold-Start Compiler Spec (llms-finsharp.txt)</a>
+        <a class="btn btn-outline" href="/labs">&larr; All RaggieSoft Labs</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="why-finsharp-heading">
+      <h2 id="why-finsharp-heading">The Core Bug in Imperative Finance Code</h2>
+      <div class="lab-grid-2x2">
+        <article class="card">
+          <div>
+            <span class="eyebrow">Standard Imperative Languages (C#, Java, C++, COBOL)</span>
+            <h3>Money Treated as an Unconstrained Scalar</h3>
+            <p>
+              In general-purpose languages, <code>decimal</code> is just a mutable number. A developer or rogue script can write
+              <code>companyRevenue += 500_000_000.00m;</code> and the compiler succeeds with <strong>0 errors and 0 warnings</strong>—even
+              though half a billion dollars appeared out of nowhere with zero corresponding debit, and fractional allocation
+              remainders can be silently dropped into garbage collection. Sarbanes-Oxley (<code>SOX</code> Sections 302 &amp; 404)
+              only catches the corruption months later during human audits.
+            </p>
+          </div>
+        </article>
+        <article class="card" style="border: 2px solid var(--primary);">
+          <div>
+            <span class="eyebrow">Fin# Linear Resource Type System (finsc)</span>
+            <h3>First Law of Thermodynamics Applied to Luca Pacioli (1494)</h3>
+            <p>
+              Just as quantum programming languages forbid cloning or deleting an entangled qubit, <code>Fin#</code> models
+              <code>Capital&lt;TCurrency&gt;</code> as a <strong>protected linear resource type</strong>. Capital cannot be
+              instantiated out of thin air, overwritten, or dropped at scope exit; it can only move inside a balanced
+              <code>transaction</code> block where the compiler symbolically proves <code>&Sigma; Debits == &Sigma; Credits</code>
+              before emitting a single instruction of <code>.NET</code> IL!
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="finsc-simulator" class="lab-sandbox" aria-labelledby="finsc-sim-heading" x-data="{ snippet: 'violation' }">
+      <span class="eyebrow">Interactive Compiler Diagnostic Simulator • finsc v0.1.0-lab</span>
+      <h2 id="finsc-sim-heading" style="margin-top: 0.25rem;">Test How <code>finsc</code> Rejects Unbalanced Capital &amp; Verifies Double-Entry Ledgers</h2>
+      <div class="btn-row" role="tablist" aria-label="Choose Fin# Compiler Test Case" style="margin-bottom: 1rem;">
+        <button type="button" class="btn" :class="snippet === 'violation' ? 'btn-primary' : 'btn-outline'" role="tab" :aria-selected="String(snippet === 'violation')" @click="snippet = 'violation'">1. Thin-Air Revenue Mutation (FIN0001)</button>
+        <button type="button" class="btn" :class="snippet === 'remainder' ? 'btn-primary' : 'btn-outline'" role="tab" :aria-selected="String(snippet === 'remainder')" @click="snippet = 'remainder'">2. Dropped Penny Remainder (FIN0005)</button>
+        <button type="button" class="btn" :class="snippet === 'valid' ? 'btn-primary' : 'btn-outline'" role="tab" :aria-selected="String(snippet === 'valid')" @click="snippet = 'valid'">3. Verified Balanced Transaction (PASS)</button>
+      </div>
+
+      <div x-show="snippet === 'violation'">
+        <pre aria-label="Invalid Imperative Revenue Mutation Rejected by Fin#">// File: QuarterlyClose.fin — Attempting unconstrained scalar addition on an Account
+ledger CorporateBooks&lt;USD&gt; {
+  account OperatingCash    : Asset&lt;USD&gt;;
+  account WholesaleRevenue : Revenue&lt;USD&gt;;
+}
+
+fn BookSyntheticGain(books: ref CorporateBooks&lt;USD&gt;) {
+  // Illegal in Fin#: where did 500,000,000.00 USD come from? Which account was debited?
+  books.WholesaleRevenue += 500_000_000.00_USD;
+}</pre>
+        <div class="lab-diag-box" aria-live="polite">
+          <strong>Build FAILED (Exit Code 1) — Halted Before IL Emission:</strong>
+          <pre style="margin: 0.5rem 0 0;">QuarterlyClose.fin(9,3): error FIN0001: ConservationOfCapitalViolationException —
+  Account 'WholesaleRevenue' (Revenue&lt;USD&gt;) cannot be mutated via scalar '+=' outside an atomic
+  'transaction' block with a proving Debit counterparty of equal Capital&lt;USD&gt; magnitude.</pre>
+        </div>
+      </div>
+
+      <div x-show="snippet === 'remainder'" style="display: none;">
+        <pre aria-label="Dropped Split Remainder Rejected by Fin# Linear Flow Analyzer">// File: DividendSplit.fin — Splitting $100.00 USD equally across 3 accounts ($33.33 * 3 = $99.99)
+transaction AllocateGrant(pool: move Capital&lt;USD&gt;) {
+  // Exact 3-way floor division returns a linear tuple: (quotient[3], remainder: 0.01_USD)
+  let (shares, unallocatedCents) = capital.splitEqual(move pool, parts: 3);
+
+  debit  DeptResearch &lt;- move shares[0];
+  debit  DeptTransit  &lt;- move shares[1];
+  debit  DeptAquatic  &lt;- move shares[2];
+  // Oops! 'unallocatedCents' (0.01_USD) goes out of scope without being posted!
+}</pre>
+        <div class="lab-diag-box" aria-live="polite">
+          <strong>Build FAILED (Exit Code 1) — Linear Resource Leak Detected:</strong>
+          <pre style="margin: 0.5rem 0 0;">DividendSplit.fin(10,1): error FIN0005: UnconsumedLinearCapitalError —
+  Linear binding 'unallocatedCents' of type 'Capital&lt;USD&gt;' goes out of scope unconsumed!
+  Route the exact remainder explicitly (e.g., 'debit RoundingReserve &lt;- move unallocatedCents;').</pre>
+        </div>
+      </div>
+
+      <div x-show="snippet === 'valid'" style="display: none;">
+        <pre aria-label="Valid Fin# Balanced Double-Entry Transaction">// File: AquaticMembership.fin — Verified balanced journal entry + Z-SOX-302 audit hash
+ledger HouseholdLedger&lt;USD&gt; {
+  account CheckingAccount          : Asset&lt;USD&gt;;
+  account RecreationAndPhysicalTherapy : Expense&lt;USD&gt;;
+}
+
+fn RecordMonthlyKeytag(books: ref HouseholdLedger&lt;USD&gt;) {
+  transaction "Christiansburg Aquatic Center Non-Resident Keytag" [audit: Z_SOX_302] {
+    debit  books.RecreationAndPhysicalTherapy : 30.00_USD;
+    credit books.CheckingAccount              : 30.00_USD;
+  }
+}</pre>
+        <div class="lab-diag-box" aria-live="polite">
+          <strong>Build SUCCEEDED (0 Errors, 0 Warnings — Conservation Proof Verified in 1.4 ms):</strong>
+          <pre style="margin: 0.5rem 0 0;">[OK] finsc AquaticMembership.fin --target=net11.0 --verify-linear-conservation
+     Proved: Sum(Debits&lt;USD&gt;) [30.00] == Sum(Credits&lt;USD&gt;) [30.00] (Delta == 0.00_USD)
+     Emitted: AquaticMembership.dll + Z-SOX-302 deterministic ledger proof manifest.</pre>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="finsharp-diagnostics-heading">
+      <h2 id="finsharp-diagnostics-heading">Core Compile-Time Type Rules &amp; Diagnostic Codes</h2>
+      <div class="table-wrap">
+        <table>
+          <caption>Fin# v0.1.0-lab Compiler Invariants &amp; Fatal Diagnostic Gates</caption>
+          <thead>
+            <tr>
+              <th scope="col">Code</th>
+              <th scope="col">Compiler Invariant</th>
+              <th scope="col">What It Prevents at Compile Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>FIN0001</code></th>
+              <td><strong>Conservation of Capital</strong> (<code>ConservationOfCapitalViolationException</code>)</td>
+              <td>Blocks thin-air currency literal creation, overwrite, or scalar <code>+=</code> / <code>-=</code> on accounts outside a balanced <code>transaction</code>.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0002</code></th>
+              <td><strong>Balanced Double-Entry Proof</strong> (<code>&Sigma; Debits == &Sigma; Credits</code>)</td>
+              <td>Rejects any <code>transaction</code> block whose concrete or symbolic debits and credits do not balance identically per currency.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0003</code></th>
+              <td><strong>Zero Binary Floating-Point</strong> (IEEE 754 <code>float</code> / <code>double</code> Banned)</td>
+              <td>Eliminates <code>0.1 + 0.2 != 0.3</code> base-2 drift by enforcing 128-bit scaled fixed-point arithmetic on all monetary types.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0004</code></th>
+              <td><strong>Dimension-Typed ISO 4217 Currencies</strong> (<code>Capital&lt;USD&gt;</code> vs. <code>Capital&lt;EUR&gt;</code>)</td>
+              <td>Prevents accidental cross-currency addition without an explicit, timestamped FX conversion &amp; settlement bridge.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0005</code></th>
+              <td><strong>Linear Remainder Conservation</strong> (No Silent Rounding Drops)</td>
+              <td>Forces division/proration operations to return <code>(shares, remainder)</code> linear tuples where every single cent must be routed.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="finsharp-arch-heading">
+      <h2 id="finsharp-arch-heading">Compiler Engineering Roadmap &amp; Potential RaggieSoft Studio Integration</h2>
+      <div class="lab-grid-2x2">
+        <article class="card">
+          <div>
+            <h3>Clean C# &ldquo;Mini-Roslyn&rdquo; Frontend &rarr; .NET 11 / Roslyn Backend</h3>
+            <p>
+              Rather than carrying a 4-million-line upstream <code>dotnet/roslyn</code> merge burden, our primary architecture pairs
+              a crisp, 100-level-commented C# immutable syntax/binding/linear-flow frontend (<code>FinSharp.Compiler</code>) with
+              in-process <code>Microsoft.CodeAnalysis.CSharp</code> lowering &amp; PE emission—delivering sub-second builds, full
+              NuGet interoperability, NativeAOT support, and PDB debugging!
+            </p>
+          </div>
+        </article>
+        <article class="card">
+          <div>
+            <h3>Candidate Studio Tool: <em>RaggieSoft Fin# / Ledger Studio</em></h3>
+            <p>
+              Pairing <strong>Accessibility Studio</strong>'s proven <code>.NET 11 + Monaco</code> workstation shell with a live
+              <code>Fin#</code> Language Server (<code>LSP</code>), real-time T-account conservation diagrams, <code>Z-SOX-302</code>
+              audit proofs, and <strong>Document Studio</strong> Tagged <code>PDF/UA-1</code> statement generation—following our
+              permanent <code>Community == 100% Architect</code> rule.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-links">
+          <a href="/">Engineering Hub</a>
+          <a href="/labs">RaggieSoft Labs</a>
+          <a href="/labs/finsharp">Fin# (Financial Sharp) Lab</a>
+          <a href="/repositories">GitHub Repositories</a>
+          <a href="/ai-skills">llms.txt &amp; AI Skills</a>
+          <a href="/notes">Dev Notes</a>
+          <a href="/llms.txt">/llms.txt</a>
+          <a href="https://raggiesoftstudio.com">RaggieSoft Studio (8 Tools)</a>
+          <a href="https://raggiesoftstudio.com/editions">Studio Editions</a>
+          <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript (.rssc)</a>
+          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.5.0)</a>
+          <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.0)</a>
+          <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
+          <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
+          <a href="https://raggiesoft.com/about/privacy">Privacy Policy</a>
+          <a href="https://raggiesoft.com/about/terms">Terms of Service</a>
+          <a href="https://raggiesoft.com/about/ai-disclaimer">AI &amp; Creative Process | RaggieSoft Governance</a>
+        </div>
+        <p>
+          Copyright &copy; 2026 Michael P. Ragsdale / RaggieSoft. Open-source software licensed under the MIT License.
+        </p>
+        <p class="disclaimer-box">Fictitious Persons & Entities Disclaimer: All narrative characters (including Zoë Wren Brooks, Jordan Fuller, and Daniel Brooks), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including Vectron Energy Corp., OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events across RaggieSoft creative works are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+      </div>
+    </footer>
+  </div>
+    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261126a" defer></script>
+  </body>
+</html>

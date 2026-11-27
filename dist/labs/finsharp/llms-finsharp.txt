@@ -1,0 +1,54 @@
+# Fin# (Financial Sharp) — Cold-Start Compiler & Language Blueprint (`llms/llms-finsharp.txt`)
+
+> **MANDATORY COLD-START INSTRUCTION FOR AI AGENTS**:
+> Read 100% of this file before designing, implementing, or extending **`Fin#` (`FinSharp` / `finsc`)**, RaggieSoft Labs' linear-type double-entry financial programming language, compiler, Language Server, or potential **RaggieSoft Studio** IDE (`desktop-apps/finsharp/` and `https://raggiesoft.dev/labs/finsharp`).
+
+---
+
+## 1. Narrative Origin & Philosophical Invariant (`/books/aubrie/e007/c001/p003.md`)
+
+- **Origin Story**: In *Question The Rules: The Birth of Fin#* (`books/aubrie/e007/c001/p003.md`, set August 26, 2015 on Geneva Street in Christiansburg, VA), **Zoë Wren Brooks** (CS & Finance double major at CPI) and **Jordan Fuller** connect Engineering Thermodynamics to post-SOX forensic accounting (*Vectron Energy Corp.*, `"Question The Rules"`):
+  - *"In physics, you can question the rules of who owns the power lines, but you cannot question the First Law of Thermodynamics! Energy in a closed system cannot be created out of nothing or destroyed—it can only be transferred from one place to another."*
+  - *"Because rules made by monopolies can be questioned. The laws of conservation cannot."*
+- **Why Imperative Languages Fail Accounting**:
+  - In standard C#, Java, C++, or spreadsheets, money is stored as an unconstrained scalar (`decimal` or `double`). Writing `companyRevenue += 500_000_000.00m;` compiles with `0` errors even though half a billion dollars appeared out of thin air without debiting any counterparty account, and rounding remainders can be silently dropped.
+  - Sarbanes-Oxley (`SOX` Sections 302 & 404 / Zoë's `Z-SOX-302`) catches corrupted ledgers *months later* at audit time. **`Fin#` catches them in milliseconds at COMPILE TIME.**
+
+---
+
+## 2. Core Type-System & Compiler Invariants (`finsc`)
+
+1. **Linear Resource Types (`Capital<TCurrency>` & `Account<TKind, TCurrency>`)**:
+   - Values of type `Capital<USD>` (or any ISO 4217 / custom commodity unit) are **linear resources**—mirroring quantum no-cloning / no-deleting linear type theory:
+     - **No Thin-Air Creation**: `Capital<TCurrency>` literals CANNOT be instantiated outside an explicit external boundary ingress (`mint` / `opening_balance`) or balanced `transaction` split.
+     - **No Silent Destruction (`Drop` Forbidden)**: Every `Capital<TCurrency>` binding MUST be consumed exactly once before scope exit—including exact cent/sub-cent allocation remainders! Dropping an unallocated remainder fails compilation with **`FIN0005`**.
+     - **No Implicit Duplication (`Copy` Forbidden)**: Moving `Capital<USD>` into an account posting consumes the binding linearly (`Move` semantics).
+2. **Compile-Time Double-Entry Conservation (`FIN0001` & `FIN0002`)**:
+   - Every ledger mutation MUST occur inside an atomic `transaction` (or `journal`) block proving Luca Pacioli's 1494 accounting identity ($\text{Assets} + \text{Expenses} = \text{Liabilities} + \text{Equity} + \text{Revenue}$, i.e., $\sum \text{Debits} \equiv \sum \text{Credits}$):
+     - **`FIN0001` (`ConservationOfCapitalViolationException`)**: Attempting scalar `+=`, `-=`, `=`, or un-paired account mutation outside a balanced `transaction` halts compilation immediately.
+     - **`FIN0002` (`UnbalancedJournalEntryError`)**: Any `transaction` block whose symbolic or concrete `debit` sum cannot be proven equal to its `credit` sum for each currency fails compilation.
+3. **Zero Binary Floating-Point on Monetary Types (`FIN0003`)**:
+   - IEEE 754 `float` and `double` are **banned at compile time** (`FIN0003`) from touching `Capital<T>`, `Rate`, or `Account<...>`. All arithmetic uses exact fixed-point 128-bit scaled integers (`Int128` / `decimal` scale-checked) with explicit rounding policies (` HalfEven`, `Bankers`, `FloorWithRemainder` returning `(allocated, remainder)` linear tuples!).
+4. **Dimension-Typed Currencies & Explicit FX Settlement (`FIN0004`)**:
+   - `Capital<USD> + Capital<EUR>` is a compile-time type error (`FIN0004`) unless routed through an auditable `fx.convert(source, fxQuote, settlementAccount)` conservation bridge.
+
+---
+
+## 3. Compiler Implementation Strategy (.NET 10 / 11 + Roslyn Ecosystem)
+
+When building `Fin#` in `desktop-apps/finsharp/`:
+- **Option A — Clean C# Self-Hosted Compiler Frontend (`FinSharp.Compiler` -> Roslyn `SyntaxTree` / Deterministic `.NET` IL)**:
+  - Hand-author a crystal-clear, 100-level-commented C# immutable syntax tree ("Mini-Roslyn" architecture: `Lexer` -> `Parser` -> `Binder` -> **`LinearFlowAnalyzer`** -> `CSharpLowering` or `System.Reflection.Emit` / `System.Reflection.Metadata` PE emitter) targeting `.NET 10 / 11` CoreCLR & NativeAOT!
+  - Why this beats maintaining a 4-million-LOC `dotnet/roslyn` git fork: builds in `< 3 seconds`, 100% readable by humans and AI agents, interoperates seamlessly with every `.NET` NuGet package, AND can still invoke `Microsoft.CodeAnalysis.CSharp` (`Roslyn`) in-process to emit signed `.dll`/`.exe` assemblies with full PDB debug symbols!
+- **Option B — Forked Roslyn Experimental Branch**:
+  - If exploring direct `csc` modifications (`Microsoft.CodeAnalysis.CSharp`), isolate inside a dedicated experimental repo so daily workspace syncs stay fast and lightweight.
+- **Potential RaggieSoft Studio Integration (`Fin# Studio` / `Ledger Studio`)**:
+  - Can pair Accessibility Studio's proven `.NET + WebView2/Monaco` workstation shell with a live `Fin#` Language Server (`LSP`), real-time T-account conservation visualizer, `Z-SOX-302` cryptographic audit-trail export, and **Document Studio** ISO 14289-1 Tagged `PDF/UA-1` financial statement generation (`Community == 100% Architect Parity` across all 4 Studio tiers!).
+
+---
+
+## 4. Mandatory Lockstep & Governance Rules
+
+- **Update `https://raggiesoft.dev/labs/finsharp` & `https://raggiesoft.dev/labs` in 1:1 Lockstep** whenever `Fin#` syntax, diagnostic codes (`FIN0001..FIN0099`), CLI flags, or studio milestones evolve.
+- **100-Level Read-Along Teaching Comments** top-to-bottom in every `.cs`, `.fsx`, `.fin`, and `.ts` source file (zero comments in `.json`).
+- **Mandatory Fictitious Persons & Entities Disclaimer** on all docs, About dialogs, and web pages noting that *Zoë Wren Brooks*, *Jordan Fuller*, *Daniel Brooks*, *Commonwealth Polytechnic Institute (CPI)*, and *Vectron Energy Corp.* are works of fiction from RaggieSoft's *Ocean View Archives* literary universe (never name real-world energy/accounting scandal companies; always use in-universe *Vectron Energy Corp.*).

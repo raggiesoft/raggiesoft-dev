@@ -2,14 +2,18 @@
 /**
  * @license MIT
  * ============================================================================
- * scripts/prerender.mjs — Static Site Generator, OpenGraph & Umbrella llms.txt
+ * scripts/prerender.mjs — Static Site Generator, OpenGraph, Labs & Umbrella llms.txt
  * Property: https://raggiesoft.dev
  * ============================================================================
  * PLAIN-ENGLISH OVERVIEW (100-LEVEL NODE.JS SSG BUILD SCRIPT):
- *   Pre-renders all 4 developer hub routes (`/`, `/repositories`, `/ai-skills`,
- *   `/notes`) + `/404.html`, enforces `<= 60` char `<title>` & `<= 155` char
- *   `<meta description>`, generates `dist/llms.txt` indexing RaggieSoft's
- *   open-source ecosystem & AI skills, and writes `sitemap.xml` + `robots.txt`.
+ *   1. Pre-renders all 6 developer hub routes (`/`, `/labs`, `/labs/finsharp`,
+ *      `/repositories`, `/ai-skills`, `/notes`) + `/404.html` into static HTML5,
+ *      creating nested directories cleanly for `/labs/finsharp`.
+ *   2. Enforces `<= 60` char `<title>` & `<= 155` char `<meta description>` SEO
+ *      bounds and emits OpenGraph, Twitter Card, and Schema.org JSON-LD tags.
+ *   3. Publishes `/labs/finsharp/llms-finsharp.txt` from `llms/llms-finsharp.txt`
+ *      and writes the umbrella `dist/llms.txt` in 1:1 lockstep with
+ *      `https://raggiesoftstudio.com`, plus `sitemap.xml`, `robots.txt`, & IndexNow.
  * ============================================================================
  */
 
@@ -23,12 +27,16 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 const distDir = path.join(projectRoot, 'dist');
 const ssrDir = path.join(projectRoot, '.ssr-temp');
+const workspaceLlmsDir = path.resolve(projectRoot, '../../../llms');
 
 const SITE_ORIGIN = 'https://raggiesoft.dev';
-const OG_IMAGE = 'https://assets.raggiesoft.com/raggiesoft-corporate/images/logos/logo-michael.png';
-const FAVICON_SVG = 'https://assets.raggiesoft.com/raggiesoft-a11y-studio/images/studio-logo.svg';
+const OG_IMAGE = 'https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg';
+const FAVICON_SVG = 'https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg';
 const INDEXNOW_KEY = '726167676965736f6674696e6465786e';
 
+/**
+ * Escapes HTML special characters for safe attribute and `<title>` interpolation.
+ */
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, '&amp;')
@@ -37,6 +45,9 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;');
 }
 
+/**
+ * Validates SEO bounds and emits `<head>` meta + Schema.org JSON-LD (zero JSON comments).
+ */
 function buildSeoHead({ seoTitle, seoDescription, canonicalUrl, noindex = false }) {
   if (seoTitle.length > 60) {
     throw new Error(`SEO Title exceeds 60 chars (${seoTitle.length}): "${seoTitle}"`);
@@ -49,7 +60,7 @@ function buildSeoHead({ seoTitle, seoDescription, canonicalUrl, noindex = false 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'raggiesoft.dev — RaggieSoft Open-Source & App Engineering Hub',
+    name: 'raggiesoft.dev — RaggieSoft Open-Source, Studio & Compiler Engineering Hub',
     url: `${SITE_ORIGIN}/`,
     author: {
       '@type': 'Person',
@@ -70,7 +81,7 @@ function buildSeoHead({ seoTitle, seoDescription, canonicalUrl, noindex = false 
     `<meta property="og:description" content="${escapeHtml(seoDescription)}" />`,
     `<meta property="og:url" content="${escapeHtml(canonicalUrl)}" />`,
     `<meta property="og:image" content="${escapeHtml(OG_IMAGE)}" />`,
-    `<meta property="og:image:alt" content="raggiesoft.dev — RaggieSoft Open-Source Software, Compilers & AI Skills" />`,
+    `<meta property="og:image:alt" content="raggiesoft.dev — RaggieSoft Open-Source Compilers, 8-Tool Studio Suite, Fin# Labs & AI Skills" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(seoTitle)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(seoDescription)}" />`,
@@ -80,6 +91,7 @@ function buildSeoHead({ seoTitle, seoDescription, canonicalUrl, noindex = false 
 }
 
 async function main() {
+  // 1. Compile SSR route entry via local Vite binary.
   const viteBin = path.join(projectRoot, 'node_modules', 'vite', 'bin', 'vite.js');
   execFileSync(
     process.execPath,
@@ -87,6 +99,7 @@ async function main() {
     { cwd: projectRoot, stdio: 'inherit' }
   );
 
+  // 2. Render every route in `DEV_ROUTES` (`/`, `/labs`, `/labs/finsharp`, etc.) to static HTML5.
   const templateHtml = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
   const ssrEntryUrl = pathToFileURL(path.join(ssrDir, 'entry-server.js')).href;
   const { renderDevPage, DEV_ROUTES } = await import(ssrEntryUrl);
@@ -108,14 +121,17 @@ async function main() {
     if (route.path === '/') {
       fs.writeFileSync(path.join(distDir, 'index.html'), finalPage, 'utf8');
     } else {
-      const subName = route.path.replace(/^\/+/, '');
+      const subName = route.path.replace(/^\/+/, '').replace(/\/+$/, '');
       const routeFolder = path.join(distDir, subName);
+      const htmlFilePath = path.join(distDir, `${subName}.html`);
       fs.mkdirSync(routeFolder, { recursive: true });
+      fs.mkdirSync(path.dirname(htmlFilePath), { recursive: true });
       fs.writeFileSync(path.join(routeFolder, 'index.html'), finalPage, 'utf8');
-      fs.writeFileSync(path.join(distDir, `${subName}.html`), finalPage, 'utf8');
+      fs.writeFileSync(htmlFilePath, finalPage, 'utf8');
     }
   }
 
+  // 3. Emit genuine `/404.html` (`noindex,follow`) for Nginx `error_page 404 /404.html`.
   const notFoundRender = renderDevPage('/404');
   const notFoundHead = buildSeoHead({
     seoTitle: '404 Not Found | raggiesoft.dev',
@@ -129,21 +145,43 @@ async function main() {
     'utf8'
   );
 
-  // Emit umbrella `dist/llms.txt` linking all RaggieSoft open-source suites & AI agent specs
+  // 4. Copy `llms/llms-finsharp.txt` into `dist/labs/finsharp/llms-finsharp.txt` for cold-start AI sessions.
+  const finSharpSpecSrc = path.join(workspaceLlmsDir, 'llms-finsharp.txt');
+  if (fs.existsSync(finSharpSpecSrc)) {
+    const finSharpOutDir = path.join(distDir, 'labs', 'finsharp');
+    fs.mkdirSync(finSharpOutDir, { recursive: true });
+    fs.copyFileSync(finSharpSpecSrc, path.join(finSharpOutDir, 'llms-finsharp.txt'));
+  }
+
+  // 5. Emit umbrella `dist/llms.txt` in 1:1 lockstep with `raggiesoftstudio.com` & RaggieSoft Labs.
   const devLlmsTxt = [
-    '# RaggieSoft Open-Source & App Engineering Hub (https://raggiesoft.dev)',
+    '# RaggieSoft Open-Source, Studio & Compiler Engineering Hub (https://raggiesoft.dev)',
     '',
-    '> Official engineering portal indexing RaggieSoft open-source compilers, accessibility IDEs, zero-database web frameworks, and AI agent skills (MIT License).',
+    '> Official engineering portal indexing RaggieSoft Studio (8 Windows 11 x64 & ARM64 developer tools), RaggieScript (.rssc), Fin# (Financial Sharp) compiler R&D, zero-database web frameworks, and AI agent skills (MIT License).',
     '',
-    '## Flagship Developer Suites & Portals',
-    '- [RaggieSoft Installer Studio](https://raggiesoftstudio.com): Zero-dependency native Win32 C++20 Windows packaging suite (`InstallerStudio.exe`, `instbuild.exe`, `SetupWizard.exe`, `msiprism.exe`) compiling `.rsip` projects and `.rsis` suites into `.msi`, `.msm`, `.mst`, `.msp`, and VPAT 2.5 reports across x64 & ARM64.',
-    '- [RaggieSoft Accessibility Studio](https://a11y.raggiesoft.com): C# / .NET 10 WinForms + Monaco WebView2 WCAG 2.2 AA & Section 508 workstation IDE + SARIF 2.1.0 CLI.',
-    '- [RaggieSoft Launcher & Native Apps](https://launcher.raggiesoft.com): 100% offline-ready Windows (.NET 10 WPF) and Apple (SwiftUI) desktop/mobile suite.',
+    '## RaggieSoft Studio — 8-Product Suite (`Community == 100% Architect Parity`, `Essentials`, `Developer`, `Architect`)',
+    '- [RaggieSoft Studio Suite Portal](https://raggiesoftstudio.com): Umbrella portal for all 8 Studio tools + All-Access Studio Suites (including free Studio Community).',
+    '- [Suite-Wide Editions Matrix](https://raggiesoftstudio.com/editions)',
+    '- [RaggieScript (.rssc) Language Hub & Playground](https://raggiesoftstudio.com/raggiescript)',
+    '- [1. RaggieSoft Installer Studio (v0.5.0 Shipped / v0.6.0 In Lab)](https://raggiesoftstudio.com/installer-studio): Static `/MT` Win32 C++20 `.msi`, `.msm`, `.mst`, `.msp`, `sfx` (`rswsfx.exe`), & Monotonic Dual-Bar `.rsis` Suite compiler (`installwithoutlimits.com` 301s here).',
+    '- [2. RaggieSoft Showcase Studio](https://raggiesoftstudio.com/showcase-studio): 1990s `.BMP` (with UIA safeguards) & Windows 11 `FluentMica` launchpads + bespoke `_support\\` self-extracting canvas installers.',
+    '- [3. RaggieSoft Launcher Studio](https://raggiesoftstudio.com/launcher-studio): Branded zero-account desktop hubs & SHA-256 + Authenticode static-CDN updaters.',
+    '- [4. RaggieSoft Help Studio](https://raggiesoftstudio.com/help-studio): Turnkey `.CHM` / `.hhp` migration & zero-dependency C++20 Named Pipe `F1` help clients.',
+    '- [5. RaggieSoft Training Studio (v0.5.0)](https://raggiesoftstudio.com/training-studio): `<50 KB` proxy-proof WCAG 2.2 AA SCORM 1.2 & 2004 compiler (`rstbuild`).',
+    '- [6. RaggieSoft Document Studio](https://raggiesoftstudio.com/document-studio): Deterministic ISO 14289-1 Tagged `PDF/UA-1` & Section 508 form compiler.',
+    '- [7. RaggieSoft Localization Studio](https://raggiesoftstudio.com/localization-studio): Multilingual `.RESX`, `XLIFF 2.1`, `.rsip`, `.rstp` & `<=22 CPS` WebVTT compliance IDE.',
+    '- [8. RaggieSoft Accessibility Studio (v1.0.0)](https://raggiesoftstudio.com/accessibility-studio): `.NET 11` + Monaco WCAG 2.2 AA refactoring IDE & SARIF 2.1.0 CLI (`a11y.raggiesoft.com` 301s here).',
+    '',
+    '## RaggieSoft Labs (`/labs` & `/labs/finsharp`)',
+    '- [RaggieSoft Labs Overview](https://raggiesoft.dev/labs)',
+    '- [Fin# (Financial Sharp) Compiler Lab](https://raggiesoft.dev/labs/finsharp): Linear-type double-entry financial programming language enforcing conservation of capital at compile time (`FIN0001`).',
+    '- [Fin# Cold-Start Compiler Blueprint](https://raggiesoft.dev/labs/finsharp/llms-finsharp.txt)',
     '',
     '## AI Agent Skills & Machine-Readable Endpoints',
-    '- [Installer Studio Summary Spec](https://raggiesoftstudio.com/llms.txt)',
-    '- [Installer Studio Full Schema Reference](https://raggiesoftstudio.com/llms-full.txt)',
-    '- [Installer Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/SKILL.md)',
+    '- [8-Tool Studio Suite Summary](https://raggiesoftstudio.com/llms.txt)',
+    '- [Installer Studio Full Schema Reference](https://raggiesoftstudio.com/installer-studio/llms-full.txt)',
+    '- [Installer Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/installer-studio/SKILL.md)',
+    '- [Training Studio Full Schema Reference](https://raggiesoftstudio.com/training-studio/llms-full.txt)',
     '',
     '## Public GitHub Repositories (@raggiesoft)',
     '- https://github.com/raggiesoft/installer-studio',
@@ -155,13 +193,14 @@ async function main() {
   ].join('\n');
   fs.writeFileSync(path.join(distDir, 'llms.txt'), devLlmsTxt, 'utf8');
 
+  // 6. Emit `sitemap.xml`, `robots.txt`, and IndexNow verification file.
   const today = new Date().toISOString().slice(0, 10);
   const sitemapXml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ...DEV_ROUTES.map((r) => {
       const loc = r.path === '/' ? `${SITE_ORIGIN}/` : `${SITE_ORIGIN}${r.path}`;
-      const priority = r.path === '/' ? '1.0' : '0.8';
+      const priority = r.path === '/' ? '1.0' : r.path.startsWith('/labs') ? '0.9' : '0.8';
       return `  <url><loc>${loc}</loc><lastmod>${today}</lastmod><priority>${priority}</priority></url>`;
     }),
     '</urlset>',
@@ -172,7 +211,7 @@ async function main() {
   fs.writeFileSync(path.join(distDir, `${INDEXNOW_KEY}.txt`), `${INDEXNOW_KEY}\n`, 'utf8');
 
   fs.rmSync(ssrDir, { recursive: true, force: true });
-  console.log(`[prerender] Pre-rendered ${DEV_ROUTES.length} routes + /llms.txt + sitemap.xml for ${SITE_ORIGIN}`);
+  console.log(`[prerender] Pre-rendered ${DEV_ROUTES.length} routes + /labs/finsharp/llms-finsharp.txt + /llms.txt + sitemap.xml for ${SITE_ORIGIN}`);
 }
 
 main().catch((err) => {

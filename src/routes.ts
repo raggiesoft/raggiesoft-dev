@@ -1,87 +1,161 @@
 /**
  * ============================================================================
  * FILE: src/routes.ts
- * PROPERTY: https://raggiesoft.dev (RaggieSoft Developer & Open-Source Hub)
+ * PROPERTY: https://raggiesoft.dev (RaggieSoft Developer, Open-Source & Labs Hub)
  * STACK: Alpine.js 3 + TypeScript + Vite Static SSG
  * LICENSE: MIT License (Copyright (c) 2026 Michael P. Ragsdale / RaggieSoft)
  * ============================================================================
  * PLAIN-ENGLISH OVERVIEW FOR 100-LEVEL READERS:
- *   Defines the 4 canonical developer routes for `https://raggiesoft.dev`:
- *     1. `/`             — Full RaggieSoft App & Open-Source Engineering Umbrella
- *     2. `/repositories` — Public GitHub Repositories (`@raggiesoft`, MIT License)
- *     3. `/ai-skills`    — `llms.txt`, `llms-full.txt`, & `SKILL.md` Agent Endpoints
- *     4. `/notes`        — Engineering Notes & Systems Architecture Blog
+ *   What is this file?
+ *     Defines the 6 canonical pre-rendered routes for `https://raggiesoft.dev`
+ *     (kept in permanent 1:1 lockstep with `https://raggiesoftstudio.com`,
+ *     our GitHub repositories, AI agent specifications, and RaggieSoft Labs):
+ *       1. `/`              — Engineering Hub: 8-Tool RaggieSoft Studio,
+ *                             RaggieScript, Fin#, Stardust CMS, & Native Apps
+ *       2. `/labs`          — RaggieSoft Labs: Experimental Compilers,
+ *                             RaggieScript VM, _support\ Canvas Packager, & R&D
+ *       3. `/labs/finsharp` — Fin# (Financial Sharp): Linear-Type Double-Entry
+ *                             Financial Programming Language & Compiler Lab
+ *       4. `/repositories`  — Public MIT-Licensed GitHub Repositories (@raggiesoft)
+ *       5. `/ai-skills`     — Compiler-Emitted `llms.txt`, `llms-full.txt` & `SKILL.md`
+ *       6. `/notes`         — Systems Architecture & Compiler Engineering Log
+ *
+ *   How Accessibility & Responsive Navigation Work Here:
+ *     - Every interactive filter and compiler diagnostic simulator uses semantic
+ *       HTML5 `<button>` controls and `aria-live="polite"` output regions so
+ *       keyboard and screen-reader users experience 100% parity with mouse users.
+ *     - Below `768px`, the top navigation collapses into a single-row `<header>`
+ *       with a `>= 44x44px` `.rs-mobile-header-toggle` button controlling
+ *       `#header-navigation-panel` (paired with `raggiesoft-network.js`).
  * ============================================================================
  */
 
 export interface DevRoute {
   readonly path: string;
   readonly navLabel: string;
-  readonly seoTitle: string;       // <= 60 characters
-  readonly seoDescription: string; // <= 155 characters
+  readonly seoTitle: string;       // Enforced <= 60 chars by scripts/prerender.mjs
+  readonly seoDescription: string; // Enforced <= 155 chars by scripts/prerender.mjs
   readonly renderBody: () => string;
 }
 
+// Mandatory Fictitious Persons & Entities Disclaimer rendered in the global footer of every route.
 const FICTITIOUS_DISCLAIMER =
-  'Fictitious Persons & Entities Disclaimer: All narrative characters, bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events across RaggieSoft creative works are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.';
+  'Fictitious Persons & Entities Disclaimer: All narrative characters (including Zoë Wren Brooks, Jordan Fuller, and Daniel Brooks), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including Vectron Energy Corp., OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events across RaggieSoft creative works are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.';
 
+/**
+ * Route 1: `/` — Umbrella Software, Compiler, Studio & Open-Source Engineering Hub.
+ */
 function renderHomeBody(): string {
   return `
     <section class="hero" aria-labelledby="dev-hero">
-      <span class="eyebrow">Open-Source Software • Native Toolchains • AI Agent Specs</span>
-      <h1 id="dev-hero">raggiesoft.dev — Software &amp; Systems Engineering Hub</h1>
+      <span class="eyebrow">Open-Source Software • Native Compilers • 8-Tool Studio • RaggieSoft Labs</span>
+      <h1 id="dev-hero">raggiesoft.dev — Software, Compiler &amp; Systems Engineering Hub</h1>
       <p class="lead">
-        Explore RaggieSoft's open-source developer tools, native desktop suites, zero-database web frameworks,
-        and deterministic AI agent specifications (<code>llms.txt</code> &amp; <code>SKILL.md</code>)—engineered with
-        100-level read-along source comments and WCAG 2.2 AA accessibility.
+        Explore RaggieSoft's <strong>8-product Windows 11 <code>x64</code> &amp; <code>ARM64</code> Studio suite</strong>,
+        capability-sandboxed <strong><code>RaggieScript</code> (<code>.rssc</code>)</strong> bytecode engine, experimental
+        <strong><a href="/labs/finsharp"><code>Fin#</code> (<em>Financial Sharp</em>)</a></strong> linear-type accounting compiler,
+        zero-database web frameworks, and deterministic AI agent specifications (<code>llms.txt</code> &amp; <code>SKILL.md</code>).
       </p>
       <div class="btn-row">
-        <a class="btn btn-primary" href="https://github.com/raggiesoft">Explore GitHub (@raggiesoft)</a>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com">RaggieSoft Installer Studio</a>
-        <a class="btn btn-outline" href="/ai-skills">Browse llms.txt &amp; Agent Skills</a>
+        <a class="btn btn-primary" href="/labs">Explore RaggieSoft Labs &amp; Fin# &rarr;</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com">RaggieSoft Studio (8 Tools)</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">RaggieScript (.rssc)</a>
+        <a class="btn btn-outline" href="/ai-skills">llms.txt &amp; Agent Skills</a>
+        <a class="btn btn-outline" href="https://github.com/raggiesoft">GitHub (@raggiesoft)</a>
       </div>
     </section>
 
     <section aria-labelledby="projects-heading" x-data="{ filter: 'all' }">
-      <h2 id="projects-heading">Flagship Engineering Suites &amp; Platforms</h2>
-      <div class="btn-row" style="margin-bottom: 1.25rem;" role="group" aria-label="Filter Projects by Discipline">
-        <button type="button" class="btn" :class="filter === 'all' ? 'btn-primary' : 'btn-outline'" @click="filter = 'all'">All Efforts</button>
-        <button type="button" class="btn" :class="filter === 'desktop' ? 'btn-primary' : 'btn-outline'" @click="filter = 'desktop'">Native Desktop &amp; Packaging</button>
-        <button type="button" class="btn" :class="filter === 'web' ? 'btn-primary' : 'btn-outline'" @click="filter = 'web'">Web Frameworks &amp; CMS</button>
-        <button type="button" class="btn" :class="filter === 'ai' ? 'btn-primary' : 'btn-outline'" @click="filter = 'ai'">AI Skills &amp; DevOps</button>
+      <h2 id="projects-heading">Flagship Engineering Suites, Compilers &amp; Platforms</h2>
+      <div class="btn-row" style="margin-bottom: 1.25rem;" role="group" aria-label="Filter Engineering Efforts by Discipline">
+        <button type="button" class="btn" :class="filter === 'all' ? 'btn-primary' : 'btn-outline'" @click="filter = 'all'">All Efforts (8)</button>
+        <button type="button" class="btn" :class="filter === 'compilers' ? 'btn-primary' : 'btn-outline'" @click="filter = 'compilers'">Compilers &amp; Labs (Fin# / RaggieScript)</button>
+        <button type="button" class="btn" :class="filter === 'desktop' ? 'btn-primary' : 'btn-outline'" @click="filter = 'desktop'">RaggieSoft Studio &amp; Native Apps</button>
+        <button type="button" class="btn" :class="filter === 'web' ? 'btn-primary' : 'btn-outline'" @click="filter = 'web'">Web Frameworks &amp; DevOps</button>
       </div>
 
       <div class="card-grid">
-        <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'ai'" style="border: 2px solid var(--primary);">
+        <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'compilers'" style="border: 2px solid var(--primary);">
           <div>
-            <span class="eyebrow">Flagship Suite • Win32 C++20 • x64 &amp; ARM64</span>
-            <h3>RaggieSoft Installer Studio (v0.4.1)</h3>
+            <span class="eyebrow">Flagship • Static /MT Win32 C++20 • x64 &amp; ARM64</span>
+            <h3>RaggieSoft Installer Studio (v0.5.0 Shipped • v0.6.0 In Lab)</h3>
             <p>
-              28 years in the making: a zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code> Visual IDE,
-              <code>instbuild.exe</code> compiler, <code>SetupWizard.exe</code> live Dark/Light bootstrapper, <code>msiprism.exe</code>
-              64-bit SQL inspector, &amp; <code>RaggieSoftHelp.exe</code> offline <code>F1</code> viewer) compiling plain-text
-              <code>.rsip</code> projects into <code>.msi</code>, <code>.msm</code>, <code>.mst</code>, <code>.msp</code>, and WCAG 2.2 AA <code>Setup.exe</code> installers.
+              Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe</code>,
+              <code>SetupWizard.exe</code>, <code>msiprism.exe</code>, <code>RaggieSoftHelp.exe</code>) compiling plain-text
+              <code>.rsip</code>/<code>.rsis</code> manifests into signed <code>.msi</code>, <code>.msm</code>, <code>.msp</code>,
+              <code>sfx</code> self-extractors, and <strong>monotonic Dual-Bar Suite installers</strong>—with permanent
+              <code>Community == 100% Architect</code> parity.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com">Preview &amp; Gallery</a>
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/roadmap">Roadmap</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/installer-studio">Installer Hub</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/roadmap">v0.6&ndash;v1.0 Roadmap</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'compilers'" style="border: 2px solid var(--primary);">
+          <div>
+            <span class="eyebrow">RaggieSoft Labs • Linear-Type .NET / Roslyn Compiler</span>
+            <h3>Fin# (Financial Sharp — /labs/finsharp)</h3>
+            <p>
+              Born from <em>Ocean View Archives</em> (<code>/books/aubrie</code>): an experimental domain-specific financial
+              programming language &amp; compiler (<code>finsc</code>) replacing mutable scalar decimals with linear
+              <code>Capital&lt;TCurrency&gt;</code> resource types so unbalanced journal entries halt at compile time with
+              <code>FIN0001: ConservationOfCapitalViolationException</code>.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="/labs/finsharp">Open Fin# Compiler Lab &rarr;</a>
+            <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">llms-finsharp.txt</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'compilers' || filter === 'desktop'">
+          <div>
+            <span class="eyebrow">Bytecode VM • &lt;200 KB Static C++20 &amp; .NET 11</span>
+            <h3>RaggieScript (.rssc) &amp; Showcase _support\ Engine</h3>
+            <p>
+              One C-family curly-brace scripting language spanning all 8 RaggieSoft Studio products plus zero-prerequisite
+              standalone Windows micro-apps (<code>raggiescript.exe</code>)—powering zero-MSI installers, Showcase Studio
+              <code>_support\\</code> bespoke canvas installers, and sandboxed SCORM ES2022 courseware.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Interactive Playground</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/showcase-studio">Showcase Studio</a>
           </div>
         </article>
 
         <article class="card" x-show="filter === 'all' || filter === 'desktop'">
           <div>
-            <span class="eyebrow">C# / .NET 10 WinForms • Monaco IDE</span>
-            <h3>RaggieSoft Accessibility Studio</h3>
+            <span class="eyebrow">8-Tool Suite • Community, Essentials, Developer &amp; Architect</span>
+            <h3>RaggieSoft Studio Compliance, Help, Training &amp; Docs</h3>
             <p>
-              Source-level WCAG 2.2 AA &amp; Revised Section 508 engineering workstation pairing VS Code's Monaco diff editor,
-              live Forced-Colors &amp; 400% zoom emulation, and a headless OASIS SARIF 2.1.0 CI/CD scanner.
+              Alongside Installer &amp; Showcase Studio: <strong>Accessibility Studio v1.0.0</strong> (.NET 11 + Monaco + SARIF CLI),
+              <strong>Training Studio</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Help Studio</strong>
+              (legacy <code>.CHM</code>/<code>.hhp</code> migration &amp; <code>F1</code> IPC), <strong>Document Studio</strong>
+              (Tagged <code>PDF/UA-1</code>), <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://a11y.raggiesoft.com">Portal (a11y.raggiesoft.com)</a>
-            <a class="btn btn-outline" href="https://github.com/raggiesoft/accessibility-studio">GitHub</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/editions">8-Tool Editions Matrix</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio</a>
+          </div>
+        </article>
+
+        <article class="card" x-show="filter === 'all' || filter === 'desktop'">
+          <div>
+            <span class="eyebrow">.NET 11 WPF &amp; Multiplatform SwiftUI</span>
+            <h3>Offline-First Companion Apps &amp; Launcher</h3>
+            <p>
+              Cross-platform Windows 11 and Apple (macOS, iOS, iPadOS SwiftUI) consumer apps (<em>Launcher</em>, <em>Book Reader</em>,
+              <em>The Listening Room</em>, <em>Backstage</em>, and <em>StoreTrainer</em>) engineered to run 100% offline from first boot.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://launcher.raggiesoft.com">RaggieSoft Launcher</a>
+            <a class="btn btn-outline" href="https://storetrainer.raggiesoft.com">StoreTrainer 2.0</a>
           </div>
         </article>
 
@@ -100,21 +174,6 @@ function renderHomeBody(): string {
           </div>
         </article>
 
-        <article class="card" x-show="filter === 'all' || filter === 'desktop'">
-          <div>
-            <span class="eyebrow">.NET 10 WPF &amp; Multiplatform SwiftUI</span>
-            <h3>Offline-First Companion Apps &amp; Launcher</h3>
-            <p>
-              Cross-platform Windows 11 (WPF + WebView2) and Apple (macOS, iOS, iPadOS SwiftUI) applications engineered to run
-              100% offline from first boot via bundled <code>OfflineSeed</code> catalogs and lock-free asset streams.
-            </p>
-          </div>
-          <div class="btn-row">
-            <a class="btn btn-outline" href="https://launcher.raggiesoft.com">RaggieSoft Launcher</a>
-            <a class="btn btn-outline" href="https://storetrainer.raggiesoft.com">StoreTrainer 2.0</a>
-          </div>
-        </article>
-
         <article class="card" x-show="filter === 'all' || filter === 'web'">
           <div>
             <span class="eyebrow">Interactive Worldbuilding &amp; Branching DAGs</span>
@@ -130,18 +189,18 @@ function renderHomeBody(): string {
           </div>
         </article>
 
-        <article class="card" x-show="filter === 'all' || filter === 'ai'">
+        <article class="card" x-show="filter === 'all' || filter === 'web'">
           <div>
-            <span class="eyebrow">Bash • PHP CLI • Node.js • rclone</span>
+            <span class="eyebrow">Bash • PHP CLI • Node.js • rclone • cf • doctl</span>
             <h3>Polyglot CI/CD &amp; Media Tooling</h3>
             <p>
-              Non-interactive multi-repo build orchestration (<code>jenna-sync.sh</code>), self-healing non-root Nginx/Linux
+              Non-interactive multi-repo release orchestration (<code>jenna-sync.sh</code>), self-healing non-root Nginx/Linux
               pull deployment (<code>sarah-deploy.sh</code>), and parallel EBU R128 FFmpeg mastering (<code>harper.sh</code>).
             </p>
           </div>
           <div class="btn-row">
             <a class="btn btn-outline" href="https://github.com/raggiesoft/raggiesoft-deployment-tools">GitHub Tooling</a>
-            <a class="btn btn-outline" href="/notes">Read Architecture Notes</a>
+            <a class="btn btn-outline" href="/notes">Architecture Notes</a>
           </div>
         </article>
       </div>
@@ -149,6 +208,301 @@ function renderHomeBody(): string {
   `;
 }
 
+/**
+ * Route 2: `/labs` — RaggieSoft Labs (Experimental Compilers, Runtimes & Lore-to-Reality R&D).
+ */
+function renderLabsBody(): string {
+  return `
+    <section class="hero" aria-labelledby="labs-title">
+      <span class="eyebrow">RaggieSoft Labs • Compiler Design, Bytecode VMs &amp; Lore-to-Reality R&amp;D</span>
+      <h1 id="labs-title">RaggieSoft Labs — Experimental Compilers &amp; Systems Research</h1>
+      <p class="lead">
+        At RaggieSoft, ideas regularly cross the boundary between narrative worldbuilding and working MIT-licensed software.
+        <strong>RaggieSoft Labs</strong> is our open engineering incubator for domain-specific compilers, capability-gated
+        bytecode virtual machines, and upcoming candidates for the <a href="https://raggiesoftstudio.com">RaggieSoft Studio</a>
+        product line.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/labs/finsharp">Enter Fin# (Financial Sharp) Lab &rarr;</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">RaggieScript (.rssc) Playground &rarr;</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/screenshots#v060-lab-previews">v0.6.0 Win32 Lab Previews &rarr;</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="active-labs-heading">
+      <h2 id="active-labs-heading">Active Incubator Tracks</h2>
+      <div class="lab-grid-2x2">
+        <article class="card" style="border: 2px solid var(--primary);">
+          <div>
+            <span class="status-pill">Lab Track 01 • Active Compiler Design</span>
+            <h3>Fin# (Financial Sharp — <code>finsc</code>)</h3>
+            <p>
+              Inspired directly by Zo&euml; Wren Brooks and Jordan Fuller's dining-table breakthrough in
+              <em>Question The Rules: The Birth of Fin#</em> (<code>/books/aubrie</code>): a linear-type financial programming
+              language on <code>.NET</code> / Roslyn principles where money cannot be created out of thin air, mutated outside a
+              balanced <code>transaction</code> block, or rounded into thin air without triggering a compile-time error
+              (<code>FIN0001: ConservationOfCapitalViolationException</code>).
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="/labs/finsharp">Open Fin# Spec &amp; Simulator &rarr;</a>
+            <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">Cold-Start AI Spec</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <span class="status-pill">Lab Track 02 • Targeting Studio v0.7.0</span>
+            <h3>RaggieScript (<code>.rssc</code>) &amp; <code>RSWBC1</code> Bytecode VM</h3>
+            <p>
+              A deterministic C-family scripting engine compiling to compact <code>&lt;200 KB</code> static <code>/MT</code> C++20
+              bytecode (plus <code>.NET 11</code> and sandboxed ES2022 targets). Powers zero-MSI setups, standalone zero-runtime
+              Windows micro-utilities (<code>raggiescript.exe</code>), and unified automation across all 8 Studio tools.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/raggiescript">Try 5-Profile Playground &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/EDITIONS_AND_RAGGIESCRIPT.md">Spec (.md)</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <span class="status-pill">Lab Track 03 • Showcase Studio Community &amp; Architect</span>
+            <h3>Bespoke Full-Canvas Self-Extracting Installers (<code>_support\\</code>)</h3>
+            <p>
+              Marries 1990s painted <code>.BMP</code> &amp; modern Windows 11 <code>FluentMica</code> multimedia canvases with
+              embedded <code>_support\\</code> payload staging, <code>fs.copy</code> / <code>fs.extract</code>, Registry &amp;
+              Shortcut APIs, selectable UAC manifests (<code>asInvoker</code> / <code>highestAvailable</code> /
+              <code>requireAdministrator</code>), and automatic rollback journals.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/showcase-studio">Explore Showcase Studio &rarr;</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <span class="status-pill">Lab Track 04 • Staged in Installer Studio v0.6.0</span>
+            <h3>Monotonic Dual-Bar Suites &amp; <code>_ISDEL</code>-Aware <code>%TEMP%</code> SFX</h3>
+            <p>
+              Eliminates legacy single-bar suite sawtooth resets via byte-weighted monotonic <strong>Overall Suite Progress</strong>
+              (bound 1:1 to Windows Taskbar <code>ITaskbarList3</code>) + live <strong>Current Component</strong> bars, alongside
+              our standalone <code>LZMS</code> Self-Extractor (<code>rswsfx.exe</code>) that watches child cleanup helpers before
+              scrubbing <code>%TEMP%</code>.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/screenshots#v060-lab-previews">View Real Win32 Captures &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  `;
+}
+
+/**
+ * Route 3: `/labs/finsharp` — Fin# (Financial Sharp) Compiler Blueprint & Interactive Diagnostic Lab.
+ */
+function renderFinSharpLabBody(): string {
+  return `
+    <section class="hero" aria-labelledby="finsharp-title">
+      <span class="eyebrow">RaggieSoft Labs • Linear-Type Financial Compiler Research (v0.1.0-lab)</span>
+      <h1 id="finsharp-title">Fin# (Financial Sharp) — Enforcing Conservation of Capital at Compile Time.</h1>
+      <p class="lead">
+        <em>&ldquo;Because rules made by monopolies can be questioned. The laws of conservation cannot.&rdquo;</em><br />
+        Originating in RaggieSoft's <em>Ocean View Archives</em> novel series (<code>/books/aubrie</code>, Chapter
+        <em>Question The Rules: The Birth of Fin#</em>) and now under active engineering design in <strong>RaggieSoft Labs</strong>,
+        <strong><code>Fin#</code> (<code>FinSharp</code> / <code>finsc</code>)</strong> brings <strong>linear resource types</strong>
+        to the <code>.NET</code> &amp; Roslyn compiler ecosystem—turning unbalanced double-entry accounting entries, binary
+        floating-point rounding drift, and synthetic revenue creation from post-facto audit findings into <strong>hard compile-time
+        errors</strong>.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#finsc-simulator">Try Interactive finsc Compiler Simulator &darr;</a>
+        <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">Open Cold-Start Compiler Spec (llms-finsharp.txt)</a>
+        <a class="btn btn-outline" href="/labs">&larr; All RaggieSoft Labs</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="why-finsharp-heading">
+      <h2 id="why-finsharp-heading">The Core Bug in Imperative Finance Code</h2>
+      <div class="lab-grid-2x2">
+        <article class="card">
+          <div>
+            <span class="eyebrow">Standard Imperative Languages (C#, Java, C++, COBOL)</span>
+            <h3>Money Treated as an Unconstrained Scalar</h3>
+            <p>
+              In general-purpose languages, <code>decimal</code> is just a mutable number. A developer or rogue script can write
+              <code>companyRevenue += 500_000_000.00m;</code> and the compiler succeeds with <strong>0 errors and 0 warnings</strong>—even
+              though half a billion dollars appeared out of nowhere with zero corresponding debit, and fractional allocation
+              remainders can be silently dropped into garbage collection. Sarbanes-Oxley (<code>SOX</code> Sections 302 &amp; 404)
+              only catches the corruption months later during human audits.
+            </p>
+          </div>
+        </article>
+        <article class="card" style="border: 2px solid var(--primary);">
+          <div>
+            <span class="eyebrow">Fin# Linear Resource Type System (finsc)</span>
+            <h3>First Law of Thermodynamics Applied to Luca Pacioli (1494)</h3>
+            <p>
+              Just as quantum programming languages forbid cloning or deleting an entangled qubit, <code>Fin#</code> models
+              <code>Capital&lt;TCurrency&gt;</code> as a <strong>protected linear resource type</strong>. Capital cannot be
+              instantiated out of thin air, overwritten, or dropped at scope exit; it can only move inside a balanced
+              <code>transaction</code> block where the compiler symbolically proves <code>&Sigma; Debits == &Sigma; Credits</code>
+              before emitting a single instruction of <code>.NET</code> IL!
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="finsc-simulator" class="lab-sandbox" aria-labelledby="finsc-sim-heading" x-data="{ snippet: 'violation' }">
+      <span class="eyebrow">Interactive Compiler Diagnostic Simulator • finsc v0.1.0-lab</span>
+      <h2 id="finsc-sim-heading" style="margin-top: 0.25rem;">Test How <code>finsc</code> Rejects Unbalanced Capital &amp; Verifies Double-Entry Ledgers</h2>
+      <div class="btn-row" role="tablist" aria-label="Choose Fin# Compiler Test Case" style="margin-bottom: 1rem;">
+        <button type="button" class="btn" :class="snippet === 'violation' ? 'btn-primary' : 'btn-outline'" role="tab" :aria-selected="String(snippet === 'violation')" @click="snippet = 'violation'">1. Thin-Air Revenue Mutation (FIN0001)</button>
+        <button type="button" class="btn" :class="snippet === 'remainder' ? 'btn-primary' : 'btn-outline'" role="tab" :aria-selected="String(snippet === 'remainder')" @click="snippet = 'remainder'">2. Dropped Penny Remainder (FIN0005)</button>
+        <button type="button" class="btn" :class="snippet === 'valid' ? 'btn-primary' : 'btn-outline'" role="tab" :aria-selected="String(snippet === 'valid')" @click="snippet = 'valid'">3. Verified Balanced Transaction (PASS)</button>
+      </div>
+
+      <div x-show="snippet === 'violation'">
+        <pre aria-label="Invalid Imperative Revenue Mutation Rejected by Fin#">// File: QuarterlyClose.fin — Attempting unconstrained scalar addition on an Account
+ledger CorporateBooks&lt;USD&gt; {
+  account OperatingCash    : Asset&lt;USD&gt;;
+  account WholesaleRevenue : Revenue&lt;USD&gt;;
+}
+
+fn BookSyntheticGain(books: ref CorporateBooks&lt;USD&gt;) {
+  // Illegal in Fin#: where did 500,000,000.00 USD come from? Which account was debited?
+  books.WholesaleRevenue += 500_000_000.00_USD;
+}</pre>
+        <div class="lab-diag-box" aria-live="polite">
+          <strong>Build FAILED (Exit Code 1) — Halted Before IL Emission:</strong>
+          <pre style="margin: 0.5rem 0 0;">QuarterlyClose.fin(9,3): error FIN0001: ConservationOfCapitalViolationException —
+  Account 'WholesaleRevenue' (Revenue&lt;USD&gt;) cannot be mutated via scalar '+=' outside an atomic
+  'transaction' block with a proving Debit counterparty of equal Capital&lt;USD&gt; magnitude.</pre>
+        </div>
+      </div>
+
+      <div x-show="snippet === 'remainder'" style="display: none;">
+        <pre aria-label="Dropped Split Remainder Rejected by Fin# Linear Flow Analyzer">// File: DividendSplit.fin — Splitting $100.00 USD equally across 3 accounts ($33.33 * 3 = $99.99)
+transaction AllocateGrant(pool: move Capital&lt;USD&gt;) {
+  // Exact 3-way floor division returns a linear tuple: (quotient[3], remainder: 0.01_USD)
+  let (shares, unallocatedCents) = capital.splitEqual(move pool, parts: 3);
+
+  debit  DeptResearch &lt;- move shares[0];
+  debit  DeptTransit  &lt;- move shares[1];
+  debit  DeptAquatic  &lt;- move shares[2];
+  // Oops! 'unallocatedCents' (0.01_USD) goes out of scope without being posted!
+}</pre>
+        <div class="lab-diag-box" aria-live="polite">
+          <strong>Build FAILED (Exit Code 1) — Linear Resource Leak Detected:</strong>
+          <pre style="margin: 0.5rem 0 0;">DividendSplit.fin(10,1): error FIN0005: UnconsumedLinearCapitalError —
+  Linear binding 'unallocatedCents' of type 'Capital&lt;USD&gt;' goes out of scope unconsumed!
+  Route the exact remainder explicitly (e.g., 'debit RoundingReserve &lt;- move unallocatedCents;').</pre>
+        </div>
+      </div>
+
+      <div x-show="snippet === 'valid'" style="display: none;">
+        <pre aria-label="Valid Fin# Balanced Double-Entry Transaction">// File: AquaticMembership.fin — Verified balanced journal entry + Z-SOX-302 audit hash
+ledger HouseholdLedger&lt;USD&gt; {
+  account CheckingAccount          : Asset&lt;USD&gt;;
+  account RecreationAndPhysicalTherapy : Expense&lt;USD&gt;;
+}
+
+fn RecordMonthlyKeytag(books: ref HouseholdLedger&lt;USD&gt;) {
+  transaction "Christiansburg Aquatic Center Non-Resident Keytag" [audit: Z_SOX_302] {
+    debit  books.RecreationAndPhysicalTherapy : 30.00_USD;
+    credit books.CheckingAccount              : 30.00_USD;
+  }
+}</pre>
+        <div class="lab-diag-box" aria-live="polite">
+          <strong>Build SUCCEEDED (0 Errors, 0 Warnings — Conservation Proof Verified in 1.4 ms):</strong>
+          <pre style="margin: 0.5rem 0 0;">[OK] finsc AquaticMembership.fin --target=net11.0 --verify-linear-conservation
+     Proved: Sum(Debits&lt;USD&gt;) [30.00] == Sum(Credits&lt;USD&gt;) [30.00] (Delta == 0.00_USD)
+     Emitted: AquaticMembership.dll + Z-SOX-302 deterministic ledger proof manifest.</pre>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="finsharp-diagnostics-heading">
+      <h2 id="finsharp-diagnostics-heading">Core Compile-Time Type Rules &amp; Diagnostic Codes</h2>
+      <div class="table-wrap">
+        <table>
+          <caption>Fin# v0.1.0-lab Compiler Invariants &amp; Fatal Diagnostic Gates</caption>
+          <thead>
+            <tr>
+              <th scope="col">Code</th>
+              <th scope="col">Compiler Invariant</th>
+              <th scope="col">What It Prevents at Compile Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><code>FIN0001</code></th>
+              <td><strong>Conservation of Capital</strong> (<code>ConservationOfCapitalViolationException</code>)</td>
+              <td>Blocks thin-air currency literal creation, overwrite, or scalar <code>+=</code> / <code>-=</code> on accounts outside a balanced <code>transaction</code>.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0002</code></th>
+              <td><strong>Balanced Double-Entry Proof</strong> (<code>&Sigma; Debits == &Sigma; Credits</code>)</td>
+              <td>Rejects any <code>transaction</code> block whose concrete or symbolic debits and credits do not balance identically per currency.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0003</code></th>
+              <td><strong>Zero Binary Floating-Point</strong> (IEEE 754 <code>float</code> / <code>double</code> Banned)</td>
+              <td>Eliminates <code>0.1 + 0.2 != 0.3</code> base-2 drift by enforcing 128-bit scaled fixed-point arithmetic on all monetary types.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0004</code></th>
+              <td><strong>Dimension-Typed ISO 4217 Currencies</strong> (<code>Capital&lt;USD&gt;</code> vs. <code>Capital&lt;EUR&gt;</code>)</td>
+              <td>Prevents accidental cross-currency addition without an explicit, timestamped FX conversion &amp; settlement bridge.</td>
+            </tr>
+            <tr>
+              <th scope="row"><code>FIN0005</code></th>
+              <td><strong>Linear Remainder Conservation</strong> (No Silent Rounding Drops)</td>
+              <td>Forces division/proration operations to return <code>(shares, remainder)</code> linear tuples where every single cent must be routed.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="finsharp-arch-heading">
+      <h2 id="finsharp-arch-heading">Compiler Engineering Roadmap &amp; Potential RaggieSoft Studio Integration</h2>
+      <div class="lab-grid-2x2">
+        <article class="card">
+          <div>
+            <h3>Clean C# &ldquo;Mini-Roslyn&rdquo; Frontend &rarr; .NET 11 / Roslyn Backend</h3>
+            <p>
+              Rather than carrying a 4-million-line upstream <code>dotnet/roslyn</code> merge burden, our primary architecture pairs
+              a crisp, 100-level-commented C# immutable syntax/binding/linear-flow frontend (<code>FinSharp.Compiler</code>) with
+              in-process <code>Microsoft.CodeAnalysis.CSharp</code> lowering &amp; PE emission—delivering sub-second builds, full
+              NuGet interoperability, NativeAOT support, and PDB debugging!
+            </p>
+          </div>
+        </article>
+        <article class="card">
+          <div>
+            <h3>Candidate Studio Tool: <em>RaggieSoft Fin# / Ledger Studio</em></h3>
+            <p>
+              Pairing <strong>Accessibility Studio</strong>'s proven <code>.NET 11 + Monaco</code> workstation shell with a live
+              <code>Fin#</code> Language Server (<code>LSP</code>), real-time T-account conservation diagrams, <code>Z-SOX-302</code>
+              audit proofs, and <strong>Document Studio</strong> Tagged <code>PDF/UA-1</code> statement generation—following our
+              permanent <code>Community == 100% Architect</code> rule.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  `;
+}
+
+/**
+ * Route 4: `/repositories` — Public MIT-Licensed GitHub Repositories (@raggiesoft).
+ */
 function renderReposBody(): string {
   return `
     <section class="hero" aria-labelledby="repos-title">
@@ -162,10 +516,10 @@ function renderReposBody(): string {
 
     <div class="table-wrap">
       <table>
-        <caption>Flagship RaggieSoft Open-Source Repositories on GitHub</caption>
+        <caption>Flagship RaggieSoft Open-Source Repositories &amp; Studio Toolchains on GitHub</caption>
         <thead>
           <tr>
-            <th scope="col">Repository</th>
+            <th scope="col">Repository / Suite Module</th>
             <th scope="col">Primary Stack</th>
             <th scope="col">Summary</th>
             <th scope="col">Links</th>
@@ -175,37 +529,49 @@ function renderReposBody(): string {
           <tr>
             <th scope="row"><code>raggiesoft/installer-studio</code></th>
             <td>Native Win32 C++20 (<code>/MT</code>)</td>
-            <td>Visual IDE (<code>InstallerStudio.exe</code>), <code>.rsip</code>/<code>.rsis</code> compiler (<code>instbuild.exe</code>), <code>SetupWizard.exe</code>, &amp; <code>msiprism.exe</code>.</td>
-            <td><a href="https://github.com/raggiesoft/installer-studio">GitHub</a> &bull; <a href="https://raggiesoftstudio.com">Portal</a></td>
+            <td>Visual IDE (<code>InstallerStudio.exe</code>), <code>.rsip</code>/<code>.rsis</code> compiler (<code>instbuild.exe</code>), 10-style <code>SetupWizard.exe</code>, Monotonic Dual-Bar Suites, <code>sfx</code>, &amp; <code>msiprism.exe</code>.</td>
+            <td><a href="https://github.com/raggiesoft/installer-studio">GitHub</a> &bull; <a href="https://raggiesoftstudio.com/installer-studio">Portal</a></td>
           </tr>
           <tr>
             <th scope="row"><code>raggiesoft/accessibility-studio</code></th>
-            <td>C# / .NET 10 WinForms + Monaco</td>
-            <td>Workstation WCAG 2.2 AA &amp; Section 508 IDE, live DOM contrast/reflow emulator, &amp; SARIF 2.1.0 CLI.</td>
-            <td><a href="https://github.com/raggiesoft/accessibility-studio">GitHub</a> &bull; <a href="https://a11y.raggiesoft.com">Portal</a></td>
+            <td>C# / .NET 11 WinForms + Monaco</td>
+            <td>Workstation WCAG 2.2 AA &amp; Section 508 IDE, Guided Fix diffs, live contrast/reflow emulator, &amp; SARIF 2.1.0 CLI.</td>
+            <td><a href="https://github.com/raggiesoft/accessibility-studio">GitHub</a> &bull; <a href="https://raggiesoftstudio.com/accessibility-studio">Portal</a></td>
+          </tr>
+          <tr>
+            <th scope="row">RaggieSoft Training, Help, Document, Localization, Launcher &amp; Showcase Studio</th>
+            <td>Win32 C++20 &amp; .NET 11</td>
+            <td>Bandwidth-proof <code>&lt;50 KB</code> SCORM 1.2/2004 (<code>rstbuild</code>), legacy <code>.CHM</code>/<code>F1</code> migration, Tagged <code>PDF/UA-1</code>, multilingual <code>.vtt</code> gates, &amp; <code>_support\\</code> canvas installers.</td>
+            <td><a href="https://raggiesoftstudio.com">8-Tool Suite</a> &bull; <a href="https://raggiesoftstudio.com/editions">Editions</a></td>
+          </tr>
+          <tr>
+            <th scope="row">RaggieSoft Labs: <code>Fin#</code> &amp; <code>RaggieScript</code></th>
+            <td>C# / .NET 11 &amp; Win32 C++20 VM</td>
+            <td>Experimental linear-type double-entry financial compiler (<code>finsc</code>) + unified <code>RSWBC1</code> Studio scripting VM (<code>.rssc</code>).</td>
+            <td><a href="/labs/finsharp">Fin# Lab</a> &bull; <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript</a></td>
           </tr>
           <tr>
             <th scope="row"><code>raggiesoft/stardust-engine-cms</code></th>
             <td>PHP 8.5 OOP / MVC</td>
             <td>Zero-database JSON-routed PHP 8.5 CMS core with automated OpenGraph &amp; security headers.</td>
-            <td><a href="https://github.com/raggiesoft/stardust-engine-cms">GitHub</a></td>
+            <td><a href="https://github.com/raggiesoft/stardust-engine-cms">GitHub</a> &bull; <a href="https://raggiesoft.com">Live Hub</a></td>
           </tr>
           <tr>
             <th scope="row"><code>raggiesoft/storetrainer</code></th>
-            <td>C# / .NET 10 + Classic VB6 Archive</td>
+            <td>C# / .NET 11 + Classic VB6 Archive</td>
             <td>Desktop PC game &amp; companion trainer organizer with custom <code>.stfx</code> profile associations.</td>
             <td><a href="https://github.com/raggiesoft/storetrainer">GitHub</a> &bull; <a href="https://storetrainer.raggiesoft.com">Portal</a></td>
           </tr>
           <tr>
             <th scope="row"><code>raggiesoft/raggiesoft-deployment-tools</code></th>
-            <td>Bash, PHP 8.5 CLI &amp; Python</td>
+            <td>Bash, PHP 8.5 CLI &amp; PowerShell</td>
             <td>Jenna multi-repo release gate, Sarah atomic Nginx pull deployer, Paige manuscript compiler, &amp; Harper audio suite.</td>
             <td><a href="https://github.com/raggiesoft/raggiesoft-deployment-tools">GitHub</a></td>
           </tr>
           <tr>
             <th scope="row"><code>raggiesoft/raggiesoft-music</code></th>
             <td>SvelteKit 2 + Svelte 5 Runes</td>
-            <td>The Listening Room streaming PWA &amp; Hold-Spacebar WebVTT caption timing studio.</td>
+            <td>The Listening Room streaming PWA &amp; synchronized WebVTT caption playback engine.</td>
             <td><a href="https://github.com/raggiesoft/raggiesoft-music">GitHub</a> &bull; <a href="https://music.raggiesoft.com">Live App</a></td>
           </tr>
         </tbody>
@@ -214,6 +580,9 @@ function renderReposBody(): string {
   `;
 }
 
+/**
+ * Route 5: `/ai-skills` — Machine-Readable `llms.txt`, `llms-full.txt` & `SKILL.md` Endpoints.
+ */
 function renderAiSkillsBody(): string {
   return `
     <section class="hero" aria-labelledby="ai-title">
@@ -222,12 +591,13 @@ function renderAiSkillsBody(): string {
       <p class="lead">
         Rather than hand-maintaining documentation that drifts out of date, RaggieSoft compilers emit
         deterministic <code>llms.txt</code>, <code>llms-full.txt</code>, and <code>SKILL.md</code> files directly from
-        compile-time <code>constexpr</code> schema tables.
+        compile-time <code>constexpr</code> schema tables—kept in 1:1 lockstep with <code>raggiesoft.dev</code>.
       </p>
       <div class="btn-row">
         <a class="btn btn-primary" href="/llms.txt">Open raggiesoft.dev/llms.txt</a>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/llms.txt">Installer Studio /llms.txt</a>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/SKILL.md">Installer Studio SKILL.md</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/llms.txt">8-Tool Studio /llms.txt</a>
+        <a class="btn btn-outline" href="/labs/finsharp/llms-finsharp.txt">Fin# Compiler Spec</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/SKILL.md">Installer SKILL.md</a>
       </div>
     </section>
 
@@ -235,32 +605,51 @@ function renderAiSkillsBody(): string {
       <h2 id="skill-table-heading">Direct Endpoints for Antigravity, Cursor, Claude Code &amp; Gemini CLI</h2>
       <div class="table-wrap">
         <table>
-          <caption>Published RaggieSoft AI Specifications &amp; Agent Skills</caption>
+          <caption>Published RaggieSoft AI Specifications, Language Blueprints &amp; Agent Skills</caption>
           <thead>
             <tr>
               <th scope="col">Specification / Skill</th>
-              <th scope="col">Canonical URL / GitHub Source</th>
+              <th scope="col">Canonical URL</th>
               <th scope="col">Agent Capability Unlocked</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Umbrella Engineering Index (<code>llms.txt</code>)</th>
+              <th scope="row">Umbrella Engineering &amp; Labs Index (<code>llms.txt</code>)</th>
               <td><a href="/llms.txt">https://raggiesoft.dev/llms.txt</a></td>
-              <td>Maps all RaggieSoft open-source repositories, web architectures, and toolchains in one compact token budget.</td>
+              <td>Maps all RaggieSoft open-source repositories, 8 Studio tools, RaggieScript, and Labs in one compact token budget.</td>
             </tr>
             <tr>
-              <th scope="row">RaggieSoft Installer Studio (<code>.rsip</code> / <code>.rsis</code>)</th>
+              <th scope="row">RaggieSoft Studio 8-Tool Suite Index</th>
+              <td><a href="https://raggiesoftstudio.com/llms.txt">https://raggiesoftstudio.com/llms.txt</a></td>
+              <td>Indexes all 8 Studio tools, 4-tier <code>Community == Architect</code> licensing, and VPAT 2.5 links.</td>
+            </tr>
+            <tr>
+              <th scope="row">Installer Studio (<code>.rsip</code> / <code>.rsis</code> / <code>SKILL.md</code>)</th>
               <td>
-                <a href="https://raggiesoftstudio.com/llms-full.txt">raggiesoftstudio.com/llms-full.txt</a> &bull;
-                <a href="https://github.com/raggiesoft/installer-studio/tree/main/specs">GitHub <code>specs/</code></a>
+                <a href="https://raggiesoftstudio.com/installer-studio/llms-full.txt">llms-full.txt</a> &bull;
+                <a href="https://raggiesoftstudio.com/installer-studio/SKILL.md">SKILL.md</a> &bull;
+                <a href="https://raggiesoftstudio.com/installer-studio/EDITIONS_AND_RAGGIESCRIPT.md">Editions &amp; RaggieScript</a>
               </td>
-              <td>Enables coding agents to author, JSON-lint (<code>instbuild --validate --diagnostics=json</code>), and compile <code>x64</code>/<code>ARM64</code> <code>.msi</code>, <code>.msm</code>, <code>.mst</code>, &amp; <code>.msp</code> installers.</td>
+              <td>Author, JSON-lint (<code>instbuild --validate --diagnostics=json</code>), and compile <code>x64</code>/<code>ARM64</code> <code>.msi</code>, <code>.msm</code>, <code>.msp</code>, <code>sfx</code>, &amp; Dual-Bar Suites.</td>
             </tr>
             <tr>
-              <th scope="row">RaggieSoft Accessibility Studio SARIF CLI</th>
-              <td><a href="https://github.com/raggiesoft/accessibility-studio">github.com/raggiesoft/accessibility-studio</a></td>
-              <td>Integrates headless WCAG 2.2 AA &amp; Section 508 DOM audits into agent-driven CI/CD remediation loops.</td>
+              <th scope="row">Training Studio (<code>.rstp</code> SCORM 1.2 &amp; 2004)</th>
+              <td>
+                <a href="https://raggiesoftstudio.com/training-studio/llms-full.txt">llms-full.txt</a> &bull;
+                <a href="https://raggiesoftstudio.com/training-studio/SKILL.md">SKILL.md</a>
+              </td>
+              <td>Compile bandwidth-resilient <code>&lt;50 KB</code> WCAG 2.2 AA SCORM packages and audit legacy third-party SCORM <code>.zip</code> archives.</td>
+            </tr>
+            <tr>
+              <th scope="row">Fin# (Financial Sharp) Compiler Blueprint</th>
+              <td><a href="/labs/finsharp/llms-finsharp.txt">https://raggiesoft.dev/labs/finsharp/llms-finsharp.txt</a></td>
+              <td>Cold-start specification for building the <code>finsc</code> linear-type double-entry financial compiler &amp; Language Server.</td>
+            </tr>
+            <tr>
+              <th scope="row">Accessibility Studio Headless SARIF 2.1.0 CLI</th>
+              <td><a href="https://raggiesoftstudio.com/accessibility-studio/docs">raggiesoftstudio.com/accessibility-studio/docs</a></td>
+              <td>Integrates headless WCAG 2.2 AA &amp; Section 508 DOM/source audits into agent-driven CI/CD remediation loops.</td>
             </tr>
           </tbody>
         </table>
@@ -269,29 +658,71 @@ function renderAiSkillsBody(): string {
   `;
 }
 
+/**
+ * Route 6: `/notes` — Systems Architecture & Compiler Engineering Dispatches.
+ */
 function renderNotesBody(): string {
   return `
     <section class="hero" aria-labelledby="notes-title">
       <span class="eyebrow">Engineering Dispatches &amp; Systems Architecture</span>
       <h1 id="notes-title">Developer Notes &amp; Architecture Log</h1>
       <p class="lead">
-        Deep-dive notes from building zero-dependency Win32 C++20 compilers, 100% offline-ready hybrid desktop apps,
-        and accessible polyglot web properties.
+        Deep-dive notes from engineering linear-type financial compilers, capability-gated C++20 bytecode VMs,
+        monotonic Dual-Bar Suite installers, and 100% offline-ready accessible applications.
       </p>
     </section>
 
     <div class="card-grid">
       <article class="card">
         <div>
+          <span class="eyebrow">Compiler Design • Linear Types</span>
+          <h3>Enforcing Double-Entry Accounting at Compile Time with Fin#</h3>
+          <p>
+            Why mutable scalar <code>decimal</code> variables let accounting bugs slip past compilers, and how modeling
+            <code>Capital&lt;TCurrency&gt;</code> as a non-droppable linear resource inside atomic <code>transaction</code> blocks
+            proves conservation of capital before emitting <code>.NET</code> IL.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="/labs/finsharp">Open Fin# Compiler Lab</a>
+      </article>
+
+      <article class="card">
+        <div>
+          <span class="eyebrow">Bytecode VMs &amp; Custom UI</span>
+          <h3>RaggieScript (.rssc) &amp; Showcase _support\ Canvas Installers</h3>
+          <p>
+            How a single <code>&lt;200 KB</code> static C++20 bytecode VM unifies zero-MSI setup transactions, standalone Windows
+            micro-utilities, and heavily themed <code>.BMP</code> / <code>FluentMica</code> collector installers with automatic
+            rollback journaling.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">Explore RaggieScript</a>
+      </article>
+
+      <article class="card">
+        <div>
+          <span class="eyebrow">Win32 UX &amp; Taskbar Guidelines</span>
+          <h3>Why Suite Installers Must Never Reset Progress Bars Per Component</h3>
+          <p>
+            Replacing sawtooth <code>0%&rarr;100%&rarr;0%</code> suite progress resets with byte-weighted, high-water-mark clamped
+            <strong>Overall Suite Progress</strong> (bound 1:1 to <code>ITaskbarList3</code>) above a live intra-package
+            <strong>Current Component</strong> bar.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/screenshots#v060-lab-previews">See Dual-Bar Suite UI</a>
+      </article>
+
+      <article class="card">
+        <div>
           <span class="eyebrow">Win32 C++20 &amp; Windows SDK</span>
           <h3>Why Plain-Text .rsip + .rsis Beats XML &amp; Binary Installer Formats</h3>
           <p>
             Calling <code>MsiOpenDatabaseW</code> and <code>FCICreate</code> directly from static <code>/MT</code> C++20 eliminates
-            multi-thousand-dollar seat locks, while a comment-preserving line-token AST lets GUI edits in <code>InstallerStudio.exe</code>
-            coexist peacefully with clean <code>git diff</code> history and AI coding agents.
+            seat locks while a comment-preserving AST lets GUI edits in <code>InstallerStudio.exe</code> coexist with clean
+            <code>git diff</code> history and AI coding agents.
           </p>
         </div>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/docs">Read .rsip Specification</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/docs">Read .rsip Specification</a>
       </article>
 
       <article class="card">
@@ -300,7 +731,7 @@ function renderNotesBody(): string {
           <h3>Engineering 100% Offline-First Desktop Apps from First Boot</h3>
           <p>
             How RaggieSoft's 4-tier asset resolver combines installed content packs, local caches, bundled <code>OfflineSeed</code>
-            catalogs, and authenticated CDN streaming so every desktop app renders covers, TOCs, and synchronized lyrics with Wi-Fi unplugged.
+            catalogs, and CDN streaming so every desktop app renders covers, TOCs, and synchronized lyrics with Wi-Fi unplugged.
           </p>
         </div>
         <a class="btn btn-outline" href="https://launcher.raggiesoft.com">Explore RaggieSoft Launcher</a>
@@ -325,17 +756,33 @@ export const DEV_ROUTES: readonly DevRoute[] = [
   {
     path: '/',
     navLabel: 'Engineering Hub',
-    seoTitle: 'raggiesoft.dev — Open-Source Apps, Compilers & AI Skills',
+    seoTitle: 'raggiesoft.dev — Open-Source Compilers, Studio & Labs',
     seoDescription:
-      'Official RaggieSoft developer portal featuring RaggieSoft Installer Studio, Accessibility Studio, Stardust Engine CMS, GitHub repos, and llms.txt skills.',
+      'Official RaggieSoft engineering portal: 8-tool RaggieSoft Studio, RaggieScript (.rssc), Fin# linear-type compiler lab, Stardust CMS, and llms.txt skills.',
     renderBody: renderHomeBody
+  },
+  {
+    path: '/labs',
+    navLabel: 'Labs',
+    seoTitle: 'RaggieSoft Labs — Fin#, RaggieScript & Compiler R&D',
+    seoDescription:
+      'Experimental R&D incubator at RaggieSoft: Fin# (Financial Sharp) linear-type double-entry compiler, RaggieScript bytecode VM, and _support\\ packagers.',
+    renderBody: renderLabsBody
+  },
+  {
+    path: '/labs/finsharp',
+    navLabel: 'Fin# Lab',
+    seoTitle: 'Fin# (Financial Sharp) — Linear-Type Accounting Compiler',
+    seoDescription:
+      'Explore Fin# (FinSharp): RaggieSoft Labs linear-type .NET/Roslyn financial language catching unbalanced double-entry ledgers at compile time (FIN0001).',
+    renderBody: renderFinSharpLabBody
   },
   {
     path: '/repositories',
     navLabel: 'GitHub Repos',
     seoTitle: 'Open-Source GitHub Repositories | raggiesoft.dev',
     seoDescription:
-      'Browse MIT-licensed RaggieSoft repositories on GitHub: Installer Studio (Win32 C++20), Accessibility Studio (.NET 10), and Stardust Engine CMS (PHP 8.5).',
+      'Browse MIT-licensed RaggieSoft repositories on GitHub: 8-tool RaggieSoft Studio, Installer Studio (C++20), Accessibility Studio, and Fin# compiler R&D.',
     renderBody: renderReposBody
   },
   {
@@ -343,7 +790,7 @@ export const DEV_ROUTES: readonly DevRoute[] = [
     navLabel: 'llms.txt & AI Skills',
     seoTitle: 'AI Agent Skills, llms.txt & SKILL.md | raggiesoft.dev',
     seoDescription:
-      'Machine-readable llms.txt, llms-full.txt, and SKILL.md endpoints emitted directly from RaggieSoft compilers for Cursor, Claude Code, and Antigravity.',
+      'Machine-readable llms.txt, llms-full.txt, and SKILL.md endpoints for RaggieSoft Studio, RaggieScript, Training Studio, and Fin# compiler specifications.',
     renderBody: renderAiSkillsBody
   },
   {
@@ -351,7 +798,7 @@ export const DEV_ROUTES: readonly DevRoute[] = [
     navLabel: 'Dev Notes',
     seoTitle: 'Systems Architecture & Developer Notes | raggiesoft.dev',
     seoDescription:
-      'Engineering notes on native Win32 C++20 MSI compilation, 100% offline-first desktop applications, WCAG 2.2 AA compliance, and polyglot CI/CD.',
+      'Engineering dispatches on Fin# linear-type compilers, RaggieScript bytecode VMs, monotonic Dual-Bar Suite progress, and Win32 C++20 MSI packaging.',
     renderBody: renderNotesBody
   }
 ];
@@ -372,6 +819,7 @@ export function renderDevPage(routePath: string): { html: string } {
         <p class="lead">The requested raggiesoft.dev developer resource could not be found.</p>
         <div class="btn-row">
           <a class="btn btn-primary" href="/">Return to raggiesoft.dev</a>
+          <a class="btn btn-outline" href="/labs">Explore RaggieSoft Labs &amp; Fin#</a>
           <a class="btn btn-outline" href="/repositories">Browse GitHub Repositories</a>
         </div>
       </section>
@@ -382,7 +830,7 @@ export function renderDevPage(routePath: string): { html: string } {
       <div class="header-inner">
         <a class="brand-link" href="/">
           <span class="brand-title">raggiesoft.dev</span>
-          <span class="brand-sub">Open-Source Engineering • Compilers • Agent Skills</span>
+          <span class="brand-sub">Open-Source Engineering • Compilers • Studio • Labs</span>
         </a>
 
         <button
@@ -410,7 +858,7 @@ export function renderDevPage(routePath: string): { html: string } {
           <nav aria-label="Developer Portal Navigation">
             <ul class="nav-list">
               ${navItems}
-              <li><a class="nav-link" href="https://raggiesoftstudio.com">Installer Studio</a></li>
+              <li><a class="nav-link" href="https://raggiesoftstudio.com">RaggieSoft Studio</a></li>
               <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
             </ul>
           </nav>
@@ -426,12 +874,17 @@ export function renderDevPage(routePath: string): { html: string } {
       <div class="footer-inner">
         <div class="footer-links">
           <a href="/">Engineering Hub</a>
+          <a href="/labs">RaggieSoft Labs</a>
+          <a href="/labs/finsharp">Fin# (Financial Sharp) Lab</a>
           <a href="/repositories">GitHub Repositories</a>
           <a href="/ai-skills">llms.txt &amp; AI Skills</a>
           <a href="/notes">Dev Notes</a>
           <a href="/llms.txt">/llms.txt</a>
-          <a href="https://raggiesoftstudio.com">RaggieSoft Installer Studio</a>
-          <a href="https://a11y.raggiesoft.com">RaggieSoft Accessibility Studio</a>
+          <a href="https://raggiesoftstudio.com">RaggieSoft Studio (8 Tools)</a>
+          <a href="https://raggiesoftstudio.com/editions">Studio Editions</a>
+          <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript (.rssc)</a>
+          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.5.0)</a>
+          <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.0)</a>
           <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
           <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
           <a href="https://raggiesoft.com/about/privacy">Privacy Policy</a>

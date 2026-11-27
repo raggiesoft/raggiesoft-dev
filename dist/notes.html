@@ -2,12 +2,14 @@
 <!--
   ============================================================================
   FILE: index.html
-  PROPERTY: https://raggiesoft.dev (RaggieSoft Developer & Open-Source Hub)
+  PROPERTY: https://raggiesoft.dev (RaggieSoft Developer, Studio & Labs Hub)
   STACK: Alpine.js 3 + TypeScript + Vite Static SSG
   LICENSE: MIT License (Copyright (c) 2026 Michael P. Ragsdale / RaggieSoft)
   ============================================================================
   PLAIN-ENGLISH OVERVIEW FOR 100-LEVEL READERS:
-    Master HTML5 document template for `raggiesoft.dev`.
+    Master HTML5 document template for `raggiesoft.dev` (updated in 1:1
+    lockstep with `raggiesoftstudio.com` and RaggieSoft's open-source & R&D
+    incubators, including `/labs` and `/labs/finsharp` for `Fin#`):
       1. Integrates the shared RaggieSoft Network omnibar (`raggiesoft-network.css`
          + `raggiesoft-network.js`) on desktop and collapses into a single slim
          mobile hamburger drawer (`#header-navigation-panel`) below 768px.
@@ -30,25 +32,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
     <title>Systems Architecture &amp; Developer Notes | raggiesoft.dev</title>
-    <meta name="description" content="Engineering notes on native Win32 C++20 MSI compilation, 100% offline-first desktop applications, WCAG 2.2 AA compliance, and polyglot CI/CD." />
+    <meta name="description" content="Engineering dispatches on Fin# linear-type compilers, RaggieScript bytecode VMs, monotonic Dual-Bar Suite progress, and Win32 C++20 MSI packaging." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://raggiesoft.dev/notes" />
-    <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-a11y-studio/images/studio-logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="https://assets.raggiesoft.com/raggiesoft-studio/logo/raggiesoft-studio-logo.svg" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="raggiesoft.dev" />
     <meta property="og:title" content="Systems Architecture &amp; Developer Notes | raggiesoft.dev" />
-    <meta property="og:description" content="Engineering notes on native Win32 C++20 MSI compilation, 100% offline-first desktop applications, WCAG 2.2 AA compliance, and polyglot CI/CD." />
+    <meta property="og:description" content="Engineering dispatches on Fin# linear-type compilers, RaggieScript bytecode VMs, monotonic Dual-Bar Suite progress, and Win32 C++20 MSI packaging." />
     <meta property="og:url" content="https://raggiesoft.dev/notes" />
-    <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-corporate/images/logos/logo-michael.png" />
-    <meta property="og:image:alt" content="raggiesoft.dev — RaggieSoft Open-Source Software, Compilers & AI Skills" />
+    <meta property="og:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+    <meta property="og:image:alt" content="raggiesoft.dev — RaggieSoft Open-Source Compilers, 8-Tool Studio Suite, Fin# Labs & AI Skills" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Systems Architecture &amp; Developer Notes | raggiesoft.dev" />
-    <meta name="twitter:description" content="Engineering notes on native Win32 C++20 MSI compilation, 100% offline-first desktop applications, WCAG 2.2 AA compliance, and polyglot CI/CD." />
-    <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-corporate/images/logos/logo-michael.png" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"raggiesoft.dev — RaggieSoft Open-Source & App Engineering Hub","url":"https://raggiesoft.dev/","author":{"@type":"Person","name":"Michael P. Ragsdale","url":"https://michaelpragsdale.com"}}</script>
-    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261125g" />
-    <script type="module" crossorigin src="/assets/index-B2G7OUUv.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-wVuGFa2W.css">
+    <meta name="twitter:description" content="Engineering dispatches on Fin# linear-type compilers, RaggieScript bytecode VMs, monotonic Dual-Bar Suite progress, and Win32 C++20 MSI packaging." />
+    <meta name="twitter:image" content="https://assets.raggiesoft.com/raggiesoft-studio/boxes/og-raggiesoft-studio-suite.jpg" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"raggiesoft.dev — RaggieSoft Open-Source, Studio & Compiler Engineering Hub","url":"https://raggiesoft.dev/","author":{"@type":"Person","name":"Michael P. Ragsdale","url":"https://michaelpragsdale.com"}}</script>
+    <link rel="stylesheet" href="https://assets.raggiesoft.com/common/css/raggiesoft-network.css?v=20261126a" />
+    <script type="module" crossorigin src="/assets/index-Bj8526UU.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CjqB5aDb.css">
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -60,9 +62,8 @@
         <ul class="rs-network-links">
           <li><a href="https://raggiesoft.com">🌐 Hub</a></li>
           <li><a href="https://launcher.raggiesoft.com">🚀 Launcher</a></li>
+          <li><a href="https://raggiesoftstudio.com">🧰 RaggieSoft Studio</a></li>
           <li><a href="https://raggiesoft.dev" aria-current="page" class="is-active">💻 Developer Hub</a></li>
-          <li><a href="https://raggiesoftstudio.com">🧰 Installer Studio</a></li>
-          <li><a href="https://a11y.raggiesoft.com">♿ A11y Studio</a></li>
           <li><a href="https://waystation.raggiesoft.com">🔮 Directory</a></li>
           <li><a href="https://michaelpragsdale.com">👔 Portfolio</a></li>
         </ul>
@@ -74,7 +75,7 @@
       <div class="header-inner">
         <a class="brand-link" href="/">
           <span class="brand-title">raggiesoft.dev</span>
-          <span class="brand-sub">Open-Source Engineering • Compilers • Agent Skills</span>
+          <span class="brand-sub">Open-Source Engineering • Compilers • Studio • Labs</span>
         </a>
 
         <button
@@ -101,8 +102,8 @@
         <div id="header-navigation-panel" class="header-nav-panel" data-rs-collapsible="true">
           <nav aria-label="Developer Portal Navigation">
             <ul class="nav-list">
-              <li><a class="nav-link" href="/">Engineering Hub</a></li><li><a class="nav-link" href="/repositories">GitHub Repos</a></li><li><a class="nav-link" href="/ai-skills">llms.txt & AI Skills</a></li><li><a class="nav-link" href="/notes" aria-current="page">Dev Notes</a></li>
-              <li><a class="nav-link" href="https://raggiesoftstudio.com">Installer Studio</a></li>
+              <li><a class="nav-link" href="/">Engineering Hub</a></li><li><a class="nav-link" href="/labs">Labs</a></li><li><a class="nav-link" href="/labs/finsharp">Fin# Lab</a></li><li><a class="nav-link" href="/repositories">GitHub Repos</a></li><li><a class="nav-link" href="/ai-skills">llms.txt & AI Skills</a></li><li><a class="nav-link" href="/notes" aria-current="page">Dev Notes</a></li>
+              <li><a class="nav-link" href="https://raggiesoftstudio.com">RaggieSoft Studio</a></li>
               <li><a class="nav-link" href="https://github.com/raggiesoft">GitHub</a></li>
             </ul>
           </nav>
@@ -116,23 +117,62 @@
       <span class="eyebrow">Engineering Dispatches &amp; Systems Architecture</span>
       <h1 id="notes-title">Developer Notes &amp; Architecture Log</h1>
       <p class="lead">
-        Deep-dive notes from building zero-dependency Win32 C++20 compilers, 100% offline-ready hybrid desktop apps,
-        and accessible polyglot web properties.
+        Deep-dive notes from engineering linear-type financial compilers, capability-gated C++20 bytecode VMs,
+        monotonic Dual-Bar Suite installers, and 100% offline-ready accessible applications.
       </p>
     </section>
 
     <div class="card-grid">
       <article class="card">
         <div>
+          <span class="eyebrow">Compiler Design • Linear Types</span>
+          <h3>Enforcing Double-Entry Accounting at Compile Time with Fin#</h3>
+          <p>
+            Why mutable scalar <code>decimal</code> variables let accounting bugs slip past compilers, and how modeling
+            <code>Capital&lt;TCurrency&gt;</code> as a non-droppable linear resource inside atomic <code>transaction</code> blocks
+            proves conservation of capital before emitting <code>.NET</code> IL.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="/labs/finsharp">Open Fin# Compiler Lab</a>
+      </article>
+
+      <article class="card">
+        <div>
+          <span class="eyebrow">Bytecode VMs &amp; Custom UI</span>
+          <h3>RaggieScript (.rssc) &amp; Showcase _support Canvas Installers</h3>
+          <p>
+            How a single <code>&lt;200 KB</code> static C++20 bytecode VM unifies zero-MSI setup transactions, standalone Windows
+            micro-utilities, and heavily themed <code>.BMP</code> / <code>FluentMica</code> collector installers with automatic
+            rollback journaling.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">Explore RaggieScript</a>
+      </article>
+
+      <article class="card">
+        <div>
+          <span class="eyebrow">Win32 UX &amp; Taskbar Guidelines</span>
+          <h3>Why Suite Installers Must Never Reset Progress Bars Per Component</h3>
+          <p>
+            Replacing sawtooth <code>0%&rarr;100%&rarr;0%</code> suite progress resets with byte-weighted, high-water-mark clamped
+            <strong>Overall Suite Progress</strong> (bound 1:1 to <code>ITaskbarList3</code>) above a live intra-package
+            <strong>Current Component</strong> bar.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/screenshots#v060-lab-previews">See Dual-Bar Suite UI</a>
+      </article>
+
+      <article class="card">
+        <div>
           <span class="eyebrow">Win32 C++20 &amp; Windows SDK</span>
           <h3>Why Plain-Text .rsip + .rsis Beats XML &amp; Binary Installer Formats</h3>
           <p>
             Calling <code>MsiOpenDatabaseW</code> and <code>FCICreate</code> directly from static <code>/MT</code> C++20 eliminates
-            multi-thousand-dollar seat locks, while a comment-preserving line-token AST lets GUI edits in <code>InstallerStudio.exe</code>
-            coexist peacefully with clean <code>git diff</code> history and AI coding agents.
+            seat locks while a comment-preserving AST lets GUI edits in <code>InstallerStudio.exe</code> coexist with clean
+            <code>git diff</code> history and AI coding agents.
           </p>
         </div>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/docs">Read .rsip Specification</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/docs">Read .rsip Specification</a>
       </article>
 
       <article class="card">
@@ -141,7 +181,7 @@
           <h3>Engineering 100% Offline-First Desktop Apps from First Boot</h3>
           <p>
             How RaggieSoft's 4-tier asset resolver combines installed content packs, local caches, bundled <code>OfflineSeed</code>
-            catalogs, and authenticated CDN streaming so every desktop app renders covers, TOCs, and synchronized lyrics with Wi-Fi unplugged.
+            catalogs, and CDN streaming so every desktop app renders covers, TOCs, and synchronized lyrics with Wi-Fi unplugged.
           </p>
         </div>
         <a class="btn btn-outline" href="https://launcher.raggiesoft.com">Explore RaggieSoft Launcher</a>
@@ -166,12 +206,17 @@
       <div class="footer-inner">
         <div class="footer-links">
           <a href="/">Engineering Hub</a>
+          <a href="/labs">RaggieSoft Labs</a>
+          <a href="/labs/finsharp">Fin# (Financial Sharp) Lab</a>
           <a href="/repositories">GitHub Repositories</a>
           <a href="/ai-skills">llms.txt &amp; AI Skills</a>
           <a href="/notes">Dev Notes</a>
           <a href="/llms.txt">/llms.txt</a>
-          <a href="https://raggiesoftstudio.com">RaggieSoft Installer Studio</a>
-          <a href="https://a11y.raggiesoft.com">RaggieSoft Accessibility Studio</a>
+          <a href="https://raggiesoftstudio.com">RaggieSoft Studio (8 Tools)</a>
+          <a href="https://raggiesoftstudio.com/editions">Studio Editions</a>
+          <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript (.rssc)</a>
+          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.5.0)</a>
+          <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.0)</a>
           <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
           <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
           <a href="https://raggiesoft.com/about/privacy">Privacy Policy</a>
@@ -181,10 +226,10 @@
         <p>
           Copyright &copy; 2026 Michael P. Ragsdale / RaggieSoft. Open-source software licensed under the MIT License.
         </p>
-        <p class="disclaimer-box">Fictitious Persons & Entities Disclaimer: All narrative characters, bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events across RaggieSoft creative works are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
+        <p class="disclaimer-box">Fictitious Persons & Entities Disclaimer: All narrative characters (including Zoë Wren Brooks, Jordan Fuller, and Daniel Brooks), bands (including The Stardust Engine), biographies, universities (including Commonwealth Polytechnic Institute / CPI, Virginia Dominion University / VDU, The Forgers, and The Crucible), corporations (including Vectron Energy Corp., OmniCorp, Apex Records, Prairie Coachworks, and Sainte-Claire), transit agencies (BRT and CVTA), in-universe legal filings, and events across RaggieSoft creative works are works of fiction. In real life, RaggieSoft, RaggieSoft Media, Engine Room Records, Ocean View Archives, and RaggieSoft Story Crossroads are unincorporated creative imprints of Michael P. Ragsdale.</p>
       </div>
     </footer>
   </div>
-    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261125g" defer></script>
+    <script src="https://assets.raggiesoft.com/common/js/raggiesoft-network.js?v=20261126a" defer></script>
   </body>
 </html>

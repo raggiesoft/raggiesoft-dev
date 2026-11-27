@@ -1,16 +1,30 @@
-# RaggieSoft Open-Source & App Engineering Hub (https://raggiesoft.dev)
+# RaggieSoft Open-Source, Studio & Compiler Engineering Hub (https://raggiesoft.dev)
 
-> Official engineering portal indexing RaggieSoft open-source compilers, accessibility IDEs, zero-database web frameworks, and AI agent skills (MIT License).
+> Official engineering portal indexing RaggieSoft Studio (8 Windows 11 x64 & ARM64 developer tools), RaggieScript (.rssc), Fin# (Financial Sharp) compiler R&D, zero-database web frameworks, and AI agent skills (MIT License).
 
-## Flagship Developer Suites & Portals
-- [RaggieSoft Installer Studio](https://raggiesoftstudio.com): Zero-dependency native Win32 C++20 Windows packaging suite (`InstallerStudio.exe`, `instbuild.exe`, `SetupWizard.exe`, `msiprism.exe`) compiling `.rsip` projects and `.rsis` suites into `.msi`, `.msm`, `.mst`, `.msp`, and VPAT 2.5 reports across x64 & ARM64.
-- [RaggieSoft Accessibility Studio](https://a11y.raggiesoft.com): C# / .NET 10 WinForms + Monaco WebView2 WCAG 2.2 AA & Section 508 workstation IDE + SARIF 2.1.0 CLI.
-- [RaggieSoft Launcher & Native Apps](https://launcher.raggiesoft.com): 100% offline-ready Windows (.NET 10 WPF) and Apple (SwiftUI) desktop/mobile suite.
+## RaggieSoft Studio — 8-Product Suite (`Community == 100% Architect Parity`, `Essentials`, `Developer`, `Architect`)
+- [RaggieSoft Studio Suite Portal](https://raggiesoftstudio.com): Umbrella portal for all 8 Studio tools + All-Access Studio Suites (including free Studio Community).
+- [Suite-Wide Editions Matrix](https://raggiesoftstudio.com/editions)
+- [RaggieScript (.rssc) Language Hub & Playground](https://raggiesoftstudio.com/raggiescript)
+- [1. RaggieSoft Installer Studio (v0.5.0 Shipped / v0.6.0 In Lab)](https://raggiesoftstudio.com/installer-studio): Static `/MT` Win32 C++20 `.msi`, `.msm`, `.mst`, `.msp`, `sfx` (`rswsfx.exe`), & Monotonic Dual-Bar `.rsis` Suite compiler (`installwithoutlimits.com` 301s here).
+- [2. RaggieSoft Showcase Studio](https://raggiesoftstudio.com/showcase-studio): 1990s `.BMP` (with UIA safeguards) & Windows 11 `FluentMica` launchpads + bespoke `_support\` self-extracting canvas installers.
+- [3. RaggieSoft Launcher Studio](https://raggiesoftstudio.com/launcher-studio): Branded zero-account desktop hubs & SHA-256 + Authenticode static-CDN updaters.
+- [4. RaggieSoft Help Studio](https://raggiesoftstudio.com/help-studio): Turnkey `.CHM` / `.hhp` migration & zero-dependency C++20 Named Pipe `F1` help clients.
+- [5. RaggieSoft Training Studio (v0.5.0)](https://raggiesoftstudio.com/training-studio): `<50 KB` proxy-proof WCAG 2.2 AA SCORM 1.2 & 2004 compiler (`rstbuild`).
+- [6. RaggieSoft Document Studio](https://raggiesoftstudio.com/document-studio): Deterministic ISO 14289-1 Tagged `PDF/UA-1` & Section 508 form compiler.
+- [7. RaggieSoft Localization Studio](https://raggiesoftstudio.com/localization-studio): Multilingual `.RESX`, `XLIFF 2.1`, `.rsip`, `.rstp` & `<=22 CPS` WebVTT compliance IDE.
+- [8. RaggieSoft Accessibility Studio (v1.0.0)](https://raggiesoftstudio.com/accessibility-studio): `.NET 11` + Monaco WCAG 2.2 AA refactoring IDE & SARIF 2.1.0 CLI (`a11y.raggiesoft.com` 301s here).
+
+## RaggieSoft Labs (`/labs` & `/labs/finsharp`)
+- [RaggieSoft Labs Overview](https://raggiesoft.dev/labs)
+- [Fin# (Financial Sharp) Compiler Lab](https://raggiesoft.dev/labs/finsharp): Linear-type double-entry financial programming language enforcing conservation of capital at compile time (`FIN0001`).
+- [Fin# Cold-Start Compiler Blueprint](https://raggiesoft.dev/labs/finsharp/llms-finsharp.txt)
 
 ## AI Agent Skills & Machine-Readable Endpoints
-- [Installer Studio Summary Spec](https://raggiesoftstudio.com/llms.txt)
-- [Installer Studio Full Schema Reference](https://raggiesoftstudio.com/llms-full.txt)
-- [Installer Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/SKILL.md)
+- [8-Tool Studio Suite Summary](https://raggiesoftstudio.com/llms.txt)
+- [Installer Studio Full Schema Reference](https://raggiesoftstudio.com/installer-studio/llms-full.txt)
+- [Installer Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/installer-studio/SKILL.md)
+- [Training Studio Full Schema Reference](https://raggiesoftstudio.com/training-studio/llms-full.txt)
 
 ## Public GitHub Repositories (@raggiesoft)
 - https://github.com/raggiesoft/installer-studio
