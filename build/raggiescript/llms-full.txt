@@ -1,6 +1,6 @@
-# RaggieScript v1.0.0 — Complete Technical Reference (llms-full.txt)
+# RaggieScript v1.1.0 — Complete Technical Reference (llms-full.txt)
 
-> Complete language, gradual type system, 21-namespace Standard Library, Declarative Win32 Wizard UI, RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
+> Complete language, gradual type system, 21-namespace Standard Library, Declarative Win32 Wizard UI, Two-Way .NET Host SDK (RaggieScript.Core), RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
 
 ================================================================================
 TOPIC: Welcome & 60-Second Quick Start [welcome] (Getting Started)
@@ -206,15 +206,80 @@ if (rsw::rssc::CompileRaggieScriptFile(L"setup.rssc", prog, diags)) {
 }
 ```
 
-### Managed `.NET` SDK (`RaggieScript.Core`) {#dotnet-sdk}
+### Two-Way Managed `.NET` Host SDK (`RaggieScript.Core` v1.1) {#dotnet-sdk}
+
+`RaggieSoft.RaggieScript.Core` (`Y:\desktop-apps\raggiescript\dotnet\src\RaggieScript.Core\`) is a **zero-dependency managed C# compiler, static type/capability binder (`RSW700`–`RSW715`), two-way `.NET` runtime, and `ES2022` transpiler** built for .NET desktop, CLI, and server applications (powering Accessibility Studio, Training Studio, Localization Studio, Document Studio, Launcher, Book Reader, and StoreTrainer).
+
+#### 1. Two-Way Host Interop Surface (`RsscHostEnvironment` & `RsscManagedRuntime`) {#dotnet-host-api}
+
+| `.NET` Type / Member | Direction | Description |
+| :--- | :--- | :--- |
+| `RsscHostEnvironment.RegisterFunction(ns, name, Delegate, isMutating?, requiredCapability?)` | `.NET` -> `.rssc` | Exposes any synchronous (`Func<...>`, `Action<...>`) or asynchronous (`Func<..., Task<T>>`, `ValueTask<T>`) C# delegate under `ns.name(...)`, automatically injecting `CancellationToken` parameters and enforcing `RSW701` (`isMutating`), `RSW702` (`requiredCapability`), and `RSW712` (arity) at compile time! |
+| `RsscHostEnvironment.RegisterGlobalFunction(name, Delegate, isMutating?)` | `.NET` -> `.rssc` | Exposes a top-level C# delegate callable directly without a namespace prefix (`toSlug("...")`). |
+| `RsscHostEnvironment.RegisterService(instance, namespaceOverride?, requiredCapability?)` | `.NET` -> `.rssc` | Reflects an allowlisted C# service decorated with `[RsscHostObject("ns")]` and binds both `camelCase` and `PascalCase` methods while **never** exposing `System.Object.GetType()`. |
+| `RsscHostEnvironment.ExposeObject(name, instance, readOnly = true)` | Two-Way | Exposes an allowlisted C# POCO, `record`, or scalar as a global variable in `.rssc`. Setting `readOnly: false` allows scripts to mutate properties (`profile.title = "..."`) and invoke instance methods (`profile.addTag("...")`) directly on the live `.NET` object! |
+| `[RsscHostObject(ns, RequiredCapability)]`, `[RsscFunction(name, Mutating)]`, `[RsscIgnore]` | Metadata | Declarative C# attributes controlling namespace naming, `RSW701` wizard-mutation blocking, and property/method hiding (`[RsscIgnore]`). |
+| `RsscManagedRuntime.Invoke<T>(fnName, params args)` | `.rssc` -> `.NET` | Calls a RaggieScript `fn` synchronously, marshaling C# POCOs/records in and hydrating the returned RaggieScript `struct`/`map` into `T` (including C# `record` primary constructors, `Version`, enums, arrays, and `List<T>`!). |
+| `RsscManagedRuntime.InvokeAsync<T>(fnName, cancellationToken, params args)` | `.rssc` -> `.NET` | Awaits RaggieScript functions that call `async Task<T>` C# host delegates without blocking the UI thread. |
+| `RsscManagedRuntime.BindDelegate<TDelegate>(fnOrClosureName)` | `.rssc` -> `.NET` | Compiles any RaggieScript `fn` or `=>` closure into a native strongly-typed C# `Func<...>` / `Action<...>` delegate via LINQ Expression Trees! |
+| `RsscExecutionOptions` (`MaxSteps`, `Timeout`, `CancellationToken`, `Defines`) | Safety | Bounds AST statement execution (`MaxSteps = 250_000` default -> throws `RsscExecutionLimitException` on runaway `while (true)` loops), wall-clock timeouts, and cooperative cancellation. |
+| `RsscEs2022Transpiler.TryTranspile(program, out string mjs, out string err)` | `.rssc` -> `ES2022` | Pure-C# in-process transpiler emitting CSP-safe, zero-`eval()` ES2022 JavaScript modules for SCORM 1.2 & SCORM 2004 courses. |
+
+#### 2. Complete Two-Way C# <-> RaggieScript Example {#dotnet-two-way-example}
 
 ```csharp
 using RaggieSoft.RaggieScript;
 
-if (RsscCompiler.Compile(sourceText, out var program, out var diagnostics))
+// 1. Decorate a C# service or POCO — [RsscIgnore] hides internal secrets,
+//    and System.Object.GetType() is NEVER exposed to untrusted scripts!
+[RsscHostObject("storetrainer", RequiredCapability = "storetrainer")]
+public sealed class StoreTrainerScriptService
 {
-    var runtime = new RsscManagedRuntime(program);
-    object? result = runtime.Invoke("auditBrandSwatch", swatchDictionary);
+    [RsscFunction("clampSlots")]
+    public int ClampSlots(int requested) => Math.Clamp(requested, 1, 10);
+
+    [RsscFunction("saveAuditAsync", Mutating = true)] // Blocked inside wizard {} via RSW701!
+    public async Task<string> SaveAuditAsync(string title, CancellationToken ct)
+    {
+        await Task.Delay(5, ct);
+        return $"saved:{title}";
+    }
+
+    [RsscIgnore]
+    public string InternalSigningSecret => "never-visible-to-scripts";
+}
+
+public sealed record AuditSummary(string Title, int Slots, Version EngineVersion);
+
+// 2. Register C# services, async delegates, and live POCOs on RsscHostEnvironment:
+var host = new RsscHostEnvironment()
+    .RegisterService(new StoreTrainerScriptService())
+    .RegisterGlobalFunction("toSlug", (string s) => s.Trim().ToLowerInvariant().Replace(' ', '-'));
+
+const string rsscSource = """
+    use storetrainer;
+    const isPassing = (score: int) => score >= 80;
+
+    fn upgradeProfile(name: string, requestedSlots: int): map {
+        const clamped = storetrainer.clampSlots(requestedSlots);
+        storetrainer.saveAuditAsync(toSlug(name));
+        return { title: name, slots: clamped, engineVersion: v"1.1.0.0" };
+    }
+    """;
+
+// 3. Compile with full host-aware RSW701/RSW702/RSW712 static verification:
+if (RsscCompiler.Compile(rsscSource, out var program, out var diagnostics, host))
+{
+    var options = new RsscExecutionOptions { MaxSteps = 100_000, Timeout = TimeSpan.FromSeconds(2) };
+    var runtime = new RsscManagedRuntime(program, host, options);
+
+    // Await async C# delegates & hydrate RaggieScript map/struct straight into a C# record!
+    AuditSummary? summary = await runtime.InvokeAsync<AuditSummary>(
+        "upgradeProfile", cancellationToken, "Cedar Run Collector Profile", 50);
+
+    // Or bind a RaggieScript '=>' closure directly as a native C# Func<int, bool>!
+    Func<int, bool> checkScore = runtime.BindDelegate<Func<int, bool>>("isPassing");
+    bool passed = checkScore(92); // true
 }
 ```
 

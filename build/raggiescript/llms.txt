@@ -1,6 +1,6 @@
-# RaggieScript (v1.0.0) — Documentation & API Index
+# RaggieScript (v1.1.0) — Documentation & API Index
 
-> Complete language, gradual type system, 21-namespace Standard Library, Declarative Win32 Wizard UI, RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
+> Complete language, gradual type system, 21-namespace Standard Library, Declarative Win32 Wizard UI, Two-Way .NET Host SDK (RaggieScript.Core), RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
 > Compiled by RaggieSoft Help Studio v0.6.0 (MIT Code / CC BY-SA 4.0 Docs)
 
 ## Full Machine-Readable Corpus
