@@ -1,6 +1,6 @@
-# RaggieScript v1.1.0 — Complete Technical Reference (llms-full.txt)
+# RaggieScript v1.2.0 — Complete Technical Reference (llms-full.txt)
 
-> Complete language, gradual type system, 21-namespace Standard Library, Declarative Win32 Wizard UI, Two-Way .NET Host SDK (RaggieScript.Core), RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
+> Complete language, gradual type system, 21-namespace Standard Library (incl. 23-method zero-dependency archive.* suite), Declarative Win32 Wizard UI, Two-Way .NET Host SDK (RaggieScript.Core), RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
 
 ================================================================================
 TOPIC: Welcome & 60-Second Quick Start [welcome] (Getting Started)
@@ -948,16 +948,77 @@ TOPIC: archive.*, crypto.*, net.* & log.* [ns-archive-crypto-net-log] (Windows, 
 
 # `archive.*`, `crypto.*`, `net.*` & `log.*` {#ns-archive-crypto-net-log}
 
-## `archive.*` — `LZMS` `.rswpak` & `.zip` Packaging (`4` Methods) {#archive-namespace}
+## `archive.*` — Zero-Dependency Multi-Format Packaging & Extraction (`23` Methods) {#archive-namespace}
 
-RaggieSoft's `.rswpak` format uses Windows 11's native **`COMPRESS_ALGORITHM_LZMS`** (`cabinet.dll`) solid block compression paired with a 32-byte SHA-256 integrity header:
+Every `archive.*` function in both **`raggiescript.exe` (static `/MT` Win32 C++20)** and **`RaggieScript.Core` (`.NET` v1.2)** runs against **100% EULA-clean, zero-dependency engines built straight into Windows 11 (`x64` & `ARM64`)**:
+
+- **`System32\cabinet.dll` (`COMPRESS_ALGORITHM_LZMS`) + `bcrypt.dll` (`SHA-256`)**: Powers RaggieSoft's solid `.rswpak` (`RSWPAK1`) container in-process with 100% binary wire compatibility between C++20 and `.NET`.
+- **`System32\tar.exe` (`bsdtar 3.8.9` / BSD `libarchive` + `zlib` + Public-Domain `liblzma 5.8.3` + `bz2lib` + `libzstd 1.5.7`)**: Powers `.zip` (plus `.nupkg`, `.vsix`, `.epub`, `.msix`), `.7z` (`LZMA` / `LZMA2` solid), `.tar` (`.tar.gz`, `.tar.bz2`, `.tar.xz`, `.tar.lzma`, `.tar.zst`), `.zst` (Zstandard bundles), `.iso` (`ISO 9660` Collector's Edition optical disc images for Showcase Studio), `.cpio`, and `.xar`.
+- **`System32\makecab.exe` (`LZX:21` multi-folder `.ddf`)**: Builds genuine Windows `.cab` cabinets for `.msi` media and driver packages.
+- **`System32\wimgapi.dll` (`WIMCreateFile` / `WIMCaptureImage` / `WIMApplyImage`)**: Captures and applies Windows `.wim` images when elevated (`Uac.Deferred` / `Uac.RequireAdministrator`), automatically enabling `SeBackupPrivilege` and `SeRestorePrivilege`.
+
+> [!IMPORTANT] **Security, Transactional Rollback & EULA Guardrails**:
+> 1. **Pre-Extraction Zip-Slip (`../`) Gate**: Every entry is audited *before* extraction; any `..` traversal segment, rooted path, or drive prefix aborts immediately before touching disk.
+> 2. **Automatic `.rsw-rollback.jnl` Undo**: Every `archive.extract*` call unpacks into an isolated staging directory first and commits files through the LIFO rollback ledger—backing up overwritten destination files to `.rswbak`!
+> 3. **Permanent `.rar` Exclusion**: Proprietary `.rar` archives (`Rar!` magic or `.rar` extension) are permanently rejected so RaggieScript never touches RARLAB/unRAR license restrictions.
+
+### 1. Read-Only & Wizard-Safe Inspection (`2` Methods — Allowed Inside `wizard { ... }`) {#archive-readonly}
 
 | Method | Signature | Return | Mutating? | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| `archive.extractZip` | `archive.extractZip(zipFile: path, destDir: path)` | `int` | **Mutating (`RSW701`)** | Extracts a standard `.zip` archive into `destDir` (rollback-tracked), returning file count. |
-| `archive.createPak` | `archive.createPak(sourceDir: path, outPakFile: path)` | `string` | **Mutating (`RSW701`)** | Compresses `sourceDir` into an `LZMS` `.rswpak` container and returns its 64-char hex SHA-256 digest. |
-| `archive.extractPak` | `archive.extractPak(pakFile: path, destDir: path, expectedSha256?: string)` | `int` | **Mutating (`RSW701`)** | Verifies optional `expectedSha256` + internal `RSWPAK1` digest and extracts files into `destDir`. |
-| `archive.downloadPak` | `archive.downloadPak(httpsUrl: string, destDir: path, expectedSha256?: string, verifyAuthenticode?: bool)` | `int` | **Mutating (`RSW701`)** | Streams a remote on-demand feature pack over TLS 1.2/1.3 `WinHTTP`, verifies SHA-256 BEFORE unpacking, and extracts into `destDir`. |
+| :--- | :--- | :--- | :---: | :--- |
+| `archive.list` | `archive.list(archiveFile: path)` | `array` | Wizard-Safe | Inspects any supported archive and returns `{ path: string, size: int, isDir: bool }[]` (rejecting Zip-Slip paths & `.rar`). |
+| `archive.verify` | `archive.verify(archiveFile: path, expectedSha256?: string)` | `bool` | Wizard-Safe | Verifies optional 64-char hex `SHA-256`, container structure (including `RSWPAK1` inner `SHA-256`), and Zip-Slip path safety. |
+
+### 2. Auto-Detecting & Format-Specific Packaging (`21` Mutating Methods — `RSW701` Gated) {#archive-mutating}
+
+Every `archive.create*` call accepts a **source folder** (or single file), writes `outArchive`, and returns its **64-character lowercase `SHA-256` hex digest**. Every `archive.extract*` call verifies optional `expectedSha256` *before* unpacking and returns the **`int` count of extracted files**.
+
+| Method | Signature | Return | Underlying Windows 11 Engine & Container |
+| :--- | :--- | :--- | :--- |
+| `archive.create` | `archive.create(sourcePath: path, outArchive: path, options?: map)` | `string` (`SHA-256`) | Infers container format automatically from `outArchive` extension (`.zip`, `.7z`, `.rswpak`, `.cab`, `.tar.*`, `.zst`, `.iso`, `.wim`, `.cpio`, `.xar`). |
+| `archive.extract` | `archive.extract(archiveFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Sniffs **magic header bytes** (`PK\x03\x04` `.zip`/`.nupkg`/`.vsix`/`.epub`, `7z\xBC\xAF` `.7z`, `RSWPAK1` `.rswpak`, `MSCF` `.cab`, `CD001` `.iso`, `MSWIM` `.wim`, `\x28\xB5\x2F\xFD` `.zst`, `070701` `.cpio`, `xar!`) and extracts with rollback tracking. |
+| `archive.createZip` | `archive.createZip(sourcePath: path, outZip: path, options?: map)` | `string` (`SHA-256`) | Packs folder/file into standard `DEFLATE` `.zip`. |
+| `archive.extractZip` | `archive.extractZip(zipFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Extracts `.zip` (or `.nupkg` / `.vsix` / `.epub`) into `destDir`. |
+| `archive.create7z` | `archive.create7z(sourcePath: path, out7z: path, options?: map)` | `string` (`SHA-256`) | Packs folder/file into solid Public-Domain `LZMA2` `.7z` (`System32\tar.exe --format=7zip`). |
+| `archive.extract7z` | `archive.extract7z(sevenZipFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Extracts `.7z` (`LZMA` / `LZMA2`) archive into `destDir`. |
+| `archive.createLzma` | `archive.createLzma(sourcePath: path, out7z: path, options?: map)` | `string` (`SHA-256`) | Algorithm-named alias for `archive.create7z`. |
+| `archive.extractLzma` | `archive.extractLzma(sevenZipFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Algorithm-named alias for `archive.extract7z`. |
+| `archive.createPak` | `archive.createPak(sourcePath: path, outPakFile: path, options?: map)` | `string` (`SHA-256`) | Compresses folder/file into RaggieSoft's solid `LZMS` `.rswpak` (`RSWPAK1` + inner `SHA-256`). |
+| `archive.extractPak` | `archive.extractPak(pakFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Verifies both outer and inner `RSWPAK1` `SHA-256` digests and extracts into `destDir`. |
+| `archive.downloadPak` | `archive.downloadPak(httpsUrl: string, destDir: path, expectedSha256?: string, verifyAuthenticode?: bool)` | `int` (files) | Streams remote pack over TLS 1.2/1.3 `WinHTTP`, verifies `SHA-256` before unpacking, and extracts. |
+| `archive.createCab` | `archive.createCab(sourcePath: path, outCab: path, options?: map)` | `string` (`SHA-256`) | Compresses folder hierarchy into a multi-folder `LZX:21` Windows `.cab` (`System32\makecab.exe`). |
+| `archive.extractCab` | `archive.extractCab(cabFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Extracts a Windows `.cab` cabinet preserving subdirectory structure. |
+| `archive.createTar` | `archive.createTar(sourcePath: path, outTar: path, options?: map)` | `string` (`SHA-256`) | Creates `.tar`, `.tar.gz`/`.tgz`, `.tar.bz2`, `.tar.xz`, `.tar.lzma`, or `.tar.zst` based on extension. |
+| `archive.extractTar` | `archive.extractTar(tarFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Extracts any uncompressed or compressed POSIX tarball into `destDir`. |
+| `archive.createZst` | `archive.createZst(sourcePath: path, outZst: path, options?: map)` | `string` (`SHA-256`) | Packs folder/file into a fast Zstandard `.tar.zst` bundle (`libzstd 1.5.7`). |
+| `archive.extractZst` | `archive.extractZst(zstFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Extracts a Zstandard `.tar.zst` / `.tzst` bundle into `destDir`. |
+| `archive.createIso` | `archive.createIso(sourcePath: path, outIso: path, options?: map)` | `string` (`SHA-256`) | Builds an `ISO 9660` (`.iso`) Collector's Edition optical disc image (`--format=iso9660`). |
+| `archive.extractIso` | `archive.extractIso(isoFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Extracts an `ISO 9660` (`.iso`) optical image into `destDir` (normalizing writable file attributes). |
+| `archive.createWim` | `archive.createWim(sourceDir: path, outWim: path, options?: map)` | `string` (`SHA-256`) | Captures `sourceDir` into a Windows `.wim` image via `System32\wimgapi.dll` (requires elevation). |
+| `archive.extractWim` | `archive.extractWim(wimFile: path, destDir: path, expectedSha256?: string)` | `int` (files) | Applies image `#1` of a Windows `.wim` file via `System32\wimgapi.dll` (requires elevation). |
+
+```csharp
+use installer;
+
+param payload7z: path = sys.supportDir / "StarlightAssets.7z";
+param installDir: path = sys.programFiles / "Starlight";
+
+wizard {
+    step VerifyMedia {
+        // archive.verify() and archive.list() are 100% read-only & allowed inside wizard {}!
+        if (!archive.verify(payload7z)) {
+            ui.notice("Collector media archive is missing or corrupted.");
+        }
+    }
+}
+
+install {
+    // Automatically journaled in .rsw-rollback.jnl — rolled back cleanly if a later step fails!
+    const extracted = archive.extract7z(payload7z, installDir / "Assets");
+    const backupSha = archive.createZst(installDir / "Config", sys.localAppData / "Starlight" / "config-backup.tar.zst");
+    log.info("Unpacked ${extracted} files; config snapshot SHA-256 = ${backupSha}");
+}
+```
 
 ## `crypto.*` — CNG `bcrypt.dll` Hashing, UUIDv5 & Authenticode (`7` Methods) {#crypto-namespace}
 

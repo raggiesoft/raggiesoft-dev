@@ -1,6 +1,6 @@
-# RaggieScript (v1.1.0) — Documentation & API Index
+# RaggieScript (v1.2.0) — Documentation & API Index
 
-> Complete language, gradual type system, 21-namespace Standard Library, Declarative Win32 Wizard UI, Two-Way .NET Host SDK (RaggieScript.Core), RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
+> Complete language, gradual type system, 21-namespace Standard Library (incl. 23-method zero-dependency archive.* suite), Declarative Win32 Wizard UI, Two-Way .NET Host SDK (RaggieScript.Core), RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
 > Compiled by RaggieSoft Help Studio v0.6.0 (MIT Code / CC BY-SA 4.0 Docs)
 
 ## Full Machine-Readable Corpus
@@ -17,7 +17,7 @@
 - [sys.* — Silicon, OS Kernel, UAC, Folders & Reboot](https://raggiescript.raggiesoft.dev/ns-sys): Complete reference for all 43 sys.* methods and 26 sys.* properties (IsWow64Process2 ARM64/x64, RtlGetVersion, UAC, High Contrast, Known Folders, RunOnce resume).
 - [str.*, regex.*, array.*, json.*, ini.* & xml.*](https://raggiescript.raggiesoft.dev/ns-data-and-text): UTF-8 string helpers, ECMAScript regex, functional array.map/filter closures, JSON parse/stringify, and rollback-journaled .ini & .xml surgery.
 - [fs.* & reg.* — Transactional Filesystem & Registry](https://raggiescript.raggiesoft.dev/ns-fs-and-reg): All 34 fs.* methods (SHA-256, Authenticode, PE fileVersion, RSWPAK1 extract, .rswbak rollback) and all 13 stateless 64/32-bit reg.* methods.
-- [archive.*, crypto.*, net.* & log.*](https://raggiescript.raggiesoft.dev/ns-archive-crypto-net-log): LZMS .rswpak & .zip archives, bcrypt.dll SHA-256 & UUIDv5, WinHTTP TLS 1.2/1.3 downloads, and structured setup logging.
+- [archive.*, crypto.*, net.* & log.*](https://raggiescript.raggiesoft.dev/ns-archive-crypto-net-log): Zero-dependency 23-method archive.* engine (.zip, .7z/LZMA2, .rswpak LZMS, .cab, .tar.*, .zst, .iso ISO-9660, .wim wimgapi.dll), bcrypt.dll SHA-256 & UUIDv5, WinHTTP TLS 1.2/1.3, and setup logging.
 - [proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* & acl.*](https://raggiescript.raggiesoft.dev/ns-proc-ffi-rm-system): Token.Desktop Explorer de-elevated launch, 64-bit native DLL FFI, Restart Manager, shortcuts, file associations, non-clobbering PATH, ARP, Services, Firewall, and NTFS ACLs.
 - [msi.* & prereq.* — 64-Bit MSI SQL, .MST & Runtimes](https://raggiescript.raggiesoft.dev/ns-msi-and-prereq): All 21 msi.* calls (direct 64-bit SQL DDL/DML, SummaryInformation, Binary streams, .mst transforms, MsiSetExternalUIRecord) and 7 prereq.* .NET 8-11 / WebView2 / VC++ detectors.
 - [ui.*, wizard.* & showcase.* — Declarative Win32 Wizard UI](https://raggiescript.raggiesoft.dev/ns-ui-and-wizard): All 14 declarative in-window Win32 wizard controls (two-way ref bindings, reactive when:, inline validate:), 9 modal TaskDialog/file pickers, 11 WizardStyles, and Showcase hotspots.

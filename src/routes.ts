@@ -73,14 +73,15 @@ function renderHomeBody(): string {
       <div class="lab-grid-2x2">
         <article class="card" style="border: 2px solid var(--primary);">
           <div>
-            <span class="eyebrow">Canonical Language Reference • 16 Chapters • 155+ Indexed Calls &amp; .NET SDK</span>
-            <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.1 (<code>.rssc</code>)</h3>
+            <span class="eyebrow">Canonical Language Reference • 16 Chapters • 175+ Indexed Calls &amp; .NET SDK</span>
+            <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.2 (<code>.rssc</code>)</h3>
             <p>
               Complete <code>learn.microsoft.com</code>-style reference documenting every function, property, enum constant,
+              23-method zero-dependency <code>archive.*</code> suite (<code>.7z</code>/<code>LZMA2</code>, <code>.zip</code>,
+              <code>.rswpak</code>, <code>.cab</code>, <code>.tar.zst</code>, <code>.iso</code>, <code>.wim</code>),
               declarative Win32 Wizard UI control, <strong>two-way <code>.NET</code> Host SDK (<code>RaggieScript.Core</code>)</strong>,
-              <code>RSWBC2</code> opcode, and <code>RSW700</code>&ndash;<code>RSW715</code> diagnostic across all 21 RaggieScript
-              namespaces—compiled directly from <code>raggiescript-docs.rshp</code> by <code>rshbuild.exe</code> with instant
-              <code>Ctrl+K</code> symbol search.
+              <code>RSWBC2</code> opcode, and <code>RSW700</code>&ndash;<code>RSW715</code> diagnostic—compiled by
+              <code>rshbuild.exe</code> with instant <code>Ctrl+K</code> symbol search.
             </p>
           </div>
           <div class="btn-row">
