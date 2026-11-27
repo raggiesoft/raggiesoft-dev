@@ -9,7 +9,7 @@
 - [1. RaggieSoft Installer Studio (v0.5.0 Shipped / v0.6.0 In Lab)](https://raggiesoftstudio.com/installer-studio): Static `/MT` Win32 C++20 `.msi`, `.msm`, `.mst`, `.msp`, `sfx` (`rswsfx.exe`), & Monotonic Dual-Bar `.rsis` Suite compiler (`installwithoutlimits.com` 301s here).
 - [2. RaggieSoft Showcase Studio](https://raggiesoftstudio.com/showcase-studio): 1990s `.BMP` (with UIA safeguards) & Windows 11 `FluentMica` launchpads + bespoke `_support\` self-extracting canvas installers.
 - [3. RaggieSoft Launcher Studio](https://raggiesoftstudio.com/launcher-studio): Branded zero-account desktop hubs & SHA-256 + Authenticode static-CDN updaters.
-- [4. RaggieSoft Help Studio](https://raggiesoftstudio.com/help-studio): Turnkey `.CHM` / `.hhp` migration & zero-dependency C++20 Named Pipe `F1` help clients.
+- [4. RaggieSoft Help Studio (v0.5.0)](https://raggiesoftstudio.com/help-studio): Static `/MT` Win32 C++20 `.CHM` (`ITSF/LZX`) & WinHelp `.HLP`/`.CNT` (`LZ77`) decompiler, Word `MsoNormal` sanitizer, & `<5ms` Named Pipe `F1` help suite (`rshbuild.exe`, `HelpStudio.exe`, `RaggieSoftHelp.exe`).
 - [5. RaggieSoft Training Studio (v0.5.0)](https://raggiesoftstudio.com/training-studio): `<50 KB` proxy-proof WCAG 2.2 AA SCORM 1.2 & 2004 compiler (`rstbuild`).
 - [6. RaggieSoft Document Studio](https://raggiesoftstudio.com/document-studio): Deterministic ISO 14289-1 Tagged `PDF/UA-1` & Section 508 form compiler.
 - [7. RaggieSoft Localization Studio](https://raggiesoftstudio.com/localization-studio): Multilingual `.RESX`, `XLIFF 2.1`, `.rsip`, `.rstp` & `<=22 CPS` WebVTT compliance IDE.
@@ -24,6 +24,8 @@
 - [8-Tool Studio Suite Summary](https://raggiesoftstudio.com/llms.txt)
 - [Installer Studio Full Schema Reference](https://raggiesoftstudio.com/installer-studio/llms-full.txt)
 - [Installer Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/installer-studio/SKILL.md)
+- [Help Studio Full Schema Reference](https://raggiesoftstudio.com/help-studio/llms-full.txt)
+- [Help Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/help-studio/SKILL.md)
 - [Training Studio Full Schema Reference](https://raggiesoftstudio.com/training-studio/llms-full.txt)
 
 ## Public GitHub Repositories (@raggiesoft)

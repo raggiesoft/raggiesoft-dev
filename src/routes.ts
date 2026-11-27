@@ -133,8 +133,8 @@ function renderHomeBody(): string {
             <h3>RaggieSoft Studio Compliance, Help, Training &amp; Docs</h3>
             <p>
               Alongside Installer &amp; Showcase Studio: <strong>Accessibility Studio v1.0.0</strong> (.NET 11 + Monaco + SARIF CLI),
-              <strong>Training Studio</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Help Studio</strong>
-              (legacy <code>.CHM</code>/<code>.hhp</code> migration &amp; <code>F1</code> IPC), <strong>Document Studio</strong>
+              <strong>Help Studio v0.5.0</strong> (static <code>/MT</code> C++20 <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompiler + <code>&lt;5ms</code> <code>F1</code> IPC),
+              <strong>Training Studio v0.5.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Document Studio</strong>
               (Tagged <code>PDF/UA-1</code>), <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
             </p>
           </div>
@@ -632,6 +632,14 @@ function renderAiSkillsBody(): string {
                 <a href="https://raggiesoftstudio.com/installer-studio/EDITIONS_AND_RAGGIESCRIPT.md">Editions &amp; RaggieScript</a>
               </td>
               <td>Author, JSON-lint (<code>instbuild --validate --diagnostics=json</code>), and compile <code>x64</code>/<code>ARM64</code> <code>.msi</code>, <code>.msm</code>, <code>.msp</code>, <code>sfx</code>, &amp; Dual-Bar Suites.</td>
+            </tr>
+            <tr>
+              <th scope="row">Help Studio (<code>.rshp</code> + <code>.CHM</code> / <code>.HLP</code> Rescue)</th>
+              <td>
+                <a href="https://raggiesoftstudio.com/help-studio/llms-full.txt">llms-full.txt</a> &bull;
+                <a href="https://raggiesoftstudio.com/help-studio/SKILL.md">SKILL.md</a>
+              </td>
+              <td>Decompile raw <code>.chm</code> (<code>ITSF/LZX</code>) and WinHelp <code>.hlp</code>/<code>.cnt</code> archives, scrub Word <code>MsoNormal</code> HTML, and compile C++20 <code>F1</code> viewers, SDKs, web portals, &amp; VPAT 2.5.</td>
             </tr>
             <tr>
               <th scope="row">Training Studio (<code>.rstp</code> SCORM 1.2 &amp; 2004)</th>
