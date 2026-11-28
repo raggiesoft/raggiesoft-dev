@@ -1,14 +1,14 @@
-# RaggieScript v1.2.0 — Complete Technical Reference (llms-full.txt)
+# RaggieScript v1.3.0 — Complete Technical Reference (llms-full.txt)
 
-> Complete language, gradual type system, 21-namespace Standard Library (incl. 23-method zero-dependency archive.* suite), Declarative Win32 Wizard UI, Two-Way .NET Host SDK (RaggieScript.Core), RSWBC2 bytecode, and RSW700-RSW715 diagnostic reference for RaggieScript (.rssc).
+> Complete language, gradual type system, defer/optional-chaining/test runner, 31-namespace Standard Library (incl. StoreScript for StoreTrainer, Story Crossroads, 23-method archive.*, & Reg-Free COM), Declarative Win32 Wizard UI, Two-Way .NET Host SDK, RSWBC2 bytecode, and RSW700-RSW715 reference.
 
 ================================================================================
 TOPIC: Welcome & 60-Second Quick Start [welcome] (Getting Started)
 ================================================================================
 
-# Welcome to RaggieScript v1.0 (`.rssc`) {#welcome}
+# Welcome to RaggieScript v1.3 (`.rssc`) {#welcome}
 
-**RaggieScript (`v1.0.0`, `.rssc`)** is RaggieSoft's open-source (**MIT License**), gradually typed, capability-sandboxed curly-brace scripting language, declarative Win32 Wizard UI engine, and multi-target SDK powering all eight **RaggieSoft Studio** developer tools and standalone zero-dependency Windows `x64` and `ARM64` micro-applications.
+**RaggieScript (`v1.3.0`, `.rssc`)** is RaggieSoft's open-source (**MIT License**), gradually typed, capability-sandboxed curly-brace scripting language, declarative Win32 Wizard UI engine, **StoreScript** trainer DSL, **Story Crossroads** branching narrative engine, and multi-target SDK powering all eight **RaggieSoft Studio** developer tools, consumer desktop apps, and standalone zero-dependency Windows `x64` and `ARM64` micro-applications.
 
 > [!TIP] Press `Ctrl+K` (or `/`) anywhere on **raggiescript.raggiesoft.dev** to search every namespace, function signature, property, and `RSW700`–`RSW715` diagnostic instantaneously, or browse the [Master A–Z API Index](api-index.html).
 
@@ -99,21 +99,22 @@ raggiescript.exe pack-exe hello-setup.rssc PatchLibrarianSetup.exe
 
 This entire documentation website (**raggiescript.raggiesoft.dev**) is authored as a plain-text `.rshp` manifest + Markdown topic tree and compiled directly by **RaggieSoft Help Studio (`rshbuild.exe` v0.6.0)**—emitting this responsive static website, our offline Windows `F1` viewer (`RaggieScriptHelp.exe`), `module.rshm.json`, `F1` Context-ID SDK headers, and an HTML5 VPAT 2.5 report from one single source of truth.
 
-## Standard Library Map (21 Namespaces) {#namespace-map}
+## Standard Library Map (31 Namespaces) {#namespace-map}
 
 | Namespace | Capability Profile | Primary Role | Reference |
 | :--- | :--- | :--- | :--- |
-| [Global Built-Ins & Constants](builtins-and-constants.html) | Always Available | `str()`, `int()`, `path()`, `ver()`, `len()`, `assert()`, `def()`, `Scope`, `Uac`, `Hive`, `RegView` | [View Globals](builtins-and-constants.html) |
+| [Global Built-Ins & Constants](builtins-and-constants.html) | Always Available | `str()`, `int()`, `path()`, `ver()`, `len()`, `assert()`, `def()`, `Scope`, `Uac`, `Hive`, `RegView`, `CertStore` | [View Globals](builtins-and-constants.html) |
 | [`Validation.*` & `compile.*`](builtins-and-constants.html#validation-namespace) | Always / Build-Time | Field validation closures (`Validation.ok/error`) and bytecode-embedded JSON/text (`compile.json`) | [View Helpers](builtins-and-constants.html#validation-namespace) |
 | [`payload.*` & `feature.*`](builtins-and-constants.html#feature-namespace) | `use installer;` | Feature selection states (`isSelected`, `selectPreset`) and staged payload paths | [View Features](builtins-and-constants.html#feature-namespace) |
 | [`sys.*`](ns-sys.html) | Always (Read) / `installer` (Reboot) | True `ARM64`/`x64` silicon (`IsWow64Process2`), un-shimmed `RtlGetVersion`, UAC, DPI, known folders | [View `sys.*`](ns-sys.html) |
-| [`str.*`, `regex.*`, `array.*`, `json.*`, `ini.*`, `xml.*`](ns-data-and-text.html) | Always (`ini`/`xml` writes require `installer`) | Strings, ECMAScript regex, closure `map`/`filter`, JSON, `.ini`, and XML config surgery | [View Data/Text](ns-data-and-text.html) |
-| [`fs.*` & `reg.*`](ns-fs-and-reg.html) | `use installer;` / `showcase` | Rollback-journaled filesystem, `RSWPAK1` extraction,Authenticode check, & stateless 64/32-bit Registry | [View `fs` & `reg`](ns-fs-and-reg.html) |
-| [`archive.*`, `crypto.*`, `net.*`, `log.*`](ns-archive-crypto-net-log.html) | `crypto`/`log` Always; `archive`/`net` Host | `LZMS` `.rswpak` archives, `bcrypt.dll` SHA-256 & UUIDv5, `WinHTTP` TLS 1.3 downloads, structured logs | [View Archive/Net](ns-archive-crypto-net-log.html) |
-| [`proc.*`, `ffi.*`, `rm.*`, `shortcut.*`, `shell.*`, `env.*`, `arp.*`, `svc.*`, `task.*`, `firewall.*`, `acl.*`](ns-proc-ffi-rm-system.html) | `use installer;` | `Token.Desktop` de-elevated launch, 64-bit DLL FFI, Restart Manager, services, firewall, NTFS ACLs | [View System APIs](ns-proc-ffi-rm-system.html) |
+| [`str.*`, `regex.*`, `array.*`, `map.*`, `time.*`, `math.*`, `json.*`, `ini.*`, `xml.*`](ns-data-and-text.html) | Always (`ini`/`xml` writes require `installer`) | Strings, regex, `array` (`reduce`/`sort`/`unique`), `map.*`, `time.*` (`ISO8601`/SCORM), `math.*`, JSON, `.ini`, & XML | [View Data/Math/Time](ns-data-and-text.html) |
+| [`fs.*` & `reg.*`](ns-fs-and-reg.html) | `use installer;` / `showcase` | Rollback-journaled filesystem, `RSWPAK1` extraction, Authenticode check, & stateless 64/32-bit Registry | [View `fs` & `reg`](ns-fs-and-reg.html) |
+| [`archive.*`, `crypto.*`, `net.*`, `log.*`](ns-archive-crypto-net-log.html) | `crypto`/`log` Always; `archive`/`net` Host | 23-method `archive.*` (`.7z`, `.zip`, `.rswpak`, `.iso`, `.wim`), `bcrypt.dll` SHA-256, `WinHTTP` + `net.isPortFree` | [View Archive/Net](ns-archive-crypto-net-log.html) |
+| [`proc.*`, `ffi.*`, `rm.*`, `com.*`, `font.*`, `sign.*`, `cert.*`, `mutex.*`, `activesetup.*`, `shortcut.*`, `shell.*`, `env.*`, `arp.*`, `svc.*`, `task.*`, `firewall.*`, `acl.*`](ns-proc-ffi-rm-system.html) | `use installer;` | Reg-Free COM `.manifest`s, zero-reboot fonts, X.509/Authenticode inspection, mutexes, Active Setup, Services, & ACLs | [View System & COM](ns-proc-ffi-rm-system.html) |
 | [`msi.*` & `prereq.*`](ns-msi-and-prereq.html) | `use installer;` | Direct 64-bit MSI relational SQL DDL/DML, `.mst` transforms, `MsiSetExternalUIRecord`, `.NET` 8–11 presets | [View `msi.*`](ns-msi-and-prereq.html) |
-| [`ui.*`, `wizard.*`, `showcase.*`](ns-ui-and-wizard.html) | `use ui;` / `installer` / `showcase` | 14 declarative in-window Win32 controls, `TaskDialogIndirect`, 11 themes, & Showcase canvas hotspots | [View `ui.*`](ns-ui-and-wizard.html) |
-| [`training.*`, `a11y.*`, `localization.*`, `document.*`, `launcher.*`, `help.*`](studio-sandbox-profiles.html) | Sandboxed Studio Profiles | SCORM 1.2/2004 branching, WCAG luminance contrast, XLIFF/WebVTT CPS gates, PDF/UA-1 fields, & `F1` routing | [View Studio APIs](studio-sandbox-profiles.html) |
+| [`ui.*`, `wizard.*`, `showcase.*`](ns-ui-and-wizard.html) | `use ui;` / `installer` / `showcase` | 14 declarative in-window Win32 controls, `TaskDialogIndirect`, 11 themes, & 12 Showcase canvas/UIA methods | [View `ui.*`](ns-ui-and-wizard.html) |
+| [`training.*`, `a11y.*`, `localization.*`, `document.*`, `launcher.*`, `help.*`](studio-sandbox-profiles.html) | Sandboxed Studio Profiles | SCORM 1.2/2004 state, Guided Fix diffs & WebVTT cues, locked token/RTL checks, PDF/UA-1 tables, & `F1` routing | [View Studio APIs](studio-sandbox-profiles.html) |
+| [`storescript.*` & `crossroads.*`](storescript-and-crossroads.html) | Sandboxed Consumer Profiles | **StoreScript** binary/JSON save-file trainer DSL (*StoreTrainer*) & **Story Crossroads** interactive branching novels | [View StoreScript & Crossroads](storescript-and-crossroads.html) |
 
 
 ================================================================================
@@ -132,6 +133,7 @@ TOPIC: CLI (raggiescript.exe), LSP, VS Code & SDKs [cli-and-sdk] (Getting Starte
 | `compile` | `raggiescript.exe compile <in.rssc> <out.rswbc> [-DKEY=VAL]` | `0` = Emitted, `1` = Error | Compiles `.rssc` source into a compact, `SHA-256`-authenticated `RSWBC2` linear stack bytecode binary. |
 | `disasm` | `raggiescript.exe disasm <in.rssc \| in.rswbc \| packed.exe>` | `0` = Printed, `1` = Tampered/Invalid | Disassembles `.rssc` source, `.rswbc` bytecode, or an embedded `#225` resource inside a packed `.exe` into human-readable constant pools and stack opcodes. |
 | `run` | `raggiescript.exe run <in.rssc \| in.rswbc> [--silent] [/l=log.txt] [KEY=VAL] [KEY:VAL]` | Script exit code (`0`, `3010`, `1602`, `1603`, etc.) | Executes the full `wizard` -> `install` (or top-level micro-app) lifecycle with automatic `.rsw-rollback.jnl` protection. |
+| `test` | `raggiescript.exe test [--json] <file.rssc \| directory>` | `0` = All passed, `1` = Failure | Discovers and executes top-level `test "<Name>" { ... }` unit-test blocks across a `.rssc` file or directory tree, reporting per-test millisecond timings in human or CI JSON format! |
 | `fmt` | `raggiescript.exe fmt [--write \| --check] <file.rssc>` | `0` = Formatted/Clean, `1` = Needs formatting | Canonicalizes 4-space indentation, brace spacing, and operator alignment while preserving **100%** of `//` and `/* */` comments (`fmt(fmt(x)) == fmt(x)`). |
 | `lsp` | `raggiescript.exe lsp` | `0` on `shutdown`/`exit` | Starts the JSON-RPC 2.0 Language Server over `stdin`/`stdout` (`Content-Length` framed) for VS Code and LSP-compatible IDEs. |
 | `transpile-es2022` | `raggiescript.exe transpile-es2022 <in.rssc> <out.mjs>` | `0` = Emitted, `1` = Capability/Type error | Compiles a sandboxed `use training;` script into a pure, zero-`eval()` ES2022 JavaScript module for SCORM 1.2 & 2004 web players. |
@@ -206,9 +208,9 @@ if (rsw::rssc::CompileRaggieScriptFile(L"setup.rssc", prog, diags)) {
 }
 ```
 
-### Two-Way Managed `.NET` Host SDK (`RaggieScript.Core` v1.1) {#dotnet-sdk}
+### Two-Way Managed `.NET` Host SDK (`RaggieScript.Core` v1.3) {#dotnet-sdk}
 
-`RaggieSoft.RaggieScript.Core` (`Y:\desktop-apps\raggiescript\dotnet\src\RaggieScript.Core\`) is a **zero-dependency managed C# compiler, static type/capability binder (`RSW700`–`RSW715`), two-way `.NET` runtime, and `ES2022` transpiler** built for .NET desktop, CLI, and server applications (powering Accessibility Studio, Training Studio, Localization Studio, Document Studio, Launcher, Book Reader, and StoreTrainer).
+`RaggieSoft.RaggieScript.Core` (`Y:\desktop-apps\raggiescript\dotnet\src\RaggieScript.Core\`) is a **zero-dependency managed C# compiler, static type/capability binder (`RSW700`–`RSW715`), two-way `.NET` runtime, StoreScript & Story Crossroads host engine, and `ES2022` transpiler** built for .NET desktop, CLI, and server applications (powering Accessibility Studio, Training Studio, Localization Studio, Document Studio, Launcher, Book Reader, and StoreTrainer).
 
 #### 1. Two-Way Host Interop Surface (`RsscHostEnvironment` & `RsscManagedRuntime`) {#dotnet-host-api}
 
@@ -223,7 +225,9 @@ if (rsw::rssc::CompileRaggieScriptFile(L"setup.rssc", prog, diags)) {
 | `RsscManagedRuntime.InvokeAsync<T>(fnName, cancellationToken, params args)` | `.rssc` -> `.NET` | Awaits RaggieScript functions that call `async Task<T>` C# host delegates without blocking the UI thread. |
 | `RsscManagedRuntime.BindDelegate<TDelegate>(fnOrClosureName)` | `.rssc` -> `.NET` | Compiles any RaggieScript `fn` or `=>` closure into a native strongly-typed C# `Func<...>` / `Action<...>` delegate via LINQ Expression Trees! |
 | `RsscExecutionOptions` (`MaxSteps`, `Timeout`, `CancellationToken`, `Defines`) | Safety | Bounds AST statement execution (`MaxSteps = 250_000` default -> throws `RsscExecutionLimitException` on runaway `while (true)` loops), wall-clock timeouts, and cooperative cancellation. |
-| `RsscEs2022Transpiler.TryTranspile(program, out string mjs, out string err)` | `.rssc` -> `ES2022` | Pure-C# in-process transpiler emitting CSP-safe, zero-`eval()` ES2022 JavaScript modules for SCORM 1.2 & SCORM 2004 courses. |
+| `RsscManagedRuntime.RunTests()` | Test Runner | Executes all top-level `test "..." { ... }` blocks and returns `IReadOnlyList<RsscTestResult>` (`Name`, `Passed`, `DurationMs`, `ErrorMessage`). |
+| `RsscManagedRuntime.StoreScript` & `Crossroads` | Consumer Sandboxes | Direct C# host access to `RsscStoreScriptEngine` (`LoadBuffer`, `GetBuffer`, `JsonDocumentText`) for *StoreTrainer* and `RsscCrossroadsEngine` (`OfferedOptions`, `Flags`, `Stats`) for *Book Reader*. |
+| `RsscEs2022Transpiler.TryTranspile(program, out string mjs, out string err)` | `.rssc` -> `ES2022` | Pure-C# in-process transpiler emitting CSP-safe, zero-`eval()` ES2022 JavaScript modules for SCORM 1.2/2004 courses and Story Crossroads web scenes. |
 
 #### 2. Complete Two-Way C# <-> RaggieScript Example {#dotnet-two-way-example}
 
@@ -356,7 +360,7 @@ if (sys.osVersion() >= minWin11) {
 
 | Precedence | Operators | Description |
 | :--- | :--- | :--- |
-| 1 (Postfix) | `obj.prop`, `arr[i]`, `fn(a, name: b)` | Member access, indexing, positional & named call arguments |
+| 1 (Postfix) | `obj.prop`, `obj?.prop`, `arr[i]`, `arr?.[i]`, `fn(a, name: b)` | Member access, **v1.3 null-safe optional chaining (`?.` / `?.[`)**, indexing, & calls |
 | 2 (Unary) | `!x`, `-x`, `ref varName` | Logical NOT, numeric negation, two-way mutable `ref` binding |
 | 3 (Multiplicative) | `*`, `/` (Path Join or Divide), `%` | When either operand is `path`, `a / b` joins path segments cleanly! |
 | 4 (Additive) | `+`, `-` | Numeric add/subtract, string concatenation, or `array + array` merge |
@@ -399,6 +403,17 @@ try {
 } catch (err: string) {
     ui.error("Pre-Flight Check Failed", err);
     exit(1603);
+}
+
+// 5. v1.3 LIFO Scope-Exit Cleanup ('defer { ... }') & Optional Chaining ('?.')
+fn inspectEndpoint(cfg: any) : int {
+    defer { log.info("Finished inspecting endpoint configuration."); }
+    return cfg?.network?.port ?? 8443;
+}
+
+// 6. v1.3 First-Class Unit Test Blocks ('raggiescript.exe test <file_or_dir> [--json]')
+test "Optional chaining falls back to port 8443 when config is null" {
+    assert(inspectEndpoint(null) == 8443, "Expected fallback port 8443");
 }
 ```
 
@@ -788,12 +803,12 @@ Every path property returns a first-class `path` ready for `/` path joining (`sy
 
 
 ================================================================================
-TOPIC: str.*, regex.*, array.*, json.*, ini.* & xml.* [ns-data-and-text] (Core Standard Library)
+TOPIC: str.*, regex.*, array.*, map.*, time.*, math.*, json.*, ini.* & xml.* [ns-data-and-text] (Core Standard Library)
 ================================================================================
 
-# `str.*`, `regex.*`, `array.*`, `json.*`, `ini.*` & `xml.*` {#ns-data-and-text}
+# `str.*`, `regex.*`, `array.*`, `map.*`, `time.*`, `math.*`, `json.*`, `ini.*` & `xml.*` {#ns-data-and-text}
 
-Pure string, regular expression, functional array, and JSON helpers work across **every** RaggieScript target (C++20 VM, `.NET` `RaggieScript.Core`, and SCORM `ES2022`), while `.ini` and `.xml` file mutations participate automatically in `.rsw-rollback.jnl` backups!
+Pure string, regular expression, functional array/map, ISO-8601 time, numeric math, and JSON helpers work across **every** RaggieScript target (C++20 VM, `.NET` `RaggieScript.Core`, and SCORM/Crossroads `ES2022`), while `.ini` and `.xml` file mutations participate automatically in `.rsw-rollback.jnl` backups!
 
 ## `str.*` — UTF-8 String Manipulation (`12` Methods) {#str-namespace}
 
@@ -820,9 +835,9 @@ Pure string, regular expression, functional array, and JSON helpers work across 
 | `regex.match` | `regex.match(input: string, pattern: string, ignoreCase?: bool)` | `array` | Returns `[fullMatch, group1, group2, ...]` for the first match (or `[]` if none). |
 | `regex.replace` | `regex.replace(input: string, pattern: string, replacement: string, ignoreCase?: bool)` | `string` | Replaces regex matches using standard `$1`, `$2` replacement groups. |
 
-## `array.*` — Functional Collection Operations (`4` Methods) {#array-namespace}
+## `array.*` — Functional Collection Operations (`12` Methods) {#array-namespace}
 
-`array.map` and `array.filter` invoke first-class RaggieScript closures (`item => ...`) directly inside the linear stack VM:
+`array.map`, `array.filter`, `array.find`, `array.any`, `array.all`, and `array.reduce` invoke first-class RaggieScript closures (`item => ...`) directly inside the linear stack VM, `.NET` runtime, and `ES2022`:
 
 | Method | Signature | Return | Description |
 | :--- | :--- | :--- | :--- |
@@ -830,6 +845,14 @@ Pure string, regular expression, functional array, and JSON helpers work across 
 | `array.map` | `array.map(list: array, transformFn: fn)` | `array` | Calls `transformFn(item)` for each element and returns the mapped array. |
 | `array.filter` | `array.filter(list: array, predicateFn: fn)` | `array` | Keeps elements for which `predicateFn(item)` returns truthy. |
 | `array.contains` | `array.contains(list: array, needle: any)` | `bool` | Structural equality membership check. |
+| `array.find` | `array.find(list: array, predicateFn: fn)` | `any` | Returns the first element matching `predicateFn(item)`, or `null`. |
+| `array.any` | `array.any(list: array, predicateFn: fn)` | `bool` | Returns `true` if at least one element satisfies `predicateFn(item)`. |
+| `array.all` | `array.all(list: array, predicateFn: fn)` | `bool` | Returns `true` if every element satisfies `predicateFn(item)`. |
+| `array.reduce` | `array.reduce(list: array, initial: any, reducerFn: fn)` | `any` | Folds `list` left-to-right via `(acc, item) => nextAcc`. |
+| `array.sort` | `array.sort(list: array)` | `array` | Returns a sorted copy (preserving `SemVer`, numeric, and UTF-8 ordering). |
+| `array.unique` | `array.unique(list: array)` | `array` | Returns a copy with duplicate values removed while preserving first-seen order. |
+| `array.slice` | `array.slice(list: array, start: int, end?: int)` | `array` | Extracts sub-array `[start, end)`. |
+| `array.reverse` | `array.reverse(list: array)` | `array` | Returns a reversed copy of `list`. |
 
 ```rssc
 const rawPorts = [" 443 ", " 8080 ", " 80 "];
@@ -838,6 +861,48 @@ const highPorts = array.filter(
     p => p >= 1024
 ); // -> [8080]
 ```
+
+## `map.*` — Dictionary & Struct Inspection (`6` Methods) {#map-namespace}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `map.keys` | `map.keys(record: map)` | `array` | Returns sorted key names of `record` (excluding internal `__struct` tags). |
+| `map.values` | `map.values(record: map)` | `array` | Returns values stored in `record`. |
+| `map.entries` | `map.entries(record: map)` | `array` | Returns `[key, value]` two-element pairs for `record`. |
+| `map.has` | `map.has(record: map, key: string)` | `bool` | Returns `true` if `record` defines `key`. |
+| `map.merge` | `map.merge(baseMap: map, patchMap: map)` | `map` | Returns a shallow-merged copy of `baseMap` overwritten by `patchMap`. |
+| `map.remove` | `map.remove(record: map, key: string)` | `bool` | Deletes `key` in place and returns `true` if it was present. |
+
+## `time.*` — ISO-8601 Timestamps, Monotonic Stopwatch & SCORM Durations (`9` Methods) {#time-namespace}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `time.nowUtc` | `time.nowUtc()` | `string` | Current UTC timestamp in ISO-8601 format (`"2026-11-27T23:45:00Z"`). |
+| `time.nowLocal` | `time.nowLocal()` | `string` | Current local timestamp (`"2026-11-27T18:45:00"`). |
+| `time.unixSeconds` | `time.unixSeconds()` | `int` | Current Unix epoch timestamp in seconds. |
+| `time.unixMillis` | `time.unixMillis()` | `int` | Current Unix epoch timestamp in milliseconds. |
+| `time.stopwatchMs` | `time.stopwatchMs()` | `int` | High-resolution monotonic elapsed milliseconds (`QueryPerformanceCounter` / `Stopwatch`). |
+| `time.formatUtc` | `time.formatUtc(unixSeconds: int, pattern?: string)` | `string` | Formats `unixSeconds` in UTC (`"ISO8601"`, `"YYYY-MM-DD"`, `"YYYYMMDD-HHmmss"`, or `strftime`). |
+| `time.formatLocal` | `time.formatLocal(unixSeconds: int, pattern?: string)` | `string` | Formats `unixSeconds` in local time. |
+| `time.parseIso` | `time.parseIso(isoString: string)` | `int` | Parses an ISO-8601 UTC date/timestamp into Unix epoch seconds. |
+| `time.formatScormDuration` | `time.formatScormDuration(seconds: float)` | `string` | Formats elapsed seconds as a SCORM 2004 4th Edition ISO-8601 duration (`"PT14M22S"`). |
+
+## `math.*` — Clamping, Interpolation & Numeric Constants (`10` Methods + `2` Properties) {#math-namespace}
+
+Includes built-in constants **`math.PI`** (`3.141592653589793`) and **`math.E`** (`2.718281828459045`):
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `math.min` | `math.min(a: any, b: any)` | `int \| float` | Returns the smaller of `a` and `b`. |
+| `math.max` | `math.max(a: any, b: any)` | `int \| float` | Returns the larger of `a` and `b`. |
+| `math.clamp` | `math.clamp(value: any, minVal: any, maxVal: any)` | `int \| float` | Clamps `value` into `[minVal, maxVal]`. |
+| `math.abs` | `math.abs(x: any)` | `int \| float` | Returns absolute magnitude of `x`. |
+| `math.round` | `math.round(x: float, digits?: int)` | `float` | Rounds `x` to `digits` decimal places (`0` by default). |
+| `math.floor` | `math.floor(x: float)` | `int` | Largest integer `<= x`. |
+| `math.ceil` | `math.ceil(x: float)` | `int` | Smallest integer `>= x`. |
+| `math.pow` | `math.pow(base: float, exponent: float)` | `float` | Computes `base` raised to `exponent`. |
+| `math.sqrt` | `math.sqrt(x: float)` | `float` | Computes non-negative square root of `x`. |
+| `math.lerp` | `math.lerp(a: float, b: float, t: float)` | `float` | Linear interpolation `a + (b - a) * t`. |
 
 ## `json.*` — Structured JSON Parse & Serialize (`2` Methods) {#json-namespace}
 
@@ -1034,9 +1099,9 @@ All `crypto.*` methods are **100% Read-Only & Wizard-Safe**, implemented directl
 | `crypto.uuid5` | `crypto.uuid5(name: string, namespaceGuid?: string)` | `string` | Generates deterministic RFC 4122 SHA-1 UUIDv5 `{GUID}` for reproducible MSI Component GUIDs. |
 | `crypto.verifyAuthenticode` | `crypto.verifyAuthenticode(peFile: path)` | `bool` | Verifies Microsoft Authenticode / Azure Artifact Signing chain via `WinVerifyTrust`. |
 
-## `net.*` — Native TLS 1.2 / 1.3 `WinHTTP` Client (`4` Methods) {#net-namespace}
+## `net.*` — Native TLS 1.2 / 1.3 `WinHTTP` Client & Winsock2 TCP Port Probes (`6` Methods) {#net-namespace}
 
-`net.*` uses the OS-integrated `winhttp.dll` stack (automatically honoring enterprise Windows proxy auto-config / WPAD and OS certificate stores) and requires `use installer;` (`RSW702` blocked in sandboxed profiles):
+`net.*` pairs the OS-integrated `winhttp.dll` HTTPS stack with sub-millisecond Winsock2 local TCP port availability probes (`isPortFree` and `findFreePort`, both **Wizard-Safe** for `ui.textBox` port validators!) under `use installer;`:
 
 | Method | Signature | Return | Description |
 | :--- | :--- | :--- | :--- |
@@ -1044,6 +1109,8 @@ All `crypto.*` methods are **100% Read-Only & Wizard-Safe**, implemented directl
 | `net.getText` | `net.getText(httpsUrl: string)` | `string` | Performs an HTTPS `GET` and returns the UTF-8 response body. |
 | `net.getJson` | `net.getJson(httpsUrl: string)` | `any` | Fetches and parses a remote HTTPS JSON manifest (`catalog.json`, release channels, etc.). |
 | `net.probe` | `net.probe(httpsUrl: string)` | `bool` | Performs a fast 4-second `HEAD`/`GET` reachability probe (`true` on HTTP `200..299`). |
+| `net.isPortFree` | `net.isPortFree(port: int, loopbackOnly?: bool)` | `bool` | **Wizard-Safe**: Probes via Winsock2 (`ws2_32.lib`) whether local TCP `port` (`1..65535`) is free to bind. |
+| `net.findFreePort` | `net.findFreePort(startPort?: int, endPort?: int)` | `int` | **Wizard-Safe**: Returns the first available local TCP port in `[startPort, endPort]` (defaults `8000..9000`, or `-1`). |
 
 ## `log.*` — Structured Setup & Audit Logging (`4` Methods) {#log-namespace}
 
@@ -1056,7 +1123,7 @@ All `crypto.*` methods are **100% Read-Only & Wizard-Safe**, implemented directl
 
 
 ================================================================================
-TOPIC: proc.*, ffi.*, rm.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* & acl.* [ns-proc-ffi-rm-system] (Windows, MSI SQL & Native FFI)
+TOPIC: proc.*, ffi.*, rm.*, com.*, font.*, sign.*, cert.*, mutex.*, activesetup.*, shortcut.*, shell.*, env.*, arp.*, svc.*, task.*, firewall.* & acl.* [ns-proc-ffi-rm-system] (Windows, MSI SQL & Native FFI)
 ================================================================================
 
 # `proc.*`, `ffi.*`, `rm.*`, `shortcut.*`, `shell.*`, `env.*`, `arp.*`, `svc.*`, `task.*`, `firewall.*` & `acl.*` {#ns-proc-ffi-rm-system}
@@ -1136,6 +1203,29 @@ const pid = ffi.call("kernel32.dll", "GetCurrentProcessId", "uint", []);
 | `firewall.allowProgram` | `firewall.allowProgram(ruleName: string, exePath: path, direction?: string)` | `bool` | **Mutating (`RSW701`)** | Adds a Windows Defender Firewall program rule via COM `INetFwPolicy2` (removed automatically on rollback/uninstall). |
 | `firewall.removeRule` | `firewall.removeRule(ruleName: string)` | `bool` | **Mutating (`RSW701`)** | Removes Defender Firewall rule `ruleName`. |
 | `acl.grantModify` | `acl.grantModify(targetDir: path, trusteeSidOrWellKnown?: string)` | `bool` | **Mutating (`RSW701`)** | Grants NTFS `FILE_GENERIC_MODIFY` (`OI|CI`) via `SetNamedSecurityInfoW` (defaults to `"Users"` / `S-1-5-32-545`). |
+
+## `com.*`, `font.*`, `sign.*`, `cert.*`, `mutex.*` & `activesetup.*` — v1.3 Windows Packaging Power Tools (`16` Methods) {#com-font-cert-mutex-activesetup}
+
+> [!TIP] **Zero-`HKCR` Reg-Free COM Isolation for Classic VB6 & ActiveX Apps**: Instead of polluting global `HKCR\CLSID` keys (which causes "DLL Hell" across side-by-side versions of classic Visual Basic 6.0 / `.ocx` utilities like early *StoreTrainer*), `com.generateRegFreeManifest` inspects each `.dll`/`.ocx` via `oleaut32.dll!LoadTypeLibEx(..., REGKIND_NONE)` and emits a deterministic Windows Side-by-Side `.exe.manifest` XML file!
+
+| Method | Signature | Return | Mutating? | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `com.inspectTypeLib` | `com.inspectTypeLib(dllOrOcx: path)` | `map` | Wizard-Safe | Reads COM `ITypeLib` metadata via `REGKIND_NONE` (`{ found, libId, version, libraryName, coclasses }`) without touching the Registry. |
+| `com.generateRegFreeManifest` | `com.generateRegFreeManifest(exePath: path, comFiles: array, outManifest: path)` | `bool` | **Mutating (`RSW701`)** | Generates a Side-by-Side `.exe.manifest` (`<file>`, `<typelib>`, `<comClass>`) for zero-Registry ActiveX/VB6 isolation (rollback-tracked). |
+| `com.registerInproc` | `com.registerInproc(dllOrOcx: path)` | `bool` | **Mutating (`RSW701`)** | Invokes `DllRegisterServer` on an in-process COM server when global registration is explicitly required. |
+| `com.unregisterInproc` | `com.unregisterInproc(dllOrOcx: path)` | `bool` | **Mutating (`RSW701`)** | Invokes `DllUnregisterServer` on an in-process COM server. |
+| `font.isInstalled` | `font.isInstalled(fontFileName: path, scope?: string)` | `bool` | Wizard-Safe | Checks `%LOCALAPPDATA%\Microsoft\Windows\Fonts` (`"user"`) or `C:\Windows\Fonts` (`"machine"`). |
+| `font.install` | `font.install(fontFile: path, scope?: string, displayName?: string)` | `path` | **Mutating (`RSW701`)** | Copies `.ttf`/`.otf`, registers `CurrentVersion\Fonts`, calls `AddFontResourceExW`, and broadcasts `WM_FONTCHANGE` with zero reboot! |
+| `font.uninstall` | `font.uninstall(fontFileName: path, scope?: string, displayName?: string)` | `bool` | **Mutating (`RSW701`)** | Calls `RemoveFontResourceExW`, deletes font entry, and broadcasts `WM_FONTCHANGE`. |
+| `sign.inspect` | `sign.inspect(peFile: path)` | `map` | Wizard-Safe | Extracts X.509 / PKCS#7 Authenticode details via `crypt32.dll` (`{ signed, trusted, subject, issuer, thumbprintSha1 }`). |
+| `cert.isInstalled` | `cert.isInstalled(thumbprintSha1: string, store?: string, scope?: string)` | `bool` | Wizard-Safe | Checks `CertStore.TrustedPublisher` / `CertStore.Root` for a matching SHA-1 certificate thumbprint. |
+| `cert.importTrustedPublisher` | `cert.importTrustedPublisher(cerFile: path, scope?: string)` | `bool` | **Mutating (`RSW701`)** | Imports a DER or Base64 PEM `.cer` certificate into `TrustedPublisher`. |
+| `cert.remove` | `cert.remove(thumbprintSha1: string, store?: string, scope?: string)` | `bool` | **Mutating (`RSW701`)** | Deletes a certificate by SHA-1 thumbprint from the target Windows certificate store. |
+| `mutex.isHeld` | `mutex.isHeld(mutexName: string)` | `bool` | Wizard-Safe | Probes `OpenMutexW(SYNCHRONIZE)` for `"Global\\..."` or `"Local\\..."` single-instance application locks. |
+| `mutex.waitRelease` | `mutex.waitRelease(mutexName: string, timeoutMs?: int)` | `bool` | Wizard-Safe | Waits up to `timeoutMs` (default `5000`) for a running application mutex to close cleanly. |
+| `activesetup.isRegistered` | `activesetup.isRegistered(componentId: string)` | `bool` | Wizard-Safe | Checks `Active Setup\Installed Components\<componentId>`. |
+| `activesetup.register` | `activesetup.register(id: string, stubPath: string, version?: string, title?: string)` | `bool` | **Mutating (`RSW701`)** | Registers per-machine Active Setup `StubPath` so every Windows user profile hydrates per-user settings on next sign-in! |
+| `activesetup.unregister` | `activesetup.unregister(componentId: string)` | `bool` | **Mutating (`RSW701`)** | Removes Active Setup `Installed Components` registration. |
 
 
 ================================================================================
@@ -1285,7 +1375,7 @@ All modal dialogs auto-bypass cleanly in `/s` silent mode without hanging unatte
 | `ui.pickFolder` | `ui.pickFolder(title?: string, initialDir?: string)` | `path` | Opens modern Explorer `IFileOpenDialog(FOS_PICKFOLDERS)` (`path("")` if cancelled). |
 | `ui.pickFile` | `ui.pickFile(title?: string, initialDir?: string, filterSpec?: string)` | `path` | Opens modern Explorer `IFileOpenDialog` file picker. |
 
-## `wizard.*` & `showcase.*` — Wizard Navigation & Showcase Studio Canvas (`8` Methods) {#wizard-showcase-namespaces}
+## `wizard.*` & `showcase.*` — Wizard Navigation & Showcase Studio Canvas (`15` Methods) {#wizard-showcase-namespaces}
 
 | Method | Signature | Return | Description |
 | :--- | :--- | :--- | :--- |
@@ -1295,6 +1385,13 @@ All modal dialogs auto-bypass cleanly in `/s` silent mode without hanging unatte
 | `showcase.navigate` | `showcase.navigate(pageId: string)` | `string` | Switches the active **RaggieSoft Showcase Studio** canvas page (`"Main"`, `"LinerNotes"`, `"ProgressPage"`). |
 | `showcase.setHotspotEnabled` | `showcase.setHotspotEnabled(hotspotId: string, enabled: bool)` | `bool` | Enables or disables an accessible UIA `BUTTON` hotspot on the Showcase canvas. |
 | `showcase.setHotspotBadge` | `showcase.setHotspotBadge(hotspotId: string, badgeText: string)` | `bool` | Updates dynamic hotspot badge/caption (e.g., toggling `"&Install"` <-> `"&Launch"`). |
+| `showcase.setHotspotVisible` | `showcase.setHotspotVisible(hotspotId: string, visible: bool)` | `bool` | Shows or hides a canvas hotspot cleanly without leaving dead keyboard tab stops. |
+| `showcase.setHotspotLabel` | `showcase.setHotspotLabel(hotspotId: string, labelText: string)` | `bool` | Updates both the rendered caption and UI Automation `Name` property of a hotspot. |
+| `showcase.setHotspotTooltip` | `showcase.setHotspotTooltip(hotspotId: string, tooltipText: string)` | `bool` | Updates keyboard-focus and mouse-hover descriptive help text on a hotspot. |
+| `showcase.focusHotspot` | `showcase.focusHotspot(hotspotId: string)` | `bool` | Moves deterministic keyboard & UIA focus to `hotspotId` after a dialog or install completes. |
+| `showcase.openBooklet` | `showcase.openBooklet(docRelPath: string, page?: int)` | `bool` | Opens Showcase Studio's accessible collector liner-notes / booklet reader at optional `page`. |
+| `showcase.openGallery` | `showcase.openGallery(galleryId: string, initialIndex?: int)` | `bool` | Opens high-DPI collector artwork gallery lightbox with full alt-text narration. |
+| `showcase.announceSr` | `showcase.announceSr(message: string, assertive?: bool)` | `bool` | Broadcasts a polite UI Automation screen-reader live-region announcement (`UiaRaiseNotificationEvent`). |
 | `showcase.playAudio` | `showcase.playAudio(trackRelPath: string, captionVttPath?: string)` | `bool` | Plays captioned Showcase background audio **only** after explicit user unmute (never autoplays per WCAG 1.4.2). |
 | `showcase.stopAudio` | `showcase.stopAudio()` | `bool` | Stops Showcase audio playback cleanly. |
 
@@ -1321,9 +1418,9 @@ TOPIC: Studio Profiles (training.*, a11y.*, localization.*, document.*, launcher
 
 Because RaggieScript powers **all eight RaggieSoft Studio tools**, scripts authored for compliance, e-learning, localization, PDF generation, or help routing run inside **strict compile-time capability sandboxes (`RSW702`)**.
 
-> [!IMPORTANT] **Zero Host Escape Guarantee (`RSW702`)**: Whenever a script declares `use training;`, `use a11y;`, `use localization;`, or `use document;` (without `use installer;`), the RaggieScript static binder rejects **at compile time** any call to `fs.*`, `reg.*`, `proc.*`, `ffi.*`, `rm.*`, `svc.*`, `net.*`, `msi.*`, `prereq.*`, `shortcut.*`, `shell.*`, `firewall.*`, `acl.*`, `task.*`, `env.*`, `arp.*`, `ini.*`, or `archive.*`.
+> [!IMPORTANT] **Zero Host Escape Guarantee (`RSW702`)**: Whenever a script declares `use training;`, `use a11y;`, `use localization;`, `use document;`, `use storescript;`, or `use crossroads;` (without `use installer;`), the RaggieScript static binder rejects **at compile time** any call to `fs.*`, `reg.*`, `proc.*`, `ffi.*`, `rm.*`, `svc.*`, `net.*`, `msi.*`, `prereq.*`, `shortcut.*`, `shell.*`, `firewall.*`, `acl.*`, `task.*`, `env.*`, `arp.*`, `ini.*`, `archive.*`, `com.*`, `font.*`, `cert.*`, `sign.*`, `mutex.*`, or `activesetup.*`. *(For consumer profiles `storescript.*` and `crossroads.*`, see [StoreScript & Story Crossroads](storescript-and-crossroads.html).)*
 
-## `training.*` — RaggieSoft Training Studio SCORM 1.2 & 2004 (`4` Methods) {#training-namespace}
+## `training.*` — RaggieSoft Training Studio SCORM 1.2 & 2004 (`9` Methods) {#training-namespace}
 
 Compiles via `raggiescript.exe transpile-es2022` into a pure, zero-`eval()` ES2022 JavaScript module (`createRaggieScriptModule(host)`) for `< 50 KB` bandwidth-resilient SCORM courses, and also executes natively in the C++20 and `.NET` VMs for headless rubric testing!
 
@@ -1333,6 +1430,11 @@ Compiles via `raggiescript.exe transpile-es2022` into a pure, zero-`eval()` ES20
 | `training.completeSlide` | `training.completeSlide(slideId: string)` | `bool` | Marks `slideId` complete in Training Studio's offline Write-Ahead Queue (`WAL`). |
 | `training.branchTo` | `training.branchTo(targetSlideId: string)` | `string` | Routes the learner to an adaptive scenario or remediation slide and returns `targetSlideId`. |
 | `training.recordObjective` | `training.recordObjective(objectiveId: string, status: string, score?: int)` | `bool` | Records SCORM 2004 4th Edition `cmi.objectives.n` (`"passed"` / `"failed"` / `"completed"`). |
+| `training.getState` | `training.getState(key: string, fallback?: any)` | `any` | Reads persisted `cmi.suspend_data` scenario variable (`<= 4,096` byte SCORM 1.2 safe). |
+| `training.setState` | `training.setState(key: string, value: any)` | `bool` | Writes persisted `cmi.suspend_data` scenario state across LMS sessions. |
+| `training.recordInteraction` | `training.recordInteraction(id: string, kind: string, learnerResponse: string, result?: string, latencySec?: float)` | `bool` | Appends a structured SCORM `cmi.interactions.n` item-analysis record. |
+| `training.announcePolite` | `training.announcePolite(message: string)` | `bool` | Emits a polite `aria-live="polite"` feedback announcement for screen-reader learners. |
+| `training.unlockNextSlide` | `training.unlockNextSlide(slideId?: string)` | `bool` | Unlocks the gated **Next** button after interactive scenario requirements are met. |
 
 ```rssc
 use training;
@@ -1354,29 +1456,162 @@ fn gradeAssessment(points: int, maxPoints: int) : string {
 }
 ```
 
-## `a11y.*` — RaggieSoft Accessibility Studio Custom Compliance Rules (`2` Methods) {#a11y-namespace}
+## `a11y.*` — RaggieSoft Accessibility Studio Custom Compliance Rules (`7` Methods) {#a11y-namespace}
 
-Executed inside `AccessibilityStudio.exe` and `a11y-studio-cli` via our managed `.NET` `RaggieScript.Core` SDK (and C++20 VM) to enforce organization-specific WCAG 2.2 AA & Section 508 design-system rules outputting OASIS SARIF 2.1.0:
+Executed inside `AccessibilityStudio.exe` and `a11y-studio-cli` via our managed `.NET` `RaggieScript.Core` SDK (and C++20 VM) to enforce organization-specific WCAG 2.2 AA & Section 508 design-system rules outputting OASIS SARIF 2.1.0 and Monaco Guided Fix diffs:
 
 | Method | Signature | Return | Description |
 | :--- | :--- | :--- | :--- |
 | `a11y.contrastRatio` | `a11y.contrastRatio(fgHex: string, bgHex: string)` | `float` | Computes exact W3C WCAG 2.2 relative luminance contrast ratio (`1.0` .. `21.0`) between two `#RRGGBB` colors. |
 | `a11y.reportViolation` | `a11y.reportViolation(ruleId: string, targetId: string, message: string, severity?: string, line?: int)` | `null` | Appends a structured SARIF 2.1.0 / VPAT diagnostic finding. |
+| `a11y.suggestFix` | `a11y.suggestFix(ruleId: string, title: string, beforeSnippet: string, afterSnippet: string, explanation?: string)` | `map` | Registers a side-by-side Guided Fix diff preview inside Accessibility Studio's Monaco editor. |
+| `a11y.queryHtml` | `a11y.queryHtml(markup: string, tagOrAttrSelector: string)` | `array` | Queries HTML/XAML markup for matching elements (`"img"`, `"[aria-hidden]"`, `"*"`) returning `{ tag, attrs, outer }[]`. |
+| `a11y.parseVttCues` | `a11y.parseVttCues(vttText: string)` | `array` | Parses WebVTT captions into `{ index, startSec, endSec, text, cps, lineCount }[]` maps. |
+| `a11y.hasAccessibleName` | `a11y.hasAccessibleName(elementMarkup: string)` | `bool` | Checks whether an element snippet exposes `aria-label`, `aria-labelledby`, or `alt`. |
+| `a11y.isTouchTargetCompliant` | `a11y.isTouchTargetCompliant(widthPx: float, heightPx: float, minPx?: float)` | `bool` | Verifies WCAG 2.2 SC 2.5.8 Target Size (`>= 24x24` CSS px default, or `minPx: 44` for mobile bars). |
 
-## `localization.*` — RaggieSoft Localization Studio QA Gates (`2` Methods) {#localization-namespace}
+## `localization.*` — RaggieSoft Localization Studio QA Gates (`7` Methods) {#localization-namespace}
 
 | Method | Signature | Return | Description |
 | :--- | :--- | :--- | :--- |
 | `localization.hasToken` | `localization.hasToken(translatedText: string, token: string)` | `bool` | Verifies that locked format placeholders (`"{0}"`, `"$(ARCH)"`, `"[INSTALLDIR]"`, `"${name}"`) survived translation intact. |
 | `localization.cps` | `localization.cps(cueText: string, durationSeconds: float)` | `float` | Computes WebVTT closed-caption reading speed in characters per second (`<= 22.0` CPS WCAG / broadcast target). |
+| `localization.extractTokens` | `localization.extractTokens(sourceText: string)` | `array` | Extracts sorted locked placeholders (`{0}`, `$(VAR)`, `[PROP]`, `%s`) from `sourceText`. |
+| `localization.tokensMatch` | `localization.tokensMatch(sourceText: string, translatedText: string)` | `bool` | Returns `true` when `sourceText` and `translatedText` contain the exact same placeholder multiset. |
+| `localization.findMnemonic` | `localization.findMnemonic(controlLabel: string)` | `string` | Extracts the uppercase Win32 `&` accelerator key character (ignoring escaped `&&`), or `""`. |
+| `localization.isRtl` | `localization.isRtl(bcp47Locale: string)` | `bool` | Returns `true` for Right-to-Left BCP-47 locales (`ar-*`, `he-*`, `fa-*`, `ur-*`). |
+| `localization.expansionRatio` | `localization.expansionRatio(sourceText: string, translatedText: string)` | `float` | Returns `len(translatedText) / len(sourceText)` so narrow Win32/MSI dialog buttons never clip. |
 
-## `document.*`, `launcher.*` & `help.*` — PDF/UA-1, Release Rings & `F1` Routing (`3` Methods) {#doc-launcher-help-namespaces}
+## `document.*`, `launcher.*` & `help.*` — PDF/UA-1, Release Rings & `F1` Routing (`15` Methods) {#doc-launcher-help-namespaces}
 
 | Method | Signature | Return | Studio Host & Purpose |
 | :--- | :--- | :--- | :--- |
 | `document.bindField` | `document.bindField(fieldName: string, value: any)` | `null` | **Document Studio**: Binds computed values into ISO 14289-1 Tagged `PDF/UA-1` AcroForm & template fields. |
+| `document.getField` | `document.getField(fieldName: string, fallback?: any)` | `any` | **Document Studio**: Reads the current value bound to an AcroForm/template field. |
+| `document.bindTable` | `document.bindTable(tableId: string, rows: array)` | `bool` | **Document Studio**: Populates a Tagged PDF `<Table>` with automatic `<TH Scope="Col">` accessibility headers. |
+| `document.setMetadata` | `document.setMetadata(key: string, value: string)` | `bool` | **Document Studio**: Stamps XMP / `PDF/UA-1` metadata (`"title"`, `"lang"`, `"author"`, `"subject"`). |
+| `document.validateField` | `document.validateField(fieldName: string, errorMessage: string)` | `bool` | **Document Studio**: Attaches an accessible Section 508 validation message to `fieldName`. |
+| `document.formatCurrency` | `document.formatCurrency(amount: float, symbol?: string)` | `string` | **Document Studio**: Formats numeric totals as deterministic currency strings (`"$1250.00"`). |
 | `launcher.selectChannel` | `launcher.selectChannel(ringSlug: string)` | `string` | **Launcher Studio**: Selects `"stable"`, `"preview"`, or `"lts"` update ring based on hardware/OS policy. |
+| `launcher.bestArchVariant` | `launcher.bestArchVariant(assetUrls: array, preferredArch?: string)` | `string` | **Launcher Studio**: Picks native `arm64` vs `x64` package asset matching physical silicon (`IsWow64Process2`). |
+| `launcher.checkDiskBudgetMB` | `launcher.checkDiskBudgetMB(availableMB: int, requiredMB: int)` | `bool` | **Launcher Studio**: Verifies download + extraction disk budget before fetching delta packs. |
+| `launcher.compareCatalogVersion` | `launcher.compareCatalogVersion(localVer: version, remoteVer: version)` | `int` | **Launcher Studio**: Compares two 4-part catalog versions (`-1`, `0`, `1`). |
+| `launcher.setShelfBadge` | `launcher.setShelfBadge(appSlug: string, badgeLabel: string)` | `bool` | **Launcher Studio**: Sets consumer-friendly shelf status badge (`"Ready to Launch"`, `"Update Available"`). |
 | `help.routeContextId` | `help.routeContextId(contextId: int, topicSlugAndAnchor: string)` | `bool` | **Help Studio**: Dynamically maps a Win32 `WM_HELP` numeric `ContextId` to a `topic#anchor` destination. |
+| `help.includeWhen` | `help.includeWhen(topicSlug: string, condition: bool)` | `bool` | **Help Studio**: Conditionally includes or excludes `topicSlug` in edition-filtered `.rshp` builds. |
+| `help.registerSearchAlias` | `help.registerSearchAlias(keyword: string, targetTopicSlug: string)` | `bool` | **Help Studio**: Adds extra `Ctrl+K` instant-search synonyms pointing to `targetTopicSlug`. |
+| `help.reportBrokenAnchor` | `help.reportBrokenAnchor(sourceTopic: string, targetAnchor: string)` | `null` | **Help Studio**: Emits a build-time broken cross-reference diagnostic. |
+
+
+================================================================================
+TOPIC: StoreScript (StoreTrainer) & Story Crossroads Interactive Fiction [storescript-and-crossroads] (Wizard UI & Studio Sandboxes)
+================================================================================
+
+# `storescript.*` (StoreTrainer) & `crossroads.*` (Story Crossroads) {#storescript-and-crossroads}
+
+RaggieScript v1.3 brings first-class, `RSW702` capability-sandboxed domain profiles to two flagship RaggieSoft consumer experiences: **StoreScript (`use storescript;`)** for **RaggieSoft StoreTrainer**, and **Story Crossroads (`use crossroads;`)** for interactive branching novels in **RaggieSoft Book Reader** and **`https://crossroads.raggiesoft.com`**.
+
+> [!IMPORTANT] **Zero OS Escape Guarantee (`RSW702`)**: Both `use storescript;` and `use crossroads;` are strictly sandboxed at compile time. Neither profile can call `fs.*`, `reg.*`, `proc.*`, `ffi.*`, `net.*`, `msi.*`, `svc.*`, `com.*`, or `archive.*`—meaning community trainer scripts and interactive fiction modules are 100% safe to share, inspect, and execute offline without antivirus false positives or host filesystem risk.
+
+---
+
+## `storescript.*` — StoreScript Save-File & Config Trainer DSL (`20` Methods) {#storescript-namespace}
+
+### Origin Story: Hello, StoreScript! {#storescript-origin}
+
+Long before RaggieScript unified all eight RaggieSoft Studio developer tools, Michael P. Ragsdale envisioned **StoreScript** as a dedicated scripting language for **RaggieSoft StoreTrainer** (`storetrainer.raggiesoft.com`—originally created in the pre-AI Visual Basic 6.0 `TStore.vbp` era as an offline single-player PC game save-file and trainer utility).
+
+In RaggieScript v1.3, **StoreScript is officially part of RaggieScript**:
+- The host application (*StoreTrainer* on `.NET` via `RsscManagedRuntime.StoreScript` or C++20 via `RaggieScriptVm::LoadStoreScriptBuffer`) loads **only** the single save file or JSON configuration explicitly selected by the user into an isolated in-memory workspace.
+- StoreScript provides automatic undo snapshots (`storescript.backupSave` / `restoreBackup`), wildcard hex-signature scanning (`"43 52 45 44 ?? ??"`), bounds-checked and min/max-clamped little-endian binary reads/writes (`U8`, `I16LE`, `I32LE`, `F32LE`, `Ascii`), IEEE 802.3 CRC-32 save-checksum recalculation (`crc32Range`), and dot-path JSON config editing (`getJson` / `setJson`).
+
+### Complete `storescript.*` API Reference {#storescript-methods}
+
+| Method | Signature | Return | Description |
+| :--- | :--- | :--- | :--- |
+| `storescript.profile` | `storescript.profile(id: string, title?: string, saveGlob?: string)` | `map` | Declares trainer metadata (`{ id, title, saveGlob }`) for StoreTrainer's library shelf. |
+| `storescript.backupSave` | `storescript.backupSave(tag?: string)` | `string` | Captures an instant snapshot of the active save buffer and returns its `backupId`. |
+| `storescript.restoreBackup` | `storescript.restoreBackup(backupId?: string)` | `bool` | Restores the active save buffer from `backupId` (or the most recent snapshot when omitted). |
+| `storescript.size` | `storescript.size()` | `int` | Returns the byte length of the active binary save buffer. |
+| `storescript.readU8` | `storescript.readU8(offset: int)` | `int` | Reads an unsigned 8-bit integer (`0..255`) at `offset` (bounds-checked). |
+| `storescript.writeU8` | `storescript.writeU8(offset: int, value: int, min?: int, max?: int)` | `bool` | Clamps `value` to `[min, max]` (`0..255`) and writes 1 byte at `offset`. |
+| `storescript.readI16LE` | `storescript.readI16LE(offset: int)` | `int` | Reads a signed 16-bit little-endian integer (`-32768..32767`) at `offset`. |
+| `storescript.writeI16LE` | `storescript.writeI16LE(offset: int, value: int, min?: int, max?: int)` | `bool` | Clamps `value` and writes a 16-bit little-endian integer at `offset`. |
+| `storescript.readI32LE` | `storescript.readI32LE(offset: int)` | `int` | Reads a signed 32-bit little-endian integer at `offset`. |
+| `storescript.writeI32LE` | `storescript.writeI32LE(offset: int, value: int, min?: int, max?: int)` | `bool` | Clamps `value` to `[min, max]` and writes a 32-bit little-endian integer at `offset`. |
+| `storescript.readU32LE` | `storescript.readU32LE(offset: int)` | `int` | Reads an unsigned 32-bit little-endian integer (`0..4294967295`) at `offset`. |
+| `storescript.writeU32LE` | `storescript.writeU32LE(offset: int, value: int, min?: int, max?: int)` | `bool` | Clamps `value` (`0..4294967295`) and writes an unsigned 32-bit little-endian integer (ideal for CRC-32 checksums). |
+| `storescript.readF32LE` | `storescript.readF32LE(offset: int)` | `float` | Reads a 32-bit IEEE 754 little-endian float at `offset`. |
+| `storescript.writeF32LE` | `storescript.writeF32LE(offset: int, value: float, min?: float, max?: float)` | `bool` | Clamps `value` and writes a 32-bit IEEE 754 little-endian float at `offset`. |
+| `storescript.readAscii` | `storescript.readAscii(offset: int, maxLen: int)` | `string` | Reads a null-padded fixed-width ASCII string of up to `maxLen` bytes at `offset`. |
+| `storescript.writeAscii` | `storescript.writeAscii(offset: int, text: string, maxLen?: int)` | `bool` | Writes `text` at `offset` and zero-pads any remaining bytes up to `maxLen`. |
+| `storescript.findPatternHex` | `storescript.findPatternHex(patternHex: string, startOffset?: int)` | `int` | Scans the save buffer for a hex byte signature supporting `??` wildcards (`"43 52 45 44 ?? ??"`); returns 0-based byte offset or `-1`. |
+| `storescript.crc32Range` | `storescript.crc32Range(startOffset?: int, length?: int)` | `int` | Computes standard unsigned IEEE 802.3 CRC-32 over `[startOffset, startOffset + length)` so patched saves pass integrity checks! |
+| `storescript.getJson` | `storescript.getJson(dotPath: string, fallback?: any)` | `any` | Reads a nested key (`"audio.subtitleScale"`) from the loaded JSON save/config document. |
+| `storescript.setJson` | `storescript.setJson(dotPath: string, value: any)` | `bool` | Updates or creates a nested dot-path key inside the loaded JSON save/config document. |
+
+```rssc
+use storescript;
+
+const meta = storescript.profile("cedar-run-tactics", "Cedar Run Tactics — Save Utility", "*.sav");
+
+fn applyCreditsBoost(requestedCredits: int) : map {
+    const snap = storescript.backupSave("pre-credits");
+    const sigOffset = storescript.findPatternHex("43 52 45 44 ?? ??");
+    if (sigOffset < 0) {
+        return { ok: false, reason: "Signature not found" };
+    }
+
+    // Write clamped 32-bit little-endian credits right after the 6-byte header
+    storescript.writeI32LE(sigOffset + 6, requestedCredits, min: 0, max: 999999);
+
+    // Recompute IEEE CRC-32 over payload bytes [4..size) and store at offset 0
+    const crc = storescript.crc32Range(4, storescript.size() - 4);
+    storescript.writeU32LE(0, crc);
+    return { ok: true, backupId: snap, newCredits: storescript.readI32LE(sigOffset + 6), crc32: crc };
+}
+```
+
+---
+
+## `crossroads.*` — RaggieSoft Story Crossroads Interactive Novel Engine (`8` Methods) {#crossroads-namespace}
+
+**RaggieSoft Story Crossroads** (`crossroads.raggiesoft.com`, in-universe Architects: *Rowan & Iris Hawthorne*) is RaggieSoft's independent interactive-fiction imprint. A single `use crossroads;` `.rssc` file executes natively inside **RaggieSoft Book Reader** (`.NET`) and compiles via `raggiescript.exe transpile-es2022` (or `RsscEs2022Transpiler.TryTranspile`) into a zero-`eval()` ES2022 JavaScript module for the web!
+
+| Method | Signature | Return | Targets | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `crossroads.visit` | `crossroads.visit(nodeId: string)` | `int` | C++20, `.NET`, `ES2022` | Marks narrative route node `nodeId` visited and returns the updated visit count (`1` on first visit). |
+| `crossroads.visited` | `crossroads.visited(nodeId: string)` | `bool` | C++20, `.NET`, `ES2022` | Returns `true` if the reader has previously visited `nodeId`. |
+| `crossroads.visitCount` | `crossroads.visitCount(nodeId: string)` | `int` | C++20, `.NET`, `ES2022` | Returns how many times the reader has visited `nodeId`. |
+| `crossroads.setFlag` | `crossroads.setFlag(key: string, value?: any)` | `bool` | C++20, `.NET`, `ES2022` | Stores a persistent branching narrative flag (`value` defaults to `true`). |
+| `crossroads.getFlag` | `crossroads.getFlag(key: string, fallback?: any)` | `any` | C++20, `.NET`, `ES2022` | Reads narrative flag `key` (or `fallback`, default `false`). |
+| `crossroads.adjustStat` | `crossroads.adjustStat(statKey: string, delta: int, min?: int, max?: int)` | `int` | C++20, `.NET`, `ES2022` | Adds `delta` to `statKey`, clamps within `[min, max]`, and returns the updated value. |
+| `crossroads.offerOption` | `crossroads.offerOption(label: string, targetNode: string, enabled?: bool, note?: string)` | `bool` | C++20, `.NET`, `ES2022` | Registers an interactive route option card (`{ label, target, enabled, note }`) for the current scene. |
+| `crossroads.options` | `crossroads.options()` | `array` | C++20, `.NET`, `ES2022` | Returns all offered route option maps for the active Story Crossroads scene. |
+
+```rssc
+use crossroads;
+
+fn evaluateKeystoneBridgeScene(hasLanternKey: bool) : array {
+    const visits = crossroads.visit("cpi-keystone-bridge-dusk");
+    if (hasLanternKey) {
+        crossroads.setFlag("unlockedArchivistVault", true);
+    }
+    crossroads.offerOption(
+        "Inspect the Ironstone keystone inscription with Iris",
+        "cpi-pendleton-archive",
+        true,
+        visits > 1 ? "Revisit with new clues" : "First inspection"
+    );
+    crossroads.offerOption(
+        "Unlock the lower Commonwealth Mall lantern passage",
+        "cpi-lantern-vault",
+        crossroads.getFlag("unlockedArchivistVault", false) == true,
+        "Requires the Archivist's brass lantern key"
+    );
+    return crossroads.options();
+}
+```
 
 
 ================================================================================
@@ -1504,7 +1739,8 @@ Each instruction is a fixed compact tuple `(op: uint8, a: uint32, b: int32, srcL
 | `CALL_HOST` | `a` (`ns.method`), `b` (`argc`) | `-(2*argc) + 1` | Pops named/positional `(argName, argVal)` pairs and invokes the 21-namespace C++20 Stdlib. |
 | `CALL_VALUE` | `b` (`argc`) | `-(2*argc)` | Invokes user `fn`, global builtin, or first-class closure value! |
 | `WIZ_STEP_BEGIN` / `WIZ_STEP_END` | `a` (step name) | `0` | Registers declarative Wizard step boundaries with `RsscWizardUiEngine`. |
-| `RETURN` / `EXIT_SETUP` / `THROW` | — | `-1` | Returns from chunk, exits setup with Win32 exit code, or raises catchable exception. |
+| `DEFER_PUSH` | `a` (defer chunk idx) | `0` | Pushes a lexical cleanup closure onto the current frame's LIFO `defer` stack (executed on `RET` or `THROW`). |
+| `RETURN` / `EXIT_SETUP` / `THROW` | — | `-1` | Runs frame `defer` stack in LIFO order, then returns from chunk, exits setup, or raises catchable exception. |
 
 > [!TIP] Inspect the exact bytecode generated for any `.rssc` script at any time by running `raggiescript.exe disasm my-setup.rssc`!
 

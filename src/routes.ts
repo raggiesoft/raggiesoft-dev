@@ -73,21 +73,21 @@ function renderHomeBody(): string {
       <div class="lab-grid-2x2">
         <article class="card" style="border: 2px solid var(--primary);">
           <div>
-            <span class="eyebrow">Canonical Language Reference • 16 Chapters • 175+ Indexed Calls &amp; .NET SDK</span>
-            <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.2 (<code>.rssc</code>)</h3>
+            <span class="eyebrow">Canonical Language Reference • 17 Chapters • 260+ Indexed Calls, StoreScript &amp; .NET SDK</span>
+            <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.3 (<code>.rssc</code>)</h3>
             <p>
-              Complete <code>learn.microsoft.com</code>-style reference documenting every function, property, enum constant,
-              23-method zero-dependency <code>archive.*</code> suite (<code>.7z</code>/<code>LZMA2</code>, <code>.zip</code>,
-              <code>.rswpak</code>, <code>.cab</code>, <code>.tar.zst</code>, <code>.iso</code>, <code>.wim</code>),
-              declarative Win32 Wizard UI control, <strong>two-way <code>.NET</code> Host SDK (<code>RaggieScript.Core</code>)</strong>,
-              <code>RSWBC2</code> opcode, and <code>RSW700</code>&ndash;<code>RSW715</code> diagnostic—compiled by
-              <code>rshbuild.exe</code> with instant <code>Ctrl+K</code> symbol search.
+              Complete <code>learn.microsoft.com</code>-style reference documenting all <strong>31 built-in namespaces</strong>,
+              <code>defer</code> LIFO cleanup, <code>?.</code> optional chaining, built-in <code>raggiescript.exe test</code> runner,
+              23-method zero-DLL <code>archive.*</code> suite (<code>.7z</code>/<code>LZMA2</code>, <code>.zip</code>,
+              <code>.rswpak</code>, <code>.cab</code>, <code>.tar.zst</code>, <code>.iso</code>, <code>.wim</code>), Reg-Free COM
+              <code>com.generateRegFreeManifest</code>, <strong>StoreScript (<code>use storescript;</code> for StoreTrainer)</strong>,
+              <strong>Story Crossroads (<code>use crossroads;</code>)</strong>, and the <strong>two-way <code>.NET</code> Host SDK</strong>!
             </p>
           </div>
           <div class="btn-row">
             <a class="btn btn-primary" href="https://raggiescript.raggiesoft.dev">Open RaggieScript Docs &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiescript.raggiesoft.dev/storescript-and-crossroads.html">StoreScript &amp; Crossroads</a>
             <a class="btn btn-outline" href="https://raggiescript.raggiesoft.dev/api-index.html">Master A&ndash;Z API Index</a>
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/raggiescript">Studio Playground</a>
           </div>
         </article>
 
@@ -125,17 +125,18 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'compilers'" style="border: 2px solid var(--primary);">
           <div>
             <span class="eyebrow">Flagship • Static /MT Win32 C++20 • x64 &amp; ARM64</span>
-            <h3>RaggieSoft Installer Studio (v0.7.0 Shipping • Archive v0.5.0&ndash;v0.7.0)</h3>
+            <h3>RaggieSoft Installer Studio (v0.8.0 Shipping • Archive v0.5.0&ndash;v0.8.0)</h3>
             <p>
-              Zero-dependency Windows packaging suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe --edition=...</code>,
-              <code>SetupWizard.exe</code>, standalone read/write <code>msiprism.exe</code>, standalone <code>rswsfx.exe</code>, &amp;
-              <code>RaggieSoftHelp.exe</code>) featuring <strong>Dual WYSIWYG Dialog Designers</strong> built on shared
-              <code>RaggieSoftVisualCanvas.hpp</code>, turnkey <strong><code>RsDialog</code></strong> wizard scripting, non-clobbering
-              <code>[Environment.*]</code> <code>PATH</code> updates, and <strong>monotonic Dual-Bar Suites</strong>.
+              Zero-dependency Windows packaging &amp; servicing suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe --plan-update</code>,
+              <code>SetupWizard.exe</code>, <code>RsPatch.exe</code> <code>msdelta.dll</code> <code>.msp</code> &amp;
+              <strong>RaggieScript EXE</strong> <code>.rswpatch</code> binary deltas, DRY <code>RsUpdate.exe</code>
+              <code>apps-manifest.json</code> updater, read/write <code>msiprism.exe</code>, <code>rswsfx.exe</code>, &amp;
+              <code>RaggieSoftHelp.exe</code>) with <strong>Dual WYSIWYG Dialog Designers</strong>, turnkey <code>RsDialog</code>,
+              and <strong>monotonic Dual-Bar Suites</strong>.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/download">Download v0.7.0 &rarr;</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.8.0) &rarr;</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/download/previous-versions">Previous Versions</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio">Installer Hub</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
@@ -163,12 +164,12 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'compilers' || filter === 'desktop'">
           <div>
             <span class="eyebrow">Shipped Multi-Target SDK • Static C++20, .NET &amp; ES2022</span>
-            <h3>RaggieScript v1.0 (.rssc) — Linear Stack VM, Type Binder &amp; Wizard UI</h3>
+            <h3>RaggieScript v1.3 (.rssc) — 31-Namespace VM, StoreScript &amp; Wizard UI</h3>
             <p>
               Gradually typed curly-brace scripting &amp; declarative UI language (<code>struct</code>, <code>enum</code>,
-              <code>match</code>, <code>=&gt;</code> closures, <code>RSW701</code>&ndash;<code>RSW715</code> static diagnostics,
-              <code>RSWBC2</code> SHA-256 linear stack bytecode, Per-Monitor V2 DPI Win32 Wizard UI engine, <code>fmt</code>,
-              JSON-RPC 2.0 <code>lsp</code>, <code>.NET</code> <code>RaggieScript.Core</code>, and zero-<code>eval()</code> SCORM <code>ES2022</code>).
+              <code>match</code>, <code>=&gt;</code> closures, <code>defer</code>, <code>?.</code>, <code>raggiescript.exe test</code>,
+              <code>RSW701</code>&ndash;<code>RSW715</code> static diagnostics, <code>RSWBC2</code> SHA-256 bytecode, Reg-Free COM,
+              <code>StoreScript</code> save-trainer sandbox, <code>Story Crossroads</code>, <code>.NET</code> <code>RaggieScript.Core</code>, &amp; zero-<code>eval()</code> <code>ES2022</code>).
             </p>
           </div>
           <div class="btn-row">
@@ -338,17 +339,17 @@ function renderLabsBody(): string {
 
         <article class="card">
           <div>
-            <span class="status-pill">Lab Track 04 • Staged in Installer Studio v0.6.0 &amp; v0.7.0</span>
-            <h3>Shared <code>RaggieSoftVisualCanvas</code> Designers, Turnkey <code>RsDialog</code> &amp; Dual-Bar Suites</h3>
+            <span class="status-pill">Lab Track 04 • Shipped in Installer Studio v0.7.0 &amp; v0.8.0</span>
+            <h3>Shared <code>RaggieSoftVisualCanvas</code> Designers, <code>RsPatch.exe</code> Deltas &amp; DRY <code>RsUpdate.exe</code></h3>
             <p>
-              Unifies 2D WYSIWYG stage math, 8-grip resize handles, smart snap guides, keyboard-only arrow nudging, and one-click
-              <code>.rssc</code> export in <code>studio-shared/include/RaggieSoftVisualCanvas.hpp</code> across Studio IDEs—paired
-              with turnkey <code>RsWelcome</code>..<code>RsFinish</code> functions, non-clobbering <code>[Environment.*]</code>
-              <code>PATH</code> rules, and monotonic Dual-Bar Suite progress!
+              Unifies 2D WYSIWYG stage math in <code>studio-shared/include/RaggieSoftVisualCanvas.hpp</code> across Studio IDEs—paired
+              with <code>v0.8.0</code>'s <code>[Upgrade]</code> Major/Minor/Small servicing, <code>--plan-update</code> Component-Rule
+              verifier, <code>RsPatch.exe</code> (<code>msdelta.dll</code> <code>.msp</code> &amp; <strong>RaggieScript EXE</strong>
+              <code>.rswpatch</code> binary deltas), and <code>RsUpdate.exe</code> sharing 100% DRY <code>apps-manifest.json</code> with Launcher!
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/screenshots#v060-lab-previews">View Real Win32 Captures &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Suite Download Center &rarr;</a>
           </div>
         </article>
       </div>
@@ -713,12 +714,12 @@ function renderAiSkillsBody(): string {
               <td>Compile bandwidth-resilient <code>&lt;50 KB</code> WCAG 2.2 AA SCORM packages and audit legacy third-party SCORM <code>.zip</code> archives.</td>
             </tr>
             <tr>
-              <th scope="row">RaggieScript v1.0 Language &amp; Multi-Target SDK (<code>.rssc</code>)</th>
+              <th scope="row">RaggieScript v1.3 Language &amp; Multi-Target SDK (<code>.rssc</code>)</th>
               <td>
                 <a href="/raggiescript/llms-raggiescript.txt">llms-raggiescript.txt</a> &bull;
-                <a href="https://raggiesoftstudio.com/raggiescript">Playground</a>
+                <a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a>
               </td>
-              <td>Author, format (<code>fmt</code>), type-check (<code>RSW701</code>&ndash;<code>RSW715</code>), compile to <code>RSWBC2</code> stack bytecode, render declarative Win32 Wizard UIs, &amp; transpile SCORM <code>ES2022</code>.</td>
+              <td>Author, format (<code>fmt</code>), type-check (<code>RSW701</code>&ndash;<code>RSW715</code>), unit-test (<code>raggiescript.exe test</code>), compile <code>RSWBC2</code>, author <code>StoreScript</code> &amp; <code>Story Crossroads</code>, &amp; transpile <code>ES2022</code>.</td>
             </tr>
             <tr>
               <th scope="row">Fin# (Financial Sharp) Compiler Blueprint</th>
@@ -978,8 +979,9 @@ export function renderDevPage(routePath: string): { html: string } {
           <a href="https://raggiesoftstudio.com">RaggieSoft Studio (8 Tools)</a>
           <a href="https://raggiesoftstudio.com/editions">Studio Editions</a>
           <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript Playground</a>
-          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.5.0)</a>
-          <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.0)</a>
+          <a href="https://raggiesoftstudio.com/download">Studio Download Center</a>
+          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.8.0)</a>
+          <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.1)</a>
           <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
           <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
           <a href="https://raggiesoft.com/about/privacy">Privacy Policy</a>
