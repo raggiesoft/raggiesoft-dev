@@ -125,18 +125,19 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'compilers'" style="border: 2px solid var(--primary);">
           <div>
             <span class="eyebrow">Flagship • Static /MT Win32 C++20 • x64 &amp; ARM64</span>
-            <h3>RaggieSoft Installer Studio &amp; Studio Suite (v0.9.0 Shipping • Archive v0.5.0&ndash;v0.9.0)</h3>
+            <h3>RaggieSoft Installer Studio &amp; Studio Suite (v0.9.1 Shipping • Archive v0.5.0&ndash;v0.9.1)</h3>
             <p>
-              Zero-dependency Windows packaging &amp; servicing suite: <strong>Unified Workload Suites</strong>
-              (<code>PackageKind = suite</code>, <code>Delivery = embedded | side-by-side | web</code>, <code>rollback_new</code>),
-              <strong>Host-Aware Add-On Installers</strong> (<code>PackageKind = addon</code> + <code>[HostApp]</code>),
-              <code>instbuild.exe --plan-update</code>, <code>RsPatch.exe</code> <code>msdelta.dll</code> <code>.msp</code> &amp;
-              <strong>RaggieScript EXE</strong> <code>.rswpatch</code> deltas, DRY <code>RsUpdate.exe</code>, offline ECDSA
-              <code>.rswlic</code> licensing, read/write <code>msiprism.exe</code>, <code>rswsfx.exe</code>, &amp; <code>RaggieSoftHelp.exe</code>.
+              Zero-dependency Windows packaging &amp; servicing suite: <strong>Multi-Step Unified Workload Suites</strong>
+              (<code>PackageKind = suite</code>, <code>Delivery = embedded | side-by-side | web</code>, Suite Maintenance Mode &amp;
+              <code>rollback_new</code> 100% Cancel LIFO undo), <strong>Host-Aware Add-On Installers</strong>
+              (<code>PackageKind = addon</code> + <code>[HostApp]</code>), <code>instbuild.exe --plan-update</code>,
+              <code>RsPatch.exe</code> <code>msdelta.dll</code> <code>.msp</code> &amp; <strong>RaggieScript EXE</strong>
+              <code>.rswpatch</code> deltas, DRY <code>RsUpdate.exe</code>, offline ECDSA <code>.rswlic</code> licensing,
+              read/write <code>msiprism.exe</code>, <code>rswsfx.exe</code>, &amp; <code>RaggieSoftHelp.exe</code>.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.9.0) &rarr;</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.9.1) &rarr;</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/download/previous-versions">Previous Versions</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio">Installer Hub</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
@@ -339,17 +340,18 @@ function renderLabsBody(): string {
 
         <article class="card">
           <div>
-            <span class="status-pill">Lab Track 04 • Shipped in Installer Studio v0.7.0&ndash;v0.9.0</span>
-            <h3>Workload Suites (<code>embedded | side-by-side | web</code>), Add-On Installers &amp; <code>RsPatch.exe</code></h3>
+            <span class="status-pill">Lab Track 04 • Shipped in Installer Studio v0.7.0&ndash;v0.9.1</span>
+            <h3>Multi-Step Workload Suites (<code>embedded | side-by-side | web</code>), Maintenance Mode, Add-Ons &amp; <code>RsPatch.exe</code></h3>
             <p>
-              Combines <code>v0.9.0</code>'s <strong>Unified Suite Chainer</strong> (<code>PackageKind = suite</code> with DVD-scale
-              <code>packages\\</code> staging, live HTTPS Workload streaming, &amp; <code>rollback_new</code> LIFO session undo) and
-              <strong>Host-Aware Add-On Installers</strong> (<code>PackageKind = addon</code> + <code>[HostApp]</code>) with
-              <code>v0.8.0</code>'s <code>RsPatch.exe</code> <code>msdelta.dll</code> deltas and DRY <code>RsUpdate.exe</code>!
+              Combines <code>v0.9.1</code>'s <strong>Multi-Step Suite Wizard &amp; Maintenance Hub</strong> (<code>PackageKind = suite</code>
+              with Express/Typical/Compact/Complete/Custom Setup Types, DVD-scale <code>packages\\</code> staging, live HTTPS Workload
+              streaming, <code>--suite-uninstall</code>, &amp; 100% Cancel LIFO session rollback) and <strong>Host-Aware Add-On
+              Installers</strong> (<code>PackageKind = addon</code> + <code>[HostApp]</code>) with <code>v0.8.0</code>'s
+              <code>RsPatch.exe</code> <code>msdelta.dll</code> deltas and DRY <code>RsUpdate.exe</code>!
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.9.0) &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.9.1) &rarr;</a>
           </div>
         </article>
       </div>
@@ -781,15 +783,15 @@ function renderNotesBody(): string {
 
       <article class="card">
         <div>
-          <span class="eyebrow">Win32 UX &amp; Suite Architecture • Shipped in v0.9.0</span>
-          <h3>Workload Suites (embedded | side-by-side | web), LIFO Rollback &amp; Host-Aware Add-Ons</h3>
+          <span class="eyebrow">Win32 UX &amp; Suite Architecture • Shipped in v0.9.1</span>
+          <h3>Multi-Step Workload Suites (embedded | side-by-side | web), Maintenance Mode &amp; Cancel LIFO Rollback</h3>
           <p>
-            Eliminating sawtooth progress resets and the 2 GB Win32 PE resource ceiling with <code>Delivery = side-by-side</code>
-            <code>packages\\</code> folders, SHA-256-verified HTTPS Workload downloads, <code>SuiteRollbackPolicy = rollback_new</code>
-            session rollback, and <code>PackageKind = addon</code> (<code>[HostApp]</code>) content installers.
+            Eliminating sawtooth progress resets, flat single-screen setup prompts, and the 2 GB Win32 PE resource ceiling with
+            <code>SuiteSetupWizardApp</code> (Setup Types, Custom Checklist, Billboards, Maintenance Modify/Repair/Remove, &amp;
+            <code>--suite-uninstall</code>), universal Cancel confirmation + 100% LIFO rollback, and <code>[HostApp]</code> Add-Ons.
           </p>
         </div>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Download Studio Suite v0.9.0</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Download Studio Suite v0.9.1</a>
       </article>
 
       <article class="card">
@@ -980,7 +982,7 @@ export function renderDevPage(routePath: string): { html: string } {
           <a href="https://raggiesoftstudio.com/editions">Studio Editions</a>
           <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript Playground</a>
           <a href="https://raggiesoftstudio.com/download">Studio Download Center</a>
-          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.9.0)</a>
+          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.9.1)</a>
           <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.1)</a>
           <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
           <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
