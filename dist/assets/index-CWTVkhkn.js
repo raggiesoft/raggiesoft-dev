@@ -47,7 +47,7 @@ ${i?'Expression: "'+i+`"
             <span class="eyebrow">Canonical Language Reference • 17 Chapters • 260+ Indexed Calls, StoreScript &amp; .NET SDK</span>
             <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.3 (<code>.rssc</code>)</h3>
             <p>
-              Complete <code>learn.microsoft.com</code>-style reference documenting all <strong>31 built-in namespaces</strong>,
+              Complete three-column <strong>RaggieSoft Reference Portal</strong> documenting all <strong>31 built-in namespaces</strong>,
               <code>defer</code> LIFO cleanup, <code>?.</code> optional chaining, built-in <code>raggiescript.exe test</code> runner,
               23-method zero-DLL <code>archive.*</code> suite (<code>.7z</code>/<code>LZMA2</code>, <code>.zip</code>,
               <code>.rswpak</code>, <code>.cab</code>, <code>.tar.zst</code>, <code>.iso</code>, <code>.wim</code>), Reg-Free COM
