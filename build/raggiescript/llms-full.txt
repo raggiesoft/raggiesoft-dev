@@ -95,9 +95,9 @@ raggiescript.exe fmt --write hello-setup.rssc
 raggiescript.exe pack-exe hello-setup.rssc PatchLibrarianSetup.exe
 ```
 
-## Dogfooded with RaggieSoft Help Studio {#dogfooded-help-studio}
+## RaggieSoft Reference Portal — Dogfooded with Help Studio {#dogfooded-help-studio}
 
-This entire documentation website (**raggiescript.raggiesoft.dev**) is authored as a plain-text `.rshp` manifest + Markdown topic tree and compiled directly by **RaggieSoft Help Studio (`rshbuild.exe` v0.6.0)**—emitting this responsive static website, our offline Windows `F1` viewer (`RaggieScriptHelp.exe`), `module.rshm.json`, `F1` Context-ID SDK headers, and an HTML5 VPAT 2.5 report from one single source of truth.
+**raggiescript.raggiesoft.dev** is an official **RaggieSoft Reference Portal**—our three-column, zero-database technical documentation and API specification format authored as a plain-text `.rshp` manifest + Markdown topic tree and compiled directly by **RaggieSoft Help Studio (`rshbuild.exe` v0.6.0)**. A single build emits this searchable Reference Portal (with live TOC filtering, `Ctrl+K` symbol search, and *"In this article"* navigation), our offline Windows `F1` viewer (`RaggieScriptHelp.exe`), `module.rshm.json`, `F1` Context-ID SDK headers, `llms-full.txt`, and an HTML5 VPAT 2.5 report from one source of truth.
 
 ## Standard Library Map (31 Namespaces) {#namespace-map}
 

@@ -73,7 +73,7 @@ Try deleting `debit WellnessPassPool <- keytagFee;` in `PurchaseAquaticKeytag`:
 
 - **Compiler, SDK & Tooling Code**: **100% Open Source under the MIT License** (`https://raggiesoft.dev` & [GitHub `@raggiesoft`](https://github.com/raggiesoft)).
 - **Documentation & Literary Origins**: Licensed under **Creative Commons Attribution-ShareAlike 4.0 International (`CC BY-SA 4.0`)**.
-- **Dogfooded with RaggieSoft Help Studio (`v0.6.0`)**: Just like [raggiescript.raggiesoft.dev](https://raggiescript.raggiesoft.dev), this entire static website, its `Ctrl+K` instant API index, its offline `FinSharpHelp.exe` viewer, and its WCAG 2.2 AA VPAT 2.5 report are compiled from plain-text `.rshp` + Markdown sources by `rshbuild.exe`!
+- **RaggieSoft Reference Portal (`v0.6.0`)**: Just like [raggiescript.raggiesoft.dev](https://raggiescript.raggiesoft.dev), **finsharp.raggiesoft.dev** is a three-column **RaggieSoft Reference Portal** compiled from plain-text `.rshp` + Markdown sources by **RaggieSoft Help Studio (`rshbuild.exe`)**—generating this searchable web reference, its `Ctrl+K` instant API index, its offline `FinSharpHelp.exe` viewer, `llms-full.txt`, and its WCAG 2.2 AA VPAT 2.5 report from one build!
 
 > [!NOTE] **Fictitious Persons & Entities Disclaimer**: *Zoë Wren Brooks*, *Jordan Fuller*, *Daniel Brooks*, *Aubrie Jean Kelly*, *Mark Anderson*, *Commonwealth Polytechnic Institute (CPI)*, and *Vectron Energy Corp.* referenced in Fin#'s origin documentation are works of fiction from RaggieSoft's *Ocean View Archives* literary series ([*The Eleventh Child*](https://books.raggiesoft.com/aubrie)). Any resemblance to actual persons, living or dead, or actual corporate entities is purely coincidental.
 
