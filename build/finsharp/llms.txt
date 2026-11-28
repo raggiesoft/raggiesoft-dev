@@ -1,7 +1,7 @@
 # Fin# (Financial Sharp) (v0.1.0) — Documentation & API Index
 
 > Linear-type double-entry financial programming language, conservation-of-capital type checker (FIN0001-FIN0005), and .NET compiler blueprint born in The Eleventh Child (/books/aubrie).
-> Compiled by RaggieSoft Help Studio v0.6.0 (MIT Code / CC BY-SA 4.0 Docs)
+> Compiled by RaggieSoft Help Studio v0.7.0 (MIT Code / CC BY-SA 4.0 Docs)
 
 ## Full Machine-Readable Corpus
 - [Complete Concatenated Reference (llms-full.txt)](https://finsharp.raggiesoft.dev/llms-full.txt)

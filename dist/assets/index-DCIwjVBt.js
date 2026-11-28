@@ -159,7 +159,7 @@ ${i?'Expression: "'+i+`"
               <code>FluentMica</code> &amp; <code>_support\\</code> canvas installers sharing DRY <code>RaggieSoftVisualCanvas.hpp</code>),
               <strong>Accessibility Studio v1.0.1</strong> (.NET 11 + Monaco + SARIF CLI),
               <strong>Help Studio v0.7.0</strong> (static <code>/MT</code> C++20 9-view IDE, <code>use help;</code> <code>RaggieScript</code>, federated search, <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompilers &amp; <code>&lt;5ms</code> <code>F1</code> IPC),
-              <strong>Training Studio v0.7.0</strong> (PowerPoint <code>.pptx</code> importer, Question Banks, <code>RaggieScript</code> &amp; <code>&lt;50 KB</code> SCORM 1.2/2004/xAPI/cmi5), <strong>Document Studio</strong>,
+              <strong>Training Studio v0.5.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Document Studio</strong>,
               <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
             </p>
           </div>
@@ -649,13 +649,12 @@ fn RecordMonthlyKeytag(books: ref HouseholdLedger&lt;USD&gt;) {
               <td>Author, validate WCAG 2.2 AA (<code>RSS010</code>&ndash;<code>RSS095</code>), and compile zero-dependency static <code>/MT</code> C++20 1990s <code>.BMP</code>, <code>FluentMica</code>, Kiosk, &amp; Bespoke <code>_support\\</code> installers.</td>
             </tr>
             <tr>
-              <th scope="row">Training Studio v0.7.0 (<code>.rstp</code> + <code>.pptx</code> &rarr; SCORM / xAPI / cmi5)</th>
+              <th scope="row">Training Studio (<code>.rstp</code> SCORM 1.2 &amp; 2004)</th>
               <td>
                 <a href="https://raggiesoftstudio.com/training-studio/llms-full.txt">llms-full.txt</a> &bull;
-                <a href="https://raggiesoftstudio.com/training-studio/SKILL.md">SKILL.md</a> &bull;
-                <a href="https://raggiesoftstudio.com/training-studio/ROADMAP.md">ROADMAP.md</a>
+                <a href="https://raggiesoftstudio.com/training-studio/SKILL.md">SKILL.md</a>
               </td>
-              <td>Migrate PowerPoint <code>.pptx</code> decks, compile <code>&lt;50 KB</code> WCAG 2.2 AA SCORM 1.2/2004/xAPI/cmi5 packages with Question Banks &amp; <code>RaggieScript</code>, and audit legacy SCORM <code>.zip</code> archives.</td>
+              <td>Compile bandwidth-resilient <code>&lt;50 KB</code> WCAG 2.2 AA SCORM packages and audit legacy third-party SCORM <code>.zip</code> archives.</td>
             </tr>
             <tr>
               <th scope="row">RaggieScript v1.3 Language &amp; Multi-Target SDK (<code>.rssc</code>)</th>
