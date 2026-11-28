@@ -125,18 +125,18 @@ function renderHomeBody(): string {
         <article class="card" x-show="filter === 'all' || filter === 'desktop' || filter === 'compilers'" style="border: 2px solid var(--primary);">
           <div>
             <span class="eyebrow">Flagship • Static /MT Win32 C++20 • x64 &amp; ARM64</span>
-            <h3>RaggieSoft Installer Studio (v0.8.0 Shipping • Archive v0.5.0&ndash;v0.8.0)</h3>
+            <h3>RaggieSoft Installer Studio &amp; Studio Suite (v0.9.0 Shipping • Archive v0.5.0&ndash;v0.9.0)</h3>
             <p>
-              Zero-dependency Windows packaging &amp; servicing suite (<code>InstallerStudio.exe</code>, <code>instbuild.exe --plan-update</code>,
-              <code>SetupWizard.exe</code>, <code>RsPatch.exe</code> <code>msdelta.dll</code> <code>.msp</code> &amp;
-              <strong>RaggieScript EXE</strong> <code>.rswpatch</code> binary deltas, DRY <code>RsUpdate.exe</code>
-              <code>apps-manifest.json</code> updater, read/write <code>msiprism.exe</code>, <code>rswsfx.exe</code>, &amp;
-              <code>RaggieSoftHelp.exe</code>) with <strong>Dual WYSIWYG Dialog Designers</strong>, turnkey <code>RsDialog</code>,
-              and <strong>monotonic Dual-Bar Suites</strong>.
+              Zero-dependency Windows packaging &amp; servicing suite: <strong>Unified Workload Suites</strong>
+              (<code>PackageKind = suite</code>, <code>Delivery = embedded | side-by-side | web</code>, <code>rollback_new</code>),
+              <strong>Host-Aware Add-On Installers</strong> (<code>PackageKind = addon</code> + <code>[HostApp]</code>),
+              <code>instbuild.exe --plan-update</code>, <code>RsPatch.exe</code> <code>msdelta.dll</code> <code>.msp</code> &amp;
+              <strong>RaggieScript EXE</strong> <code>.rswpatch</code> deltas, DRY <code>RsUpdate.exe</code>, offline ECDSA
+              <code>.rswlic</code> licensing, read/write <code>msiprism.exe</code>, <code>rswsfx.exe</code>, &amp; <code>RaggieSoftHelp.exe</code>.
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.8.0) &rarr;</a>
+            <a class="btn btn-primary" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.9.0) &rarr;</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/download/previous-versions">Previous Versions</a>
             <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio">Installer Hub</a>
             <a class="btn btn-outline" href="https://github.com/raggiesoft/installer-studio">GitHub</a>
@@ -184,11 +184,11 @@ function renderHomeBody(): string {
             <span class="eyebrow">8-Tool Suite • Community, Essentials, Developer &amp; Architect</span>
             <h3>RaggieSoft Studio Showcase, Compliance, Help &amp; Training</h3>
             <p>
-              Alongside Installer Studio: <strong>Showcase Studio v0.5.0</strong> (static <code>/MT</code> C++20 1990s <code>.BMP</code>,
+              Alongside Installer Studio: <strong>Showcase Studio v0.5.1</strong> (static <code>/MT</code> C++20 1990s <code>.BMP</code>,
               <code>FluentMica</code> &amp; <code>_support\\</code> canvas installers sharing DRY <code>RaggieSoftVisualCanvas.hpp</code>),
               <strong>Accessibility Studio v1.0.1</strong> (.NET 11 + Monaco + SARIF CLI),
               <strong>Help Studio v0.7.0</strong> (static <code>/MT</code> C++20 9-view IDE, <code>use help;</code> <code>RaggieScript</code>, federated search, <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompilers &amp; <code>&lt;5ms</code> <code>F1</code> IPC),
-              <strong>Training Studio v0.5.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Document Studio</strong>,
+              <strong>Training Studio v0.7.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004, xAPI &amp; cmi5 + <code>.pptx</code> importer), <strong>Document Studio</strong>,
               <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
             </p>
           </div>
@@ -339,17 +339,17 @@ function renderLabsBody(): string {
 
         <article class="card">
           <div>
-            <span class="status-pill">Lab Track 04 • Shipped in Installer Studio v0.7.0 &amp; v0.8.0</span>
-            <h3>Shared <code>RaggieSoftVisualCanvas</code> Designers, <code>RsPatch.exe</code> Deltas &amp; DRY <code>RsUpdate.exe</code></h3>
+            <span class="status-pill">Lab Track 04 • Shipped in Installer Studio v0.7.0&ndash;v0.9.0</span>
+            <h3>Workload Suites (<code>embedded | side-by-side | web</code>), Add-On Installers &amp; <code>RsPatch.exe</code></h3>
             <p>
-              Unifies 2D WYSIWYG stage math in <code>studio-shared/include/RaggieSoftVisualCanvas.hpp</code> across Studio IDEs—paired
-              with <code>v0.8.0</code>'s <code>[Upgrade]</code> Major/Minor/Small servicing, <code>--plan-update</code> Component-Rule
-              verifier, <code>RsPatch.exe</code> (<code>msdelta.dll</code> <code>.msp</code> &amp; <strong>RaggieScript EXE</strong>
-              <code>.rswpatch</code> binary deltas), and <code>RsUpdate.exe</code> sharing 100% DRY <code>apps-manifest.json</code> with Launcher!
+              Combines <code>v0.9.0</code>'s <strong>Unified Suite Chainer</strong> (<code>PackageKind = suite</code> with DVD-scale
+              <code>packages\\</code> staging, live HTTPS Workload streaming, &amp; <code>rollback_new</code> LIFO session undo) and
+              <strong>Host-Aware Add-On Installers</strong> (<code>PackageKind = addon</code> + <code>[HostApp]</code>) with
+              <code>v0.8.0</code>'s <code>RsPatch.exe</code> <code>msdelta.dll</code> deltas and DRY <code>RsUpdate.exe</code>!
             </p>
           </div>
           <div class="btn-row">
-            <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Suite Download Center &rarr;</a>
+            <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Suite Download Center (v0.9.0) &rarr;</a>
           </div>
         </article>
       </div>
@@ -585,7 +585,7 @@ function renderReposBody(): string {
           <tr>
             <th scope="row"><code>raggiesoft/installer-studio</code></th>
             <td>Native Win32 C++20 (<code>/MT</code>)</td>
-            <td>Visual IDE (<code>InstallerStudio.exe</code>), <code>.rsip</code>/<code>.rsis</code> compiler (<code>instbuild.exe</code>), 10-style <code>SetupWizard.exe</code>, Monotonic Dual-Bar Suites, <code>sfx</code>, &amp; <code>msiprism.exe</code>.</td>
+            <td>Visual IDE (<code>InstallerStudio.exe</code>), <code>.rsip</code>/<code>.rsis</code> compiler (<code>instbuild.exe</code>), 11-style <code>SetupWizard.exe</code>, <code>embedded | side-by-side | web</code> Workload Suites, <code>[HostApp]</code> Add-On Installers, <code>RsPatch.exe</code>, &amp; <code>msiprism.exe</code>.</td>
             <td><a href="https://github.com/raggiesoft/installer-studio">GitHub</a> &bull; <a href="https://raggiesoftstudio.com/installer-studio">Portal</a></td>
           </tr>
           <tr>
@@ -687,7 +687,7 @@ function renderAiSkillsBody(): string {
                 <a href="https://raggiesoftstudio.com/installer-studio/SKILL.md">SKILL.md</a> &bull;
                 <a href="https://raggiesoftstudio.com/installer-studio/EDITIONS_AND_RAGGIESCRIPT.md">Editions &amp; RaggieScript</a>
               </td>
-              <td>Author, JSON-lint (<code>instbuild --validate --diagnostics=json</code>), and compile <code>x64</code>/<code>ARM64</code> <code>.msi</code>, <code>.msm</code>, <code>.msp</code>, <code>sfx</code>, &amp; Dual-Bar Suites.</td>
+              <td>Author, JSON-lint (<code>instbuild --validate --diagnostics=json</code>), and compile <code>x64</code>/<code>ARM64</code> <code>.msi</code>, <code>.msm</code>, <code>.msp</code>, <code>sfx</code>, <code>[HostApp]</code> Add-On Installers, &amp; <code>embedded | side-by-side | web</code> Workload Suites.</td>
             </tr>
             <tr>
               <th scope="row">Help Studio (<code>.rshp</code> + <code>.CHM</code> / <code>.HLP</code> Rescue)</th>
@@ -781,15 +781,15 @@ function renderNotesBody(): string {
 
       <article class="card">
         <div>
-          <span class="eyebrow">Win32 UX &amp; Taskbar Guidelines</span>
-          <h3>Why Suite Installers Must Never Reset Progress Bars Per Component</h3>
+          <span class="eyebrow">Win32 UX &amp; Suite Architecture • Shipped in v0.9.0</span>
+          <h3>Workload Suites (embedded | side-by-side | web), LIFO Rollback &amp; Host-Aware Add-Ons</h3>
           <p>
-            Replacing sawtooth <code>0%&rarr;100%&rarr;0%</code> suite progress resets with byte-weighted, high-water-mark clamped
-            <strong>Overall Suite Progress</strong> (bound 1:1 to <code>ITaskbarList3</code>) above a live intra-package
-            <strong>Current Component</strong> bar.
+            Eliminating sawtooth progress resets and the 2 GB Win32 PE resource ceiling with <code>Delivery = side-by-side</code>
+            <code>packages\\</code> folders, SHA-256-verified HTTPS Workload downloads, <code>SuiteRollbackPolicy = rollback_new</code>
+            session rollback, and <code>PackageKind = addon</code> (<code>[HostApp]</code>) content installers.
           </p>
         </div>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/screenshots#v060-lab-previews">See Dual-Bar Suite UI</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/download">Download Studio Suite v0.9.0</a>
       </article>
 
       <article class="card">
@@ -980,7 +980,7 @@ export function renderDevPage(routePath: string): { html: string } {
           <a href="https://raggiesoftstudio.com/editions">Studio Editions</a>
           <a href="https://raggiesoftstudio.com/raggiescript">RaggieScript Playground</a>
           <a href="https://raggiesoftstudio.com/download">Studio Download Center</a>
-          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.8.0)</a>
+          <a href="https://raggiesoftstudio.com/installer-studio">Installer Studio (v0.9.0)</a>
           <a href="https://raggiesoftstudio.com/accessibility-studio">Accessibility Studio (v1.0.1)</a>
           <a href="https://raggiesoft.com">RaggieSoft Consumer Hub</a>
           <a href="https://michaelpragsdale.com">Michael P. Ragsdale Portfolio</a>
