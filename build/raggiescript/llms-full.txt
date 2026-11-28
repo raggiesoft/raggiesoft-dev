@@ -1229,14 +1229,14 @@ const pid = ffi.call("kernel32.dll", "GetCurrentProcessId", "uint", []);
 
 
 ================================================================================
-TOPIC: msi.* & prereq.* — 64-Bit MSI SQL, .MST & Runtimes [ns-msi-and-prereq] (Windows, MSI SQL & Native FFI)
+TOPIC: msi.*, msi.session.* & prereq.* — RaggieScript MSI, SQL, .MST & Runtimes [ns-msi-and-prereq] (Windows, MSI SQL & Native FFI)
 ================================================================================
 
 # `msi.*` & `prereq.*` — Direct 64-Bit MSI SQL Engine, `.MST` Transforms & Runtime Presets {#ns-msi-and-prereq}
 
 RaggieScript gives you **both** worlds: you can write pure zero-MSI native installers (where `Error 1618` mutex contention is impossible), **or** you can drive and author Windows Installer `.msi`, `.msm`, `.mst`, and `.msp` relational SQL databases directly in native 64-bit (`x64` / `ARM64`) via `msi.*`!
 
-## `msi.*` — Product Discovery & External-UI Execution (`10` Methods) {#msi-runtime}
+## `msi.*` — Product Discovery & External-UI Execution (`13` Methods) {#msi-runtime}
 
 | Method | Signature | Return | Mutating? | Description |
 | :--- | :--- | :--- | :--- | :--- |
@@ -1244,12 +1244,33 @@ RaggieScript gives you **both** worlds: you can write pure zero-MSI native insta
 | `msi.isProductInstalled` | `msi.isProductInstalled(productCodeGuid: string)` | `bool` | Read-Only | Calls `MsiQueryProductStateW` (`INSTALLSTATE_DEFAULT`). |
 | `msi.isNativeInstalled` | `msi.isNativeInstalled(packageId: string, scope?: string)` | `bool` | Read-Only | Checks `CurrentVersion\Uninstall\<packageId>` for a native RaggieScript package. |
 | `msi.findRelatedProducts` | `msi.findRelatedProducts(upgradeCodeGuid: string)` | `array` | Read-Only | Returns `string[]` of all installed `ProductCode` GUIDs sharing `upgradeCodeGuid`. |
+| `msi.setSessionProperty` | `msi.setSessionProperty(name: string, value: string)` | `bool` | **Wizard-Safe** | Queues a public Windows Installer session property (`SERVICE_PORT`, `INSTALLDIR`, etc.) from an un-elevated `wizard { ... }` block so **RaggieScript MSI** (`Engine = raggiescript-msi`) passes it straight into `Product.msi`! |
+| `msi.getSessionProperty` | `msi.getSessionProperty(name: string, fallback?: string)` | `string` | Read-Only | Reads a queued or active Windows Installer session property (`fallback` when unset). |
+| `msi.installEmbedded` | `msi.installEmbedded(extraProperties?: map)` | `int` | **Mutating (`RSW701`)** | Commits the embedded `#201` `Product.msi` in a **RaggieScript MSI** dual-resource `Setup.exe` with bridged `param`s, `feature` selections (`ADDLOCAL`/`REMOVE`), and `MsiSetExternalUIRecord` + `ITaskbarList3` progress. |
 | `msi.install` | `msi.install(msiPath: path, properties?: map, silent?: bool, logFile?: path)` | `int` | **Mutating (`RSW701`)** | Installs `msiPath` via `MsiInstallProductW` with live `MsiSetExternalUIRecord` progress forwarded into your RaggieScript wizard bar; returns Win32 MSI code (`0`, `3010`, `1602`, `1603`, etc.). |
 | `msi.repair` | `msi.repair(productCodeOrMsi: string, reinstallFlags?: string, logFile?: path)` | `int` | **Mutating (`RSW701`)** | Repairs an installed MSI (`REINSTALLMODE_PECMS` default). |
 | `msi.uninstall` | `msi.uninstall(productCodeGuid: string, extraProps?: string, logFile?: path)` | `int` | **Mutating (`RSW701`)** | Uninstalls `productCodeGuid` (`REMOVE=ALL`). |
 | `msi.applyPatch` | `msi.applyPatch(mspPath: path, targetProductCode?: string, commandLine?: string)` | `int` | **Mutating (`RSW701`)** | Applies a binary-delta `.msp` Windows Installer patch (`MsiApplyPatchW`). |
 | `msi.configureFeature` | `msi.configureFeature(productCodeGuid: string, featureId: string, installState?: string)` | `int` | **Mutating (`RSW701`)** | Sets an individual MSI feature to `"local"`, `"absent"`, or `"source"`. |
 | `msi.runLegacyUninstaller` | `msi.runLegacyUninstaller(productIdOrUpgradeCode: string, preferQuiet?: bool, extraArgs?: string)` | `int` | **Mutating (`RSW701`)** | Discovers and runs an existing `QuietUninstallString` / `UninstallString` before upgrading a legacy installer! |
+
+## `msi.session.*` — Inside-the-MSI Native Custom Action Engine (`RsscMsiCa.dll`, `11` Methods) {#msi-session}
+
+In **RaggieSoft Installer Studio v0.9.1+**, setting `[Package] Engine = raggiescript-msi` (or adding `[CustomAction.<Id>] Type = raggiescript` to `Engine = msi`) embeds our static `/MT` C++20 `Type 1` Custom Action runner (**`RsscMsiCa.dll`**, `x64` & `ARM64`, zero external COM/CRT/PowerShell dependencies) plus your `RSWBC2` bytecode stream directly inside `Product.msi`'s `Binary` table (`RsscCaDll` + `RsscBytecode`). Even when enterprise IT extracts `Product.msi` for headless `msiexec /i Product.msi /qn` GPO or Intune deployment, your Immediate, Deferred, Rollback (`.jnl` LIFO undo + `RollbackFunction`), and Commit actions execute 100% natively inside Windows Installer:
+
+| Method / Property | Signature | Return | Phase Safety | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `msi.session.getProperty` | `msi.session.getProperty(name: string, fallback?: string)` | `string` | Immediate & Deferred | Reads live `MsiGetPropertyW(hInstall, ...)` in Immediate CAs, or automatically deserializes resolved properties from `CustomActionData` JSON in Deferred/Rollback/Commit CAs! |
+| `msi.session.setProperty` | `msi.session.setProperty(name: string, value: string)` | `bool` | Immediate | Sets a live `MSIHANDLE` session property (`MsiSetPropertyW`) and refreshes `CustomActionData` for downstream Deferred CAs. |
+| `msi.session.getFeatureState` | `msi.session.getFeatureState(featureId: string)` | `map` | Immediate | Calls `MsiGetFeatureStateW` and returns `{ installed: string, action: string }`. |
+| `msi.session.setFeatureState` | `msi.session.setFeatureState(featureId: string, state: string)` | `bool` | Immediate | Calls `MsiSetFeatureStateW` (`"local"`, `"absent"`, `"source"`). |
+| `msi.session.evaluateCondition` | `msi.session.evaluateCondition(conditionExpr: string)` | `bool` | Immediate | Evaluates an MSI condition string (`MsiEvaluateConditionW`, e.g. `"VersionNT64 >= 603"`). |
+| `msi.session.formatString` | `msi.session.formatString(templateText: string)` | `string` | Immediate & Deferred | Expands `[INSTALLDIR]` / `[ProductName]` tokens via `MsiFormatRecordW`. |
+| `msi.session.log` | `msi.session.log(message: string)` | `void` | All CAs | Writes a structured line into the Windows Installer verbose log (`MsiProcessMessage(INSTALLMESSAGE_INFO, ...)`). |
+| `msi.session.doAction` | `msi.session.doAction(actionName: string)` | `int` | Immediate | Invokes a named MSI action via `MsiDoActionW`. |
+| `msi.session.isDeferred` | `msi.session.isDeferred()` | `bool` | Read-Only | Returns `true` when executing inside `MsiGetMode(hInstall, MSIRUNMODE_SCHEDULED)`. |
+| `msi.session.isRollback` | `msi.session.isRollback()` | `bool` | Read-Only | Returns `true` when executing inside `MSIRUNMODE_ROLLBACK`. |
+| `msi.session.isCommit` | `msi.session.isCommit()` | `bool` | Read-Only | Returns `true` when executing inside `MSIRUNMODE_COMMIT`. |
 
 ## `msi.*` — Direct 64-Bit Relational MSI SQL Table & `.MST` Transform Engine (`11` Methods) {#msi-sql}
 

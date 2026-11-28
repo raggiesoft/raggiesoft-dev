@@ -68,16 +68,17 @@ function renderHomeBody(): string {
     </section>
 
     <section aria-labelledby="subdomains-heading" style="margin-bottom: 2rem;">
-      <span class="eyebrow">Dogfooded Standalone Learn Portals • Compiled by Help Studio v0.7.0 (rshbuild.exe)</span>
+      <span class="eyebrow">Dogfooded Standalone RaggieSoft Reference Portals • Compiled by Help Studio v0.7.0 (rshbuild.exe)</span>
       <h2 id="subdomains-heading" style="margin-top: 0.25rem;">Live <code>*.raggiesoft.dev</code> Language &amp; API Portals</h2>
       <div class="lab-grid-2x2">
         <article class="card" style="border: 2px solid var(--primary);">
           <div>
-            <span class="eyebrow">Canonical Language Reference • 17 Chapters • 260+ Indexed Calls, StoreScript &amp; .NET SDK</span>
+            <span class="eyebrow">Canonical Language Reference • 17 Chapters • 275+ Indexed Calls, RaggieScript MSI, StoreScript &amp; .NET SDK</span>
             <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.3 (<code>.rssc</code>)</h3>
             <p>
               Complete three-column <strong>RaggieSoft Reference Portal</strong> documenting all <strong>31 built-in namespaces</strong>,
               <code>defer</code> LIFO cleanup, <code>?.</code> optional chaining, built-in <code>raggiescript.exe test</code> runner,
+              <strong>RaggieScript MSI</strong> (<code>Engine = raggiescript-msi</code> + <code>RsscMsiCa.dll</code> <code>msi.session.*</code>),
               23-method zero-DLL <code>archive.*</code> suite (<code>.7z</code>/<code>LZMA2</code>, <code>.zip</code>,
               <code>.rswpak</code>, <code>.cab</code>, <code>.tar.zst</code>, <code>.iso</code>, <code>.wim</code>), Reg-Free COM
               <code>com.generateRegFreeManifest</code>, <strong>StoreScript (<code>use storescript;</code> for StoreTrainer)</strong>,
@@ -998,5 +999,77 @@ export function renderDevPage(routePath: string): { html: string } {
     </footer>
   `;
 
-  return { html };
+  function enhanceTablesForMobile(rawHtml: string): string {
+    return rawHtml.replace(/<table\b([^>]*)>([\s\S]*?)<\/table>/gi, (_full, tableAttrs: string, inner: string) => {
+      const headers: string[] = [];
+      const theadMatch = inner.match(/<thead\b[^>]*>([\s\S]*?)<\/thead>/i);
+      if (theadMatch) {
+        const thRe = /<th\b[^>]*>([\s\S]*?)<\/th>/gi;
+        let m: RegExpExecArray | null;
+        while ((m = thRe.exec(theadMatch[1])) !== null) {
+          const clean = m[1]
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/&amp;/g, '&')
+            .replace(/&bull;/g, '•')
+            .replace(/&ndash;/g, '–')
+            .replace(/&mdash;/g, '—')
+            .replace(/\s+/g, ' ')
+            .trim();
+          headers.push(clean);
+        }
+      }
+
+      let upgradedInner = inner
+        .replace(/<thead\b([^>]*)>/gi, (_m, a: string) => (/\brole=/i.test(a) ? `<thead${a}>` : `<thead${a} role="rowgroup">`))
+        .replace(/<tbody\b([^>]*)>/gi, (_m, a: string) => (/\brole=/i.test(a) ? `<tbody${a}>` : `<tbody${a} role="rowgroup">`));
+
+      upgradedInner = upgradedInner.replace(/<thead\b([^>]*)>([\s\S]*?)<\/thead>/gi, (_tm, ta: string, tbodyStr: string) => {
+        const fixedRows = tbodyStr.replace(/<tr\b([^>]*)>([\s\S]*?)<\/tr>/gi, (_rm, ra: string, rInner: string) => {
+          const rAttr = /\brole=/i.test(ra) ? ra : `${ra} role="row"`;
+          const fixedThs = rInner.replace(/<th\b([^>]*)>/gi, (_hm, ha: string) =>
+            /\brole=/i.test(ha) ? `<th${ha}>` : `<th${ha} role="columnheader">`
+          );
+          return `<tr${rAttr}>${fixedThs}</tr>`;
+        });
+        return `<thead${ta}>${fixedRows}</thead>`;
+      });
+
+      upgradedInner = upgradedInner.replace(/<tbody\b([^>]*)>([\s\S]*?)<\/tbody>/gi, (_bm, ba: string, tbodyStr: string) => {
+        const fixedRows = tbodyStr.replace(/<tr\b([^>]*)>([\s\S]*?)<\/tr>/gi, (_rm, ra: string, rInner: string) => {
+          const rAttr = /\brole=/i.test(ra) ? ra : `${ra} role="row"`;
+          let cellIdx = 0;
+          const fixedCells = rInner.replace(/<(th|td)\b([^>]*)>([\s\S]*?)<\/\1>/gi, (_cm, tag: string, ca: string, cInner: string) => {
+            const idx = cellIdx++;
+            const lowerTag = tag.toLowerCase();
+            if (lowerTag === 'th') {
+              const hAttr = /\brole=/i.test(ca) ? ca : `${ca} role="rowheader"`;
+              return `<th${hAttr}>${cInner}</th>`;
+            }
+            let dAttr = /\brole=/i.test(ca) ? ca : `${ca} role="cell"`;
+            const hdr = headers[idx] || '';
+            if (hdr && !/\bdata-label=/i.test(dAttr)) {
+              const safeHdr = hdr.replace(/"/g, '&quot;');
+              dAttr += ` data-label="${safeHdr}"`;
+            }
+            return `<td${dAttr}>${cInner}</td>`;
+          });
+          return `<tr${rAttr}>${fixedCells}</tr>`;
+        });
+        return `<tbody${ba}>${fixedRows}</tbody>`;
+      });
+
+      let finalTableAttrs = tableAttrs;
+      if (!/\brole=/i.test(finalTableAttrs)) {
+        finalTableAttrs += ' role="table"';
+      }
+      if (/\bclass="([^"]*)"/i.test(finalTableAttrs)) {
+        finalTableAttrs = finalTableAttrs.replace(/\bclass="([^"]*)"/i, 'class="$1 rs-mobile-cards"');
+      } else {
+        finalTableAttrs += ' class="rs-mobile-cards"';
+      }
+      return `<table${finalTableAttrs}>${upgradedInner}</table>`;
+    });
+  }
+
+  return { html: enhanceTablesForMobile(html) };
 }

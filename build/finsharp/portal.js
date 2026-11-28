@@ -253,4 +253,35 @@ const RSH_SEARCH_INDEX_URL = '/search-index.json';
       });
     });
   }
+
+  // 8. Mobile Stacked API Table Cards (auto-stamps `data-label` + ARIA table roles)
+  document.querySelectorAll(".learn-table-wrap table").forEach(function (tbl) {
+    if (tbl.classList.contains("rsh-mobile-cards")) return;
+    const ths = Array.from(tbl.querySelectorAll("thead th")).map(function (th) {
+      return (th.textContent || "").replace(/\s+/g, " ").trim();
+    });
+    if (ths.length === 0) return;
+    tbl.setAttribute("role", "table");
+    const thead = tbl.querySelector("thead");
+    const tbody = tbl.querySelector("tbody");
+    if (thead) thead.setAttribute("role", "rowgroup");
+    if (tbody) tbody.setAttribute("role", "rowgroup");
+    tbl.querySelectorAll("thead tr").forEach(function (tr) {
+      tr.setAttribute("role", "row");
+      tr.querySelectorAll("th").forEach(function (th) { th.setAttribute("role", "columnheader"); });
+    });
+    tbl.querySelectorAll("tbody tr").forEach(function (tr) {
+      tr.setAttribute("role", "row");
+      Array.from(tr.children).forEach(function (cell, idx) {
+        const isRowHdr = cell.tagName === "TH";
+        cell.setAttribute("role", isRowHdr ? "rowheader" : "cell");
+        if (!isRowHdr && ths[idx]) {
+          cell.setAttribute("data-label", ths[idx]);
+        } else if (idx > 0 && ths[idx]) {
+          cell.setAttribute("data-label", ths[idx]);
+        }
+      });
+    });
+    tbl.classList.add("rsh-mobile-cards");
+  });
 })();

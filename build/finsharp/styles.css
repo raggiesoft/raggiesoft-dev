@@ -383,3 +383,61 @@ footer.doc-footer {
 @media (forced-colors: active) {
   .toc-link[aria-current='page'], .outline-link.is-active { outline: 2px solid Highlight; }
 }
+
+/* Mobile Stacked API & Diagnostic Table Cards (< 768px) */
+@media (max-width: 767.98px) {
+  .learn-table-wrap:has(table.rsh-mobile-cards) {
+    overflow-x: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .learn-table-wrap table.rsh-mobile-cards,
+  .learn-table-wrap table.rsh-mobile-cards tbody {
+    display: block;
+    width: 100%;
+  }
+  .learn-table-wrap table.rsh-mobile-cards thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  .learn-table-wrap table.rsh-mobile-cards tbody tr {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 13px;
+    margin-bottom: 10px;
+  }
+  .learn-table-wrap table.rsh-mobile-cards tbody tr:last-child {
+    margin-bottom: 0;
+  }
+  .learn-table-wrap table.rsh-mobile-cards tbody th,
+  .learn-table-wrap table.rsh-mobile-cards tbody td {
+    display: block;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+    overflow-wrap: anywhere;
+  }
+  .learn-table-wrap table.rsh-mobile-cards tbody td:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .learn-table-wrap table.rsh-mobile-cards tbody td[data-label]::before,
+  .learn-table-wrap table.rsh-mobile-cards tbody th[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+}
