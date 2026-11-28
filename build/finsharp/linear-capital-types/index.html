@@ -166,18 +166,18 @@
 <h2 id="account-kinds">Strongly Typed T-Accounts (<code>Account&lt;TKind, TCurrency&gt;</code>)</h2>
 <p>Every ledger account carries two compile-time type parameters:</p>
 <div class="learn-table-wrap"><table><thead><tr><th scope="col"><code>TKind</code> Marker Type</th><th scope="col">Normal Balance</th><th scope="col">Accounting Equation Side</th><th scope="col">Increases On</th><th scope="col">Decreases On</th></tr></thead><tbody>
-<tr><td><code>Asset</code></td><td>Debit</td><td>Left ($\text{Assets} + \text{Expenses}$)</td><td><code>debit</code></td><td><code>credit</code></td></tr>
-<tr><td><code>Expense</code></td><td>Debit</td><td>Left ($\text{Assets} + \text{Expenses}$)</td><td><code>debit</code></td><td><code>credit</code></td></tr>
-<tr><td><code>Liability</code></td><td>Credit</td><td>Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
-<tr><td><code>Equity</code></td><td>Credit</td><td>Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
-<tr><td><code>Revenue</code></td><td>Credit</td><td>Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
+<tr><td><code>Asset</code></td><td>Debit</td><td>Left (<code>Assets + Expenses</code>)</td><td><code>debit</code></td><td><code>credit</code></td></tr>
+<tr><td><code>Expense</code></td><td>Debit</td><td>Left (<code>Assets + Expenses</code>)</td><td><code>debit</code></td><td><code>credit</code></td></tr>
+<tr><td><code>Liability</code></td><td>Credit</td><td>Right (<code>Liabilities + Equity + Revenue</code>)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
+<tr><td><code>Equity</code></td><td>Credit</td><td>Right (<code>Liabilities + Equity + Revenue</code>)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
+<tr><td><code>Revenue</code></td><td>Credit</td><td>Right (<code>Liabilities + Equity + Revenue</code>)</td><td><code>credit</code></td><td><code>debit</code></td></tr>
 </tbody></table></div>
 <p>Because <code>TKind</code> is part of the static type signature, a helper function expecting an <code>Account&lt;Expense, USD&gt;</code> will never accidentally post into an <code>Account&lt;Liability, USD&gt;</code>!</p>
 <h2 id="fixed-point-math">128-Bit Scaled Fixed-Point Arithmetic (<code>FIN0003</code>)</h2>
 <p>In binary IEEE 754 floating-point (<code>float</code> / <code>double</code>), <code>0.1 + 0.2</code> evaluates to <code>0.30000000000000004</code>. Across millions of ledger rows, binary rounding drift corrupts trial balances.</p>
 <ul>
 <li><strong>Compile-Time Float Ban (<code>FIN0003</code>)</strong>: Attempting to multiply, divide, or compare <code>Capital&lt;T&gt;</code>, <code>Account&lt;K, T&gt;</code>, or <code>Rate&lt;A, B&gt;</code> with <code>float</code> or <code>double</code> is a hard compile error (<code>FIN0003</code>).</li>
-<li><strong>Exact <code>Int128</code> Fixed-Point Representation</strong>: Internally, <code>FinSharp.Runtime</code> represents monetary amounts as signed 128-bit integers (<code>System.Int128</code> on <code>.NET 10 / 11</code>) scaled by $10^8$ (<code>100,000,000</code> atomic ticks per major currency unit—supporting sub-basis-point interest and FX math while guaranteeing exact cent reconciliation at posting boundaries).</li>
+<li><strong>Exact <code>Int128</code> Fixed-Point Representation</strong>: Internally, <code>FinSharp.Runtime</code> represents monetary amounts as signed 128-bit integers (<code>System.Int128</code> on <code>.NET 10 / 11</code>) scaled by <code>10⁸</code> (<code>100,000,000</code> atomic ticks per major currency unit—supporting sub-basis-point interest and FX math while guaranteeing exact cent reconciliation at posting boundaries).</li>
 <li><strong>Explicit <code>RoundingPolicy</code> Enum</strong>:</li>
 <li><code>RoundingPolicy.HalfEven</code> / <code>RoundingPolicy.Bankers</code> — Round half to even, returning <code>(roundedShare, adjustmentDelta)</code> inside settlement combinators.</li>
 <li><code>RoundingPolicy.FloorWithRemainder</code> — Deterministic floor division returning <code>(shares, exactRemainder)</code> as linear <code>Capital&lt;T&gt;</code> values.</li>

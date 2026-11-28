@@ -183,7 +183,7 @@
 <div class="learn-table-wrap"><table><thead><tr><th scope="col">Directive</th><th scope="col">Example</th><th scope="col">Behavior</th></tr></thead><tbody>
 <tr><td><code>#define KEY VALUE</code></td><td><code>#define EDITION &quot;Architect&quot;</code></td><td>Defines a compile-time macro constant readable via <code>def(&quot;KEY&quot;)</code> or <code>#ifdef</code>.</td></tr>
 <tr><td><code>#ifdef KEY</code> / <code>#ifndef KEY</code></td><td><code>#ifndef BOOK_SLUG</code></td><td>Includes block when <code>KEY</code> was (or was not) passed via <code>-DKEY=VAL</code> or <code>#define</code>.</td></tr>
-<tr><td><code>#if</code> / <code>#elif</code> / <code>#else</code> / <code>#endif</code></td><td><code>#if TARGET_ARCH == &quot;arm64&quot;</code></td><td>Conditional compilation supporting <code>==</code>, <code>!=</code>, <code>defined(KEY)</code>, <code>&amp;&amp;</code>, and `\</td><td>\</td><td>`.</td></tr>
+<tr><td><code>#if</code> / <code>#elif</code> / <code>#else</code> / <code>#endif</code></td><td><code>#if TARGET_ARCH == &quot;arm64&quot;</code></td><td>Conditional compilation supporting <code>==</code>, <code>!=</code>, <code>defined(KEY)</code>, <code>&amp;&amp;</code>, and <code>||</code>.</td></tr>
 <tr><td><code>include &quot;rel/path.rssc&quot;;</code></td><td><code>include &quot;../includes/common.rssc&quot;;</code></td><td>Splices reusable helper functions, <code>struct</code>s, and <code>enum</code>s with cycle protection.</td></tr>
 </tbody></table></div>
 <pre class="code-fence" data-lang="rssc"><code class="language-rssc">#ifndef RELEASE_RING
@@ -193,14 +193,14 @@
 include &quot;shared-enterprise-checks.rssc&quot;;
 const activeRing = def(&quot;RELEASE_RING&quot;, &quot;stable&quot;);
 </code></pre>
-<h2 id="literals">Literals (<code>string</code>, Raw <code>r&quot;...&quot;</code>, Single <code>&#39;...&#39;</code>, <code>SemVer</code> <code>v&quot;...&quot;</code>)</h2>
+<h2 id="literals">Literals (<code>string</code>, Raw <code>r&quot;...&quot;</code>, Single <code>'...'</code>, <code>SemVer</code> <code>v&quot;...&quot;</code>)</h2>
 <h3 id="interpolated-strings">1. Interpolated Double-Quoted Strings (<code>&quot;...&quot;</code>)</h3>
 <p>Double-quoted strings expand <code>${expr}</code> expressions automatically (calling <code>str(expr)</code> on any inner expression) and support <code>\n</code>, <code>\r</code>, <code>\t</code>, <code>\\</code>, <code>\&quot;</code>, and <code>\$</code> escapes:</p>
 <pre class="code-fence" data-lang="rssc"><code class="language-rssc">const summary = &quot;Installing ${product.name} on ${sys.arch()} (Build ${sys.osBuild()})&quot;;
 </code></pre>
-<h3 id="single-quoted-strings">2. Single-Quoted Non-Interpolated Strings (<code>&#39;...&#39;</code>)</h3>
+<h3 id="single-quoted-strings">2. Single-Quoted Non-Interpolated Strings (<code>'...'</code>)</h3>
 <p>Single-quoted strings do not expand <code>${...}</code> and can be nested cleanly inside <code>&quot;${...}&quot;</code> interpolations without escaping double quotes:</p>
-<pre class="code-fence" data-lang="rssc"><code class="language-rssc">log(&quot;Manufacturer: ${msi.getProperty(dbFile, &#39;Manufacturer&#39;)}&quot;);
+<pre class="code-fence" data-lang="rssc"><code class="language-rssc">log(&quot;Manufacturer: ${msi.getProperty(dbFile, 'Manufacturer')}&quot;);
 </code></pre>
 <h3 id="raw-strings">3. Raw Windows Path &amp; Registry Strings (<code>r&quot;...&quot;</code>)</h3>
 <p>Prefixing a string with <code>r</code> disables backslash escape processing—ideal for Windows Registry keys, UNC shares, and regular expressions:</p>
@@ -229,7 +229,7 @@ if (sys.osVersion() &gt;= minWin11) {
 <tr><td>4 (Additive)</td><td><code>+</code>, <code>-</code></td><td>Numeric add/subtract, string concatenation, or <code>array + array</code> merge</td></tr>
 <tr><td>5 (Relational)</td><td><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td><td>Numeric or 4-part <code>version</code> (<code>SemVer</code>) comparison</td></tr>
 <tr><td>6 (Equality)</td><td><code>==</code>, <code>!=</code></td><td>Deep structural value equality</td></tr>
-<tr><td>7 (Logical)</td><td><code>&amp;&amp;</code>, `\</td><td>\</td><td>`</td><td>Short-circuit boolean AND / OR</td></tr>
+<tr><td>7 (Logical)</td><td><code>&amp;&amp;</code>, <code>||</code></td><td>Short-circuit boolean AND / OR</td></tr>
 <tr><td>8 (Coalesce)</td><td><code>lhs ?? rhs</code></td><td>Evaluates to <code>rhs</code> when <code>lhs</code> is <code>null</code> or empty <code>&quot;&quot;</code>; otherwise <code>lhs</code></td></tr>
 <tr><td>9 (Conditional)</td><td><code>cond ? whenTrue : whenFalse</code></td><td>Ternary conditional expression</td></tr>
 <tr><td>10 (Assignment)</td><td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code></td><td>Mutable <code>let</code> / <code>param</code> assignment (<code>const</code> rejected by <code>RSW713</code>)</td></tr>
@@ -266,13 +266,13 @@ try {
     exit(1603);
 }
 
-// 5. v1.3 LIFO Scope-Exit Cleanup (&#39;defer { ... }&#39;) &amp; Optional Chaining (&#39;?.&#39;)
+// 5. v1.3 LIFO Scope-Exit Cleanup ('defer { ... }') &amp; Optional Chaining ('?.')
 fn inspectEndpoint(cfg: any) : int {
     defer { log.info(&quot;Finished inspecting endpoint configuration.&quot;); }
     return cfg?.network?.port ?? 8443;
 }
 
-// 6. v1.3 First-Class Unit Test Blocks (&#39;raggiescript.exe test &lt;file_or_dir&gt; [--json]&#39;)
+// 6. v1.3 First-Class Unit Test Blocks ('raggiescript.exe test &lt;file_or_dir&gt; [--json]')
 test &quot;Optional chaining falls back to port 8443 when config is null&quot; {
     assert(inspectEndpoint(null) == 8443, &quot;Expected fallback port 8443&quot;);
 }

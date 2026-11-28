@@ -152,13 +152,13 @@ companyRevenue += 500_000_000.00m;
 <h2 id="five-laws">The Five Compile-Time Conservation Laws of Fin#</h2>
 <div class="learn-table-wrap"><table><thead><tr><th scope="col">Invariant</th><th scope="col">Compiler Diagnostic</th><th scope="col">What <code>finsc</code> Proves Before Emitting Code</th></tr></thead><tbody>
 <tr><td><strong>1. No Thin-Air Mutation</strong></td><td><code>FIN0001</code></td><td>Scalar <code>+=</code>, <code>-=</code>, <code>=</code>, or un-paired account writes outside an atomic <code>transaction</code> block are rejected immediately.</td></tr>
-<tr><td><strong>2. Balanced Double-Entry</strong></td><td><code>FIN0002</code></td><td>Every <code>transaction</code> block proves Luca Pacioli's 1494 identity ($\sum \text{Debits} \equiv \sum \text{Credits}$) per currency.</td></tr>
+<tr><td><strong>2. Balanced Double-Entry</strong></td><td><code>FIN0002</code></td><td>Every <code>transaction</code> block proves Luca Pacioli's 1494 identity (<code>∑ Debits ≡ ∑ Credits</code>) per currency.</td></tr>
 <tr><td><strong>3. Zero Binary Floating-Point</strong></td><td><code>FIN0003</code></td><td>IEEE 754 <code>float</code> and <code>double</code> cannot touch <code>Capital&lt;T&gt;</code>, <code>Rate&lt;A, B&gt;</code>, or <code>Account&lt;K, T&gt;</code>; all math is 128-bit scaled fixed-point.</td></tr>
 <tr><td><strong>4. Dimension-Typed Currencies</strong></td><td><code>FIN0004</code></td><td><code>Capital&lt;USD&gt;</code> and <code>Capital&lt;EUR&gt;</code> cannot be mixed without an explicit <code>fx.convert(...)</code> clearing bridge.</td></tr>
 <tr><td><strong>5. Linear Remainder Safety</strong></td><td><code>FIN0005</code></td><td><code>Capital&lt;T&gt;</code> is a linear resource (<code>Move</code>-only: no <code>Copy</code>, no silent <code>Drop</code>). Unallocated split remainders fail compilation!</td></tr>
 </tbody></table></div>
 <h2 id="quick-tour">60-Second Tour: Your First <code>.fin</code> Ledger</h2>
-<p>Here is the real-world scene from <em>The Eleventh Child</em>—recording a \$30.00 annual aquatic center keytag pass on Geneva Street—written in idiomatic <strong>Fin#</strong>:</p>
+<p>Here is the real-world scene from <em>The Eleventh Child</em>—recording a $30.00 annual aquatic center keytag pass on Geneva Street—written in idiomatic <strong>Fin#</strong>:</p>
 <pre class="code-fence" data-lang="rssc"><code class="language-rssc">// geneva_household.fin — Every cent is conserved at compile time!
 ledger GenevaHousehold412 [currency: USD, audit_standard: Z_SOX_302] {
     account OperatingChecking : Account&lt;Asset, USD&gt;;

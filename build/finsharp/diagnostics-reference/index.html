@@ -158,7 +158,7 @@ OperatingRevenue += 500_000_000.00_USD;
 <h2 id="fin0002"><code>FIN0002</code>: <code>UnbalancedJournalEntryError</code></h2>
 <ul>
 <li><strong>Severity</strong>: <code>Error</code></li>
-<li><strong>Cause</strong>: Inside a <code>transaction</code> block, the symbolic or concrete sum of <code>debit</code> postings does not equal the sum of <code>credit</code> postings for one or more currencies ($\sum \text{Debits} \neq \sum \text{Credits}$).</li>
+<li><strong>Cause</strong>: Inside a <code>transaction</code> block, the symbolic or concrete sum of <code>debit</code> postings does not equal the sum of <code>credit</code> postings for one or more currencies (<code>∑ Debits ≠ ∑ Credits</code>).</li>
 </ul>
 <h3 id="failing-example-fin0002">Failing Example (<code>FIN0002</code>)</h3>
 <pre class="code-fence" data-lang="rssc"><code class="language-rssc">transaction BrokenUtilitySplit [audit: Z_SOX_302] {

@@ -24,7 +24,7 @@
      - **No Silent Destruction (`Drop` Forbidden)**: Every `Capital<TCurrency>` binding MUST be consumed exactly once before scope exit—including exact cent/sub-cent allocation remainders! Dropping an unallocated remainder fails compilation with **`FIN0005`**.
      - **No Implicit Duplication (`Copy` Forbidden)**: Moving `Capital<USD>` into an account posting consumes the binding linearly (`Move` semantics).
 2. **Compile-Time Double-Entry Conservation (`FIN0001` & `FIN0002`)**:
-   - Every ledger mutation MUST occur inside an atomic `transaction` (or `journal`) block proving Luca Pacioli's 1494 accounting identity ($\text{Assets} + \text{Expenses} = \text{Liabilities} + \text{Equity} + \text{Revenue}$, i.e., $\sum \text{Debits} \equiv \sum \text{Credits}$):
+   - Every ledger mutation MUST occur inside an atomic `transaction` (or `journal`) block proving Luca Pacioli's 1494 accounting identity (`Assets + Expenses = Liabilities + Equity + Revenue`, i.e., `∑ Debits ≡ ∑ Credits`):
      - **`FIN0001` (`ConservationOfCapitalViolationException`)**: Attempting scalar `+=`, `-=`, `=`, or un-paired account mutation outside a balanced `transaction` halts compilation immediately.
      - **`FIN0002` (`UnbalancedJournalEntryError`)**: Any `transaction` block whose symbolic or concrete `debit` sum cannot be proven equal to its `credit` sum for each currency fails compilation.
 3. **Zero Binary Floating-Point on Monetary Types (`FIN0003`)**:

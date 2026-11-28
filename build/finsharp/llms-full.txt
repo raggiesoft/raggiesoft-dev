@@ -33,14 +33,14 @@ Even when engineering teams apply strict code reviews and Sarbanes-Oxley (`SOX` 
 | Invariant | Compiler Diagnostic | What `finsc` Proves Before Emitting Code |
 | :--- | :--- | :--- |
 | **1. No Thin-Air Mutation** | `FIN0001` | Scalar `+=`, `-=`, `=`, or un-paired account writes outside an atomic `transaction` block are rejected immediately. |
-| **2. Balanced Double-Entry** | `FIN0002` | Every `transaction` block proves Luca Pacioli's 1494 identity ($\sum \text{Debits} \equiv \sum \text{Credits}$) per currency. |
+| **2. Balanced Double-Entry** | `FIN0002` | Every `transaction` block proves Luca Pacioli's 1494 identity (`∑ Debits ≡ ∑ Credits`) per currency. |
 | **3. Zero Binary Floating-Point** | `FIN0003` | IEEE 754 `float` and `double` cannot touch `Capital<T>`, `Rate<A, B>`, or `Account<K, T>`; all math is 128-bit scaled fixed-point. |
 | **4. Dimension-Typed Currencies** | `FIN0004` | `Capital<USD>` and `Capital<EUR>` cannot be mixed without an explicit `fx.convert(...)` clearing bridge. |
 | **5. Linear Remainder Safety** | `FIN0005` | `Capital<T>` is a linear resource (`Move`-only: no `Copy`, no silent `Drop`). Unallocated split remainders fail compilation! |
 
 ## 60-Second Tour: Your First `.fin` Ledger {#quick-tour}
 
-Here is the real-world scene from *The Eleventh Child*—recording a \$30.00 annual aquatic center keytag pass on Geneva Street—written in idiomatic **Fin#**:
+Here is the real-world scene from *The Eleventh Child*—recording a $30.00 annual aquatic center keytag pass on Geneva Street—written in idiomatic **Fin#**:
 
 ```rssc
 // geneva_household.fin — Every cent is conserved at compile time!
@@ -115,7 +115,7 @@ Every milestone in `Fin#`'s type system maps directly to chapters and behind-the
 | :--- | :--- | :--- |
 | [**The Eleventh Child — Series Landing Page**](https://books.raggiesoft.com/aubrie) | `2014–2016` | Complete novel overview, character arcs, free EPUB/PDF editions, and companion albums in The Listening Room. |
 | [**Part 3: Question The Rules: The Birth of Fin#**](https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin) | `2015-08-26` | The exact scene where Jordan's First Law of Thermodynamics insight and Zoë's compiler notebook give birth to `Fin#` and `FIN0001`. |
-| [**Part 7: The Blue Ridge Regional Aquatic Center**](https://books.raggiesoft.com/aubrie/the-eleventh-child-off-to-college/jordan-s-independence-day-the-fall-break-relay/part-7-mark-s-hometown-trail-the-blue-ridge-regional-aquatic-center-a-neighbor-s-wave-on-the-huckleberry-trail) | `2015-10-09` | Zoë logs Jordan's \$30.00 annual aquatic center keytag pass under her `Fin#` / `Z-SOX-302` household conservation protocol. |
+| [**Part 7: The Blue Ridge Regional Aquatic Center**](https://books.raggiesoft.com/aubrie/the-eleventh-child-off-to-college/jordan-s-independence-day-the-fall-break-relay/part-7-mark-s-hometown-trail-the-blue-ridge-regional-aquatic-center-a-neighbor-s-wave-on-the-huckleberry-trail) | `2015-10-09` | Zoë logs Jordan's $30.00 annual aquatic center keytag pass under her `Fin#` / `Z-SOX-302` household conservation protocol. |
 | [**Backstage Dossier: ZOË.Systems.Logs, Fin# & Z-SOX-302**](https://backstage.raggiesoft.com/books/aubrie/zoe-logging-architecture) | `2015-07-18+` | Deep dive into Zoë's five cognitive runtime log streams, five concurrency threads, and how `Z-SOX-302` brings deterministic calm. |
 | [**RaggieSoft Labs — Fin# Architecture Blueprint**](https://raggiesoft.dev/labs/finsharp) | Present Day | Real-world open-source `.NET` compiler strategy (`FinSharp.Compiler`) on `raggiesoft.dev`. |
 
@@ -171,11 +171,11 @@ Every ledger account carries two compile-time type parameters:
 
 | `TKind` Marker Type | Normal Balance | Accounting Equation Side | Increases On | Decreases On |
 | :--- | :--- | :--- | :--- | :--- |
-| `Asset` | Debit | Left ($\text{Assets} + \text{Expenses}$) | `debit` | `credit` |
-| `Expense` | Debit | Left ($\text{Assets} + \text{Expenses}$) | `debit` | `credit` |
-| `Liability` | Credit | Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$) | `credit` | `debit` |
-| `Equity` | Credit | Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$) | `credit` | `debit` |
-| `Revenue` | Credit | Right ($\text{Liabilities} + \text{Equity} + \text{Revenue}$) | `credit` | `debit` |
+| `Asset` | Debit | Left (`Assets + Expenses`) | `debit` | `credit` |
+| `Expense` | Debit | Left (`Assets + Expenses`) | `debit` | `credit` |
+| `Liability` | Credit | Right (`Liabilities + Equity + Revenue`) | `credit` | `debit` |
+| `Equity` | Credit | Right (`Liabilities + Equity + Revenue`) | `credit` | `debit` |
+| `Revenue` | Credit | Right (`Liabilities + Equity + Revenue`) | `credit` | `debit` |
 
 Because `TKind` is part of the static type signature, a helper function expecting an `Account<Expense, USD>` will never accidentally post into an `Account<Liability, USD>`!
 
@@ -184,7 +184,7 @@ Because `TKind` is part of the static type signature, a helper function expectin
 In binary IEEE 754 floating-point (`float` / `double`), `0.1 + 0.2` evaluates to `0.30000000000000004`. Across millions of ledger rows, binary rounding drift corrupts trial balances.
 
 - **Compile-Time Float Ban (`FIN0003`)**: Attempting to multiply, divide, or compare `Capital<T>`, `Account<K, T>`, or `Rate<A, B>` with `float` or `double` is a hard compile error (`FIN0003`).
-- **Exact `Int128` Fixed-Point Representation**: Internally, `FinSharp.Runtime` represents monetary amounts as signed 128-bit integers (`System.Int128` on `.NET 10 / 11`) scaled by $10^8$ (`100,000,000` atomic ticks per major currency unit—supporting sub-basis-point interest and FX math while guaranteeing exact cent reconciliation at posting boundaries).
+- **Exact `Int128` Fixed-Point Representation**: Internally, `FinSharp.Runtime` represents monetary amounts as signed 128-bit integers (`System.Int128` on `.NET 10 / 11`) scaled by `10⁸` (`100,000,000` atomic ticks per major currency unit—supporting sub-basis-point interest and FX math while guaranteeing exact cent reconciliation at posting boundaries).
 - **Explicit `RoundingPolicy` Enum**:
   - `RoundingPolicy.HalfEven` / `RoundingPolicy.Bankers` — Round half to even, returning `(roundedShare, adjustmentDelta)` inside settlement combinators.
   - `RoundingPolicy.FloorWithRemainder` — Deterministic floor division returning `(shares, exactRemainder)` as linear `Capital<T>` values.
@@ -209,9 +209,9 @@ TOPIC: Ledgers, Accounts, Atomic Transactions & Z-SOX-302 Proofs [ledgers-and-tr
 
 In 1494, Franciscan mathematician **Luca Pacioli** formalized double-entry bookkeeping around a single conservation equation:
 
-$$\text{Assets} + \text{Expenses} = \text{Liabilities} + \text{Equity} + \text{Revenue}$$
+> **`Assets + Expenses = Liabilities + Equity + Revenue`**
 
-Every valid state transition in a closed accounting system preserves that equality because **the sum of debits in every journal entry equals the sum of credits** ($\sum \text{Debits} \equiv \sum \text{Credits}$). Fin# promotes Pacioli's 530-year-old equation directly into its grammar.
+Every valid state transition in a closed accounting system preserves that equality because **the sum of debits in every journal entry equals the sum of credits** (`∑ Debits ≡ ∑ Credits`). Fin# promotes Pacioli's 530-year-old equation directly into its grammar.
 
 ## Declaring a Closed `ledger` {#ledger-syntax}
 
@@ -333,7 +333,7 @@ TOPIC: finsc CLI, Standard Library (capital.*, fx.*, audit.*) & .NET Architectur
 
 | Function Signature | Return Type | Description |
 | :--- | :--- | :--- |
-| `audit.trialBalance(ledger: Ledger)` | `TrialBalanceSnapshot` | Computes immutable period totals and asserts $\text{Assets} + \text{Expenses} \equiv \text{Liabilities} + \text{Equity} + \text{Revenue}$ per currency. |
+| `audit.trialBalance(ledger: Ledger)` | `TrialBalanceSnapshot` | Computes immutable period totals and asserts `Assets + Expenses ≡ Liabilities + Equity + Revenue` per currency. |
 | `audit.attestZsox302(ledger: Ledger, periodId: String)` | `ZsoxAttestation` | Emits SHA-256 hash-chained journal digest inspired by Zoë Wren Brooks's `Z-SOX-302` governance protocol in [*The Eleventh Child*](https://books.raggiesoft.com/aubrie). |
 | `audit.attach(receipt: AuditArtifact)` | `Unit` | Attaches structured FX, invoice, or external bank-feed evidence metadata to the enclosing `transaction` journal record. |
 
@@ -391,7 +391,7 @@ transaction RecordVerifiedEnergyDelivery [audit: Z_SOX_302, date: "2015-08-26"] 
 ## `FIN0002`: `UnbalancedJournalEntryError` {#fin0002}
 
 - **Severity**: `Error`
-- **Cause**: Inside a `transaction` block, the symbolic or concrete sum of `debit` postings does not equal the sum of `credit` postings for one or more currencies ($\sum \text{Debits} \neq \sum \text{Credits}$).
+- **Cause**: Inside a `transaction` block, the symbolic or concrete sum of `debit` postings does not equal the sum of `credit` postings for one or more currencies (`∑ Debits ≠ ∑ Credits`).
 
 ### Failing Example (`FIN0002`)
 

@@ -138,10 +138,10 @@
 <p><strong>Fin# (<code>FinSharp.Compiler</code> / <code>finsc</code>)</strong> is architected as a clean, fast, 100%-readable self-hosted C# compiler frontend ("Mini-Roslyn" design) targeting <strong><code>.NET 10 / 11</code> CoreCLR and NativeAOT</strong>—interoperating seamlessly with every <code>.NET</code> NuGet library while keeping build times under <code>3 seconds</code>.</p>
 <h2 id="finsc-commands"><code>finsc</code> Command-Line Interface Reference</h2>
 <div class="learn-table-wrap"><table><thead><tr><th scope="col">Command</th><th scope="col">Flags &amp; Arguments</th><th scope="col">Purpose</th></tr></thead><tbody>
-<tr><td>`finsc check &lt;file\</td><td>dir&gt;`</td><td><code>--diagnostics=json</code>, <code>--strict</code></td><td>Runs <code>Lexer</code> -&gt; <code>Parser</code> -&gt; <code>Binder</code> -&gt; <code>LinearFlowAnalyzer</code> (<code>FIN0001</code>–<code>FIN0005</code>) in milliseconds without writing binaries.</td></tr>
+<tr><td><code>finsc check &lt;file|dir&gt;</code></td><td><code>--diagnostics=json</code>, <code>--strict</code></td><td>Runs <code>Lexer</code> -&gt; <code>Parser</code> -&gt; <code>Binder</code> -&gt; <code>LinearFlowAnalyzer</code> (<code>FIN0001</code>–<code>FIN0005</code>) in milliseconds without writing binaries.</td></tr>
 <tr><td><code>finsc build &lt;project.finproj&gt;</code></td><td><code>-o &lt;dir&gt;</code>, <code>--aot</code>, <code>--pdb</code></td><td>Verifies all conservation proofs and lowers verified syntax trees via <code>Microsoft.CodeAnalysis.CSharp</code> (<code>Roslyn</code>) into deterministic <code>.dll</code> / <code>.exe</code> assemblies.</td></tr>
 <tr><td><code>finsc audit &lt;ledger.fin&gt;</code></td><td><code>--standard=Z_SOX_302</code>, <code>--json</code></td><td>Executes ledger transactions deterministically and emits a SHA-256 Merkle trial-balance attestation report.</td></tr>
-<tr><td>`finsc fmt &lt;file\</td><td>dir&gt;`</td><td><code>--write</code>, <code>--check</code></td><td>Comment-preserving source formatter that aligns <code>account</code>, <code>debit</code>, and <code>credit</code> columns cleanly.</td></tr>
+<tr><td><code>finsc fmt &lt;file|dir&gt;</code></td><td><code>--write</code>, <code>--check</code></td><td>Comment-preserving source formatter that aligns <code>account</code>, <code>debit</code>, and <code>credit</code> columns cleanly.</td></tr>
 <tr><td><code>finsc lsp</code></td><td><code>--stdio</code></td><td>Launches the JSON-RPC 2.0 Language Server providing real-time red squiggles for <code>FIN0001</code>–<code>FIN0005</code> and live T-account hover cards.</td></tr>
 </tbody></table></div>
 <h2 id="stdlib-overview">Standard Library Reference (<code>FinSharp.StdLib</code>)</h2>
@@ -159,7 +159,7 @@
 </tbody></table></div>
 <h3 id="audit-namespace"><code>audit.*</code> — <code>Z-SOX-302</code> Deterministic Attestation</h3>
 <div class="learn-table-wrap"><table><thead><tr><th scope="col">Function Signature</th><th scope="col">Return Type</th><th scope="col">Description</th></tr></thead><tbody>
-<tr><td><code>audit.trialBalance(ledger: Ledger)</code></td><td><code>TrialBalanceSnapshot</code></td><td>Computes immutable period totals and asserts $\text{Assets} + \text{Expenses} \equiv \text{Liabilities} + \text{Equity} + \text{Revenue}$ per currency.</td></tr>
+<tr><td><code>audit.trialBalance(ledger: Ledger)</code></td><td><code>TrialBalanceSnapshot</code></td><td>Computes immutable period totals and asserts <code>Assets + Expenses ≡ Liabilities + Equity + Revenue</code> per currency.</td></tr>
 <tr><td><code>audit.attestZsox302(ledger: Ledger, periodId: String)</code></td><td><code>ZsoxAttestation</code></td><td>Emits SHA-256 hash-chained journal digest inspired by Zoë Wren Brooks's <code>Z-SOX-302</code> governance protocol in <a href="https://books.raggiesoft.com/aubrie"><em>The Eleventh Child</em></a>.</td></tr>
 <tr><td><code>audit.attach(receipt: AuditArtifact)</code></td><td><code>Unit</code></td><td>Attaches structured FX, invoice, or external bank-feed evidence metadata to the enclosing <code>transaction</code> journal record.</td></tr>
 </tbody></table></div>

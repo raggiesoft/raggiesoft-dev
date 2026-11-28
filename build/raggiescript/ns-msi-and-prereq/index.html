@@ -218,7 +218,7 @@ msi.setSummary(db, {
 msi.setProperty(db, &quot;Manufacturer&quot;, &quot;RaggieSoft&quot;);
 msi.execSql(db, [
     &quot;CREATE TABLE `CustomPolicy` (`Key` CHAR(64) NOT NULL, `Value` CHAR(128) NOT NULL PRIMARY KEY `Key`)&quot;,
-    &quot;INSERT INTO `CustomPolicy` (`Key`, `Value`) VALUES (&#39;Telemetry&#39;, &#39;Disabled&#39;)&quot;
+    &quot;INSERT INTO `CustomPolicy` (`Key`, `Value`) VALUES ('Telemetry', 'Disabled')&quot;
 ]);
 const rows = msi.query(db, &quot;SELECT `Key`, `Value` FROM `CustomPolicy`&quot;);
 assert(rows[0].Value == &quot;Disabled&quot;);

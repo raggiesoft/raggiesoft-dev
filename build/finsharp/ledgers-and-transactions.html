@@ -136,8 +136,10 @@
       </div>
 <h1 id="ledger-declarations">Ledgers, Accounts, Atomic Transactions &amp; <code>Z-SOX-302</code> Proofs</h1>
 <p>In 1494, Franciscan mathematician <strong>Luca Pacioli</strong> formalized double-entry bookkeeping around a single conservation equation:</p>
-<p>$$\text{Assets} + \text{Expenses} = \text{Liabilities} + \text{Equity} + \text{Revenue}$$</p>
-<p>Every valid state transition in a closed accounting system preserves that equality because <strong>the sum of debits in every journal entry equals the sum of credits</strong> ($\sum \text{Debits} \equiv \sum \text{Credits}$). Fin# promotes Pacioli's 530-year-old equation directly into its grammar.</p>
+<blockquote>
+<p><strong><code>Assets + Expenses = Liabilities + Equity + Revenue</code></strong></p>
+</blockquote>
+<p>Every valid state transition in a closed accounting system preserves that equality because <strong>the sum of debits in every journal entry equals the sum of credits</strong> (<code>∑ Debits ≡ ∑ Credits</code>). Fin# promotes Pacioli's 530-year-old equation directly into its grammar.</p>
 <h2 id="ledger-syntax">Declaring a Closed <code>ledger</code></h2>
 <p>A <code>ledger</code> block establishes a closed chart of accounts, its functional reporting currency, and its audit-attestation profile (<code>Z_SOX_302</code> or custom policy tags):</p>
 <pre class="code-fence" data-lang="rssc"><code class="language-rssc">ledger CampusAccessibilityFund [currency: USD, audit_standard: Z_SOX_302] {

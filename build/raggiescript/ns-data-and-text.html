@@ -245,10 +245,10 @@ const highPorts = array.filter(
 <h2 id="math-namespace"><code>math.*</code> — Clamping, Interpolation &amp; Numeric Constants (<code>10</code> Methods + <code>2</code> Properties)</h2>
 <p>Includes built-in constants <strong><code>math.PI</code></strong> (<code>3.141592653589793</code>) and <strong><code>math.E</code></strong> (<code>2.718281828459045</code>):</p>
 <div class="learn-table-wrap"><table><thead><tr><th scope="col">Method</th><th scope="col">Signature</th><th scope="col">Return</th><th scope="col">Description</th></tr></thead><tbody>
-<tr><td><code>math.min</code></td><td><code>math.min(a: any, b: any)</code></td><td>`int \</td><td>float`</td><td>Returns the smaller of <code>a</code> and <code>b</code>.</td></tr>
-<tr><td><code>math.max</code></td><td><code>math.max(a: any, b: any)</code></td><td>`int \</td><td>float`</td><td>Returns the larger of <code>a</code> and <code>b</code>.</td></tr>
-<tr><td><code>math.clamp</code></td><td><code>math.clamp(value: any, minVal: any, maxVal: any)</code></td><td>`int \</td><td>float`</td><td>Clamps <code>value</code> into <code>[minVal, maxVal]</code>.</td></tr>
-<tr><td><code>math.abs</code></td><td><code>math.abs(x: any)</code></td><td>`int \</td><td>float`</td><td>Returns absolute magnitude of <code>x</code>.</td></tr>
+<tr><td><code>math.min</code></td><td><code>math.min(a: any, b: any)</code></td><td><code>int | float</code></td><td>Returns the smaller of <code>a</code> and <code>b</code>.</td></tr>
+<tr><td><code>math.max</code></td><td><code>math.max(a: any, b: any)</code></td><td><code>int | float</code></td><td>Returns the larger of <code>a</code> and <code>b</code>.</td></tr>
+<tr><td><code>math.clamp</code></td><td><code>math.clamp(value: any, minVal: any, maxVal: any)</code></td><td><code>int | float</code></td><td>Clamps <code>value</code> into <code>[minVal, maxVal]</code>.</td></tr>
+<tr><td><code>math.abs</code></td><td><code>math.abs(x: any)</code></td><td><code>int | float</code></td><td>Returns absolute magnitude of <code>x</code>.</td></tr>
 <tr><td><code>math.round</code></td><td><code>math.round(x: float, digits?: int)</code></td><td><code>float</code></td><td>Rounds <code>x</code> to <code>digits</code> decimal places (<code>0</code> by default).</td></tr>
 <tr><td><code>math.floor</code></td><td><code>math.floor(x: float)</code></td><td><code>int</code></td><td>Largest integer <code>&lt;= x</code>.</td></tr>
 <tr><td><code>math.ceil</code></td><td><code>math.ceil(x: float)</code></td><td><code>int</code></td><td>Smallest integer <code>&gt;= x</code>.</td></tr>

@@ -184,7 +184,7 @@
 <tr><td><code>RSW701</code></td><td><strong>Wizard Phase Isolation</strong></td><td>Binder</td><td>Mutating call (<code>fs.write*</code>, <code>reg.write*</code>, <code>msi.install</code>, <code>svc.*</code>, etc.) reached directly or transitively inside <code>wizard { ... }</code>.</td></tr>
 <tr><td><code>RSW702</code></td><td><strong>Capability Sandbox Violation</strong></td><td>Binder</td><td>Sandboxed Studio profile (<code>use training;</code>, <code>use a11y;</code>, <code>use localization;</code>, <code>use document;</code>) attempted host OS/FS/Registry/Network access.</td></tr>
 <tr><td><code>RSW704</code></td><td><strong>Bytecode &amp; SHA-256 Integrity</strong></td><td>Loader</td><td>Invalid <code>RSWBC2</code>/<code>RSWBC1</code> magic header, truncated stream, or 32-byte SHA-256 tamper mismatch!</td></tr>
-<tr><td><code>RSW710</code></td><td><strong>Undeclared Identifier</strong></td><td>Type Binder</td><td>Variable, <code>ref</code> target, or function name is not in scope (includes Levenshtein <code>&quot;Did you mean &#39;...&#39;?&quot;</code> hint).</td></tr>
+<tr><td><code>RSW710</code></td><td><strong>Undeclared Identifier</strong></td><td>Type Binder</td><td>Variable, <code>ref</code> target, or function name is not in scope (includes Levenshtein <code>&quot;Did you mean '...'?&quot;</code> hint).</td></tr>
 <tr><td><code>RSW711</code></td><td><strong>Static Type Mismatch</strong></td><td>Type Binder</td><td>Incompatible initializer, assignment, <code>struct</code> field type, <code>match</code> arm pattern, or <code>return</code> value type.</td></tr>
 <tr><td><code>RSW712</code></td><td><strong>Call Arity or Unknown Method</strong></td><td>Type Binder</td><td>Unknown <code>ns.method()</code> (with fuzzy suggestion) or wrong argument count/type passed to a function.</td></tr>
 <tr><td><code>RSW713</code></td><td><strong>Immutability Violation</strong></td><td>Type Binder / VM</td><td>Reassigning a <code>const</code> binding, passing a <code>const</code> variable as <code>ref</code>, or mutating a CLI hard-locked <code>KEY:VALUE</code> parameter.</td></tr>
@@ -202,7 +202,7 @@ wizard {
     }
 }
 
-// FIX: Bind a &#39;param&#39; in wizard, and write to the Registry inside &#39;install { ... }&#39;!
+// FIX: Bind a 'param' in wizard, and write to the Registry inside 'install { ... }'!
 param optedIn: bool = true;
 wizard {
     step Welcome { ui.checkbox(text: &quot;Save preference&quot;, bind: ref optedIn); }
@@ -219,17 +219,17 @@ install {
 <pre class="code-fence" data-lang="rssc"><code class="language-rssc">param installDir: path = sys.programFiles / &quot;Demo&quot;;
 install {
     fs.mkdir(instalDir);
-    // -&gt; [RSW710] Undeclared identifier &#39;instalDir&#39;. Did you mean &#39;installDir&#39;?
+    // -&gt; [RSW710] Undeclared identifier 'instalDir'. Did you mean 'installDir'?
 }
 </code></pre>
 <h3 id="rsw711-rsw715"><code>RSW711</code>, <code>RSW712</code>, <code>RSW713</code> &amp; <code>RSW715</code> — Type, Arity, <code>const</code> &amp; Return Checks</h3>
 <pre class="code-fence" data-lang="rssc"><code class="language-rssc">const lockedPort: int = 8443;
 // ui.textBox(label: &quot;Port:&quot;, bind: ref lockedPort);
-// -&gt; [RSW713] Cannot pass immutable &#39;const&#39; binding &#39;lockedPort&#39; by &#39;ref&#39;. Use &#39;param&#39; or &#39;let&#39;!
+// -&gt; [RSW713] Cannot pass immutable 'const' binding 'lockedPort' by 'ref'. Use 'param' or 'let'!
 
 fn computePort(useTls: bool) : int {
     if (useTls) { return 443; }
-    // -&gt; [RSW715] Function &#39;computePort()&#39; declares return type &#39;int&#39; but not all control paths return a value.
+    // -&gt; [RSW715] Function 'computePort()' declares return type 'int' but not all control paths return a value.
     return 8080;
 }
 </code></pre>
