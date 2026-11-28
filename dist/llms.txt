@@ -2,7 +2,7 @@
 
 > Official open-source code portal behind RaggieSoft projects (100% MIT License for code; CC BY-SA 4.0 for creative works), indexing `*.raggiesoft.dev` language portals, RaggieSoft Studio (8 Windows 11 x64 & ARM64 developer tools), and AI agent skills.
 
-## Dedicated `*.raggiesoft.dev` RaggieSoft Reference Portals (Dogfooded via Help Studio v0.6.0)
+## Dedicated `*.raggiesoft.dev` RaggieSoft Reference Portals (Dogfooded via Help Studio v0.7.0)
 - [RaggieScript v1.3 RaggieSoft Reference Portal](https://raggiescript.raggiesoft.dev): Complete three-column searchable reference documenting every function, property, global constant, `defer`, `?.`, `raggiescript.exe test`, 23-method zero-DLL `archive.*` suite (`.7z`/`LZMA2`, `.zip`, `.rswpak`, `.cab`, `.tar.zst`, `.iso`, `.wim`), Reg-Free COM `com.generateRegFreeManifest`, `StoreScript` (`use storescript;` for StoreTrainer), `Story Crossroads` (`use crossroads;`), two-way `.NET` Host SDK (`RaggieScript.Core`), `RSWBC2` opcode, and `RSW700`-`RSW715` diagnostic across all 31 namespaces ([Portal llms.txt](https://raggiescript.raggiesoft.dev/llms.txt) | [Full Reference llms-full.txt](https://raggiescript.raggiesoft.dev/llms-full.txt)).
 - [Fin# (Financial Sharp) RaggieSoft Reference Portal](https://finsharp.raggiesoft.dev): Linear-type double-entry financial language (`Capital<T>`, `FIN0001`-`FIN0005`) with bidirectional narrative links to *The Eleventh Child* (`https://books.raggiesoft.com/aubrie`) ([Portal llms.txt](https://finsharp.raggiesoft.dev/llms.txt) | [Full Reference llms-full.txt](https://finsharp.raggiesoft.dev/llms-full.txt)).
 
@@ -13,8 +13,8 @@
 - [1. RaggieSoft Installer Studio (v0.8.0 Shipping)](https://raggiesoftstudio.com/installer-studio): Static `/MT` Win32 C++20 `.msi`, `.msm`, `.mst`, `.msp`, `sfx` (`rswsfx.exe`), **RaggieScript EXE**, `RsPatch.exe` (`msdelta.dll` `.msp` & `.rswpatch` binary deltas), DRY `RsUpdate.exe` (`apps-manifest.json`), `[Upgrade]` + `--plan-update`, shared cross-Studio 2D visual dialog designers (`RaggieSoftVisualCanvas.hpp`), turnkey `RsDialog` wizard suite, standalone read/write **RaggieSoft MSI Prism (`msiprism.exe`)**, & Monotonic Dual-Bar `.rsis` Suite compiler ([Suite Downloads](https://raggiesoftstudio.com/download) | [Previous Versions](https://raggiesoftstudio.com/download/previous-versions)).
 - [2. RaggieSoft Showcase Studio](https://raggiesoftstudio.com/showcase-studio): 1990s `.BMP` (with UIA safeguards) & Windows 11 `FluentMica` launchpads + bespoke `_support\` self-extracting canvas installers.
 - [3. RaggieSoft Launcher Studio](https://raggiesoftstudio.com/launcher-studio): Branded zero-account desktop hubs & SHA-256 + Authenticode static-CDN updaters.
-- [4. RaggieSoft Help Studio (v0.6.0)](https://raggiesoftstudio.com/help-studio): Static `/MT` Win32 C++20 `.CHM` (`ITSF/LZX`) & WinHelp `.HLP`/`.CNT` (`LZ77`) decompiler, Word `MsoNormal` sanitizer, standalone three-column RaggieSoft Reference Portal exporter, & `<5ms` Named Pipe `F1` help suite (`rshbuild.exe`, `HelpStudio.exe`, `RaggieSoftHelp.exe`).
-- [5. RaggieSoft Training Studio (v0.5.0)](https://raggiesoftstudio.com/training-studio): `<50 KB` proxy-proof WCAG 2.2 AA SCORM 1.2 & 2004 compiler (`rstbuild`).
+- [4. RaggieSoft Help Studio (v0.7.0)](https://raggiesoftstudio.com/help-studio): Static `/MT` Win32 C++20 9-view IDE, `use help;` RaggieScript sandbox, offline `.rswlic` P-256 licensing, Cross-Suite Federated Search, `.CHM` (`ITSF/LZX`) & WinHelp `.HLP`/`.CNT` (`LZ77`) decompiler, Word `MsoNormal` sanitizer, standalone three-column RaggieSoft Reference Portal exporter, & `<5ms` Named Pipe `F1` help suite (`rshbuild.exe`, `HelpStudio.exe`, `RaggieSoftHelp.exe`).
+- [5. RaggieSoft Training Studio (v0.7.0)](https://raggiesoftstudio.com/training-studio): Visual IDE (`TrainingStudio.exe`), PowerPoint `.pptx` importer, Question Banks, Role Branching, CSP-safe `RaggieScript` (`use training;`), & `<50 KB` proxy-proof WCAG 2.2 AA SCORM 1.2, 2004, xAPI & cmi5 compiler (`rstbuild`).
 - [6. RaggieSoft Document Studio](https://raggiesoftstudio.com/document-studio): Deterministic ISO 14289-1 Tagged `PDF/UA-1` & Section 508 form compiler.
 - [7. RaggieSoft Localization Studio](https://raggiesoftstudio.com/localization-studio): Multilingual `.RESX`, `XLIFF 2.1`, `.rsip`, `.rstp` & `<=22 CPS` WebVTT compliance IDE.
 - [8. RaggieSoft Accessibility Studio (v1.0.0)](https://raggiesoftstudio.com/accessibility-studio): `.NET 11` + Monaco WCAG 2.2 AA refactoring IDE & SARIF 2.1.0 CLI (`a11y.raggiesoft.com` 301s here).
@@ -31,6 +31,8 @@
 - [Help Studio Full Schema Reference](https://raggiesoftstudio.com/help-studio/llms-full.txt)
 - [Help Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/help-studio/SKILL.md)
 - [Training Studio Full Schema Reference](https://raggiesoftstudio.com/training-studio/llms-full.txt)
+- [Training Studio Agent Skill (SKILL.md)](https://raggiesoftstudio.com/training-studio/SKILL.md)
+- [Training Studio Engineering Roadmap](https://raggiesoftstudio.com/training-studio/ROADMAP.md)
 
 ## Public GitHub Repositories (@raggiesoft)
 - https://github.com/raggiesoft/installer-studio

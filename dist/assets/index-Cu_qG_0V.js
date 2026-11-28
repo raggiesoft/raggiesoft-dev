@@ -27,7 +27,7 @@ ${i?'Expression: "'+i+`"
         and engineering stack gets its own dedicated <strong><code>&lt;project&gt;.raggiesoft.dev</code></strong> portal—starting with
         <strong><a href="https://raggiescript.raggiesoft.dev"><code>raggiescript.raggiesoft.dev</code></a></strong> and
         <strong><a href="https://finsharp.raggiesoft.dev"><code>finsharp.raggiesoft.dev</code></a></strong> (both dogfooded &amp;
-        compiled by <strong>RaggieSoft Help Studio v0.6.0</strong>!).
+        compiled by <strong>RaggieSoft Help Studio v0.7.0</strong>!).
       </p>
       <div class="btn-row">
         <a class="btn btn-primary" href="https://raggiescript.raggiesoft.dev">RaggieScript Docs (raggiescript.raggiesoft.dev) &rarr;</a>
@@ -39,7 +39,7 @@ ${i?'Expression: "'+i+`"
     </section>
 
     <section aria-labelledby="subdomains-heading" style="margin-bottom: 2rem;">
-      <span class="eyebrow">Dogfooded Standalone Learn Portals • Compiled by Help Studio v0.6.0 (rshbuild.exe)</span>
+      <span class="eyebrow">Dogfooded Standalone Learn Portals • Compiled by Help Studio v0.7.0 (rshbuild.exe)</span>
       <h2 id="subdomains-heading" style="margin-top: 0.25rem;">Live <code>*.raggiesoft.dev</code> Language &amp; API Portals</h2>
       <div class="lab-grid-2x2">
         <article class="card" style="border: 2px solid var(--primary);">
@@ -157,9 +157,9 @@ ${i?'Expression: "'+i+`"
             <p>
               Alongside Installer Studio: <strong>Showcase Studio v0.5.0</strong> (static <code>/MT</code> C++20 1990s <code>.BMP</code>,
               <code>FluentMica</code> &amp; <code>_support\\</code> canvas installers sharing DRY <code>RaggieSoftVisualCanvas.hpp</code>),
-              <strong>Accessibility Studio v1.0.0</strong> (.NET 11 + Monaco + SARIF CLI),
-              <strong>Help Studio v0.6.0</strong> (static <code>/MT</code> C++20 <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompiler &amp; <code>&lt;5ms</code> <code>F1</code> IPC),
-              <strong>Training Studio v0.5.0</strong> (<code>&lt;50 KB</code> proxy-proof SCORM 1.2/2004), <strong>Document Studio</strong>,
+              <strong>Accessibility Studio v1.0.1</strong> (.NET 11 + Monaco + SARIF CLI),
+              <strong>Help Studio v0.7.0</strong> (static <code>/MT</code> C++20 9-view IDE, <code>use help;</code> <code>RaggieScript</code>, federated search, <code>.CHM</code> &amp; WinHelp <code>.HLP</code>/<code>.CNT</code> decompilers &amp; <code>&lt;5ms</code> <code>F1</code> IPC),
+              <strong>Training Studio v0.7.0</strong> (PowerPoint <code>.pptx</code> importer, Question Banks, <code>RaggieScript</code> &amp; <code>&lt;50 KB</code> SCORM 1.2/2004/xAPI/cmi5), <strong>Document Studio</strong>,
               <strong>Localization Studio</strong>, and <strong>Launcher Studio</strong>.
             </p>
           </div>
@@ -649,12 +649,13 @@ fn RecordMonthlyKeytag(books: ref HouseholdLedger&lt;USD&gt;) {
               <td>Author, validate WCAG 2.2 AA (<code>RSS010</code>&ndash;<code>RSS095</code>), and compile zero-dependency static <code>/MT</code> C++20 1990s <code>.BMP</code>, <code>FluentMica</code>, Kiosk, &amp; Bespoke <code>_support\\</code> installers.</td>
             </tr>
             <tr>
-              <th scope="row">Training Studio (<code>.rstp</code> SCORM 1.2 &amp; 2004)</th>
+              <th scope="row">Training Studio v0.7.0 (<code>.rstp</code> + <code>.pptx</code> &rarr; SCORM / xAPI / cmi5)</th>
               <td>
                 <a href="https://raggiesoftstudio.com/training-studio/llms-full.txt">llms-full.txt</a> &bull;
-                <a href="https://raggiesoftstudio.com/training-studio/SKILL.md">SKILL.md</a>
+                <a href="https://raggiesoftstudio.com/training-studio/SKILL.md">SKILL.md</a> &bull;
+                <a href="https://raggiesoftstudio.com/training-studio/ROADMAP.md">ROADMAP.md</a>
               </td>
-              <td>Compile bandwidth-resilient <code>&lt;50 KB</code> WCAG 2.2 AA SCORM packages and audit legacy third-party SCORM <code>.zip</code> archives.</td>
+              <td>Migrate PowerPoint <code>.pptx</code> decks, compile <code>&lt;50 KB</code> WCAG 2.2 AA SCORM 1.2/2004/xAPI/cmi5 packages with Question Banks &amp; <code>RaggieScript</code>, and audit legacy SCORM <code>.zip</code> archives.</td>
             </tr>
             <tr>
               <th scope="row">RaggieScript v1.3 Language &amp; Multi-Target SDK (<code>.rssc</code>)</th>
