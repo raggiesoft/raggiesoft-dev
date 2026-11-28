@@ -68,15 +68,23 @@ function renderHomeBody(): string {
     </section>
 
     <section aria-labelledby="subdomains-heading" style="margin-bottom: 2rem;">
-      <span class="eyebrow">Dogfooded Standalone Learn Portals • Compiled by Help Studio v0.6.0 (rshbuild.exe)</span>
-      <h2 id="subdomains-heading" style="margin-top: 0.25rem;">Live <code>*.raggiesoft.dev</code> Language &amp; API Portals</h2>
+      <span class="eyebrow">RaggieSoft Reference Portals • Dogfooded &amp; Compiled by Help Studio v0.6.0 (rshbuild.exe)</span>
+      <h2 id="subdomains-heading" style="margin-top: 0.25rem;">Live <code>*.raggiesoft.dev</code> RaggieSoft Reference Portals</h2>
+      <p style="max-width: 72ch; margin: 0.35rem 0 1.25rem; color: var(--muted);">
+        A <strong>RaggieSoft Reference Portal</strong> is our first-party, three-column, zero-database technical documentation and
+        API specification format compiled directly from plain-text <code>.rshp</code> manifests and Markdown by
+        <a href="https://raggiesoftstudio.com/help-studio"><strong>RaggieSoft Help Studio</strong></a>—pairing a live-filterable
+        chapter rail, syntax-highlighted articles, a sticky <em>&ldquo;In this article&rdquo;</em> outline, instant
+        <code>Ctrl+K</code> symbol &amp; diagnostic search, a Master A&ndash;Z API Index, HTML5 VPAT 2.5, and cold-start
+        <code>llms-full.txt</code> specs.
+      </p>
       <div class="lab-grid-2x2">
         <article class="card" style="border: 2px solid var(--primary);">
           <div>
-            <span class="eyebrow">Canonical Language Reference • 17 Chapters • 260+ Indexed Calls, StoreScript &amp; .NET SDK</span>
+            <span class="eyebrow">RaggieSoft Reference Portal • 17 Chapters • 260+ Indexed Calls, StoreScript &amp; .NET SDK</span>
             <h3><a href="https://raggiescript.raggiesoft.dev">raggiescript.raggiesoft.dev</a> — RaggieScript v1.3 (<code>.rssc</code>)</h3>
             <p>
-              Complete <code>learn.microsoft.com</code>-style reference documenting all <strong>31 built-in namespaces</strong>,
+              Complete <strong>RaggieSoft Reference Portal</strong> documenting all <strong>31 built-in namespaces</strong>,
               <code>defer</code> LIFO cleanup, <code>?.</code> optional chaining, built-in <code>raggiescript.exe test</code> runner,
               23-method zero-DLL <code>archive.*</code> suite (<code>.7z</code>/<code>LZMA2</code>, <code>.zip</code>,
               <code>.rswpak</code>, <code>.cab</code>, <code>.tar.zst</code>, <code>.iso</code>, <code>.wim</code>), Reg-Free COM
@@ -93,10 +101,10 @@ function renderHomeBody(): string {
 
         <article class="card" style="border: 2px solid var(--primary);">
           <div>
-            <span class="eyebrow">From /books/aubrie Plot Device to Real MIT Language • 6 Chapters</span>
+            <span class="eyebrow">RaggieSoft Reference Portal • From /books/aubrie Plot Device to Real MIT Language • 6 Chapters</span>
             <h3><a href="https://finsharp.raggiesoft.dev">finsharp.raggiesoft.dev</a> — Fin# (<em>Financial Sharp</em> / <code>finsc</code>)</h3>
             <p>
-              Standalone language specification &amp; conservation reference for <code>Fin#</code>—tracing how a plot device
+              Standalone <strong>RaggieSoft Reference Portal</strong> &amp; conservation specification for <code>Fin#</code>—tracing how a plot device
               co-developed for Zo&euml; Wren Brooks and Jordan Fuller in
               <a href="https://books.raggiesoft.com/aubrie/fall-semester-2015/the-5-45-am-problem-the-birth-of-fin-home-on-geneva-street/part-3-question-the-rules-the-birth-of-fin"><em>The Eleventh Child</em> (<code>/books/aubrie</code>)</a>
               became a real MIT-licensed linear-type <code>.NET</code> financial language enforcing Conservation of Capital
@@ -794,15 +802,15 @@ function renderNotesBody(): string {
 
       <article class="card">
         <div>
-          <span class="eyebrow">Zero-Telemetry Cryptography • v1.0 GA Roadmap</span>
-          <h3>Offline .rswlic Edition Paygating Without Activation Servers</h3>
+          <span class="eyebrow">Zero-Telemetry Cryptography • Shipped in v0.8.0</span>
+          <h3>Offline .rswlic Edition Licensing Without Activation Servers</h3>
           <p>
-            How <code>v1.0.0 GA</code> transitions Technical Preview's open <code>Editions &amp; Help</code> QA switcher into
-            <code>bcrypt.dll</code> asymmetric <code>.rswlic</code> license verification, <code>RSW_LICENSE_KEY</code> CI runner claims,
-            Community attestation, and lower-tier QA simulation—100% air-gapped with zero phone-home calls.
+            How <code>RswLicensing.hpp</code> verifies NIST P-256 ECDSA <code>.rswlic</code> certificates in <code>&lt;0.2ms</code>
+            via stock Windows <code>System32\bcrypt.dll</code> across <code>%LOCALAPPDATA%</code>, <code>%PROGRAMDATA%</code>, and
+            <code>RSW_LICENSE_KEY</code> CI secrets—automatically presenting <strong>Community Edition</strong> when no license file is present.
           </p>
         </div>
-        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/roadmap">Read v1.0 GA Licensing Spec</a>
+        <a class="btn btn-outline" href="https://raggiesoftstudio.com/installer-studio/editions">Read .rswlic Licensing Architecture</a>
       </article>
 
       <article class="card">
